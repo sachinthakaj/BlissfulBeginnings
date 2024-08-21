@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+header {
+    background-color: #ddd;
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.nav-bar-logo-container {
+    height: 100%;
+
+}
+
+.nav-bar-logo {
+    max-height: 100%;
+    max-width: auto;
+}
+
+.wedding-title {
+    font-family: "Gwendolyn";
+    font-size: 40px;
+    color: #c1a42e;
+}
+
+.pay-now {
+    background-color: #4a5d23;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.main-container {
+    display: flex;
+}
+
+main {
+    flex: 4;
+    padding: 20px;
+}
+
+#days-left {
+    text-align: center;
+    color: #4a5d23;
+}
+
+.progress-bars {
+    margin-bottom: 20px;
+}
+
+.progress-bar-container {
+    position: relative;
+    height: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.bar {
+    position: absolute;
+    /* Position the bars on top of each other */
+    top: 0;
+    left: 0;
+    height: 20px;
+    background-color: #ddd;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.budget-progress-bar {
+    background-color: gold;
+    width: 0%;
+}
+
+.wedding-progress-bar {
+    background-color: #4a5d23;
+    width: 0%;
+}
+
+.vendor-bar {
+    background-color: white;
+    width: 100%;
+}
+
+
+.vendor-grid {
+    overflow: auto;
+    height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.vendor-card {
+    height: 600px;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.vendor-image {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+aside {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    padding: 0px 10px;
+    background-color: #ddd;
+   
+}
+
+.chat-container {
+    width: 100%;
+    height: 90%;
+    background-color: #fff;
+    border-radius: 10px;
+
+}
+
+.text-field {
+    display: flex;
+    margin: 8px 0px;
+    width: 100%;
+    height: 5%;
+    border-radius: 10px;
+}
+.chat-type-field {
+    height: 100%;
+    width: 90%;
+    margin: 0px 8px 0px 0px;
+    border: none;
+    border-radius: 10px;
+}
+
+.chat-send-button {
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.chat-send-button:hover {
+    background-color: salmon;
+}
