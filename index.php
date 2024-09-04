@@ -3,11 +3,9 @@
 session_start();
 
 // Load configuration
-require_once '../config/config.php';
+require_once './config/config.php';
 
-// Load helper functions
-require_once '../helpers/auth.php';
-require_once '../helpers/input.php';
+
 
 // Autoload classes from the 'models' and 'controllers' directories
 spl_autoload_register(function ($class_name) {
@@ -35,29 +33,7 @@ switch ($request) {
         $controller->index();
         break;
 
-    case '/login':
-        $controller = new AuthController();
-        $controller->login();
-        break;
 
-    case '/logout':
-        $controller = new AuthController();
-        $controller->logout();
-        break;
-
-    case '/register':
-        $controller = new AuthController();
-        $controller->register();
-        break;
-
-    case '/profile':
-        if (isLoggedIn()) {
-            $controller = new UserController();
-            $controller->profile();
-        } else {
-            header('Location: /login');
-        }
-        break;
 
     default:
         // Default to 404 page
