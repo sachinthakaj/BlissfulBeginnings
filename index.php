@@ -5,6 +5,7 @@ session_start();
 // Load configuration
 require_once './config/config.php';
 require_once './controllers/HomeController.php';
+require_once './controllers/LoginController.php';
 
 
 
@@ -20,13 +21,15 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
+echo "Request URI: " . $_SERVER['REQUEST_URI'];
+
 // Basic routing
 $request = $_SERVER['REQUEST_URI'];
 
-// Remove query string from the request URI
 $request = strtok($request, '?');
 
 $request = str_replace('/BlissfulBeginnings', '', $request);
+
 
 // Define routes
 switch ($request) {
@@ -34,6 +37,10 @@ switch ($request) {
     case '/home':
         $controller = new HomeController();
         $controller->index();
+        break;
+    case '/wedding-details':
+        $controller = new LoginController();
+        $controller->weddingDetails();
         break;
     default:
         // Default to 404 page
