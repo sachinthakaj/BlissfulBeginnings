@@ -32,13 +32,9 @@ $request = str_replace('/BlissfulBeginnings', '', $request);
 switch ($request) {
     case '/':
     case '/home':
-        echo 'here';
         $controller = new HomeController();
         $controller->index();
         break;
-
-
-
     default:
         // Default to 404 page
         http_response_code(404);

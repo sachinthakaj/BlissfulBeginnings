@@ -12,7 +12,7 @@
     <!-- Header Section -->
     <header>
         <div class="nav-bar-logo-container">
-            <img src="./images/v59_734.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+            <img src="./assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
         <div class="wedding-title-container">
             <h1 class="wedding-title">Join Our Network</h1>
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label for="photo">Upload Profile Photo</label>
                     <div class="drop-zone" id="drop-zone">
-                        <img src="images/upload.png" alt="Upload Icon">
+                        <img src="./assetsimages/upload.png" alt="Upload Icon">
                         <h3>Upload File</h3>
                         <p>Drag & Drop your file here or click to select</p>
                         <input type="file" id="photo" name="photo" accept="image/*" required>
