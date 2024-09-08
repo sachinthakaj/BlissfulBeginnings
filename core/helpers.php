@@ -14,30 +14,21 @@ function abort($message, $code = 404) {
 }
 
 function dataGet($arr, $key) {
-    echo "key:", $key, "</br>";
     if (!is_array($arr) || empty($key)) {
         return null;
     }
 
     $keysArr = explode(".", $key);
-    echo "keys_arr: \t";
-    print_r($keysArr);
-    echo "</br>";
     $searchedKey = $keysArr[count($keysArr) - 1];
     // Split the URI into segments (e.g., /users/123 becomes ['users', '123'])
     $uriSegments = explode("/", trim($searchedKey, "/"));
-    echo "usrSegments: \t";
-    print_r($uriSegments);
-    echo "</br>";
     $arr = $arr[$keysArr[0]];
 
 
     foreach ($arr as $routePattern => $routeData) {
         // Split the route pattern into segments (e.g., /users/{id} becomes ['users', '{id}'])
         $routeSegments = explode("/", trim($routePattern, "/"));
-        echo "RouteSegments: \t";
-        print_r($routeSegments);
-        echo "<\br>";
+
 
         // If the number of segments don't match, skip this route
         if (count($routeSegments) !== count($uriSegments)) {
