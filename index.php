@@ -2,6 +2,11 @@
 // Start the session
 session_start();
 
+require "./core/Router.php";
+require "./core/helpers.php";
+
+const BASE_PATH = __DIR__ ;
+
 // Load configuration
 require_once './config/config.php';
 require_once './controllers/HomeController.php';
@@ -11,9 +16,10 @@ require_once './controllers/LoginController.php';
 
 // Autoload classes from the 'models' and 'controllers' directories
 spl_autoload_register(function ($class_name) {
-    $paths = ['../models/', '../controllers/'];
+    $paths = ['./models/', './controllers/'];
     foreach ($paths as $path) {
         $file = $path . $class_name . '.php';
+        echo $file;
         if (file_exists($file)) {
             require_once $file;
             return;
@@ -21,31 +27,16 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-echo "Request URI: " . $_SERVER['REQUEST_URI'];
+$router = Router::getRouter();
+  require  "./config/routes.php";
 
-// Basic routing
-$request = $_SERVER['REQUEST_URI'];
+  $method = $_SERVER['REQUEST_METHOD'];
+  $uri = $_SERVER['REQUEST_URI'];
+  
 
-$request = strtok($request, '?');
+  $uri = str_replace('/BlissfulBeginnings', '', $uri);
+  $router->route($method, $uri);
 
-$request = str_replace('/BlissfulBeginnings', '', $request);
 
 
-// Define routes
-switch ($request) {
-    case '/':
-    case '/home':
-        $controller = new HomeController();
-        $controller->index();
-        break;
-    case '/wedding-details':
-        $controller = new LoginController();
-        $controller->weddingDetails();
-        break;
-    default:
-        // Default to 404 page
-        http_response_code(404);
-        echo '404 Not Found';
-        break;
-}
 
