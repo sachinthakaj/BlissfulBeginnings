@@ -1,6 +1,6 @@
 <?php
 // Include necessary files
-require_once './models/User'; // Adjust the path to where your User model is located
+require_once '.\models\User.php'; // Adjust the path to where your User model is located
 
 class AuthController {
 
@@ -12,9 +12,20 @@ class AuthController {
     }
 
     public function register() {
-        // Get the data from the POST request
-        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-        $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+        $json = file_get_contents('php://input');
+
+        // Decode the JSON data into a PHP array or object
+        $formData = json_decode($json, true);  // Pass true to get an associative array
+
+        // Check if decoding was successful
+        if ($formData === null) {
+            echo json_encode(["error" => "Invalid JSON input"]);
+            exit;
+        }
+
+        // Now you can access your form data
+        $email = $formData['email'];
+        $password = $formData['password'];
 
         // Validate the input
         if (empty($email) || empty($password)) {
@@ -35,13 +46,16 @@ class AuthController {
 
         // Create a new user
         if ($this->userModel->createUser($email, $hashedPassword)) {
+
             // Start the session and store user information
             session_start();
             $_SESSION['email'] = $email;
             $_SESSION['logged_in'] = true;
 
             // Send a confirmation response
-            header('Content-Type: application/json');
+            header('Content-Type: application/json; charset=utf-8');
+            error_log("Create a user");
+            error_log(json_encode(['message' => 'Registration successful']));
             echo json_encode(['message' => 'Registration successful']);
         } else {
             header('HTTP/1.1 500 Internal Server Error');

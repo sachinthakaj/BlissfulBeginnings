@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');    // Database host, typically 'localhost'
 define('DB_USER', 'root');         // Database username
 define('DB_PASS', '');             // Database password
-define('DB_NAME', 'blissfulbeginnings'); // Database name
+define('DB_NAME', 'blissful_beginnings'); // Database name
 
 // Base URL
 define('BASE_URL', 'http://localhost/BlissfulBeginnings'); // Change 'your_project_folder' to your actual project folder
@@ -14,14 +14,11 @@ define('APP_NAME', 'Blissful Beginnings');
 // Default timezone
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone for your application
 
-// Start the session (if not started in index.php)
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 // Error reporting
-error_reporting(E_ALL); // Enable all errors
-ini_set('display_errors', 1); // Display errors on the screen during development
+ini_set('log_errors', 1);
+ini_set('error_log', './logs/php_errors.log');  // Define the path to your log file
+error_reporting(E_ALL);
 
 // Other application settings or constants
 define('SOME_CONSTANT', 'some_value');

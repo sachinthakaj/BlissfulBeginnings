@@ -8,7 +8,7 @@ class m0001_users {
 
     public function up() {
       $SQL = "
-      CREATE TABLE `user` (
+      CREATE TABLE `users` (
         `userID` int(100) NOT NULL PRIMARY KEY,
         `email` varchar(255) NOT NULL,
         `password` varchar(255) NOT NULL
@@ -17,7 +17,7 @@ class m0001_users {
     }
 
     public function down() {
-      $SQL = "DROP TABLE user";
+      $SQL = "DROP TABLE users";
       $this->dbh->exec($SQL);
     }
 }
