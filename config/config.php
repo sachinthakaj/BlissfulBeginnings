@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');    // Database host, typically 'localhost'
 define('DB_USER', 'root');         // Database username
 define('DB_PASS', '');             // Database password
-define('DB_NAME', 'your_database'); // Database name
+define('DB_NAME', 'blissfulbeginnings'); // Database name
 
 // Base URL
 define('BASE_URL', 'http://localhost/BlissfulBeginnings'); // Change 'your_project_folder' to your actual project folder

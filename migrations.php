@@ -44,15 +44,15 @@ class Migrations {
                 continue;
             }
             require_once './migrations/'.$migration;
-        }
+        
         $className = pathinfo($migration, PATHINFO_FILENAME);
-        $instance = new $className($dbh);
+        $instance = new $className($this->dbh);
         echo "Applying migration $migration".PHP_EOL;
         $instance->up();
         echo "Applied migration $migration".PHP_EOL;
 
         $newMigrations[] = $migration;
-    
+        }
         if(!empty($newMigrations)) {
             $this->saveMigrations($newMigrations);
         } else {
@@ -62,11 +62,12 @@ class Migrations {
     }
 
     public function saveMigrations(array $migrations) {
-        $str = array_map(fn($m) => "($m)", $migrations);
-        $stmt = $this->dbh->prepare("INSERT INTO migrations (migrations) VALUES 
+        $str = implode(",", array_map(fn($m) => "('$m')", $migrations));
+        print_r($str);
+        $stmt = $this->dbh->prepare("INSERT INTO migrations (migration) VALUES 
         $str
         ;");
-        statement->execute();
+        $stmt->execute();
     }
 
     public function createMigrationsTable() {
@@ -85,7 +86,23 @@ class Migrations {
 
         return $statement->fetchall();
     }
+
+    public function undoLastMigration() {
+        $statement = $this->dbh->prepare("SELECT * FROM migrations ORDER BY created_at DESC LIMIT 1;");
+        $statement->execute();
+        $lastMigration = $statement->fetch(PDO::FETCH_OBJ);
+        require_once './migrations/'.$lastMigration->migration;
+        $className = pathinfo($lastMigration->migration, PATHINFO_FILENAME);
+        $instance = new $className($this->dbh);
+        echo "Removing migration $lastMigration->migration".PHP_EOL;
+        $instance->down();
+        echo "Removed migration $lastMigration->migration".PHP_EOL;
+        $statement = $this->dbh->prepare("DELETE FROM migrations WHERE id= $lastMigration->id");
+        if($statement->execute()) {
+            echo "Migration with id $lastMigration->id removed successfully";
+        };
+    }
 }
 
 $migrations = new Migrations();
-$migrations->applyMigrations();
+$migrations->undoLastMigration();
