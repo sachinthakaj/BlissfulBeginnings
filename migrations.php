@@ -15,7 +15,6 @@ class Migrations {
     private $error; // Store error if connection fails
 
     public function __construct() {
-        echo "Creating a migrations object";
         // Set DSN (Data Source Name)
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
@@ -36,8 +35,12 @@ class Migrations {
     public function applyMigrations() {
         $this->createMigrationsTable();
         $appliedMigrations = $this->getAppliedsMigrations();
+        echo "aplliedMigrations: ";
+        print_r($appliedMigrations);
         $files = scandir('./migrations');
         $toApplyMigrations = array_diff($files, $appliedMigrations);
+        echo "toApplyMigrations: ";
+        print_r($toApplyMigrations);
         $newMigrations = [];
         foreach ($toApplyMigrations as $migration) {
             if($migration === '.' | $migration === '..') {
@@ -83,7 +86,7 @@ class Migrations {
         $statement = $this->dbh->prepare("SELECT migration  FROM  migrations;");
         $statement->execute();
 
-        return $statement->fetchall();
+        return $statement->fetchall(PDO::FETCH_COLUMN);
     }
 
     public function undoLastMigration() {
@@ -108,7 +111,6 @@ $longopts = ["undo"];
 
 $options = getopt($shortopts, $longopts);
 
-var_dump($options);
 $migrations = new Migrations();
 
 
