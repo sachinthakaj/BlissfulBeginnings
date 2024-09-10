@@ -1,6 +1,4 @@
 <?php
-// Start the session
-session_start();
 
 require "./core/Router.php";
 require "./core/helpers.php";
@@ -11,7 +9,7 @@ const BASE_PATH = __DIR__ ;
 // Load configuration
 require_once './config/config.php';
 require_once './controllers/HomeController.php';
-require_once './controllers/LoginController.php';
+require_once './controllers/AuthController.php';
 
 
 

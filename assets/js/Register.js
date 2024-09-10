@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordField = document.getElementById('password');
     const confirmPasswordField = document.getElementById('confirm-password');
 
+    console.log(form);
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();  // Prevent the form from submitting the default way
 
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('You must agree to the terms and conditions!');
             return;  // Stop the form submission
         }
-
+        console.log("Why does this happen");
         // Form data to send
         const formData = {
             email: email,

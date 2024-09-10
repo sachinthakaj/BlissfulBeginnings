@@ -1,6 +1,6 @@
 <?php
 // Include necessary files
-require_once './models/User'; // Adjust the path to where your User model is located
+require_once './models/User.php'; // Adjust the path to where your User model is located
 
 class AuthController {
 
@@ -12,10 +12,16 @@ class AuthController {
     }
 
     public function register() {
-        // Get the data from the POST request
-        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-        $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
+        $data = file_get_contents('php://input');
+
+// Decode the JSON into a PHP associative array
+        $parsed_data = json_decode($data, true);
+
+// Access the data
+$email = $parsed_data['email'];
+$password = $parsed_data['password'];
+        error_log("It's running this code $email, $password");
         // Validate the input
         if (empty($email) || empty($password)) {
             header('HTTP/1.1 400 Bad Request');
