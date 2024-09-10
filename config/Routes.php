@@ -2,7 +2,8 @@
 
 $router->get("/", "HomeController@index");
 $router->get("/about", "HomeController@about");
-$router->get("/Register", "HomeController@Register");
+$router->get("/register", "HomeController@Register");
+$router->post("/register", "AuthController@register");
 
 
 $router->get("/contact", "HomeController@contact");
