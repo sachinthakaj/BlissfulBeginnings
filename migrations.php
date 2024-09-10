@@ -15,6 +15,7 @@ class Migrations {
     private $error; // Store error if connection fails
 
     public function __construct() {
+        echo "Creating a migrations object";
         // Set DSN (Data Source Name)
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
@@ -36,7 +37,6 @@ class Migrations {
         $this->createMigrationsTable();
         $appliedMigrations = $this->getAppliedsMigrations();
         $files = scandir('./migrations');
-        print_r($files);
         $toApplyMigrations = array_diff($files, $appliedMigrations);
         $newMigrations = [];
         foreach ($toApplyMigrations as $migration) {
@@ -63,7 +63,6 @@ class Migrations {
 
     public function saveMigrations(array $migrations) {
         $str = implode(",", array_map(fn($m) => "('$m')", $migrations));
-        print_r($str);
         $stmt = $this->dbh->prepare("INSERT INTO migrations (migration) VALUES 
         $str
         ;");
@@ -104,5 +103,19 @@ class Migrations {
     }
 }
 
+$shortopts = "u";
+$longopts = ["undo"];
+
+$options = getopt($shortopts, $longopts);
+
+var_dump($options);
 $migrations = new Migrations();
-$migrations->undoLastMigration();
+
+
+if (isset($options['u']) || isset($options['undo'])) {
+    $migrations->undoLastMigration();
+} else {
+    $migrations->applyMigrations();
+}
+
+
