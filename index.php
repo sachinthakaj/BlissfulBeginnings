@@ -4,6 +4,7 @@ session_start();
 
 require "./core/Router.php";
 require "./core/helpers.php";
+require "./core/Database.php";
 
 const BASE_PATH = __DIR__ ;
 
@@ -26,6 +27,8 @@ spl_autoload_register(function ($class_name) {
         }
     }
 });
+
+
 
 $router = Router::getRouter();
   require  "./config/routes.php";

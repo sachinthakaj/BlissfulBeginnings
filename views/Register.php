@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
-    <link rel="stylesheet" href="../assets/css/Register.css">
+    <title>Register</title>
+    <link rel="stylesheet" href="./assets/css/Register.css">
     <link href="https://fonts.googleapis.com/css?family=Gwendolyn&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <header>
             <div class="nav-bar-logo-container">
-                <img src="../assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+                <img src="./assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
             </div>
             <div class="wedding-title-container">
                 <h1 class="wedding-title">Create an account</h1>
@@ -48,7 +48,7 @@
 
             <button type="submit" class="submit-btn">Submit</button>
         </form>
-        <script src="../assets/js/Register.js"></script>
+        <script src="./assets/js/Register.js"></script>
     </div>
 </body>
 </html>

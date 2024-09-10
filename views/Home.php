@@ -12,7 +12,7 @@
         <nav>
             <div class="logo">
                 <!-- Placeholder for Logo -->
-                <img src="/assets/images/logo.png" alt="Logo">
+                <img src="./assets/images/logo.png" alt="Logo">
             </div>
             <ul>
                 <li><a href="/">Home</a></li>
