@@ -18,4 +18,8 @@ class HomeController {
     public function vendorNewWeddingDashboard() {
         require_once '.\views\VendorNewWeddingDashboard.php';
     }
+
+    public function vendorSignIn() {
+        require_once '.\views\VendorSignIn.php';
+    }
 }
