@@ -7,6 +7,7 @@ class HomeController {
     public function register() {
         require_once '.\views\Register.php';
     }
+
     public function signIn() {
         require_once '.\views\CustomerSignIn.php';
     }
@@ -22,4 +23,6 @@ class HomeController {
     public function vendorSignIn() {
         require_once '.\views\VendorSignIn.php';
     }
+
 }
+

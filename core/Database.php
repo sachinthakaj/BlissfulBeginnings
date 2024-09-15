@@ -85,6 +85,7 @@ class Database {
         return $this->stmt->rowCount();
     }
 
+
     public function fetchColumn(int $columnNumber=0) {
         return $this->stmt->fetchColumn($columnNumber);
     }

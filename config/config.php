@@ -6,13 +6,15 @@ define('DB_PASS', '');             // Database password
 define('DB_NAME', 'blissful_beginnings'); // Database name
 
 // Base URL
-define('BASE_URL', 'http://localhost/BlissfulBeginnings'); // Change 'your_project_folder' to your actual project folder
+define('BASE_URL', 'http://localhost/'); // Change 'your_project_folder' to your actual project folder
 
 // Application name
 define('APP_NAME', 'Blissful Beginnings');
 
 // Default timezone
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone for your application
+
+ini_set('display_errors', 1); // Display errors on the screen during development
 
 
 // Error reporting

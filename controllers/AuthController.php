@@ -1,6 +1,7 @@
 <?php
 // Include necessary files
-require_once '.\models\User.php'; // Adjust the path to where your User model is located
+
+require_once './models/User.php'; // Adjust the path to where your User model is located
 
 class AuthController {
 
@@ -12,21 +13,16 @@ class AuthController {
     }
 
     public function register() {
-        $json = file_get_contents('php://input');
 
-        // Decode the JSON data into a PHP array or object
-        $formData = json_decode($json, true);  // Pass true to get an associative array
+        $data = file_get_contents('php://input');
 
-        // Check if decoding was successful
-        if ($formData === null) {
-            echo json_encode(["error" => "Invalid JSON input"]);
-            exit;
-        }
+// Decode the JSON into a PHP associative array
+        $parsed_data = json_decode($data, true);
 
-        // Now you can access your form data
-        $email = $formData['email'];
-        $password = $formData['password'];
-
+// Access the data
+$email = $parsed_data['email'];
+$password = $parsed_data['password'];
+        error_log("It's running this code $email, $password");
         // Validate the input
         if (empty($email) || empty($password)) {
             header('HTTP/1.1 400 Bad Request');

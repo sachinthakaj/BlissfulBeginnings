@@ -20,7 +20,7 @@
     <div class="box">
         
 
-        <form class="form" action="/submit-signin" method="POST">
+        <form class="form" >
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
