@@ -17,7 +17,9 @@ class User {
     }
 
     public function createUser($email, $password) {
-        $stmt = $this->db->query('INSERT INTO users (email, password) VALUES (:email, :password)');
+
+        $this->db->query('INSERT INTO users (email, password) VALUES (:email, :password)');
+
         $this->db->bind(':email', $email, PDO::PARAM_STR);
         $this->db->bind(':password', $password, PDO::PARAM_STR);
         return $this->db->execute();

@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Send the data using Fetch API
-        fetch('/register', {
+        fetch('/BlissfulBeginnings/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(formData)
         })
         .then(response => {
+            console.log(response);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

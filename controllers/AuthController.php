@@ -1,5 +1,6 @@
 <?php
 // Include necessary files
+
 require_once './models/User.php'; // Adjust the path to where your User model is located
 
 class AuthController {
@@ -41,13 +42,16 @@ $password = $parsed_data['password'];
 
         // Create a new user
         if ($this->userModel->createUser($email, $hashedPassword)) {
+
             // Start the session and store user information
             session_start();
             $_SESSION['email'] = $email;
             $_SESSION['logged_in'] = true;
 
             // Send a confirmation response
-            header('Content-Type: application/json');
+            header('Content-Type: application/json; charset=utf-8');
+            error_log("Create a user");
+            error_log(json_encode(['message' => 'Registration successful']));
             echo json_encode(['message' => 'Registration successful']);
         } else {
             header('HTTP/1.1 500 Internal Server Error');

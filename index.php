@@ -1,5 +1,6 @@
 <?php
 
+
 require "./core/Router.php";
 require "./core/helpers.php";
 require "./core/Database.php";
@@ -8,8 +9,6 @@ const BASE_PATH = __DIR__ ;
 
 // Load configuration
 require_once './config/config.php';
-require_once './controllers/HomeController.php';
-require_once './controllers/AuthController.php';
 
 
 
@@ -18,7 +17,6 @@ spl_autoload_register(function ($class_name) {
     $paths = ['./models/', './controllers/'];
     foreach ($paths as $path) {
         $file = $path . $class_name . '.php';
-        echo $file;
         if (file_exists($file)) {
             require_once $file;
             return;
