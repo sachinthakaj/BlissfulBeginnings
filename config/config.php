@@ -14,13 +14,13 @@ define('APP_NAME', 'Blissful Beginnings');
 // Default timezone
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone for your application
 
+ini_set('display_errors', 1); // Display errors on the screen during development
 
 
 // Error reporting
-error_reporting(E_ALL); // Enable all errors
-ini_set('display_errors', 1); // Display errors on the screen during development
-ini_set('error_log', './logs/php_error.log');
-
+ini_set('log_errors', 1);
+ini_set('error_log', './logs/php_errors.log');  // Define the path to your log file
+error_reporting(E_ALL);
 
 // Other application settings or constants
 define('SOME_CONSTANT', 'some_value');

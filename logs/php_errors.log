@@ -1,0 +1,196 @@
+[10-Sep-2024 18:54:18 Asia/Kolkata] PHP Warning:  Undefined array key "email" in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php on line 16
+[10-Sep-2024 18:54:18 Asia/Kolkata] PHP Deprecated:  error_log(): Passing null to parameter #1 ($message) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php on line 16
+[10-Sep-2024 18:54:18 Asia/Kolkata] 
+[10-Sep-2024 18:55:34 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: error_log(): Argument #1 ($message) must be of type string, array given in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php:16
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(16): error_log(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#3 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php on line 16
+[10-Sep-2024 18:56:44 Asia/Kolkata] 
+[10-Sep-2024 18:57:40 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php on line 16
+[10-Sep-2024 19:09:35 Asia/Kolkata] PHP Warning:  Undefined array key "REQUEST_METHOD" in C:\xampp\htdocs\BlissfulBeginnings\index.php on line 33
+[10-Sep-2024 19:09:35 Asia/Kolkata] PHP Warning:  Undefined array key "REQUEST_URI" in C:\xampp\htdocs\BlissfulBeginnings\index.php on line 34
+[10-Sep-2024 19:09:35 Asia/Kolkata] PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\index.php on line 37
+[10-Sep-2024 19:09:35 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: Router::route(): Argument #1 ($method) must be of type string, null given, called in C:\xampp\htdocs\BlissfulBeginnings\index.php on line 38 and defined in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php:61
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route(NULL, '')
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 61
+[10-Sep-2024 19:11:17 Asia/Kolkata] 
+[10-Sep-2024 20:03:33 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(13): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('asdf@asdf.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 43
+[10-Sep-2024 20:04:34 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function implod() in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php:25
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php on line 25
+[10-Sep-2024 20:05:05 Asia/Kolkata] asdf@asdf.net 1234 
+[10-Sep-2024 20:05:05 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(13): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(39): User->emailExists('asdf@asdf.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 43
+[10-Sep-2024 20:06:32 Asia/Kolkata] asdf@gmail.net 1234 
+[10-Sep-2024 20:06:32 Asia/Kolkata] asdf@gmail.net
+[10-Sep-2024 20:06:32 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(13): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(41): User->emailExists('asdf@gmail.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 43
+[10-Sep-2024 20:10:30 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:44
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(13): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 44
+[10-Sep-2024 20:12:11 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:12:11 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:45
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(13): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 45
+[10-Sep-2024 20:13:41 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:13:41 Asia/Kolkata] PHP Warning:  Undefined variable $db in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 10
+[10-Sep-2024 20:13:41 Asia/Kolkata] NULL
+[10-Sep-2024 20:13:41 Asia/Kolkata] PHP Warning:  Undefined variable $db in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 10
+[10-Sep-2024 20:13:41 Asia/Kolkata] NULL
+[10-Sep-2024 20:13:41 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:45
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(14): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 45
+[10-Sep-2024 20:15:16 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:15:16 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:45
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(13): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 45
+[10-Sep-2024 20:16:46 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:16:46 Asia/Kolkata] SQLSTATE[HY000] [1049] Unknown database 'blissfulbeginnings'
+[10-Sep-2024 20:16:46 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:45
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(13): Database->query('SELECT COUNT(*)...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 45
+[10-Sep-2024 20:17:32 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:17:32 Asia/Kolkata] Connected to the databaseobject
+[10-Sep-2024 20:17:32 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'blissful_beginnings.users' doesn't exist in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:70
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(70): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(15): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 70
+[10-Sep-2024 20:29:43 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:29:43 Asia/Kolkata] Connected to the databaseobject
+[10-Sep-2024 20:29:43 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'blissful_beginnings.users' doesn't exist in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:70
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(70): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(15): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 70
+[10-Sep-2024 20:31:32 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:31:32 Asia/Kolkata] Connected to the databaseobject
+[10-Sep-2024 20:31:32 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Database::fetchColumn() in C:\xampp\htdocs\BlissfulBeginnings\models\User.php:16
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('1234@net.net')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#3 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 16
+[10-Sep-2024 20:37:20 Asia/Kolkata] Creating a database instance
+[10-Sep-2024 20:37:20 Asia/Kolkata] Connected to the databaseobject
+[10-Sep-2024 20:43:21 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Undefined constant "db" in C:\xampp\htdocs\BlissfulBeginnings\models\User.php:16
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('emil.navod@gmai...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#3 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 16
+[10-Sep-2024 20:45:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Undefined constant "db" in C:\xampp\htdocs\BlissfulBeginnings\models\User.php:16
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('emil.navod@gmai...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#3 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 16
+[10-Sep-2024 20:46:33 Asia/Kolkata] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Database::fetchColumn(), 0 passed in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 16 and exactly 1 expected in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:88
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(16): Database->fetchColumn()
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(38): User->emailExists('emil.navod@gmai...')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 88
+[10-Sep-2024 20:47:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Database::prepare() in C:\xampp\htdocs\BlissfulBeginnings\models\User.php:20
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(48): User->createUser('emil.navod@gmai...', '$2y$10$07XVeUF9...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#3 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 20
+[10-Sep-2024 20:48:37 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function bind() on null in C:\xampp\htdocs\BlissfulBeginnings\models\User.php:21
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(48): User->createUser('emil.navod@gmai...', '$2y$10$QRnd/Q7S...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#3 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 21
+[10-Sep-2024 20:49:40 Asia/Kolkata] PHP Warning:  Undefined variable $stmt in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 23
+[10-Sep-2024 20:49:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function execute() on null in C:\xampp\htdocs\BlissfulBeginnings\models\User.php:23
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(48): User->createUser('emil.navod@gmai...', '$2y$10$OBxeYqHf...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register()
+#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(38): Router->route('POST', '/register')
+#3 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\models\User.php on line 23
+[10-Sep-2024 20:56:02 Asia/Kolkata] Create a user
+[10-Sep-2024 20:57:16 Asia/Kolkata] Create a user
+[10-Sep-2024 20:58:31 Asia/Kolkata] Create a user
+[10-Sep-2024 22:06:01 Asia/Kolkata] Create a user
+[10-Sep-2024 22:20:14 Asia/Kolkata] Create a user
+[10-Sep-2024 22:20:14 Asia/Kolkata] {"message":"Registration successful"}
+[10-Sep-2024 22:27:23 Asia/Kolkata] Create a user
+[10-Sep-2024 22:27:23 Asia/Kolkata] {"message":"Registration successful"}
+[10-Sep-2024 22:30:56 Asia/Kolkata] Create a user
+[10-Sep-2024 22:30:56 Asia/Kolkata] {"message":"Registration successful"}
+[10-Sep-2024 22:33:56 Asia/Kolkata] Create a user
+[10-Sep-2024 22:33:56 Asia/Kolkata] {"message":"Registration successful"}
+[10-Sep-2024 22:34:31 Asia/Kolkata] Create a user
+[10-Sep-2024 22:34:31 Asia/Kolkata] {"message":"Registration successful"}
+[10-Sep-2024 22:35:27 Asia/Kolkata] Create a user
+[10-Sep-2024 22:35:27 Asia/Kolkata] {"message":"Registration successful"}

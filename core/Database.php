@@ -27,7 +27,7 @@ class Database {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
-            echo $this->error; // Show error if connection fails
+            error_log($this->error); // Show error if connection fails
         }
     }
     
@@ -85,9 +85,9 @@ class Database {
         return $this->stmt->rowCount();
     }
 
-    public function fetchColumn(int $column=0) {
-        return $this->stmt->fetchColumn($column);
-    }
 
+    public function fetchColumn(int $columnNumber=0) {
+        return $this->stmt->fetchColumn($columnNumber);
+    }
 
 }
