@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BrideName's and GroomName's Wedding</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./assets/css/CustomerWeddingDashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,7 +16,7 @@
 <body>
     <header>
         <div class="nav-bar-logo-container">
-            <img src="./Assests/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+            <img src="./Assests/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
         <div class="wedding-title-container">
             <h1 class="wedding-title"></h1>
@@ -58,7 +58,7 @@
             </div>
         </aside>
     </div>
-    <script src="script.js"></script>
+    <script src="./assets/js/CustomerWeddingDashboard.js"></script>
 </body>
 
 </html>
