@@ -1,0 +1,132 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Multi-Step Form Logic
+    const steps = document.querySelectorAll('.step');
+    const nextBtn = document.querySelectorAll('#nextBtn');
+    const prevBtn = document.querySelectorAll('#prevBtn');
+    const form = document.getElementById('multiStepForm');
+
+    const progressBars = document.querySelectorAll('.progress-bar div');
+
+    let currentStep = 0;
+
+    // Function to display the current step
+    function showStep(stepIndex) {
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === stepIndex);
+        });
+        updateProgressBar(stepIndex);
+    }
+
+    // Function to update the progress bar
+    function updateProgressBar(stepIndex) {
+        progressBars.forEach((bar, index) => {
+            bar.classList.toggle('active', index <= stepIndex);
+        });
+    }
+
+    // Navigate to the next step
+    nextBtn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                if (currentStep < steps.length) {
+                    showStep(currentStep);
+                }
+            }
+        });
+    });
+
+    // Navigate to the previous step
+    prevBtn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentStep--;
+            if (currentStep >= 0) {
+                showStep(currentStep);
+            }
+        });
+    });
+
+    // Function to validate the current step
+    function validateStep(stepIndex) {
+        const inputs = steps[stepIndex].querySelectorAll('input');
+        let valid = true;
+        inputs.forEach(input => {
+            if (!input.checkValidity()) {
+                input.reportValidity();
+                valid = false;
+            }
+        });
+        return valid;
+    }
+
+    // Show the first step on page load
+    showStep(currentStep);
+    console.log(form);
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const weddingDetails = {
+            date: document.getElementById('date').value,
+            time: document.getElementById('daynight').value,
+            location: document.getElementById('location').value,
+            theme: document.getElementById('theme').value,
+            budget: document.getElementById('budget').value,
+            sepSalons: document.getElementById('sepSalons').checked,
+            sepDressmakers: document.getElementById('sepDressmakers').checked,
+        };
+        const brideDetails = {
+            name: document.getElementById('bride_name').value,
+            email: document.getElementById('bride_email').value,
+            contact: document.getElementById('bride_contact').value,
+            address: document.getElementById('bride_address').value,
+            age: document.getElementById('bride_age').value,
+        };
+        
+        const groomDetails = {
+            name: document.getElementById('groom_name').value,
+            email: document.getElementById('groom_email').value,
+            contact: document.getElementById('groom_contact').value,
+            address: document.getElementById('groom_address').value,
+            age: document.getElementById('groom_age').value,
+        };
+        const formData = {
+            weddingDetails,
+            brideDetails,
+            groomDetails,
+        }
+        console.log(formData);
+
+        console.log(form);
+        fetch('/BlissfulBeginnings/wedding-details', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            console.log(response);
+            if (!response.ok) {
+                if (response.status == 409) {
+                    alert("Email is already registered");
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            }
+            console.log(response);
+            return response.json();
+        })
+        .then(data => {
+            // Handle success (e.g., show a success message or redirect)
+            alert('Registration successful!');
+            console.log('Success:', data);
+            window.location.href = '/wedding-details'
+        })
+        .catch(error => {
+            // Handle error (e.g., show an error message)
+            console.error('Error registering:', error);
+            alert('Registration failed, please try again.');
+        });
+    });
+});

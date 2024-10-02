@@ -25,7 +25,6 @@ class AuthController
         // Access the data
         $email = $parsed_data['email'];
         $password = $parsed_data['password'];
-        error_log("It's running this code $email, $password");
         // Validate the input
         if (empty($email) || empty($password)) {
             header('HTTP/1.1 400 Bad Request');
@@ -42,14 +41,14 @@ class AuthController
 
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
         // Create a new user
-        if ($this->userModel->createUser($email, $hashedPassword)) {
+        if (($userID = $this->userModel->createUser($email, $hashedPassword))) {
 
             // Start the session and store user information
             session_start();
             $_SESSION['email'] = $email;
             $_SESSION['logged_in'] = true;
+            $_SESSION['userID'] = $userID;
 
             // Send a confirmation response
             header('Content-Type: application/json; charset=utf-8');
@@ -57,6 +56,7 @@ class AuthController
             error_log(json_encode(['message' => 'Registration successful']));
             echo json_encode(['message' => 'Registration successful']);
         } else {
+
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Registration failed']);
         }

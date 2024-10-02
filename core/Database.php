@@ -90,4 +90,17 @@ class Database {
         return $this->stmt->fetchColumn($columnNumber);
     }
 
+    public function lastId() {
+        return $this->dbh->lastInsertId();
+    }
+
+    public function startTransaction() {
+        return $this->dbh->beginTransaction();
+    }
+    public function rollbackTransaction() {
+        return $this->dbh->rollBack();
+    }
+    public function commit() {
+        return $this->dbh->commit();
+    }
 }

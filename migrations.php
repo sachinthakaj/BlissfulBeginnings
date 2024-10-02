@@ -46,6 +46,7 @@ class Migrations {
             if($migration === '.' | $migration === '..') {
                 continue;
             }
+            echo $migration;
             require_once './migrations/'.$migration;
         
         $className = pathinfo($migration, PATHINFO_FILENAME);

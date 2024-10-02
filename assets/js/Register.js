@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordField = document.getElementById('password');
     const confirmPasswordField = document.getElementById('confirm-password');
 
-    console.log(form);
-
     form.addEventListener('submit', (event) => {
         event.preventDefault();  // Prevent the form from submitting the default way
 
@@ -13,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmPassword = confirmPasswordField.value;
         const agree = document.getElementById('agree').checked;
         const newsletter = document.getElementById('newsletter').checked;
-
+        form.reset();
         // Check if the passwords match
         if (password !== confirmPassword) {
             alert('Passwords do not match!');
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('You must agree to the terms and conditions!');
             return;  // Stop the form submission
         }
-        console.log("Why does this happen");
         // Form data to send
         const formData = {
             email: email,
@@ -43,7 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => {
             console.log(response);
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                if (response.status == 409) {
+                    alert("Email is already registered");
+                } else {
+                    throw new Error('Network response was not ok');
+                }
             }
             return response.json();
         })
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle success (e.g., show a success message or redirect)
             alert('Registration successful!');
             console.log('Success:', data);
+            window.location.href = '/wedding-details'
         })
         .catch(error => {
             // Handle error (e.g., show an error message)
