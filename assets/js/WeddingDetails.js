@@ -119,9 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             // Handle success (e.g., show a success message or redirect)
-            alert('Registration successful!');
             console.log('Success:', data);
-            window.location.href = '/wedding-details'
+            window.location.href = "/wedding/" + data.weddingID;
         })
         .catch(error => {
             // Handle error (e.g., show an error message)

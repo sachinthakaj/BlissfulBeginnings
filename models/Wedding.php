@@ -33,6 +33,7 @@ class Wedding
             $this->linkWedPersons($weddingID, $brideID, $groomID);
 
             $this->db->commit();
+            return $weddingID;
         } catch (PDOException $e) {
             $this->db->rollbackTransaction();
             throw new Exception("Transaction failed: " . $e->getMessage());

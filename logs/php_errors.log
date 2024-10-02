@@ -390,3 +390,8 @@ Stack trace:
   thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php on line 28
 [02-Oct-2024 22:25:26 Asia/Kolkata] Inserted a Wedding successfuly
 [02-Oct-2024 22:27:16 Asia/Kolkata] Inserted a Wedding successfuly
+[02-Oct-2024 23:16:23 Asia/Kolkata] Inserted a Wedding successfuly
+[02-Oct-2024 23:53:22 Asia/Kolkata] boolean
+[02-Oct-2024 23:53:22 Asia/Kolkata] Create a user
+[02-Oct-2024 23:53:22 Asia/Kolkata] {"message":"Registration successful"}
+[02-Oct-2024 23:54:09 Asia/Kolkata] Inserted a Wedding successfuly

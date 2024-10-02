@@ -25,10 +25,12 @@ class WeddingController {
             $weddingDetails = $parsed_data['weddingDetails'];
             $brideDetails = $parsed_data['brideDetails'];
             $groomDetails = $parsed_data['groomDetails'];
-            $this->weddingModel->createWedding($weddingDetails, $brideDetails, $groomDetails);
+            $weddingID = $this->weddingModel->createWedding($weddingDetails, $brideDetails, $groomDetails);
             header('Content-Type: application/json; charset=utf-8');
             error_log("Inserted a Wedding successfuly");
-            echo json_encode(['message' => 'Created wedding successfully']);
+            echo json_encode(['message' => 'Created wedding successfully',
+                    'weddingID'=> $weddingID,
+        ]);
         } catch (Exception $error) {
             error_log($error);
             header('HTTP/1.1 500 Internal Server Error');
