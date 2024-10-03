@@ -26,7 +26,14 @@ class User
         $this->db->query('INSERT INTO users (email, password) VALUES (:email, :password)');
         $this->db->bind(':email', $email, PDO::PARAM_STR);
         $this->db->bind(':password', $password, PDO::PARAM_STR);
-        return $this->db->execute();
+        $numRows = $this->db->execute();
+        error_log(gettype($numRows));
+        if($numRows == 1) {
+            return $this->db->lastId();
+        } else {
+            error_log(gettype(1));
+            return 0;
+        }
     }
 
     public function getUserByEmail($email)

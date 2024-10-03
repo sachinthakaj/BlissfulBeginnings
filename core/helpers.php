@@ -1,19 +1,22 @@
 <?php
 
-function basePath($path) {
+function basePath($path)
+{
 
     return BASE_PATH . $path;
 }
 
 
-function abort($message, $code = 404) {
+function abort($message, $code = 404)
+{
 
     http_response_code($code);
     echo $message;
     exit();
 }
 
-function dataGet($arr, $key) {
+function dataGet($arr, $key)
+{
     if (!is_array($arr) || empty($key)) {
         return null;
     }
@@ -56,6 +59,10 @@ function dataGet($arr, $key) {
             return $routeData;
         }
     }
-
-    return null;
 }
+
+function Authenticate($role)
+{
+    return True;
+}
+return null;
