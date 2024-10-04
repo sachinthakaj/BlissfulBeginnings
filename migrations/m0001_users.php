@@ -10,7 +10,7 @@ class m0001_users {
       $SQL = "
       CREATE TABLE `users` (
 
-        `userID` int(100) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        `userID` BINARY(16) PRIMARY KEY,
 
         `email` varchar(255) NOT NULL,
         `password` varchar(255) NOT NULL

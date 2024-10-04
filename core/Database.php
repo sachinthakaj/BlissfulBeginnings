@@ -85,13 +85,16 @@ class Database {
         return $this->stmt->rowCount();
     }
 
+    public function fetch($type) {
+        return $this->stmt->fetch($type);
+    }
 
     public function fetchColumn(int $columnNumber=0) {
         return $this->stmt->fetchColumn($columnNumber);
     }
 
-    public function lastId() {
-        return $this->dbh->lastInsertId();
+    public function lastId($name=null) {
+        return $this->dbh->lastInsertId($name);
     }
 
     public function startTransaction() {

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (event) => {
         event.preventDefault();  // Prevent the form from submitting the default way
 
-        const email = document.getElementById('email').value;
+        const email = document.getElementById('email').value.toLowerCase();
         const password = passwordField.value;
         const confirmPassword = confirmPasswordField.value;
         const agree = document.getElementById('agree').checked;
