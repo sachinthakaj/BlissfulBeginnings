@@ -7,9 +7,9 @@ class m0004_weddingBrideGrooms {
 
     public function up() {
       $SQL = "CREATE TABLE `weddingbridegrooms` (
-  `weddingID` int(11) PRIMARY KEY,
-  `brideID` int(11) NOT NULL,
-  `groomID` int(11) NOT NULL,
+        `weddingID` BINARY(16)  PRIMARY KEY,
+        `brideID` BINARY(16)  NOT NULL,
+        `groomID` BINARY(16) NOT NULL,
 
   CONSTRAINT  FOREIGN KEY (weddingID) REFERENCES wedding(weddingID),
   CONSTRAINT groomID_fk FOREIGN KEY (brideID) REFERENCES brideGrooms(brideGroomsID),

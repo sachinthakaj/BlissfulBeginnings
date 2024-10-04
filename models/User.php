@@ -21,9 +21,9 @@ class User
     }
 
     public function createUser($email, $password)
-    {
-
-        $this->db->query('INSERT INTO users (email, password) VALUES (:email, :password)');
+    {   $UUID = generateUUID($this->db);
+        error_log($UUID);
+        $this->db->query("INSERT INTO users (weddingID, email, password) VALUES (UNHEX($UUID), :email, :password)");
         $this->db->bind(':email', $email, PDO::PARAM_STR);
         $this->db->bind(':password', $password, PDO::PARAM_STR);
         $numRows = $this->db->execute();

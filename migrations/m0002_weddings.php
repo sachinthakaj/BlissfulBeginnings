@@ -9,8 +9,8 @@ class m0002_weddings {
     public function up() {
       $SQL = " 
       CREATE TABLE wedding (
-        weddingID int(100) AUTO_INCREMENT PRIMARY KEY,
-        userID int(100) NOT NULL,
+        weddingID BINARY(16) PRIMARY KEY,
+        userID BINARY(16)  NOT NULL,
         date date NOT NULL,
         dayNight varchar(255) NOT NULL,
         location varchar(255) NOT NULL,

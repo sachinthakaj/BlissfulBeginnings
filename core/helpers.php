@@ -65,4 +65,14 @@ function Authenticate($role)
 {
     return True;
 }
-return null;
+
+
+function generateUUID($dbh) {
+    
+    $dbh->query('SELECT REPLACE(UUID(), "-", "")');
+    $dbh->execute();
+    $weddingID = $dbh->fetchColumn(); 
+    error_log("WeddingID: ".$weddingID);
+    return $weddingID;
+
+}
