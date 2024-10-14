@@ -24,5 +24,9 @@ class HomeController {
         require_once '.\views\VendorSignIn.php';
     }
 
+    public function vendorWeddingDashboard() {
+        require_once '.\views\VendorWeddingDashboard.php';
+    }
+
 }
 
