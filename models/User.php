@@ -22,16 +22,15 @@ class User
 
     public function createUser($email, $password)
     {   $UUID = generateUUID($this->db);
-        error_log($UUID);
-        $this->db->query("INSERT INTO users (weddingID, email, password) VALUES (UNHEX($UUID), :email, :password)");
+        $this->db->query("INSERT INTO users (userID, email, password) VALUES (UNHEX(:uuid), :email, :password)");
+        $this->db->bind(':uuid', $UUID, PDO::PARAM_STR);
         $this->db->bind(':email', $email, PDO::PARAM_STR);
         $this->db->bind(':password', $password, PDO::PARAM_STR);
         $numRows = $this->db->execute();
-        error_log(gettype($numRows));
+        error_log("numrows: $numRows");
         if($numRows == 1) {
-            return $this->db->lastId();
+            return $UUID;
         } else {
-            error_log(gettype(1));
             return 0;
         }
     }

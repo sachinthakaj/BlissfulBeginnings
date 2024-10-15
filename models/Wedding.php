@@ -12,6 +12,10 @@ class Wedding
 
     }
 
+    public function fetchDataCustomer($weddingID) {
+        
+    }
+
     public function createWedding($weddingDetails, $brideDetails, $groomDetails)
     {
         try {

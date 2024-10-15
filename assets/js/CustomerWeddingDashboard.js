@@ -31,17 +31,17 @@ function getNames() {
         brideName: "Samantha",
         groomName: "Keerthi",
     }
-    return (Names.brideName + "'s & " + Names.groomName + "'s Wedding"); 
+    return (Names.brideName + "'s & " + Names.groomName + "'s Wedding");
 }
 
 
 const getTimeRemaining = () => {
-    time=  {
+    time = {
         days: 21,
     }
     return (
         `<h2>${time.days} days left...</h2>`
-    ); 
+    );
 }
 
 const getProgress = (wedding, budget) => {
@@ -51,21 +51,43 @@ const getProgress = (wedding, budget) => {
     }
     wedding.style.width = `${progress.wedding}%`;
     budget.style.width = `${progress.budget}%`;
-    
+
 }
 
 function render() {
     const weddingTitle = document.querySelector('.wedding-title');
-    weddingTitle.innerHTML = getNames();
-
     const timeRemaining = document.getElementById('days-left');
-    timeRemaining.innerHTML = getTimeRemaining();
-
     const weddingProgress = document.getElementById('wedding-progress-bar');
     const budgetProgress = document.getElementById('budget-progress-bar');
-    getProgress(weddingProgress, budgetProgress);
-
     const vendorGrid = document.querySelector('.vendor-grid');
+
+    try {
+        fetch('/wedding/fetchData/', {
+            method: 'FETCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            if (!response.ok) {
+                if (response.status == 401) {
+                    window.href = '/login'
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            }
+            return response.json();
+        }).then(data => {
+            weddingTitle.innerHTML = data.title;
+            timeRemaining.innerHTML = data.title;
+            getProgress(weddingProgress, budgetProgress);
+
+        })
+    } catch (error) {
+
+    }
+
+
+
     vendors.forEach(vendor => {
         vendorGrid.innerHTML += createVendorCard(vendor);
     });

@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 if (response.status == 409) {
                     alert("Email is already registered");
+                    return;
                 } else {
                     throw new Error('Network response was not ok');
                 }
