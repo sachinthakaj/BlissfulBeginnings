@@ -196,3 +196,150 @@ Stack trace:
 [04-Oct-2024 10:03:12 Asia/Kolkata] WeddingID: c8559587820911efb059cc153136262a
 [04-Oct-2024 10:03:12 Asia/Kolkata] WeddingID: c855b2e6820911efb059cc153136262a
 [04-Oct-2024 10:03:12 Asia/Kolkata] Inserted a Wedding successfuly
+[05-Oct-2024 01:22:23 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
+[05-Oct-2024 18:16:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
+[05-Oct-2024 19:04:02 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
+[05-Oct-2024 19:04:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
+[05-Oct-2024 19:04:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
+[05-Oct-2024 19:04:19 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
+[05-Oct-2024 19:04:19 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
+#1 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
+[05-Oct-2024 20:52:38 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[05-Oct-2024 20:52:51 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[05-Oct-2024 20:53:16 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[05-Oct-2024 20:53:23 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[05-Oct-2024 20:53:45 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[05-Oct-2024 20:54:07 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[15-Oct-2024 13:43:11 Asia/Kolkata] /signup
+[15-Oct-2024 13:44:05 Asia/Kolkata] /reister
+[15-Oct-2024 13:44:11 Asia/Kolkata] /register
+[15-Oct-2024 13:44:29 Asia/Kolkata] /BlissfulBeginnings/register
+[15-Oct-2024 13:44:29 Asia/Kolkata] WeddingID: 802041bd8acd11ef98e7cc153136262a
+[15-Oct-2024 13:44:29 Asia/Kolkata] 802041bd8acd11ef98e7cc153136262a
+[15-Oct-2024 13:44:29 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column '802041bd8acd11ef98e7cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(29): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$aTTsfiGY...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
+[15-Oct-2024 13:45:44 Asia/Kolkata] /BlissfulBeginnings/register
+[15-Oct-2024 13:45:44 Asia/Kolkata] WeddingID: acaecef28acd11ef98e7cc153136262a
+[15-Oct-2024 13:45:44 Asia/Kolkata] acaecef28acd11ef98e7cc153136262a
+[15-Oct-2024 13:45:44 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'acaecef28acd11ef98e7cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(29): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$7TTnObqQ...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
+[15-Oct-2024 13:47:25 Asia/Kolkata] WeddingID: e92c07d58acd11ef98e7cc153136262a
+[15-Oct-2024 13:47:25 Asia/Kolkata] e92c07d58acd11ef98e7cc153136262a
+[15-Oct-2024 13:47:25 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'e92c07d58acd11ef98e7cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(29): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$/ZtLpylh...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
+[15-Oct-2024 13:52:03 Asia/Kolkata] WeddingID: 8e9adbe78ace11ef98e7cc153136262a
+[15-Oct-2024 13:52:03 Asia/Kolkata] 8e9adbe78ace11ef98e7cc153136262a
+[15-Oct-2024 13:52:03 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1583 Incorrect parameters in the call to native function 'UNHEX' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(29): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$Pwu5wMC4...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
+[15-Oct-2024 14:00:32 Asia/Kolkata] WeddingID: be38569e8acf11ef98e7cc153136262a
+[15-Oct-2024 14:00:32 Asia/Kolkata] string
+[15-Oct-2024 14:00:32 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'be38569e8acf11ef98e7cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(29): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$HtJdxSGM...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
+[15-Oct-2024 14:02:50 Asia/Kolkata] WeddingID: 1063967c8ad011ef98e7cc153136262a
+[15-Oct-2024 14:02:50 Asia/Kolkata] string
+[15-Oct-2024 14:02:50 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'weddingID' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(30): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$cP.Lh7BY...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#5 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
+[15-Oct-2024 14:48:56 Asia/Kolkata] WeddingID: 813e11da8ad611ef98e7cc153136262a
+[15-Oct-2024 14:48:56 Asia/Kolkata] string
+[15-Oct-2024 14:48:56 Asia/Kolkata] boolean
+[15-Oct-2024 14:50:23 Asia/Kolkata] WeddingID: b4b310bd8ad611ef98e7cc153136262a
+[15-Oct-2024 14:50:23 Asia/Kolkata] boolean
+[15-Oct-2024 14:57:31 Asia/Kolkata] WeddingID: b3c87da38ad711ef98e7cc153136262a
+[15-Oct-2024 14:57:31 Asia/Kolkata] numrows: 1
+[15-Oct-2024 14:58:42 Asia/Kolkata] WeddingID: de9b4dda8ad711ef98e7cc153136262a
+[15-Oct-2024 14:58:42 Asia/Kolkata] numrows: 1
+[15-Oct-2024 14:58:42 Asia/Kolkata] Registration Succsessfull
+[15-Oct-2024 15:00:40 Asia/Kolkata] WeddingID: 246959658ad811ef98e7cc153136262a
+[15-Oct-2024 15:00:40 Asia/Kolkata] numrows: 1
+[15-Oct-2024 15:00:40 Asia/Kolkata] Registration Succsessfull: 0
+[15-Oct-2024 15:19:52 Asia/Kolkata] WeddingID: d3532c6d8ada11ef98e7cc153136262a
+[15-Oct-2024 15:19:52 Asia/Kolkata] numrows: 1
+[15-Oct-2024 15:19:52 Asia/Kolkata] Create a user
+[15-Oct-2024 15:19:52 Asia/Kolkata] {"message":"Registration successful"}
+[15-Oct-2024 15:23:03 Asia/Kolkata] WeddingID: 4546f4198adb11ef98e7cc153136262a
+[15-Oct-2024 15:23:03 Asia/Kolkata] string
+[15-Oct-2024 15:23:03 Asia/Kolkata] WeddingID: 4547580a8adb11ef98e7cc153136262a
+[15-Oct-2024 15:23:03 Asia/Kolkata] WeddingID: 454787908adb11ef98e7cc153136262a
+[15-Oct-2024 15:23:03 Asia/Kolkata] Inserted a Wedding successfuly
+[15-Oct-2024 15:23:03 Asia/Kolkata] PHP Warning:  Undefined array key "FETCH" in C:\xampp\htdocs\BlissfulBeginnings\core\helpers.php on line 28
+[15-Oct-2024 15:23:03 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\BlissfulBeginnings\core\helpers.php on line 31
+[15-Oct-2024 20:08:32 Asia/Kolkata] WeddingID: 2cd85ee28b0311ef98e7cc153136262a
+[15-Oct-2024 20:08:32 Asia/Kolkata] numrows: 1
+[15-Oct-2024 20:08:32 Asia/Kolkata] Create a user
+[15-Oct-2024 20:08:32 Asia/Kolkata] {"message":"Registration successful"}
+[15-Oct-2024 20:09:06 Asia/Kolkata] WeddingID: 418493188b0311ef98e7cc153136262a
+[15-Oct-2024 20:09:06 Asia/Kolkata] string
+[15-Oct-2024 20:09:06 Asia/Kolkata] WeddingID: 4184eb478b0311ef98e7cc153136262a
+[15-Oct-2024 20:09:06 Asia/Kolkata] WeddingID: 41850c1f8b0311ef98e7cc153136262a
+[15-Oct-2024 20:09:06 Asia/Kolkata] Inserted a Wedding successfuly
+[15-Oct-2024 20:09:07 Asia/Kolkata] PHP Warning:  Undefined array key "FETCH" in C:\xampp\htdocs\BlissfulBeginnings\core\helpers.php on line 28
+[15-Oct-2024 20:09:07 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\BlissfulBeginnings\core\helpers.php on line 31

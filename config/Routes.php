@@ -14,5 +14,7 @@ $router->get("/wedding-details", "WeddingController@create");
 $router->post("/wedding-details", "WeddingController@newWedding");
 $router->get("/wedding/{weddingID}", "CustomerController@dashboard");
 
+// $router->fetch("/wedding/{weddingID}", "CustomerController@fetchData");
+    
 
 $router->get('/dashboard', 'CustomerController@dashboard');

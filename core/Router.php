@@ -71,7 +71,7 @@ class Router
             if(method_exists($controllerInstance, $function)) {
                 $controllerInstance = new $controller();
 
-                $controllerInstance->$function();
+                $controllerInstance->$function($result['params']);
                 return true;
 
             } else {
