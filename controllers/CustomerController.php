@@ -2,7 +2,7 @@
 
 class CustomerController {
     public function dashboard() {
-        require_once '.\views\CustomerWeddingDashboard.php';
+        require_once '.\public\CustomerWeddingDashboard.php';
     }
 
     public function fetchData() {

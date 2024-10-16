@@ -1,6 +1,5 @@
 <?php
-require_once './core/helpers.php';
-require_once './models/Wedding.php';
+
 
 class WeddingController {
     private $weddingModel;
