@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/public/assets/css/VDstyle.css">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="nav-bar-logo-container"></div>
+            <img src="./Assests/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+        </div>
+        <div class="header-content">
+            <h1 id="dashboardTitle"></h1> 
+        </div>
+        <nav>
+            <button id="editProfileBtn">Edit Profile</button>
+            <button id="logout">Logout</button>
+        </nav>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Search by bride or groom name...">
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+
+        <!-- Events Container (organized in grid and with scrollbar) -->
+        <div id="eventsContainer" class="events-container"></div>
+
+    </div>
+
+    <!-- Modal Popup for Editing Profile -->
+    <div class="profile-edit-modal">
+        <form id="profileForm">
+            <h2>Edit Profile</h2>
+            <div class="form-group">
+                <label for="contact">Contact</label>
+                <input type="text" id="contact" name="contact">
+            </div>
+            <div class="form-group2">
+                <label for="description">Description</label>
+                <br>
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="photo">Upload Profile Photo</label>
+                <div class="drop-zone" id="drop-zone">
+                    <img src="images/upload ph.png" alt="Upload Icon">
+                    <h3>Upload File</h3>
+                    <p>Drag & Drop your file here or click to select</p>
+                    <input type="file" id="photo" name="photo" accept="image/*" required>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button type="button" id="cancelButton">Cancel</button>
+                <button type="submit" id="saveButton">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/public/assets/js/VDscript.js"></script>
+
+</body>
+</html>

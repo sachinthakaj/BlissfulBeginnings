@@ -343,3 +343,103 @@ Stack trace:
 [15-Oct-2024 20:09:06 Asia/Kolkata] Inserted a Wedding successfuly
 [15-Oct-2024 20:09:07 Asia/Kolkata] PHP Warning:  Undefined array key "FETCH" in C:\xampp\htdocs\BlissfulBeginnings\core\helpers.php on line 28
 [15-Oct-2024 20:09:07 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\BlissfulBeginnings\core\helpers.php on line 31
+[16-Oct-2024 11:26:38 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:26:38 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:29:59 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:29:59 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:39 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:39 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:40 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:41 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:41 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:41 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:41 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:41 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:30:41 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:31:03 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:31:03 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:31:08 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:31:08 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:31:30 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:31:30 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:32:04 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:32:04 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:32:07 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:32:07 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:33:34 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:33:34 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:34:43 Asia/Kolkata] This gets executed
+[16-Oct-2024 11:34:43 Asia/Kolkata] PHP Warning:  require_once(.\views\Home.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:34:43 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\views\Home.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[16-Oct-2024 11:34:43 Asia/Kolkata] This gets executed
