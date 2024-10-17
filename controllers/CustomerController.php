@@ -5,8 +5,8 @@ class CustomerController {
         require_once '.\public\CustomerWeddingDashboard.php';
     }
 
-    public function fetchData() {
-        if (!Authenticate('customer')) {
+    public function fetchData($weddingID) {
+        if (!Authenticate('customer', $ID)) {
             header('HTTP/1.1 401 Internal Server Error');
             echo json_encode(['error' => 'Registration failed']);
         }

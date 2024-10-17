@@ -1,4 +1,8 @@
-// Simulated vendor data (replace with actual backend data fetching)
+const path = window.location.pathname;
+const pathParts = path.split('/');
+const weddingID = pathParts[pathParts.length - 1];
+
+
 const vendors = [
     { name: 'Salon 1', type: "Groom's Salon", progress: 60, budget: 40 },
     { name: 'Salon 2', type: "Bride's Salon", progress: 60, budget: 40 },
@@ -62,7 +66,7 @@ function render() {
     const vendorGrid = document.querySelector('.vendor-grid');
 
     try {
-        fetch('/wedding/fetchData/', {
+        fetch('/wedding/fetchData/' + weddingID, {
             method: 'FETCH',
             headers: {
                 'Content-Type': 'application/json'

@@ -61,7 +61,7 @@ function dataGet($arr, $key)
     }
 }
 
-function Authenticate($role)
+function Authenticate($role, $ID)
 {
     return True;
 }

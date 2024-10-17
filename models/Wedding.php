@@ -13,6 +13,16 @@ class Wedding
     }
 
     public function fetchDataCustomer($weddingID) {
+        try {
+            $this->db->query("SELECT * from wedding WHERE weddingID = :weddingID");
+            $this->db->bind(":weddingID", $weddingID);
+            $this->db->execute();
+            $weddingData = $this->db->fetch(PDO::FETCH_ASSOC);
+            return $weddingData;
+        } catch (PDOException $e) {
+            return false;
+        }
+            
         
     }
 
