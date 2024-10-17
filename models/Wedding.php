@@ -31,6 +31,7 @@ class Wedding
         try {
             $this->db->startTransaction();
             $weddingID =  generateUUID($this->db);
+            error_log($weddingID);
             $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, sepSalons, sepDressmakers, weddingstate)
              VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :sepSalons, :sepDressmakers, 'new')");
             $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
