@@ -15,21 +15,20 @@ function abort($message, $code = 404)
     exit();
 }
 
-function dataGet($arr, $key)
+function dataGet($arr, $key) // $key = GET./wedding/fetchData/a6018d778b9f11ef98e7cc153136262a
 {
     if (!is_array($arr) || empty($key)) {
         return null;
     }
 
-    $keysArr = explode(".", $key);
-    $searchedKey = $keysArr[count($keysArr) - 1];
-    // Split the URI into segments (e.g., /users/123 becomes ['users', '123'])
-    $uriSegments = explode("/", trim($searchedKey, "/"));
+    $keysArr = explode(".", $key); //array(2) { [0]=> string(3) "GET", [1]=>string(41) "/wedding/a6018d778b9f11ef98e7cc153136262a"}
+    $searchedKey = $keysArr[count($keysArr) - 1]; // string(41) "/wedding/a6018d778b9f11ef98e7cc153136262a"
+    $uriSegments = explode("/", trim($searchedKey, "/")); // array(2) {[0]=>string(7) "wedding" [1]=>string(32) "a6018d778b9f11ef98e7cc153136262a"}
     $arr = $arr[$keysArr[0]];
 
 
+
     foreach ($arr as $routePattern => $routeData) {
-        // Split the route pattern into segments (e.g., /users/{id} becomes ['users', '{id}'])
         $routeSegments = explode("/", trim($routePattern, "/"));
 
 
@@ -72,7 +71,6 @@ function generateUUID($dbh) {
     $dbh->query('SELECT REPLACE(UUID(), "-", "")');
     $dbh->execute();
     $weddingID = $dbh->fetchColumn(); 
-    error_log("WeddingID: ".$weddingID);
     return $weddingID;
 
 }

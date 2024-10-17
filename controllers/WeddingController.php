@@ -10,13 +10,13 @@ class WeddingController {
     }
 
     public function create() {
-        require_once './views/WeddingDetails.php';
+        require_once './public/WeddingDetails.php';
     }
 
     public function newWedding() {
         try {
             $_SESSION['userID'] = 0;
-            Authenticate('user');
+            Authenticate('user', $_SESSION['userID']);
     
             $data = file_get_contents('php://input');
             // Decode the JSON into a PHP associative array

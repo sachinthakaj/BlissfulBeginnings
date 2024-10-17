@@ -66,25 +66,23 @@ function render() {
     const vendorGrid = document.querySelector('.vendor-grid');
 
     try {
-        fetch('/wedding/fetchData/' + weddingID, {
-            method: 'FETCH',
+        fetch('/wedding/data/' + weddingID, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
         }).then(response => {
             if (!response.ok) {
-                if (response.status == 401) {
-                    window.href = '/login'
+                console.log(response.status);
+                if (response.status === 401 ) {
+                    window.location.href = '/SignIn';
                 } else {
                     throw new Error('Network response was not ok');
                 }
             }
             return response.json();
         }).then(data => {
-            weddingTitle.innerHTML = data.title;
-            timeRemaining.innerHTML = data.title;
-            getProgress(weddingProgress, budgetProgress);
-
+            console.log(data);
         })
     } catch (error) {
 

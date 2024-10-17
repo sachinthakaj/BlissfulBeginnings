@@ -15,7 +15,7 @@ class Wedding
     public function fetchDataCustomer($weddingID) {
         try {
             $this->db->query("SELECT * from wedding WHERE weddingID = :weddingID");
-            $this->db->bind(":weddingID", $weddingID);
+            $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
             $this->db->execute();
             $weddingData = $this->db->fetch(PDO::FETCH_ASSOC);
             return $weddingData;
