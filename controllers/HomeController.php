@@ -15,5 +15,9 @@ class HomeController {
     public function createAccount() {
         require_once '.\public\CreateAnAccount.php';
     }
+
+    public function test() {
+        error_log('Something');
+    }
 }
 

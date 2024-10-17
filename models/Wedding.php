@@ -42,7 +42,7 @@ class Wedding
             $this->db->bind(':sepSalons', $weddingDetails['sepSalons']);
             $this->db->bind(':sepDressmakers', $weddingDetails['sepDressmakers']);
             $this->db->execute();
-            error_log(gettype($weddingID));
+        
             
             $brideID = $this->createPerson($brideDetails, "Female", $weddingID);
             $groomID = $this->createPerson($groomDetails, "Male", $weddingID);
