@@ -17,18 +17,13 @@ class Planner
         return $this->db->fetchColumn() > 0;
     }
 
-    public function createPlanner($email,$password,$businessName,$type,$contact,$address,$bankAcc)
+    public function createPlanner($email,$password)
     {
         $UUID= generateUUID($this->db);
-        $this->db->query("INSERT INTO planner (plannerID,email,password,businessName,type,contact,address,bankAcc) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:bankAcc");
+        $this->db->query("INSERT INTO planner (plannerID,email,password) VALUES (UNHEX(:uuid),:email,:password");
         $this->db->bind(':uuid',$UUID,PDO::PARAM_STR);
         $this->db->bind(':email',$email,PDO::PARAM_STR);
         $this->db->bind(':password',$password,PDO::PARAM_STR);
-        $this->db->bind(':businessName',$businessName,PDO::PARAM_STR);
-        $this->db->bind(':type',$type,PDO::PARAM_STR);
-        $this->db->bind(':contact',$contact,PDO::PARAM_STR);
-        $this->db->bind(':address',$address,PDO::PARAM_STR);
-        $this->db->bind(':bankAcc',$bankAcc,PDO::PARAM_STR);
         $numRows= $this->db->execute();
         error_log("numrows: $numRows");
         if($numRows == 1){
