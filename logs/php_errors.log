@@ -443,3 +443,60 @@ Stack trace:
 #2 {main}
   thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
 [16-Oct-2024 11:34:43 Asia/Kolkata] This gets executed
+[17-Oct-2024 21:17:23 Asia/Kolkata] Customer index.php
+[17-Oct-2024 21:18:03 Asia/Kolkata] Customer index.php
+[17-Oct-2024 21:18:03 Asia/Kolkata] Customer index.php
+[17-Oct-2024 21:18:03 Asia/Kolkata] Customer index.php
+[17-Oct-2024 21:21:45 Asia/Kolkata] Customer index.php
+[17-Oct-2024 21:21:45 Asia/Kolkata] Customer index.php
+[17-Oct-2024 21:27:14 Asia/Kolkata] 
+[17-Oct-2024 21:28:02 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: error_log(): Argument #1 ($message) must be of type string, array given in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:21
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(21): error_log(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\CustomerController.php(15): Wedding->fetchDataCustomer('09d4120581b411e...')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): CustomerController->fetchData(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/wedding/data/0...')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 21
+[17-Oct-2024 21:28:30 Asia/Kolkata] 
+[17-Oct-2024 21:29:50 Asia/Kolkata] 
+[17-Oct-2024 21:31:17 Asia/Kolkata] 
+[17-Oct-2024 21:31:51 Asia/Kolkata] 
+[17-Oct-2024 22:26:59 Asia/Kolkata] 
+[17-Oct-2024 23:06:58 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"0\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[17-Oct-2024 23:07:37 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[17-Oct-2024 23:08:02 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[18-Oct-2024 00:00:23 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[18-Oct-2024 00:00:54 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 17:32:24 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[23-Oct-2024 17:32:24 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(17): Database->query('SELECT * from w...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\CustomerController.php(15): Wedding->fetchDataCustomer('09d4120581b411e...')
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): CustomerController->fetchData(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/wedding/data/0...')
+#4 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 43
+[23-Oct-2024 17:33:42 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 17:42:05 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 17:51:01 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 17:52:16 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 17:56:31 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 17:58:21 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 18:01:17 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 18:17:38 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 18:22:44 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 18:27:05 Asia/Kolkata] numrows: 1
+[23-Oct-2024 18:27:05 Asia/Kolkata] Create a user
+[23-Oct-2024 18:27:05 Asia/Kolkata] {"message":"Registration successful"}
+[23-Oct-2024 18:27:45 Asia/Kolkata] 65a12d58913e11ef8435cc153136262a
+[23-Oct-2024 18:27:45 Asia/Kolkata] Inserted a Wedding successfuly
+[23-Oct-2024 18:27:45 Asia/Kolkata] {"weddingID":"65a12d58913e11ef8435cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-31","dayNight":"hkjhkhj","location":"jhkjhvk","theme":"jhvkjhvk","budget":123412,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressmakers":0,"weddingState":"new"}
+[23-Oct-2024 18:29:20 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 18:30:48 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 18:31:45 Asia/Kolkata] {"weddingID":"09d4120581b411efb059cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-16","dayNight":"fdsw","location":"sdfs","theme":"sfs","budget":null,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":0,"sepDressmakers":1,"weddingState":"new"}
+[23-Oct-2024 18:32:58 Asia/Kolkata] {"weddingID":"65a12d58913e11ef8435cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-31","dayNight":"hkjhkhj","location":"jhkjhvk","theme":"jhvkjhvk","budget":123412,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressmakers":0,"weddingState":"new"}
+[23-Oct-2024 18:33:02 Asia/Kolkata] {"weddingID":"65a12d58913e11ef8435cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-31","dayNight":"hkjhkhj","location":"jhkjhvk","theme":"jhvkjhvk","budget":123412,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressmakers":0,"weddingState":"new"}
+[23-Oct-2024 18:33:34 Asia/Kolkata] {"weddingID":"65a12d58913e11ef8435cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-31","dayNight":"hkjhkhj","location":"jhkjhvk","theme":"jhvkjhvk","budget":123412,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressmakers":0,"weddingState":"new"}
+[23-Oct-2024 18:44:11 Asia/Kolkata] {"weddingID":"65a12d58913e11ef8435cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-31","dayNight":"hkjhkhj","location":"jhkjhvk","theme":"jhvkjhvk","budget":123412,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressmakers":0,"weddingState":"new"}
+[23-Oct-2024 18:46:10 Asia/Kolkata] {"weddingID":"65a12d58913e11ef8435cc153136262a","userID":"30000000000000000000000000000000","date":"2024-10-31","dayNight":"hkjhkhj","location":"jhkjhvk","theme":"jhvkjhvk","budget":123412,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressmakers":0,"weddingState":"new"}

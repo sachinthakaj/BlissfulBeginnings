@@ -24,7 +24,7 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-error_log("Customer index.php");
+
 
 $router = Router::getRouter();
   require  "./config/routes.php";

@@ -16,5 +16,7 @@ $router->post("/SignIn","AuthController@login");
 $router->get("/wedding/{weddingID}", "CustomerController@dashboard");
 $router->get("/wedding/data/{weddingID}", "CustomerController@fetchData");
 
+$router->get("/wedding/persons/{weddingID}", "CustomerController@fetchPersons");
+
 
     
