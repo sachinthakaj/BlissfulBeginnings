@@ -152,6 +152,45 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Password doesn't match");
       return;
     }
+    const formData={
+      email:signupForm.email,
+      password:signupForm.password,
+      businessName:businessName,
+      type:signupForm.type,
+      contact:contact,
+      address:signupForm.address,
+      bankAcc:signupForm.account-number,
+    }
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+  })
+  .then(response => {
+      console.log(response);
+      if (!response.ok) {
+          if (response.status == 409) {
+              alert("Email is already registered");
+              return;
+          } else {
+              throw new Error('Network response was not ok');
+          }
+      }
+      return response.json();
+  })
+  .then(data => {
+      // Handle success (e.g., show a success message or redirect)
+      alert('Registration successful!');
+      console.log('Success:', data);
+      window.location.href = '/wedding-details'
+  })
+  .catch(error => {
+      // Handle error (e.g., show an error message)
+      console.error('Error registering:', error);
+      alert('Registration failed, please try again.');
+  });
 
     // If validation passes, submit the form (could be an AJAX call or form submission)
     console.log("Form submitted successfully!");

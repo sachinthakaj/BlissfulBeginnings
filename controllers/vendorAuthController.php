@@ -8,6 +8,10 @@ class vendorAuthController
     {
         $this->vendorModel=new vendor();
     }
+    public function signInPage()
+    {
+        require_once '.\public\JoinOurNetwork.html';
+    }
 
     public function registerAsVendor()
     {
