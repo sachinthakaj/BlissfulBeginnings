@@ -1,5 +1,5 @@
 <?php
 
-$router->get("/", "HomeController@test");
-$router->get("/signin", "VendorAuthController@SignIn");
-$router->get("/register", "VendorAuthController@Register");
+$router->get("/", "HomeController@index");
+$router->get("/signin", "vendorAuthController@signInPage");
+$router->post("/register", "vendorAuthController@registerAsVendor");
