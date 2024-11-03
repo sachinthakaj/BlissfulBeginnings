@@ -32,7 +32,7 @@
                         <img src="/public/assets/images/upload.png" alt="Upload Icon">
                         <h3>Upload File</h3>
                         <p>Drag & Drop your file here or click to select</p>
-                        <input type="file" id="photo" name="photo" accept="image/*" required>
+                        <input type="file" id="photo" name="photo" accept="image/*">
                     </div>
                 </div>
                 <!-- Business Name -->
@@ -60,6 +60,10 @@
                 <div class="form-group">
                     <label for="social-links">Social Media Links</label>
                     <textarea id="social-links" name="social" placeholder="Enter social media links" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" placeholder="Enter Address" rows="3" required></textarea>
                 </div>
             </div>
             <div class="vendor-right">
@@ -120,7 +124,7 @@
                             <img src="/public/assets/images/upload.png" alt="Upload Icon">
                             <h3>Upload Files</h3>
                             <p>Drag & Drop your files here or click to select</p>
-                            <input type="file" id="photos" name="photos" accept="image/*" multiple required>
+                            <input type="file" id="photos" name="photos" accept="image/*" multiple>
                         </div>
                     </div>
                 </div>
