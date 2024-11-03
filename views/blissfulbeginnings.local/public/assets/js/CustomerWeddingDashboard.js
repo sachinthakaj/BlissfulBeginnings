@@ -55,11 +55,12 @@ function newWedding(data) {
             }
             return response.json();
         }).then(personData => {
-            const brideData = personData.bride;
-            const groomData = personData.groom;
+            var brideData = personData.bride;
+            var groomData = personData.groom;
+            console.log(brideData);
         })
     } catch (error) {
-
+        console.error("Endpoint error");
     }
     vendorGrid.innerHTML = `
 <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF">
