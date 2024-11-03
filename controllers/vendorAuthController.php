@@ -13,6 +13,17 @@ class vendorAuthController
         require_once '.\public\JoinOurNetwork.html';
     }
 
+    public function SignIn()
+    {
+        require_once './public/VendorSignIn.php';
+    }
+
+    public function Register()
+    {
+        require_once './public/JoinOurNetwork.php';
+    }
+
+
     public function registerAsVendor()
     {
         $data = file_get_contents('php://input');

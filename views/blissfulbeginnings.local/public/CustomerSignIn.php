@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer - Sign In</title>
     <link href="https://fonts.googleapis.com/css?family=Gwendolyn&display=swap" rel="stylesheet" />
-    <link href="./assets/css/CustomerSignIn.css" rel="stylesheet" />
+    <link href="/public/assets/css/CustomerSignIn.css" rel="stylesheet" />
 </head>
 <body>
     <header>
         <div class="nav-bar-logo-container">
 
-            <img src="./assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
 
         </div>
         <div class="wedding-title-container">

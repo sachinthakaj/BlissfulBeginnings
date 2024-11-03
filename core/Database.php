@@ -88,7 +88,9 @@ class Database {
     public function fetch($type) {
         return $this->stmt->fetch($type);
     }
-
+    public function fetchAll($type) {
+        return $this->stmt->fetchAll($type);
+    }
     public function fetchColumn(int $columnNumber=0) {
         return $this->stmt->fetchColumn($columnNumber);
     }

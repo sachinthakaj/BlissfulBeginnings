@@ -16,6 +16,7 @@ class Vendor
         $this->db->execute();
         return $this->db->fetchColumn() > 0;
     }
+    
 
     public function createVendor($email,$password,$businessName,$type,$contact,$address,$bankAcc)
     {
@@ -37,9 +38,6 @@ class Vendor
         else{
             return 0;
         }
-
-
-
     }
 
     public function getVendorByEmail($email)

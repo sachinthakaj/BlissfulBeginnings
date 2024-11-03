@@ -1,7 +1,6 @@
 <?php
 // Include necessary files
 
-// require_once './models/User.php'; // Adjust the path to where your User model is located
 
 class AuthController
 {
