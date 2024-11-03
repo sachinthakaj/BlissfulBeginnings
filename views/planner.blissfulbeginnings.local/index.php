@@ -9,7 +9,7 @@ require "../../core/Database.php";
 const BASE_PATH = __DIR__ ;
 
 // Load configuration
-require_once '../../config/config.php';
+require_once './config/config.php';
 
 
 // Autoload classes from the 'models' and 'controllers' directories
