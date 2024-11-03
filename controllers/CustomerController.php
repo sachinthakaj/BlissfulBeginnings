@@ -14,7 +14,6 @@ class CustomerController {
             $wedding = new Wedding();
             $weddingDetails = $wedding->fetchDataCustomer($weddingID['weddingID']);
             if($weddingDetails) {
-                error_log(json_encode($weddingDetails));
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($weddingDetails);
             } else {
@@ -27,25 +26,25 @@ class CustomerController {
         }
     }
 
-    public function fetchPersons($weddingID) {
-        if (!Authenticate('customer', $weddingID)) {
+    public function fetchPersons($parameters) {
+        if (!Authenticate('customer', $parameters['weddingID'])) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Authorization failed']);
         }
         try {
             $wedding = new Wedding();
-            $weddingDetails = $wedding->fetchDataCustomer($weddingID['weddingID']);
-            if($weddingDetails) {
-                error_log(json_encode($weddingDetails));
+            $coupleDetails = $wedding->fetchDataCouple($parameters['weddingID']);
+            if($coupleDetails) {
+                error_log("Controller got non zero result set");
                 header("Content-Type: application/json; charset=utf-8");
-                echo json_encode($weddingDetails);
+                echo json_encode($coupleDetails, JSON_PRETTY_PRINT);
             } else {
-                header('HTTP/1.1 401 FORBIDDEN');
+                header('HTTP/1.1 404 NOT FOUND');
                 echo json_encode(['error' => 'Invalid UserID']);
             }
             
-        } catch(Exception) {
-            
+        } catch(Exception $e) {
+            error_log($e);
         }
     }
 }

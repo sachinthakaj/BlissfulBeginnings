@@ -10,13 +10,13 @@ $router->post("/register", "AuthController@register");
 $router->get("/wedding-details", "WeddingController@create");
 $router->post("/wedding-details", "WeddingController@newWedding");
 
-$router->get("/SignIn", "HomeController@signIn");
-$router->post("/SignIn","AuthController@login");
+$router->get("/signin", "HomeController@signIn");
+$router->post("/signin","AuthController@login");
 
 $router->get("/wedding/{weddingID}", "CustomerController@dashboard");
 $router->get("/wedding/data/{weddingID}", "CustomerController@fetchData");
 
-$router->get("/wedding/persons/{weddingID}", "CustomerController@fetchPersons");
+$router->get("/wedding/couple-details/{weddingID}", "CustomerController@fetchPersons");
 
 
     

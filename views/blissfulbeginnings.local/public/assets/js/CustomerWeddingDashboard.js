@@ -40,15 +40,16 @@ function createVendorCard(vendor) {
 
 function newWedding(data) {
     try {
-        fetch('/wedding/persons/' + weddingID, {
+        fetch('/wedding/couple-details/' + weddingID, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
         }).then(response => {
             if (!response.ok) {
+                alert(response);
                 if (response.status === 401) {
-                    window.location.href = '/SignIn';
+                    window.location.href = '/signin';
                 } else {
                     throw new Error('Network response was not ok');
                 }

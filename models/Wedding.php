@@ -23,9 +23,32 @@ class Wedding
             return $weddingData;
         } catch (PDOException $e) {
             return false;
-        }
-            
-        
+        }  
+    }
+
+    public function fetchDataCouple($weddingID) {
+        try {
+            $this->db->query("SELECT brideGrooms.name, brideGrooms.email, brideGrooms.contact, brideGrooms.address, brideGrooms.gender FROM brideGrooms 
+                 JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+                 WHERE weddingbridegrooms.weddingID = :weddingID");
+            $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
+            $this->db->execute();
+            $coupleData = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            if($coupleData[0]["gender"]=="Female") {
+                $temp = $coupleData[0];
+                $coupleData[0] = $coupleData[1];
+                $coupleData[1] = $temp;
+            }
+            $coupleData["brideDetails"] = $coupleData[1];
+            unset($coupleData["brideDetails"]);
+            $coupleData["groomDetails"] = $coupleData[0];
+            unset($coupleData["groomDetails"]);
+            return $coupleData;
+        } catch (PDOException $e) {
+            error_log($e);
+            echo "Error in the model";
+            return false;
+        }  
     }
 
     public function createWedding($weddingDetails, $brideDetails, $groomDetails)
@@ -58,6 +81,8 @@ class Wedding
             throw new Exception("Transaction failed: " . $e->getMessage());
         }
     }
+
+    
 
     private function createPerson($personDetails, $gender) {
         $brideGroomsID = generateUUID($this->db);
