@@ -20,7 +20,7 @@ class Planner
     public function createPlanner($email,$password)
     {
         $UUID= generateUUID($this->db);
-        $this->db->query("INSERT INTO planner (plannerID,email,password) VALUES (UNHEX(:uuid),:email,:password");
+        $this->db->query("INSERT INTO planner (plannerID,email,password) VALUES (UNHEX(:uuid),:email,:password)");
         $this->db->bind(':uuid',$UUID,PDO::PARAM_STR);
         $this->db->bind(':email',$email,PDO::PARAM_STR);
         $this->db->bind(':password',$password,PDO::PARAM_STR);
