@@ -23,7 +23,7 @@ class PlannerAuthController
 
         $planner=$this->plannerModel->getPlannerByEmail($email);
         if(!$planner){
-            header('HTTP/1.1 401 Unathorized');
+            header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error'=>'Invalid credentials']);
             return;
         }
