@@ -40,9 +40,9 @@ class Wedding
                 $coupleData[1] = $temp;
             }
             $coupleData["brideDetails"] = $coupleData[1];
-            unset($coupleData["brideDetails"]);
+            unset($coupleData[1]);
             $coupleData["groomDetails"] = $coupleData[0];
-            unset($coupleData["groomDetails"]);
+            unset($coupleData[0]);
             return $coupleData;
         } catch (PDOException $e) {
             error_log($e);
