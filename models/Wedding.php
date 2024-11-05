@@ -28,7 +28,7 @@ class Wedding
 
     public function fetchDataCouple($weddingID) {
         try {
-            $this->db->query("SELECT brideGrooms.name, brideGrooms.email, brideGrooms.contact, brideGrooms.address, brideGrooms.gender FROM brideGrooms 
+            $this->db->query("SELECT brideGrooms.name, brideGrooms.email, brideGrooms.contact, brideGrooms.address, brideGrooms.gender, brideGrooms.age FROM brideGrooms 
                  JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
                  WHERE weddingbridegrooms.weddingID = :weddingID");
             $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
