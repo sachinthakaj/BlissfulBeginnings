@@ -12,7 +12,8 @@ class Wedding
 
     }
 
-    public function fetchDataCustomer($weddingID) {
+    public function fetchDataCustomer($weddingID)
+    {
         try {
             $this->db->query("SELECT * from wedding WHERE weddingID = :weddingID");
             $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
@@ -23,32 +24,83 @@ class Wedding
             return $weddingData;
         } catch (PDOException $e) {
             return false;
-        }  
+        }
     }
 
-    public function fetchDataCouple($weddingID) {
+    public function updateWedding($weddingID, $updatedColumns)
+    {
         try {
-            $this->db->query("SELECT brideGrooms.name, brideGrooms.email, brideGrooms.contact, brideGrooms.address, brideGrooms.gender FROM brideGrooms 
+            $this->db->startTransaction();
+            $setPart = [];
+            $params = [];
+            foreach ($updatedColumns["changedWeddingFields"] as $column => $value) {
+                $setPart[] = "$column = :$column";
+                $params[":$column"] = $value;
+            }
+            $params[':weddingID'] = hex2bin($weddingID);
+            $setPartString = implode(', ', $setPart);
+            $sql = "UPDATE wedding SET $setPartString WHERE weddingID = :weddingID";
+            error_log($sql);
+            $this->db->query($sql);
+            $this->db->execute($params);
+            $this->updatePerson($weddingID, $updatedColumns["changedBrideFields"], "Female");
+            $this->updatePerson($weddingID, $updatedColumns["changedGroomFields"], "Male");
+            $this->db->commit();
+            return true; 
+        } catch (PDOException $e) {
+            error_log(($e));
+            $this->db->rollbackTransaction();
+            throw new Exception("Transaction failed: " . $e->getMessage());
+        }
+    }
+
+    public function updatePerson($weddingID, $updatedColumns, $gender)
+    {
+        try {
+            
+            $setPart = [];
+            $params = [];
+            foreach ($updatedColumns as $column => $value) {
+                $setPart[] = "$column = :$column";
+                $params[":$column"] = $value;
+            }
+            $params[':weddingID'] = hex2bin($weddingID);
+            $params[':gender'] = $gender;
+            $setPartString = implode(', ', $setPart);
+            $sql = "UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET $setPartString WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=:gender";
+            $this->db->query($sql);
+            return $this->db->execute($params);;
+        } catch (PDOException $e) {
+            throw new Exception("Transaction failed: " . $e->getMessage());
+        }
+    }
+
+    public function fetchDataCouple($weddingID)
+    {
+        try {
+            $this->db->query("SELECT brideGrooms.name, brideGrooms.email, brideGrooms.contact, brideGrooms.address, brideGrooms.gender, brideGrooms.age FROM brideGrooms 
                  JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
                  WHERE weddingbridegrooms.weddingID = :weddingID");
             $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
             $this->db->execute();
             $coupleData = $this->db->fetchAll(PDO::FETCH_ASSOC);
-            if($coupleData[0]["gender"]=="Female") {
+            if ($coupleData[0]["gender"] == "Female") {
                 $temp = $coupleData[0];
                 $coupleData[0] = $coupleData[1];
                 $coupleData[1] = $temp;
             }
             $coupleData["brideDetails"] = $coupleData[1];
-            unset($coupleData["brideDetails"]);
+            unset($coupleData[1]);
             $coupleData["groomDetails"] = $coupleData[0];
-            unset($coupleData["groomDetails"]);
+            unset($coupleData[0]);
             return $coupleData;
         } catch (PDOException $e) {
             error_log($e);
             echo "Error in the model";
             return false;
-        }  
+        }
     }
 
     public function createWedding($weddingDetails, $brideDetails, $groomDetails)
@@ -69,8 +121,8 @@ class Wedding
             $this->db->bind(':sepSalons', $weddingDetails['sepSalons']);
             $this->db->bind(':sepDressmakers', $weddingDetails['sepDressmakers']);
             $this->db->execute();
-        
-            
+
+
             $brideID = $this->createPerson($brideDetails, "Female", $weddingID);
             $groomID = $this->createPerson($groomDetails, "Male", $weddingID);
             $this->linkWedPersons($weddingID, $brideID, $groomID);
@@ -82,9 +134,10 @@ class Wedding
         }
     }
 
-    
 
-    private function createPerson($personDetails, $gender) {
+
+    private function createPerson($personDetails, $gender)
+    {
         $brideGroomsID = generateUUID($this->db);
         $this->db->query("INSERT INTO brideGrooms(brideGroomsID, name, email, contact, address, gender, age) 
         VALUES (UNHEX(:brideGroomsID), :name, :email, :contact, :address, :gender, :age);");
@@ -99,7 +152,8 @@ class Wedding
         return $brideGroomsID;
     }
 
-    private function linkWedPersons($weddingID, $brideID, $groomID) {
+    private function linkWedPersons($weddingID, $brideID, $groomID)
+    {
         $this->db->query("INSERT INTO weddingBrideGrooms VALUES (UNHEX(:weddingID), UNHEX(:brideID), UNHEX(:groomID));");
         $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
         $this->db->bind(":brideID", $brideID, PDO::PARAM_LOB);
@@ -107,5 +161,4 @@ class Wedding
         $this->db->execute();
         return;
     }
-
 }

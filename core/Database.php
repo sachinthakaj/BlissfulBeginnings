@@ -64,8 +64,8 @@ class Database {
     }
 
     // Execute the prepared statement
-    public function execute() {
-        return $this->stmt->execute();
+    public function execute($params=null) {
+        return $this->stmt->execute($params);
     }
 
     // Get result set as an array of objects
