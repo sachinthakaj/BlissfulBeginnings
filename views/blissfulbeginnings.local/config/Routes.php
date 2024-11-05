@@ -18,5 +18,6 @@ $router->get("/wedding/data/{weddingID}", "CustomerController@fetchData");
 
 $router->get("/wedding/couple-details/{weddingID}", "CustomerController@fetchPersons");
 
+$router->put("/update-wedding/{weddingID}","WeddingController@update");
 
     

@@ -81,7 +81,7 @@ function newWedding(data) {
                                     <div id="step2-progress"></div>
                                     <div id="step3-progress"></div>
                                 </div>
-                                <section class="wedding-details step active">
+                                <section class="step active" id="wedding-details">
                                     <h2>Wedding Details</h2>
                                     <div class="input-group">
                                         <label for="date">Date</label>
@@ -111,54 +111,54 @@ function newWedding(data) {
                                     <button type="button" id="nextBtn">Next</button>
                                 </section>
     
-                                <div class="bride-details step">
+                                <div class="step" id="bride-details">
                                     <h2>Bride Details</h2>
                                     <div class="input-group">
                                         <label for="bride_name">Name</label>
-                                        <input type="text" id="bride_name" name="bride_name" value=${brideData.name} required>
+                                        <input type="text" id="bride_name" name="name" value=${brideData.name} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="bride_email">Email</label>
-                                        <input type="email" id="bride_email" name="bride_email" value=${brideData.email} required>
+                                        <input type="email" id="bride_email" name="email" value=${brideData.email} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="bride_contact">Contact</label>
-                                        <input type="tel" id="bride_contact" name="bride_contact" value=${brideData.contact} required>
+                                        <input type="tel" id="bride_contact" name="contact" value=${brideData.contact} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="bride_address">Address</label>
-                                        <input type="text" id="bride_address" name="bride_address"  value=${brideData.address} required>
+                                        <input type="text" id="bride_address" name="address"  value=${brideData.address} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="bride_age">Age</label>
-                                        <input type="number" id="bride_age" name="bride_age"  value=${brideData.age} required>
+                                        <input type="number" id="bride_age" name="age"  value=${brideData.age} required>
                                     </div>
                                     <br>
                                     <button type="button" id="prevBtn">Previous</button>
                                     <button type="button" id="nextBtn">Next</button>
                                 </div>
     
-                                <div class="groom-details step">
+                                <div class="step" id="groom-details">
                                     <h2>Groom Details</h2>
                                     <div class="input-group">
                                         <label for="groom_name">Name</label>
-                                        <input type="text" id="groom_name" name="groom_name" value=${groomData.name} required>
+                                        <input type="text" id="groom_name" name="name" value=${groomData.name} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="groom_email">Email</label>
-                                        <input type="email" id="groom_email" name="groom_email" value=${groomData.email} required>
+                                        <input type="email" id="groom_email" name="email" value=${groomData.email} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="groom_contact">Contact</label>
-                                        <input type="tel" id="groom_contact" name="groom_contact" value=${groomData.contact} required>
+                                        <input type="tel" id="groom_contact" name="contact" value=${groomData.contact} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="groom_address">Address</label>
-                                        <input type="text" id="groom_address" name="groom_address" value=${groomData.address} required>
+                                        <input type="text" id="groom_address" name="address" value=${groomData.address} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="groom_age">Age</label>
-                                        <input type="number" id="groom_age" name="groom_age" value=${groomData.age} required>
+                                        <input type="number" id="groom_age" name="age" value=${groomData.age} required>
                                     </div>
                                     <div class="submit-button">
                                         <button type="submit">Submit</button>
@@ -172,11 +172,70 @@ function newWedding(data) {
                 const steps = document.querySelectorAll('.step');
                 const nextBtn = document.querySelectorAll('#nextBtn');
                 const prevBtn = document.querySelectorAll('#prevBtn');
+
                 const form = document.getElementById('multiStepForm');
+                const weddingDetails = document.getElementById('wedding-details');
+                const brideDetails = document.getElementById('bride-details');
+                const groomDetails = document.getElementById('groom-details');
 
                 const progressBars = document.querySelectorAll('.progress-bar div');
 
+                let changedWeddingFields = {};
+                let changedBrideFields = {};
+                let changedGroomFields = {};
                 let currentStep = 0;
+
+                // Attach the 'change' event listener to each input field
+                weddingDetails.querySelectorAll("input, select, textarea").forEach((input) => {
+                    input.addEventListener("change", (event) => {
+                        const { name, value } = event.target;
+                        // Add changed fields to the object
+                        changedWeddingFields[name] = value;
+                        console.log(`${name} changed, new value: ${value}`);
+                    });
+                });
+
+                // Attach the 'change' event listener to each input field
+                brideDetails.querySelectorAll("input, select, textarea").forEach((input) => {
+                    input.addEventListener("change", (event) => {
+                        const { name, value } = event.target;
+                        // Add changed fields to the object
+                        changedBrideFields[name] = value;
+                        console.log(`${name} changed, new value: ${value}`);
+                    });
+                });// Attach the 'change' event listener to each input field
+
+                groomDetails.querySelectorAll("input, select, textarea").forEach((input) => {
+                    input.addEventListener("change", (event) => {
+                        const { name, value } = event.target;
+                        // Add changed fields to the object
+                        changedGroomFields[name] = value;
+                        console.log(`${name} changed, new value: ${value}`);
+                    });
+                });
+
+                form.addEventListener("submit", (event) => {
+                    event.preventDefault(); // Prevents default form submission
+                    // Send `changedFields` to the backend
+                    fetch("/update-wedding/" + weddingID, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({changedWeddingFields, changedBrideFields, changedGroomFields}),
+                    }).then(response => {
+                        currentStep = 0;
+                        modal.style.display = "none";
+                        if (!response.ok) {
+                            alert(response);
+                            if (response.status === 401) {
+                                window.location.href = '/signin';
+                            } else {
+                                throw new Error('Network response was not ok');
+                            }
+                        }
+                        currentStep = 0;
+                        modal.style.display = "none";
+                    })
+                });
 
                 // Function to display the current step
                 function showStep(stepIndex) {
