@@ -1,7 +1,8 @@
 <?php
 // core/Database.php
 
-class Migrations {
+class Migrations
+{
 
     private $host = 'localhost';
     private $user = 'root';
@@ -14,7 +15,8 @@ class Migrations {
     private $stmt; // Statement handler
     private $error; // Store error if connection fails
 
-    public function __construct() {
+    public function __construct()
+    {
         // Set DSN (Data Source Name)
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
@@ -30,9 +32,10 @@ class Migrations {
             echo $this->error; // Show error if connection fails
         }
     }
-    
-   
-    public function applyMigrations() {
+
+
+    public function applyMigrations()
+    {
         $this->createMigrationsTable();
         $appliedMigrations = $this->getAppliedsMigrations();
         echo "aplliedMigrations: ";
@@ -41,31 +44,30 @@ class Migrations {
         $toApplyMigrations = array_diff($files, $appliedMigrations);
         echo "toApplyMigrations: ";
         print_r($toApplyMigrations);
-        $newMigrations = [];
         foreach ($toApplyMigrations as $migration) {
-            if($migration === '.' | $migration === '..') {
+            if ($migration === '.' | $migration === '..') {
                 continue;
             }
             echo $migration;
-            require_once './migrations/'.$migration;
-        
-        $className = pathinfo($migration, PATHINFO_FILENAME);
-        $instance = new $className($this->dbh);
-        echo "Applying migration $migration".PHP_EOL;
-        $instance->up();
-        echo "Applied migration $migration".PHP_EOL;
+            require_once './migrations/' . $migration;
 
-        $newMigrations[] = $migration;
+            $className = pathinfo($migration, PATHINFO_FILENAME);
+            $instance = new $className($this->dbh);
+            echo "Applying migration $migration" . PHP_EOL;
+            try {
+                $instance->up();
+                echo "Applied migration $migration" . PHP_EOL;
+                $this->saveMigration($migration, $instance);
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+
         }
-        if(!empty($newMigrations)) {
-            $this->saveMigrations($newMigrations);
-        } else {
             echo "All migrations are applied";
-        }
-
     }
 
-    public function saveMigrations(array $migrations) {
+    public function saveMigrations(array $migrations)
+    {
         $str = implode(",", array_map(fn($m) => "('$m')", $migrations));
         $stmt = $this->dbh->prepare("INSERT INTO migrations (migration) VALUES 
         $str
@@ -73,7 +75,18 @@ class Migrations {
         $stmt->execute();
     }
 
-    public function createMigrationsTable() {
+    public function saveMigration($migration, $instance)
+    {
+        try {
+            $stmt = $this->dbh->prepare("INSERT INTO migrations (migration) VALUES ('$migration');");
+            $stmt->execute();
+        } catch (Exception $e) {
+            $instance->down();
+            throw $e;
+        }
+    }
+    public function createMigrationsTable()
+    {
         $this->dbh->exec("CREATE TABLE IF NOT EXISTS migrations (
         id INT AUTO_INCREMENT PRIMARY KEY,
         migration VARCHAR(255),
@@ -90,18 +103,19 @@ class Migrations {
         return $statement->fetchall(PDO::FETCH_COLUMN);
     }
 
-    public function undoLastMigration() {
+    public function undoLastMigration()
+    {
         $statement = $this->dbh->prepare("SELECT * FROM migrations ORDER BY created_at DESC LIMIT 1;");
         $statement->execute();
         $lastMigration = $statement->fetch(PDO::FETCH_OBJ);
-        require_once './migrations/'.$lastMigration->migration;
+        require_once './migrations/' . $lastMigration->migration;
         $className = pathinfo($lastMigration->migration, PATHINFO_FILENAME);
         $instance = new $className($this->dbh);
-        echo "Removing migration $lastMigration->migration".PHP_EOL;
+        echo "Removing migration $lastMigration->migration" . PHP_EOL;
         $instance->down();
-        echo "Removed migration $lastMigration->migration".PHP_EOL;
+        echo "Removed migration $lastMigration->migration" . PHP_EOL;
         $statement = $this->dbh->prepare("DELETE FROM migrations WHERE id= $lastMigration->id");
-        if($statement->execute()) {
+        if ($statement->execute()) {
             echo "Migration with id $lastMigration->id removed successfully";
         };
     }
@@ -120,5 +134,3 @@ if (isset($options['u']) || isset($options['undo'])) {
 } else {
     $migrations->applyMigrations();
 }
-
-

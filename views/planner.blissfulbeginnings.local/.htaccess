@@ -6,3 +6,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # Otherwise, send the request to index.php
 RewriteRule ^(.*)$ index.php [L,QSA]
+
+# Ensure static files in the 'public/assets' folder are served directly
+RewriteCond %{REQUEST_URI} !^/public/assets/ [NC]

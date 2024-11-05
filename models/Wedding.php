@@ -13,7 +13,42 @@ class Wedding
     }
 
     public function fetchDataCustomer($weddingID) {
-        
+        try {
+            $this->db->query("SELECT * from wedding WHERE weddingID = :weddingID");
+            $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
+            $this->db->execute();
+            $weddingData = $this->db->fetch(PDO::FETCH_ASSOC);
+            $weddingData['weddingID'] = bin2hex($weddingData['weddingID']);
+            $weddingData['userID'] = bin2hex($weddingData['userID']);
+            return $weddingData;
+        } catch (PDOException $e) {
+            return false;
+        }  
+    }
+
+    public function fetchDataCouple($weddingID) {
+        try {
+            $this->db->query("SELECT brideGrooms.name, brideGrooms.email, brideGrooms.contact, brideGrooms.address, brideGrooms.gender FROM brideGrooms 
+                 JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+                 WHERE weddingbridegrooms.weddingID = :weddingID");
+            $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
+            $this->db->execute();
+            $coupleData = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            if($coupleData[0]["gender"]=="Female") {
+                $temp = $coupleData[0];
+                $coupleData[0] = $coupleData[1];
+                $coupleData[1] = $temp;
+            }
+            $coupleData["brideDetails"] = $coupleData[1];
+            unset($coupleData["brideDetails"]);
+            $coupleData["groomDetails"] = $coupleData[0];
+            unset($coupleData["groomDetails"]);
+            return $coupleData;
+        } catch (PDOException $e) {
+            error_log($e);
+            echo "Error in the model";
+            return false;
+        }  
     }
 
     public function createWedding($weddingDetails, $brideDetails, $groomDetails)
@@ -22,18 +57,19 @@ class Wedding
             $this->db->startTransaction();
             $weddingID =  generateUUID($this->db);
             error_log($weddingID);
-            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, sepSalons, sepDressmakers, weddingstate)
-             VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :sepSalons, :sepDressmakers, 'new')");
+            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, budget, sepSalons, sepDressmakers, weddingstate)
+             VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressmakers, 'new')");
             $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
             $this->db->bind(':userID', $_SESSION['userID']);
             $this->db->bind(':date', $weddingDetails['date']);
             $this->db->bind(':dayNight', $weddingDetails['time']);
             $this->db->bind(':location', $weddingDetails['location']);
             $this->db->bind(':theme', $weddingDetails['theme']);
+            $this->db->bind(':budget', $weddingDetails['budget']);
             $this->db->bind(':sepSalons', $weddingDetails['sepSalons']);
             $this->db->bind(':sepDressmakers', $weddingDetails['sepDressmakers']);
             $this->db->execute();
-            error_log(gettype($weddingID));
+        
             
             $brideID = $this->createPerson($brideDetails, "Female", $weddingID);
             $groomID = $this->createPerson($groomDetails, "Male", $weddingID);
@@ -45,6 +81,8 @@ class Wedding
             throw new Exception("Transaction failed: " . $e->getMessage());
         }
     }
+
+    
 
     private function createPerson($personDetails, $gender) {
         $brideGroomsID = generateUUID($this->db);

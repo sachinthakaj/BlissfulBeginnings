@@ -5,20 +5,46 @@ class CustomerController {
         require_once '.\public\CustomerWeddingDashboard.php';
     }
 
-    public function fetchData() {
-        if (!Authenticate('customer')) {
-            header('HTTP/1.1 401 Internal Server Error');
+    public function fetchData($weddingID) {
+        if (!Authenticate('customer', $weddingID)) {
+            header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Registration failed']);
         }
         try {
-            $data = file_get_contents('php://input');
-            // Decode the JSON into a PHP associative array
-            $parsed_data = json_decode($data, true);
-            $weddingID = $parsed_data['weddingID'];
             $wedding = new Wedding();
-            $weddingDetails = $wedding.fetchDataCustomer($weddingID);
+            $weddingDetails = $wedding->fetchDataCustomer($weddingID['weddingID']);
+            if($weddingDetails) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($weddingDetails);
+            } else {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Invalid UserID']);
+            }
+            
         } catch(Exception) {
             
+        }
+    }
+
+    public function fetchPersons($parameters) {
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authorization failed']);
+        }
+        try {
+            $wedding = new Wedding();
+            $coupleDetails = $wedding->fetchDataCouple($parameters['weddingID']);
+            if($coupleDetails) {
+                error_log("Controller got non zero result set");
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($coupleDetails, JSON_PRETTY_PRINT);
+            } else {
+                header('HTTP/1.1 404 NOT FOUND');
+                echo json_encode(['error' => 'Invalid UserID']);
+            }
+            
+        } catch(Exception $e) {
+            error_log($e);
         }
     }
 }
