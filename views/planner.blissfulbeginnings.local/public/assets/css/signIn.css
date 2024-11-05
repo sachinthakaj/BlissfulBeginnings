@@ -1,0 +1,97 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #4a5d23;
+  }
+  
+  /* Header Styles */
+  header {
+    background-color: #ddd;
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav-bar-logo-container {
+    height: 100%;
+  
+  }
+  
+  .nav-bar-logo {
+    max-height: 100%;
+    max-width: auto;
+    margin-right: 30px;
+  }
+  
+  .wedding-title {
+    font-family: "Gwendolyn";
+    font-size: 40px;
+    color: #c1a42e;
+  }
+  
+  .box {
+    width: 60%;
+    height: 450px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 25vh auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #submit {
+    background-color:#4a5d23;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin: left 200px;
+    width: 100px;
+    font-size: 16px;
+    color: #ffffff;
+    position: center;
+    transition: all 0.35s;
+    outline: none;
+  }
+  
+  
+  #submit:hover {
+    background-color: #739e1b;
+  }
+  
+  #label {
+    color: #4a5d23;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  #input {
+    margin: 12px auto;
+    color: #4a5d23;
+    font-size: 20px;
+    width: 350px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 0.2px solid #4a5d23;
+    display: flex;
+  }
+  
+  @media screen and (max-width: 960px) {
+    #input, #submit, #label {
+      width: 100%;
+    }
+  }

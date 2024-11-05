@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f9f9f9;
+  }
+  
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    
+  }
+  header {
+    font-family: "Gwendolyn";
+    background-color: #ddd;
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+  }
+  
+  .wedding-dashboard-title {
+    font-family: "Gwendolyn";
+    font-size: 40px;
+  }
+  
+  .nav-bar-logo-container {
+    height: 100%;
+  }
+  
+  .nav-bar-logo {
+    max-height: 100%;
+    max-width: auto;
+  }
+  
+  header h1 {
+    font-size: 24px;
+    color: #c1a42e;
+  }
+  
+  .LogOut {
+    background-color: #4a5d23;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  header .logout:hover {
+    background-color: #739e1b;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  main {
+    display: flex;
+    flex: 1;
+  }
+  
+  .main-container {
+    display: flex;
+  }
+  .wedding-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .wedding-card {
+    background-color: #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+    min-width: 400px;
+  }
+  
+  .wedding-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .wedding-card.new::after {
+    content: "New";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4a5d23;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  .content-wrapper {
+    display: flex;
+    flex: 1;
+  }
+  main {
+    flex: 2;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  aside.calendar-container {
+    flex-basis: 250px;
+    max-width: 300px;
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-left: 2px solid #e0e0e0;
+    min-width: 100px;
+    border-radius: 10px;
+  }
+  
+  .wedding-search-and-cards {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .search-bar-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    background-color: #4a5d23;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .search-button:hover {
+    background-color: #739e1b;
+  }
+  
+  .wedding-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
