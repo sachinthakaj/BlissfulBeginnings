@@ -214,6 +214,30 @@ function newWedding(data) {
                     });
                 });
 
+                // Function to display the notification
+                function showNotification(message, color) {
+                    // Create notification element
+                    const notification = document.createElement("div");
+                    notification.textContent = message;
+                    notification.style.position = "fixed";
+                    notification.style.bottom = "20px";
+                    notification.style.left = "20px";
+                    notification.style.backgroundColor = color;
+                    notification.style.color = "white";
+                    notification.style.padding = "10px 20px";
+                    notification.style.borderRadius = "5px";
+                    notification.style.zIndex = 1000;
+                    notification.style.fontSize = "16px";
+
+                    // Append to body
+                    document.body.appendChild(notification);
+                
+                    // Remove after 3 seconds
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                }
+
                 form.addEventListener("submit", (event) => {
                     event.preventDefault(); // Prevents default form submission
                     // Send `changedFields` to the backend
@@ -229,9 +253,11 @@ function newWedding(data) {
                             if (response.status === 401) {
                                 window.location.href = '/signin';
                             } else {
+                                showNotification("Update unsuccessful!", "red");
                                 throw new Error('Network response was not ok');
                             }
                         }
+                        showNotification("Update successful!", "green");
                         currentStep = 0;
                         modal.style.display = "none";
                     })
@@ -315,6 +341,31 @@ function newWedding(data) {
     }
 }
 
+const ongoing = (data) => {
+    try {
+        fetch('/assigned-packages/' + weddingID, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
+            }
+        }).then(response => {
+            if (!response.ok) {
+                alert(response);
+                if (response.status === 401) {
+                    window.location.href = '/signin';
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            }
+            return response.json();
+        }).then(packageData => {
+
+        })
+    } catch (e) {
+
+    }
+}
+
 function getNames() {
     Names = {
         brideName: "Samantha",
@@ -362,8 +413,8 @@ function render() {
         }).then(data => {
             if (data.weddingState === "new") {
                 newWedding(data);
-            } else {
-
+            } else if(data.weddingState === "ongoing") {
+                ongoing(data);
             }
         })
     } catch (error) {
