@@ -43,8 +43,12 @@ class Wedding
             error_log($sql);
             $this->db->query($sql);
             $this->db->execute($params);
-            $this->updatePerson($weddingID, $updatedColumns["changedBrideFields"], "Female");
-            $this->updatePerson($weddingID, $updatedColumns["changedGroomFields"], "Male");
+            if($updatedColumns["changedBrideFields"]){
+                $this->updatePerson($weddingID, $updatedColumns["changedBrideFields"], "Female");
+            }
+            if($updatedColumns["changedGroomFields"]) {
+                $this->updatePerson($weddingID, $updatedColumns["changedGroomFields"], "Male");
+            }
             $this->db->commit();
             return true; 
         } catch (PDOException $e) {
