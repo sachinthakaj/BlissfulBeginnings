@@ -1,7 +1,8 @@
 <?php
 
 
-class WeddingController {
+class WeddingController
+{
     private $weddingModel;
 
     public function __construct()
@@ -9,15 +10,17 @@ class WeddingController {
         $this->weddingModel = new Wedding();
     }
 
-    public function create() {
+    public function create()
+    {
         require_once './public/WeddingDetails.php';
     }
 
-    public function newWedding() {
+    public function newWedding()
+    {
         try {
             $_SESSION['userID'] = 0;
             Authenticate('user', $_SESSION['userID']);
-    
+
             $data = file_get_contents('php://input');
             // Decode the JSON into a PHP associative array
             $parsed_data = json_decode($data, true);
@@ -27,16 +30,38 @@ class WeddingController {
             $weddingID = $this->weddingModel->createWedding($weddingDetails, $brideDetails, $groomDetails);
             header('Content-Type: application/json; charset=utf-8');
             error_log("Inserted a Wedding successfuly");
-            echo json_encode(['message' => 'Created wedding successfully',
-                    'weddingID'=> $weddingID,
-        ]);
+            echo json_encode([
+                'message' => 'Created wedding successfully',
+                'weddingID' => $weddingID,
+            ]);
         } catch (Exception $error) {
             error_log($error);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Registration failed']);
         }
-       
     }
 
-
+    public function update($parameters)
+    {
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authorization failed']);
+        }
+        try {
+            $data = file_get_contents('php://input');
+            // Decode the JSON into a PHP associative array
+            $parsed_data = json_decode($data, true);
+            $wedding = new Wedding();
+            if ($wedding->updateWedding($parameters["weddingID"], $parsed_data)) {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode([
+                    'message' => 'wedding updated successfully',
+                ]);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Registration failed']);
+        }
+    }
 }

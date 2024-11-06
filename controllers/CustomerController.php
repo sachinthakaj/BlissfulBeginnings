@@ -35,7 +35,6 @@ class CustomerController {
             $wedding = new Wedding();
             $coupleDetails = $wedding->fetchDataCouple($parameters['weddingID']);
             if($coupleDetails) {
-                error_log("Controller got non zero result set");
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($coupleDetails, JSON_PRETTY_PRINT);
             } else {
