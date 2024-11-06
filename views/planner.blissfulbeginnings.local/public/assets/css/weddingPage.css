@@ -1,0 +1,75 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width:100%;
+    background-color:#f0f0f0 ;
+}
+
+
+
+.weddingDetails{
+    background-color:#ddd;
+    padding: 30px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #c1a42e;
+    margin-left: 20px;
+    margin-right: 20px;
+    position:relative;
+    width: 90%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.coupleDetails{
+    background-color: #ddd;
+    display:flex;
+    gap:20px;
+    padding:30px;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 90%;
+
+}
+
+.bride{
+    flex:1;
+    background-color: #9a9fc1;
+    padding: 20px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+   
+
+}
+
+.groom{
+    flex:1;
+    background-color:#7b7d85;
+    padding: 20px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+   
+   
+
+}
+
+.progressButton{
+    background-color: #4a5d23;
+    color: #f0f0f0;
+    border:none;
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    padding:8px 12px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.progressButton:hover{
+    background-color: #739e1b;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+}

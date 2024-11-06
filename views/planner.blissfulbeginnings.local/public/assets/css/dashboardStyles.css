@@ -89,15 +89,46 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #4a5d23;
-    color: #fff;
+    background-color: #ddf734;
+    color: #9e91f3;
     padding: 2px 5px;
     border-radius: 3px;
   }
+.acceptButton {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.rejectButton {
+  background-color: #f44336; /* Red */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 5px; /* To add spacing between the buttons */
+}
+
+.acceptButton:hover {
+  background-color: #45a049;
+}
+
+.rejectButton:hover {
+  background-color: #d32f2f;
+}
+
+
   .content-wrapper {
     display: flex;
     flex: 1;
   }
+
   main {
     flex: 2;
     padding: 20px;
