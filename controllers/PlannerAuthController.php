@@ -28,14 +28,14 @@ class PlannerAuthController
             return;
         }
 
-        if(!password_verify($password,$planner['password'])){
+        if(!password_verify($password,$planner->password)){
             header('HTTP/1.1 401 Unathorized');
             echo json_encode(['error'=>'Invalid credentials']);
             return;
         }
 
         session_start();
-        $_SESSION['email']=$planner['email'];
+        $_SESSION['email']=$planner->email;
         $_SESSION['logged_in']=true;
 
         header('Content-Type:application/json; charset=utf-8');

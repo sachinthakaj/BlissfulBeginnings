@@ -72,13 +72,13 @@ header {
   background-color: #c1a42e;
 }
 
-#label {
+.label {
   color: #656233;
   font-size: 20px;
   font-weight: bold;
 }
 
-#input {
+.input {
   margin: 12px auto;
   color: #656233;
   font-size: 20px;

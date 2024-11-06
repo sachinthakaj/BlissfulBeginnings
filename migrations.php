@@ -1,15 +1,10 @@
 <?php
 // core/Database.php
+require_once './core/Config.php';
+loadEnv(__DIR__ . '/.env');
 
 class Migrations
-{
-
-    private $host = 'localhost';
-    private $user = 'root';
-    private $pass = '';
-    private $dbname = 'blissful_beginnings';
-
-    private static $instance = null;
+{   private static $instance = null;
 
     private $dbh;  // Database handler
     private $stmt; // Statement handler
@@ -18,7 +13,7 @@ class Migrations
     public function __construct()
     {
         // Set DSN (Data Source Name)
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';port='. $_ENV['DB_PORT'] . ';dbname=' . $_ENV['DB_NAME'];
         $options = array(
             PDO::ATTR_PERSISTENT => true,   // Persistent connection
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Error mode
@@ -26,7 +21,7 @@ class Migrations
 
         // Create PDO instance
         try {
-            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+            $this->dbh = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS'], $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error; // Show error if connection fails
