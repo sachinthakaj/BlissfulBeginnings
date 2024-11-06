@@ -110,7 +110,7 @@
                 </div>
             </div>
         </form>
-        <script src="./public/assets/js/WeddingDetails.js"></script>
+        <script src="/public/assets/js/WeddingDetails.js"></script>
     </div>
 </body>
 

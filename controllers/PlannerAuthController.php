@@ -23,19 +23,19 @@ class PlannerAuthController
 
         $planner=$this->plannerModel->getPlannerByEmail($email);
         if(!$planner){
-            header('HTTP/1.1 401 Unathorized');
+            header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error'=>'Invalid credentials']);
             return;
         }
 
-        if(!password_verify($password,$planner['password'])){
+        if(!password_verify($password,$planner->password)){
             header('HTTP/1.1 401 Unathorized');
             echo json_encode(['error'=>'Invalid credentials']);
             return;
         }
 
         session_start();
-        $_SESSION['email']=$planner['email'];
+        $_SESSION['email']=$planner->email;
         $_SESSION['logged_in']=true;
 
         header('Content-Type:application/json; charset=utf-8');

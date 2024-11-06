@@ -1,267 +1,102 @@
-[03-Oct-2024 13:43:34 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION blissful_beginnings.UUID_TO_BIN does not exist in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:40
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 13:46:12 Asia/Kolkata] PHP Deprecated:  PDO::prepare(): Passing null to parameter #1 ($query) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 43
-[03-Oct-2024 13:46:12 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: PDO::prepare(): Argument #1 ($query) cannot be empty in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:43
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(43): PDO->prepare('')
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\helpers.php(70): Database->query(NULL)
-#2 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(19): generateUUID(Object(Database))
-#3 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#4 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#5 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#6 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 43
-[03-Oct-2024 13:48:43 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION blissful_beginnings.UUID_TO_BIN does not exist in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:40
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:29:44 Asia/Kolkata] WeddingID: 45a45e9c81b111efb059cc153136262a
-[03-Oct-2024 23:29:44 Asia/Kolkata] string
-[03-Oct-2024 23:29:44 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '45a45e9c81b111efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:39
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:31:58 Asia/Kolkata] WeddingID: 95416a3181b111efb059cc153136262a
-[03-Oct-2024 23:31:58 Asia/Kolkata] string
-[03-Oct-2024 23:31:58 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '95416a3181b111efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:39
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:32:39 Asia/Kolkata] WeddingID: ad89206a81b111efb059cc153136262a
-[03-Oct-2024 23:32:39 Asia/Kolkata] string
-[03-Oct-2024 23:32:39 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ad89206a81b111efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:39
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:33:41 Asia/Kolkata] WeddingID: d26ccbc081b111efb059cc153136262a
-[03-Oct-2024 23:33:41 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'd26ccbc081b111efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:39
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:35:38 Asia/Kolkata] WeddingID: 1851529b81b211efb059cc153136262a
-[03-Oct-2024 23:35:38 Asia/Kolkata] string
-[03-Oct-2024 23:35:38 Asia/Kolkata] WeddingID: 1851c07f81b211efb059cc153136262a
-[03-Oct-2024 23:35:38 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '1851c07f81b211efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:40
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:38:10 Asia/Kolkata] WeddingID: 72eeeb4081b211efb059cc153136262a
-[03-Oct-2024 23:38:10 Asia/Kolkata] string
-[03-Oct-2024 23:38:10 Asia/Kolkata] WeddingID: 72f0e7f381b211efb059cc153136262a
-[03-Oct-2024 23:38:10 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:38:10 Asia/Kolkata] WeddingID: 72f10cf781b211efb059cc153136262a
-[03-Oct-2024 23:38:10 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:38:10 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '72eeeb4081b211efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:40
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:41:23 Asia/Kolkata] WeddingID: e5ebf75481b211efb059cc153136262a
-[03-Oct-2024 23:41:23 Asia/Kolkata] string
-[03-Oct-2024 23:41:23 Asia/Kolkata] WeddingID: e5eddf1181b211efb059cc153136262a
-[03-Oct-2024 23:41:23 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:41:23 Asia/Kolkata] WeddingID: e5ee013881b211efb059cc153136262a
-[03-Oct-2024 23:41:23 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:41:23 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'e5ebf75481b211efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:40
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:42:09 Asia/Kolkata] WeddingID: 0175543f81b311efb059cc153136262a
-[03-Oct-2024 23:42:09 Asia/Kolkata] string
-[03-Oct-2024 23:42:09 Asia/Kolkata] WeddingID: 0177354a81b311efb059cc153136262a
-[03-Oct-2024 23:42:09 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:42:09 Asia/Kolkata] WeddingID: 017750a081b311efb059cc153136262a
-[03-Oct-2024 23:42:09 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:42:09 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '0175543f81b311efb059cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:40
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#2 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#3 {main}
-[03-Oct-2024 23:47:41 Asia/Kolkata] WeddingID: c72a384481b311efb059cc153136262a
-[03-Oct-2024 23:47:41 Asia/Kolkata] string
-[03-Oct-2024 23:47:41 Asia/Kolkata] WeddingID: c72a818581b311efb059cc153136262a
-[03-Oct-2024 23:47:41 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:47:41 Asia/Kolkata] WeddingID: c72ab4d681b311efb059cc153136262a
-[03-Oct-2024 23:47:41 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:47:41 Asia/Kolkata] Inserted a Wedding successfuly
-[03-Oct-2024 23:49:12 Asia/Kolkata] WeddingID: fdd5f8f781b311efb059cc153136262a
-[03-Oct-2024 23:49:12 Asia/Kolkata] string
-[03-Oct-2024 23:49:12 Asia/Kolkata] WeddingID: fdd7d41081b311efb059cc153136262a
-[03-Oct-2024 23:49:12 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:49:12 Asia/Kolkata] WeddingID: fdd81fe981b311efb059cc153136262a
-[03-Oct-2024 23:49:12 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:49:12 Asia/Kolkata] Inserted a Wedding successfuly
-[03-Oct-2024 23:49:33 Asia/Kolkata] WeddingID: 09d4120581b411efb059cc153136262a
-[03-Oct-2024 23:49:33 Asia/Kolkata] string
-[03-Oct-2024 23:49:33 Asia/Kolkata] WeddingID: 09d5f65281b411efb059cc153136262a
-[03-Oct-2024 23:49:33 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:49:33 Asia/Kolkata] WeddingID: 09d6189181b411efb059cc153136262a
-[03-Oct-2024 23:49:33 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[03-Oct-2024 23:49:33 Asia/Kolkata] Inserted a Wedding successfuly
-[04-Oct-2024 07:46:52 Asia/Kolkata] WeddingID: bcbec5b781f611efb059cc153136262a
-[04-Oct-2024 07:46:52 Asia/Kolkata] string
-[04-Oct-2024 07:46:52 Asia/Kolkata] WeddingID: bcbf2eb981f611efb059cc153136262a
-[04-Oct-2024 07:46:52 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 07:46:52 Asia/Kolkata] WeddingID: bcbf6cf481f611efb059cc153136262a
-[04-Oct-2024 07:46:52 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 07:46:52 Asia/Kolkata] Inserted a Wedding successfuly
-[04-Oct-2024 09:46:30 Asia/Kolkata] WeddingID: 737a200d820711efb059cc153136262a
-[04-Oct-2024 09:46:30 Asia/Kolkata] string
-[04-Oct-2024 09:46:30 Asia/Kolkata] WeddingID: 737ab8d9820711efb059cc153136262a
-[04-Oct-2024 09:46:30 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 09:46:30 Asia/Kolkata] WeddingID: 737aec4b820711efb059cc153136262a
-[04-Oct-2024 09:46:30 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 09:46:30 Asia/Kolkata] Inserted a Wedding successfuly
-[04-Oct-2024 09:48:07 Asia/Kolkata] WeddingID: ad48d4d6820711efb059cc153136262a
-[04-Oct-2024 09:48:07 Asia/Kolkata] string
-[04-Oct-2024 09:48:07 Asia/Kolkata] WeddingID: ad492162820711efb059cc153136262a
-[04-Oct-2024 09:48:07 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 09:48:07 Asia/Kolkata] WeddingID: ad49c499820711efb059cc153136262a
-[04-Oct-2024 09:48:07 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 09:48:07 Asia/Kolkata] Inserted a Wedding successfuly
-[04-Oct-2024 09:56:57 Asia/Kolkata] WeddingID: e937eb6d820811efb059cc153136262a
-[04-Oct-2024 09:56:57 Asia/Kolkata] e937eb6d820811efb059cc153136262a
-[04-Oct-2024 09:56:57 Asia/Kolkata] 0
-[04-Oct-2024 09:56:57 Asia/Kolkata] 2024-10-10
-[04-Oct-2024 09:56:57 Asia/Kolkata] asdf
-[04-Oct-2024 09:56:57 Asia/Kolkata] adfa
-[04-Oct-2024 09:56:57 Asia/Kolkata] adsf
-[04-Oct-2024 09:56:57 Asia/Kolkata] 1
-[04-Oct-2024 09:56:57 Asia/Kolkata] 
-[04-Oct-2024 09:56:57 Asia/Kolkata] string
-[04-Oct-2024 09:56:57 Asia/Kolkata] WeddingID: e938a242820811efb059cc153136262a
-[04-Oct-2024 09:56:57 Asia/Kolkata] e938a242820811efb059cc153136262a
-[04-Oct-2024 09:56:57 Asia/Kolkata] PHP Fatal error:  Uncaught TypeError: error_log(): Argument #1 ($message) must be of type string, array given in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:63
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(63): error_log(Array)
-#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(49): Database->bind(':name', Array)
-#2 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(33): Wedding->createPerson(Array, 'Female', 'e937eb6d820811e...')
-#3 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#4 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#5 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#6 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 09:57:27 Asia/Kolkata] WeddingID: fad4fb66820811efb059cc153136262a
-[04-Oct-2024 09:57:27 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function type() in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:63
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(22): Database->bind(':weddingID', 'fad4fb66820811e...', 3)
-#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#4 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 09:58:33 Asia/Kolkata] WeddingID: 2262dd98820911efb059cc153136262a
-[04-Oct-2024 09:58:33 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function type_of() in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:63
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(22): Database->bind(':weddingID', '2262dd98820911e...', 3)
-#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(28): Wedding->createWedding(Array, Array, Array)
-#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->newWedding()
-#3 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/wedding-detail...')
-#4 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 63
-[04-Oct-2024 10:01:10 Asia/Kolkata] WeddingID: 80131bcc820911efb059cc153136262a
-[04-Oct-2024 10:01:10 Asia/Kolkata] string
-[04-Oct-2024 10:01:10 Asia/Kolkata] WeddingID: 80150a45820911efb059cc153136262a
-[04-Oct-2024 10:01:10 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 64
-[04-Oct-2024 10:01:10 Asia/Kolkata] WeddingID: 801540f4820911efb059cc153136262a
-[04-Oct-2024 10:01:10 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 64
-[04-Oct-2024 10:01:10 Asia/Kolkata] Inserted a Wedding successfuly
-[04-Oct-2024 10:02:39 Asia/Kolkata] WeddingID: b4b73917820911efb059cc153136262a
-[04-Oct-2024 10:02:39 Asia/Kolkata] string
-[04-Oct-2024 10:02:39 Asia/Kolkata] WeddingID: b4b788ce820911efb059cc153136262a
-[04-Oct-2024 10:02:39 Asia/Kolkata] WeddingID: b4b7e5e6820911efb059cc153136262a
-[04-Oct-2024 10:02:39 Asia/Kolkata] Inserted a Wedding successfuly
-[04-Oct-2024 10:03:12 Asia/Kolkata] WeddingID: c853aedd820911efb059cc153136262a
-[04-Oct-2024 10:03:12 Asia/Kolkata] string
-[04-Oct-2024 10:03:12 Asia/Kolkata] WeddingID: c8559587820911efb059cc153136262a
-[04-Oct-2024 10:03:12 Asia/Kolkata] WeddingID: c855b2e6820911efb059cc153136262a
-[04-Oct-2024 10:03:12 Asia/Kolkata] Inserted a Wedding successfuly
-[05-Oct-2024 01:22:23 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
-#1 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
-[05-Oct-2024 18:16:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
-#1 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
-[05-Oct-2024 19:04:02 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
-#1 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
-[05-Oct-2024 19:04:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
-#1 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
-[05-Oct-2024 19:04:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
-#1 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
-[05-Oct-2024 19:04:19 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
-#1 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
-[05-Oct-2024 19:04:19 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Router::fetch() in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php:17
-Stack trace:
-#0 C:\xampp\htdocs\BlissfulBeginnings\index.php(30): require()
-#1 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\config\Routes.php on line 17
-[05-Oct-2024 20:52:38 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
-[05-Oct-2024 20:52:51 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
-[05-Oct-2024 20:53:16 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
-[05-Oct-2024 20:53:23 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
-[05-Oct-2024 20:53:45 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
-[05-Oct-2024 20:54:07 Asia/Kolkata] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
-[15-Oct-2024 13:43:11 Asia/Kolkata] /signup
-[15-Oct-2024 13:44:05 Asia/Kolkata] /reister
-[15-Oct-2024 13:44:11 Asia/Kolkata] /register
-[15-Oct-2024 13:44:29 Asia/Kolkata] /BlissfulBeginnings/register
-[15-Oct-2024 13:44:29 Asia/Kolkata] WeddingID: 802041bd8acd11ef98e7cc153136262a
-[15-Oct-2024 13:44:29 Asia/Kolkata] 802041bd8acd11ef98e7cc153136262a
-[15-Oct-2024 13:44:29 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column '802041bd8acd11ef98e7cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+[03-Nov-2024 13:57:27 Asia/Kolkata] Does this work
+[03-Nov-2024 13:59:55 Asia/Kolkata] Does this work
+[03-Nov-2024 13:59:55 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'bridegrooms.weddingID' in 'on clause' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
 Stack trace:
 #0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
-#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(29): Database->execute()
-#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$aTTsfiGY...')
-#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
-#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(36): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\CustomerController.php(36): Wedding->fetchDataCouple('09d4120581b411e...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): CustomerController->fetchPersons(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/wedding/couple...')
 #5 {main}
-  thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
-[15-Oct-2024 13:45:44 Asia/Kolkata] /BlissfulBeginnings/register
-[15-Oct-2024 13:45:44 Asia/Kolkata] WeddingID: acaecef28acd11ef98e7cc153136262a
-[15-Oct-2024 13:45:44 Asia/Kolkata] acaecef28acd11ef98e7cc153136262a
-[15-Oct-2024 13:45:44 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'acaecef28acd11ef98e7cc153136262a' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+[03-Nov-2024 14:01:12 Asia/Kolkata] Does this work
+[03-Nov-2024 14:01:12 Asia/Kolkata] 1
+[03-Nov-2024 14:01:12 Asia/Kolkata] PHP Warning:  Undefined array key "userID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 40
+[03-Nov-2024 14:01:12 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 40
+[03-Nov-2024 14:01:12 Asia/Kolkata] 
+[03-Nov-2024 14:02:35 Asia/Kolkata] Does this work
+[03-Nov-2024 14:02:35 Asia/Kolkata] PHP Warning:  Undefined array key "userID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 40
+[03-Nov-2024 14:02:35 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 40
+[03-Nov-2024 14:02:35 Asia/Kolkata] 
+[03-Nov-2024 14:25:46 Asia/Kolkata] PHP Warning:  Undefined array key "userID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:25:46 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:25:46 Asia/Kolkata] 
+[03-Nov-2024 14:27:40 Asia/Kolkata] PHP Warning:  Undefined array key "weddingID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:27:40 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:27:40 Asia/Kolkata] PHP Warning:  Undefined array key "userID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:27:40 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:27:40 Asia/Kolkata] 
+[03-Nov-2024 14:28:37 Asia/Kolkata] PHP Warning:  Undefined array key "weddingID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:28:37 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:28:37 Asia/Kolkata] PHP Warning:  Undefined array key "userID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:28:37 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:28:37 Asia/Kolkata] 
+[03-Nov-2024 14:29:11 Asia/Kolkata] 	��R���Y�16&*
+[03-Nov-2024 14:29:11 Asia/Kolkata] PHP Warning:  Undefined array key "weddingID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:29:11 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:29:11 Asia/Kolkata] PHP Warning:  Undefined array key "userID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:29:11 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:29:11 Asia/Kolkata] 
+[03-Nov-2024 14:30:42 Asia/Kolkata] Array
+(
+    [0] => 	��R���Y�16&*
+    [1] => weqw
+    [2] => wqw@ad
+    [3] => adaw
+    [4] => qrqe
+    [5] => Female
+    [6] => 1231
+    [7] => 	����Y�16&*
+    [8] => 	��R���Y�16&*
+    [9] => 	�����Y�16&*
+)
+
+[03-Nov-2024 14:30:42 Asia/Kolkata] PHP Warning:  Undefined array key "weddingID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:30:42 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:30:42 Asia/Kolkata] PHP Warning:  Undefined array key "userID" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:30:42 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 39
+[03-Nov-2024 14:30:42 Asia/Kolkata] 
+[03-Nov-2024 14:47:33 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 37
+[03-Nov-2024 14:47:33 Asia/Kolkata] 
+[03-Nov-2024 14:48:05 Asia/Kolkata] Array
+(
+    [brideGroomsID] => 	��R���Y�16&*
+    [name] => weqw
+    [email] => wqw@ad
+    [contact] => adaw
+    [address] => qrqe
+    [gender] => Female
+    [age] => 1231
+    [weddingID] => 	����Y�16&*
+    [brideID] => 	��R���Y�16&*
+    [groomID] => 	�����Y�16&*
+)
+
+[03-Nov-2024 14:48:05 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:49:12 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:49:51 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:50:12 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:53:37 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:53:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 14:53:37 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 41
+[03-Nov-2024 14:53:37 Asia/Kolkata] PHP Warning:  Undefined array key 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 42
+[03-Nov-2024 14:53:37 Asia/Kolkata] 
+[03-Nov-2024 15:53:02 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 15:53:02 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 15:53:02 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 41
+[03-Nov-2024 15:53:02 Asia/Kolkata] PHP Warning:  Undefined array key 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 42
+[03-Nov-2024 15:53:02 Asia/Kolkata] 
+[03-Nov-2024 15:53:49 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 15:53:49 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 38
+[03-Nov-2024 15:53:49 Asia/Kolkata] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 41
+[03-Nov-2024 15:53:49 Asia/Kolkata] PHP Warning:  Undefined array key 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 42
+[03-Nov-2024 15:53:49 Asia/Kolkata] 
+[03-Nov-2024 15:54:57 Asia/Kolkata] PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
 Stack trace:
 #0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute()
-#1 C:\xampp\htdocs\BlissfulBeginnings\models\User.php(29): Database->execute()
-#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php(45): User->createUser('123@abc.com', '$2y$10$7TTnObqQ...')
-#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->register(Array)
-#4 C:\xampp\htdocs\BlissfulBeginnings\index.php(37): Router->route('POST', '/register')
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(35): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\CustomerController.php(36): Wedding->fetchDataCouple('09d4120581b411e...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): CustomerController->fetchPersons(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/wedding/couple...')
 #5 {main}
   thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 68
 [15-Oct-2024 13:47:25 Asia/Kolkata] WeddingID: e92c07d58acd11ef98e7cc153136262a
@@ -443,49 +278,177 @@ Stack trace:
 #2 {main}
   thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
 [16-Oct-2024 11:34:43 Asia/Kolkata] This gets executed
-[16-Oct-2024 16:14:02 Asia/Kolkata] /views/blissfulbeginnings.local/
-[16-Oct-2024 17:10:34 Asia/Kolkata] /
-[17-Oct-2024 10:30:48 Asia/Kolkata] /
-[17-Oct-2024 10:30:49 Asia/Kolkata] /
-[17-Oct-2024 10:31:37 Asia/Kolkata] /
-[17-Oct-2024 10:34:50 Asia/Kolkata] /
-[17-Oct-2024 10:34:51 Asia/Kolkata] /assets/images/logo.png
-[17-Oct-2024 10:34:51 Asia/Kolkata] /assets/images/your-background-image.jpg
-[17-Oct-2024 10:34:51 Asia/Kolkata] /favicon.ico
-[17-Oct-2024 10:35:19 Asia/Kolkata] /
-[17-Oct-2024 10:35:19 Asia/Kolkata] /assets/images/logo.png
-[17-Oct-2024 10:35:19 Asia/Kolkata] /assets/images/your-background-image.jpg
-[17-Oct-2024 10:35:19 Asia/Kolkata] /favicon.ico
-[17-Oct-2024 10:36:00 Asia/Kolkata] /
-[17-Oct-2024 10:36:00 Asia/Kolkata] /assets/images/logo.png
-[17-Oct-2024 10:36:00 Asia/Kolkata] /assets/images/your-background-image.jpg
-[17-Oct-2024 10:37:16 Asia/Kolkata] /
-[17-Oct-2024 11:31:06 Asia/Kolkata] /
-[17-Oct-2024 11:31:08 Asia/Kolkata] /
-[17-Oct-2024 11:38:22 Asia/Kolkata] /
-[17-Oct-2024 12:26:20 Asia/Kolkata] /
-[17-Oct-2024 12:31:17 Asia/Kolkata] /
-[17-Oct-2024 13:00:02 Asia/Kolkata] /SignIn
-[17-Oct-2024 13:00:02 Asia/Kolkata] /assets/css/CustomerSignIn.css
-[17-Oct-2024 13:00:02 Asia/Kolkata] /assets/images/Logo.png
-[18-Oct-2024 08:36:40 Asia/Kolkata] /
-[18-Oct-2024 08:36:40 Asia/Kolkata] /assets/images/logo.png
-[18-Oct-2024 08:36:40 Asia/Kolkata] /assets/images/your-background-image.jpg
-[18-Oct-2024 08:36:41 Asia/Kolkata] /
-[18-Oct-2024 08:36:41 Asia/Kolkata] /assets/images/logo.png
-[18-Oct-2024 08:36:41 Asia/Kolkata] /
-[18-Oct-2024 08:36:41 Asia/Kolkata] /assets/images/logo.png
-[18-Oct-2024 08:36:56 Asia/Kolkata] /
-[18-Oct-2024 08:36:56 Asia/Kolkata] /assets/images/logo.png
-[18-Oct-2024 08:36:56 Asia/Kolkata] /assets/images/your-background-image.jpg
-[18-Oct-2024 08:36:56 Asia/Kolkata] /favicon.ico
-[18-Oct-2024 11:42:45 Asia/Kolkata] /SignIn
-[18-Oct-2024 11:42:45 Asia/Kolkata] /assets/css/CustomerSignIn.css
-[18-Oct-2024 11:42:45 Asia/Kolkata] /assets/images/Logo.png
-[18-Oct-2024 11:42:48 Asia/Kolkata] /SignIn
-[18-Oct-2024 11:42:48 Asia/Kolkata] /assets/css/CustomerSignIn.css
-[18-Oct-2024 11:42:48 Asia/Kolkata] /assets/images/Logo.png
-[24-Oct-2024 10:32:07 Asia/Kolkata] /
-[24-Oct-2024 10:32:07 Asia/Kolkata] /assets/images/logo.png
-[24-Oct-2024 10:32:07 Asia/Kolkata] /assets/images/your-background-image.jpg
-[24-Oct-2024 10:32:07 Asia/Kolkata] /favicon.ico
+
+[04-Nov-2024 19:37:46 Asia/Kolkata] Controller got non zero result set
+[04-Nov-2024 19:42:51 Asia/Kolkata] Controller got non zero result set
+[04-Nov-2024 19:44:18 Asia/Kolkata] Controller got non zero result set
+[04-Nov-2024 19:46:05 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\controllers\CustomerController.php on line 38
+[04-Nov-2024 19:46:10 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\controllers\CustomerController.php on line 38
+[04-Nov-2024 19:47:19 Asia/Kolkata] PHP Warning:  Array to string conversion in C:\xampp\htdocs\BlissfulBeginnings\controllers\CustomerController.php on line 38
+[05-Nov-2024 13:04:01 Asia/Kolkata] UPDATE wedding SET budget = :budget WHERE id = :id
+[05-Nov-2024 13:05:02 Asia/Kolkata] UPDATE wedding SET budget = :budget WHERE weddingID = :weddingID
+[05-Nov-2024 13:06:05 Asia/Kolkata] UPDATE wedding SET bride_contact = :bride_contact, groom_address = :groom_address WHERE weddingID = :weddingID
+[05-Nov-2024 13:37:20 Asia/Kolkata] UPDATE wedding SET budget = :budget WHERE weddingID = :weddingID
+[05-Nov-2024 13:37:20 Asia/Kolkata] PHP Warning:  Undefined array key "changedBrideDetails" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 46
+[05-Nov-2024 13:37:20 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 61
+[05-Nov-2024 13:37:20 Asia/Kolkata] UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET  WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=Female
+[05-Nov-2024 13:38:56 Asia/Kolkata] UPDATE wedding SET theme = :theme WHERE weddingID = :weddingID
+[05-Nov-2024 13:38:56 Asia/Kolkata] PHP Warning:  Undefined array key "changedBrideDetails" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 46
+[05-Nov-2024 13:38:56 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 61
+[05-Nov-2024 13:38:56 Asia/Kolkata] UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET  WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=Female
+[05-Nov-2024 13:41:41 Asia/Kolkata] UPDATE wedding SET location = :location WHERE weddingID = :weddingID
+[05-Nov-2024 13:41:41 Asia/Kolkata] PHP Warning:  Undefined array key "changedBrideDetails" in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 47
+[05-Nov-2024 13:41:41 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php on line 63
+[05-Nov-2024 13:41:41 Asia/Kolkata] UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET  WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=Female
+[05-Nov-2024 13:42:52 Asia/Kolkata] UPDATE wedding SET theme = :theme WHERE weddingID = :weddingID
+[05-Nov-2024 13:42:52 Asia/Kolkata] UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET bride_email = :bride_email WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=Female
+[05-Nov-2024 13:43:26 Asia/Kolkata] UPDATE wedding SET theme = :theme WHERE weddingID = :weddingID
+[05-Nov-2024 13:43:26 Asia/Kolkata] UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET bride_email = :bride_email WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=Female
+[05-Nov-2024 14:35:32 Asia/Kolkata] UPDATE wedding SET budget = :budget WHERE weddingID = :weddingID
+[05-Nov-2024 14:35:32 Asia/Kolkata] UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET bride_age = :bride_age WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=Female
+[05-Nov-2024 14:36:52 Asia/Kolkata] UPDATE wedding SET theme = :theme WHERE weddingID = :weddingID
+[05-Nov-2024 14:36:52 Asia/Kolkata] UPDATE brideGrooms 
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            SET  WHERE weddingbridegrooms.weddingID = :weddingID AND bridegrooms.gender=Female
+[05-Nov-2024 14:36:52 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingbridegrooms.weddingID = '	?????Y?16&*' AND bridegrooms.gende...' at line 3 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:75
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(46): Wedding->updatePerson('09d4120581b411e...', Array, 'Female')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#4 {main}
+[05-Nov-2024 14:40:43 Asia/Kolkata] UPDATE wedding SET budget = :budget WHERE weddingID = :weddingID
+[05-Nov-2024 14:40:43 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'bride_age' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:75
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(46): Wedding->updatePerson('09d4120581b411e...', Array, 'Female')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#4 {main}
+[05-Nov-2024 14:43:56 Asia/Kolkata] UPDATE wedding SET theme = :theme WHERE weddingID = :weddingID
+[05-Nov-2024 14:45:26 Asia/Kolkata] UPDATE wedding SET location = :location WHERE weddingID = :weddingID
+[05-Nov-2024 14:49:16 Asia/Kolkata] UPDATE wedding SET budget = :budget, location = :location WHERE weddingID = :weddingID
+[06-Nov-2024 10:08:56 Asia/Kolkata] UPDATE wedding SET  WHERE weddingID = :weddingID
+[06-Nov-2024 10:08:56 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(45): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#5 {main}
+[06-Nov-2024 10:08:56 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:53
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#3 {main}
+[06-Nov-2024 10:10:34 Asia/Kolkata] UPDATE wedding SET daynight = :daynight WHERE weddingID = :weddingID
+[06-Nov-2024 10:10:34 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingbridegrooms.weddingID = '	?????Y?16&*' AND bridegrooms.gende...' at line 3 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:76
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(46): Wedding->updatePerson('09d4120581b411e...', Array, 'Female')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#4 {main}
+[06-Nov-2024 10:11:21 Asia/Kolkata] UPDATE wedding SET daynight = :daynight WHERE weddingID = :weddingID
+[06-Nov-2024 10:11:21 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingbridegrooms.weddingID = '	?????Y?16&*' AND bridegrooms.gende...' at line 3 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:76
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(46): Wedding->updatePerson('09d4120581b411e...', Array, 'Female')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#4 {main}
+[06-Nov-2024 10:12:22 Asia/Kolkata] UPDATE wedding SET daynight = :daynight WHERE weddingID = :weddingID
+[06-Nov-2024 10:12:22 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingbridegrooms.weddingID = '	?????Y?16&*' AND bridegrooms.gende...' at line 3 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:76
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(46): Wedding->updatePerson('09d4120581b411e...', Array, 'Female')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#4 {main}
+[06-Nov-2024 10:15:07 Asia/Kolkata] UPDATE wedding SET daynight = :daynight WHERE weddingID = :weddingID
+[06-Nov-2024 10:15:07 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingbridegrooms.weddingID = '	?????Y?16&*' AND bridegrooms.gende...' at line 3 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:76
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(46): Wedding->updatePerson('09d4120581b411e...', Array, 'Female')
+#1 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#4 {main}
+[06-Nov-2024 10:16:57 Asia/Kolkata] UPDATE wedding SET daynight = :daynight WHERE weddingID = :weddingID
+[06-Nov-2024 10:17:26 Asia/Kolkata] UPDATE wedding SET theme = :theme WHERE weddingID = :weddingID
+[06-Nov-2024 10:46:29 Asia/Kolkata] UPDATE wedding SET daynight = :daynight WHERE weddingID = :weddingID
+[06-Nov-2024 10:47:04 Asia/Kolkata] UPDATE wedding SET daynight = :daynight WHERE weddingID = :weddingID
+[06-Nov-2024 10:55:30 Asia/Kolkata] UPDATE wedding SET  WHERE weddingID = :weddingID
+[06-Nov-2024 10:55:30 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(45): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#5 {main}
+[06-Nov-2024 10:55:30 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:57
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#3 {main}
+[06-Nov-2024 10:57:33 Asia/Kolkata] UPDATE wedding SET  WHERE weddingID = :weddingID
+[06-Nov-2024 10:57:33 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(45): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#5 {main}
+[06-Nov-2024 10:57:33 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:57
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#3 {main}
+[06-Nov-2024 11:01:16 Asia/Kolkata] UPDATE wedding SET budget = :budget WHERE weddingID = :weddingID
+[06-Nov-2024 11:09:18 Asia/Kolkata] UPDATE wedding SET  WHERE weddingID = :weddingID
+[06-Nov-2024 11:09:18 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(45): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#5 {main}
+[06-Nov-2024 11:09:18 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:57
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#3 {main}
+[06-Nov-2024 11:09:48 Asia/Kolkata] UPDATE wedding SET  WHERE weddingID = :weddingID
+[06-Nov-2024 11:09:48 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:68
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(68): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php(45): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#5 {main}
+[06-Nov-2024 11:09:48 Asia/Kolkata] Exception: Transaction failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = '	?????Y?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\models\Wedding.php:57
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\WeddingController.php(55): Wedding->updateWedding('09d4120581b411e...', Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
+#3 {main}

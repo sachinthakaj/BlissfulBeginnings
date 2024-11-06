@@ -1,12 +1,10 @@
 <?php
-// core/Database.php
+require_once 'Config.php';
+loadEnv(__DIR__ . '/../.env');
 
 class Database {
 
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
+    
 
     private static $instance = null;
 
@@ -16,7 +14,7 @@ class Database {
 
     private function __construct() {
         // Set DSN (Data Source Name)
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';port='. $_ENV['DB_PORT'] . ';dbname=' . $_ENV['DB_NAME'];
         $options = array(
             PDO::ATTR_PERSISTENT => true,   // Persistent connection
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Error mode
@@ -24,7 +22,7 @@ class Database {
 
         // Create PDO instance
         try {
-            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+            $this->dbh = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS'], $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             error_log($this->error); // Show error if connection fails
@@ -64,8 +62,8 @@ class Database {
     }
 
     // Execute the prepared statement
-    public function execute() {
-        return $this->stmt->execute();
+    public function execute($params=null) {
+        return $this->stmt->execute($params);
     }
 
     // Get result set as an array of objects
@@ -88,7 +86,9 @@ class Database {
     public function fetch($type) {
         return $this->stmt->fetch($type);
     }
-
+    public function fetchAll($type) {
+        return $this->stmt->fetchAll($type);
+    }
     public function fetchColumn(int $columnNumber=0) {
         return $this->stmt->fetchColumn($columnNumber);
     }
