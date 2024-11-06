@@ -1,12 +1,10 @@
 <?php
-// core/Database.php
+require_once 'Config.php';
+loadEnv(__DIR__ . '/../.env');
 
 class Database {
 
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
+    
 
     private static $instance = null;
 
@@ -16,7 +14,7 @@ class Database {
 
     private function __construct() {
         // Set DSN (Data Source Name)
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';port='. $_ENV['DB_PORT'] . ';dbname=' . $_ENV['DB_NAME'];
         $options = array(
             PDO::ATTR_PERSISTENT => true,   // Persistent connection
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Error mode
@@ -24,7 +22,7 @@ class Database {
 
         // Create PDO instance
         try {
-            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+            $this->dbh = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS'], $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             error_log($this->error); // Show error if connection fails
