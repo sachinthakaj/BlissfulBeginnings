@@ -18,7 +18,7 @@ class Migrations
     public function __construct()
     {
         // Set DSN (Data Source Name)
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=' . $this->host . ';port=3307' . ';dbname=' . $this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true,   // Persistent connection
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Error mode

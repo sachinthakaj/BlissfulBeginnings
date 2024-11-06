@@ -6,11 +6,12 @@
     <title>Planner - Sign In</title>
     <link href="https://fonts.googleapis.com/css?family=Gwendolyn&display=swap" rel="stylesheet" />
     <link href="../public/assets/css//PlannerSignIn.css" rel="stylesheet" />
+    <script src="../public/assets/js/SignIn.js" defer></script>
 </head>
 <body>
     <header>
         <div class="nav-bar-logo-container">
-            <img src="../assets//images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
         <div class="wedding-title-container">
             <h1 class="wedding-title">Planner - Sign In</h1>

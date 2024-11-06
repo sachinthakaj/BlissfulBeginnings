@@ -2,5 +2,5 @@
 
 $router->get("/", "HomeController@index");
 
-$router->get("/SignIn", "PlannerHomeController@signIn");
-$router->post("/SignIn","PlannerAuthController@login");
+$router->get("/signin", "PlannerHomeController@signIn");
+$router->post("/signin","PlannerAuthController@login");
