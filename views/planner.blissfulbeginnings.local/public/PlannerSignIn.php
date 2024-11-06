@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planner - Sign In</title>
     <link href="https://fonts.googleapis.com/css?family=Gwendolyn&display=swap" rel="stylesheet" />
-    <link href="../public/assets/css//PlannerSignIn.css" rel="stylesheet" />
-    <script src="../public/assets/js/SignIn.js" defer></script>
+    <link href="/public/assets/css/PlannerSignIn.css" rel="stylesheet" />
+    <script src="/public/assets/js/SignIn.js" defer></script>
 </head>
 <body>
     <header>
@@ -19,11 +19,11 @@
     </header>
 
     <div class="box">
-        <form>
-          <label id="label" for="email">Email</label><br>
-          <input id="input" type="email" id="email" name="email" placeholder="Enter email" required><br><br>
-          <label id="label" for="password">Password</label><br>
-          <input id="input" type="password" id="password" name="password" placeholder="Enter password" required><br><br>
+        <form class="form">
+          <label class="label" for="email">Email</label><br>
+          <input class="input" type="email" id="email" name="email" placeholder="Enter email" required><br><br>
+          <label class="label" for="password">Password</label><br>
+          <input class="input" type="password" id="password" name="password" placeholder="Enter password" required><br><br>
           <input type="submit" id="submit" value="Sign In">
         </form>
     </div>

@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.form');
     const passwordField = document.getElementById('password');
-
+    
     form.addEventListener('submit', (event) => {
+        console.log("Submitting");
         event.preventDefault();  // Prevent the form from submitting the default way
 
         const email = document.getElementById('email').value.toLowerCase();
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Send the data using Fetch API
-        fetch('/register', {
+        fetch('/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle success (e.g., show a success message or redirect)
             alert('Registration successful!');
             console.log('Success:', data);
-            window.location.href = '/wedding-details'
+            window.location.href = '/';
         })
         .catch(error => {
             // Handle error (e.g., show an error message)
