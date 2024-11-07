@@ -1,0 +1,96 @@
+@import url('/public/assets/css/Common.css');
+
+/* Hero Section */
+.hero {
+    background-image: url('/public/assets/images/groom-putting-ring-bride-s-finger 1.png'); /* Ensure the background image path is correct */
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 120px 20px;
+    color: #fff;
+}
+
+.hero h2 {
+    font-size: 48px;
+    font-family: 'Georgia', serif;
+    color: white;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero h3 {
+    font-size: 36px;
+    font-family: 'Georgia', serif;
+    color: white;
+    font-weight: 400;
+    margin: 10px 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Services Section */
+.services {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.services h2 {
+    font-size: 32px;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    font-family: 'Georgia', serif;
+}
+
+.service-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 180px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 20px;
+    margin: 15px 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.card a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.card a:hover {
+    color: var(--button-hover-bg);
+}
