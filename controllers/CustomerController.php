@@ -46,4 +46,25 @@ class CustomerController {
             error_log($e);
         }
     }
+
+    public function packages($parameters) {
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Registration failed']);
+        }
+        try {
+            $package = new Package();
+            $packageDetails = $package->fetchWeddingPackages($parameters['weddingID']);
+            if($packageDetails) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($packageDetails);
+            } else {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Invalid UserID']);
+            }
+            
+        } catch(Exception) {
+            
+        }
+    }
 }

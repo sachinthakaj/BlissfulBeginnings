@@ -9,7 +9,7 @@ class m0005_vendors {
     public function up() {
       $SQL = "
      CREATE TABLE vendors (
-  vendorID Binary(16) NOT NULL,
+  vendorID Binary(16) Primary Key,
   email varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   businessName varchar(255) NOT NULL,
