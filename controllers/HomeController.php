@@ -2,7 +2,7 @@
 
 class HomeController {
     public function index() {
-        require_once '.\public\Home.php';
+        require_once '.\public\Index.html';
     }
     public function register() {
         require_once '.\public\Register.php';
@@ -16,8 +16,16 @@ class HomeController {
         require_once '.\public\CreateAnAccount.php';
     }
 
-    public function test() {
-        error_log('Something');
+    public function about() {
+        require_once '.\public\About.html';
+    }
+
+    public function contact() {
+        require_once '.\public\Contact.html';
+    }
+
+    public function services() {
+        require_once '.\public\Services.html';
     }
 }
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="/public/assers/css/Common.css">
+    <link rel="stylesheet" href="/public/assets/css/About.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/public/assets/images/logo.png" alt="Blissful Beginnings Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about" class="active">About Us</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/network">Join our Network</a></li>
+                <li><a href="/signup" class="btn">Sign Up</a></li>
+                <li><a href="/login" class="btn">Log in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Blissful Beginnings</h1>
+        <p>Blissful Beginnings is a comprehensive wedding planning web application designed to streamline venue selection, budgeting, and timeline management. It enhances efficiency and convenience for couples and facilitates seamless communication with vendors.</p>
+    </section>
+
+    <section class="about-content">
+        <h2>Our Mission</h2>
+        <div class="slider">
+            <button class="nav-arrow" onclick="prevSlide()">&#10094;</button>
+            <div class="slide" id="mission">
+                <p>At Blissful Beginnings, our mission is to transform every couple's dream wedding into a beautiful reality. We aim to be the ultimate companion in your wedding planning journey by providing innovative tools, comprehensive resources, and exceptional support.</p>
+            </div>
+            <div class="slide" id="vision" style="display: none;">
+                <p>Our vision is to redefine the wedding planning experience by offering a platform that simplifies, inspires, and supports every step of the journey. We aspire to become the leading wedding planning service recognized for excellence and innovation.</p>
+            </div>
+            <button class="nav-arrow" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </section>
+
+    <script src="/public/assets/js/About.js"></script>
+</body>
+</html>

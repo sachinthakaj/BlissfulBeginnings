@@ -1,0 +1,45 @@
+@import url('/public/assets/css/Common.css');
+
+/* Hero Section for Homepage */
+.hero {
+    background-image: url('/public/assets/images/homapge.png'); /* Replace with your background image URL */
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 180px 20px;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.book-now {
+    font-size: 20px;
+}
+
+/* About Section for Homepage */
+.about {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.about h2 {
+    font-size: 32px;
+}
+
+.about h2 span {
+    font-style: italic;
+}
+
+.about p {
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #555;
+    line-height: 1.6;
+}

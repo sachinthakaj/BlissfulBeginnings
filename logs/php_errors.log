@@ -452,3 +452,6 @@ Stack trace:
 #1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): WeddingController->update(Array)
 #2 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
 #3 {main}
+[06-Nov-2024 16:09:07 Asia/Kolkata] numrows: 1
+[06-Nov-2024 16:09:07 Asia/Kolkata] Create a user
+[06-Nov-2024 16:09:07 Asia/Kolkata] {"message":"Registration successful"}
