@@ -75,7 +75,7 @@ class AuthController
 
         $user=$this->userModel->getUserByEmail($email);
         if(!$user){
-            header('HTTP/1.1 404 Not Found');
+            header('HTTP/1.1 401 Not Found');
             return ;
         }
 

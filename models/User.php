@@ -39,6 +39,6 @@ class User
     {
         $this->db->query('SELECT * FROM users WHERE email = :email');
         $this->db->bind(':email',$email);
-        return $this->db->single();
+        return $this->db->fetch(PDO::FETCH_ASSOC);
     }
 }
