@@ -42,8 +42,8 @@
                 </div>
                 <!-- Business Type -->
                 <div class="form-group">
-                    <label for="business-type">Type</label>
-                    <select id="business-type" name="type" required>
+                    <label for="businessType">Type</label>
+                    <select id="businessType" name="businessType" required>
                     </select>
                 </div>
                 <!-- Description -->
@@ -88,8 +88,8 @@
                     </div>
                     <!-- Account Number -->
                     <div class="form-group">
-                        <label for="account-number">Account Number</label>
-                        <input type="text" id="account-number" name="account-number" placeholder="Enter account number" required>
+                        <label for="accountNumber">Account Number</label>
+                        <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" required>
                     </div>
                 </div>
                 <div class="vendor-middle">
@@ -101,8 +101,8 @@
                     </div>
                     <!-- Confirm Email -->
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" id="conf-email" name="email" placeholder="Email" required>
+                        <label for="confirmEmail">Confirm Email</label>
+                        <input type="text" id="conf-email" name="confirmEmail" placeholder="confirm Email" required>
                     </div>
                     <!-- Password -->
                     <div class="form-group">
@@ -111,8 +111,8 @@
                     </div>
                     <!-- Confirm Password -->
                     <div class="form-group">
-                        <label for="password">Confirm Password</label>
-                        <input type="password" id="conf-password" name="password" placeholder="Confirm Password" required>
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="conf-password" name="confirmPassword" placeholder="Confirm Password" required>
                     </div>
                 </div>
 

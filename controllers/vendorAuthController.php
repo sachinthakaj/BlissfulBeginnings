@@ -8,12 +8,8 @@ class vendorAuthController
     {
         $this->vendorModel=new vendor();
     }
-    public function signInPage()
-    {
-        require_once '.\public\JoinOurNetwork.html';
-    }
-
-    public function SignIn()
+   
+    public function SignInPage()
     {
         require_once './public/VendorSignIn.php';
     }
@@ -22,48 +18,60 @@ class vendorAuthController
     {
         require_once './public/JoinOurNetwork.php';
     }
+    public function VendorDash()
+    {
+        require_once './public/VendorDash.html';
+    }
 
 
     public function registerAsVendor()
     {
-        $data = file_get_contents('php://input');
+        try {
+            $data = file_get_contents('php://input');
 
-        $parsed_data = json_decode($data,true);
-
-        $email=$parsed_data['email'];
-        $password=$parsed_data['password'];
-        $businessName=$parsed_data['businessName'];
-        $type=$parsed_data['type'];
-        $contact=$parsed_data['contact'];
-        $address=$parsed_data['address'];
-        $bankAcc=$parsed_data['bankAcc'];
-
-        if(empty($email)||empty($password)||empty($businessName)||empty($type)||empty($contact)||empty($address)||empty($bankAcc)){
-            header('HTTP/1.1 400 Bad Request');
-            echo json_encode(['error' => 'All details are required']);
-            return;
-        }
-
-        $hashedPassword = password_hash($password,PASSWORD_BCRYPT);
-
-        if(($vendorID=$this->vendorModel->createVendor($email,$hashedPassword,$businessName,$type,$contact,$address,$bankAcc))){
-
-            session_start();
-            $_SESSION['email']=$email;
-            $_SESSION['logged_in']=true;
-            $_SESSION['vendorID']=$vendorID;
-
-            header('Content-Type: application/json; charset=utf-8');
-            error_log("Create a vendor");
-            error_log(json_encode(['message' => 'Vendor Registration successful']));
-            echo json_encode(['message' => 'Vendor Registration successful']);
-
-        }
-
-        else{
+            $parsed_data = json_decode($data,true);
+    
+            $email=$parsed_data['email'];
+            $password=$parsed_data['password'];
+            $businessName=$parsed_data['businessName'];
+            $type=$parsed_data['type'];
+            $contact=$parsed_data['contact'];
+            $address=$parsed_data['address'];
+            $bankAcc=$parsed_data['bankAcc'];
+    
+            if(empty($email)||empty($password)||empty($businessName)||empty($type)||empty($contact)||empty($address)||empty($bankAcc)){
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'All details are required']);
+                return;
+            }
+            error_log("Something");
+    
+            $hashedPassword = password_hash($password,PASSWORD_BCRYPT);
+    
+            if(($vendorID=$this->vendorModel->createVendor($email,$hashedPassword,$businessName,$type,$contact,$address,$bankAcc))){
+    
+                session_start();
+                $_SESSION['email']=$email;
+                $_SESSION['logged_in']=true;
+                $_SESSION['vendorID']=$vendorID;
+    
+                header('Content-Type: application/json; charset=utf-8');
+                error_log("Create a vendor");
+                error_log(json_encode(['message' => 'Vendor Registration successful']));
+                echo json_encode(['message' => 'Vendor Registration successful']);
+    
+            }
+    
+            else{
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Vendor Registration failed']);
+            }
+        } catch (Exception $e) {
+            echo $e;
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Vendor Registration failed']);
         }
+       
     }
 
 
