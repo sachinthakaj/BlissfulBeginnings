@@ -4,10 +4,10 @@ body {
     padding: 0;
     background-color: #fff;
     color: #656233;
-  }
-  
-  /* Header Styles */
-  header {
+}
+
+/* Header Styles */
+header {
     background-color: #ddd;
     height: 10vh;
     padding: 10px;
@@ -21,34 +21,41 @@ body {
     width: 100%;
     top: 0;
     z-index: 1000;
-  }
-  
-  .nav-bar-logo-container {
+}
+
+.nav-bar-logo-container {
     height: 100%;
-  
-  }
-  
-  .nav-bar-logo {
+
+}
+
+.nav-bar-logo {
     max-height: 100%;
     max-width: auto;
     margin-right: 30px;
-  }
-  
-  .wedding-title {
+}
+
+.wedding-title {
     font-family: "Gwendolyn", cursive;
     font-size: 40px;
     color: #c1a42e;
     text-align: center;
     margin-left: 40px;
-  }
-  
-  .main-container {
+}
+
+.main-container {
     display: flex;
 }
 
 main {
     flex: 4;
-    padding: 20px;
+    padding: 40px;
+    margin-top: 10vh;
+}
+
+.box {
+    background-color: #ddd;
+    margin: 0 30px;
+    width: 100%;
 }
 
 .about {
