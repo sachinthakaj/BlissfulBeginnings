@@ -37,12 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             // Handle success (e.g., show a success message or redirect)
             console.log('Success:', data);
-            window.location.href = '/wedding-details'
+            window.location.href = '/dashboard'
         })
         .catch(error => {
             // Handle error (e.g., show an error message)
             console.error('Error registering:', error);
-            alert('SignUp failed, please try again.');
+            alert('SignUpfailed, please try again.');
         });
     });
 });

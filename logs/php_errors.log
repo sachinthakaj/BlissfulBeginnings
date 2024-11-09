@@ -458,3 +458,9 @@ Stack trace:
 [09-Nov-2024 12:45:55 Asia/Kolkata] numrows: 1
 [09-Nov-2024 12:45:55 Asia/Kolkata] Create a user
 [09-Nov-2024 12:45:55 Asia/Kolkata] {"message":"Registration successful"}
+[09-Nov-2024 15:59:28 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Cannot use object of type stdClass as array in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php:82
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): AuthController->login(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('POST', '/signin')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\AuthController.php on line 82
