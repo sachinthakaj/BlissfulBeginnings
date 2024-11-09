@@ -455,3 +455,10 @@ Stack trace:
 [06-Nov-2024 16:09:07 Asia/Kolkata] numrows: 1
 [06-Nov-2024 16:09:07 Asia/Kolkata] Create a user
 [06-Nov-2024 16:09:07 Asia/Kolkata] {"message":"Registration successful"}
+[09-Nov-2024 15:22:14 Asia/Kolkata] PHP Warning:  require_once(.\public\Salons.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 32
+[09-Nov-2024 15:22:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\public\Salons.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:32
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->salons(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/services/salon...')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 32

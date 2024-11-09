@@ -4,6 +4,7 @@ $router->get("/", "HomeController@index");
 $router->get("/about", "HomeController@about");
 $router->get("/contact", "HomeController@contact");
 $router->get("/services", "HomeController@services");
+$router->get("/services/salons", "HomeController@salons");
 
 $router->get("/register", "HomeController@Register");
 $router->post("/register", "AuthController@register");
