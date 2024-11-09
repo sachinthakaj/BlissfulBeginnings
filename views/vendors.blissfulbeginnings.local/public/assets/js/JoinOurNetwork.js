@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // options for business type
-  const businessType_list = document.getElementById("business-type");
+  const businessType_list = document.getElementById("businessType");
 
   businessType.forEach(element => {
     businessType_list.innerHTML += `<option value="${element}">${element}</option>`;
@@ -131,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    console.log(signupForm.type);
 
     // Validate form inputs
     const businessName = signupForm.name.value.trim();
@@ -153,13 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     const formData={
-      email:signupForm.email,
-      password:signupForm.password,
+      email:signupForm.email.value,
+      password:signupForm.password.value,
       businessName:businessName,
-      type:signupForm.type,
+      type:signupForm.businessType.value,
       contact:contact,
-      address:signupForm.address,
-      bankAcc:signupForm.account-number,
+      address:signupForm.address.value,
+      bankAcc:signupForm.accountNumber.value,
     }
     fetch('/register', {
       method: 'POST',
@@ -194,6 +195,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // If validation passes, submit the form (could be an AJAX call or form submission)
     console.log("Form submitted successfully!");
-    signupForm.submit();
   });
 });

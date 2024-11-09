@@ -38,6 +38,6 @@ class Planner
     {
         $this->db->query('SELECT * FROM planner WHERE email= :email');
         $this->db->bind(':email',$email);
-        return $this->db->single();
+        return $this->db->fetch(PDO::FETCH_ASSOC);
     }
 }

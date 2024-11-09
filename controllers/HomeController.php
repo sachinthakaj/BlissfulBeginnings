@@ -27,5 +27,9 @@ class HomeController {
     public function services() {
         require_once '.\public\Services.html';
     }
+
+    public function salons() {
+        require_once '.\public\Salons.php';
+    }
 }
 
