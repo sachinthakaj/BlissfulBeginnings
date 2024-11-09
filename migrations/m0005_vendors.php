@@ -13,7 +13,7 @@ class m0005_vendors {
   email varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   businessName varchar(255) NOT NULL,
-  typeID int(100) NOT NULL,
+  typeID varchar(20) NOT NULL,
   contact varchar(255) NOT NULL,
   address varchar(255) NOT NULL,
   bankAccDetails varchar(255) NOT NULL
