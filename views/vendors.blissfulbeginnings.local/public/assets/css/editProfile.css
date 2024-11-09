@@ -43,11 +43,13 @@ header {
 }
 
 .main-container {
+    justify-content: flex-start;
     display: flex;
 }
 
 main {
     flex: 4;
+    justify-content: flex-start;
     padding: 40px;
     margin-top: 10vh;
 }
