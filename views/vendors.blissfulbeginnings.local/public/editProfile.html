@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +8,47 @@
     <link rel="stylesheet" href="/public/assets/css/editProfile.css">
     <script defer src="/public/assets/js/editProfile.js"></script>
 </head>
+
 <body>
     <header>
         <div class="nav-bar-logo-container">
             <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
         <div class="wedding-title-container">
-            <h1 class="wedding-title"></h1>
+            <h1 class="wedding-title" id="name"></h1>
         </div>
     </header>
 
     <div class="main-container">
-
-    <main>
-        <section class="about">
-            <div class="profile-image">
-                <img src="path/to/placeholder.png" alt="Profile Image"> <!-- Placeholder for top circle -->
+        <div id="modal">
+            <div id="modal-content">
             </div>
-            <p class="description">
-                Trident Media is a premier wedding photography studio that specializes in transforming your special day into timeless memories. With a keen eye for detail and a passion for storytelling, Trident Media's team of professional photographers ensures that every candid smile, heartfelt glance, and cherished moment is beautifully captured.
-            </p>
-        </section>
+        </div>
 
-        <section class="packages">
-            <h2>Packages</h2>
-            <div id="packages-container">
-                <!-- Packages will be dynamically generated here -->
+        <main>
+            <div class="box">
+                <section class="about">
+                    <div class="profile-image">
+                        <img id="profile-image" alt="Profile Image"> <!-- Placeholder for top circle -->
+                    </div>
+                    <p class="description" id="description">
+                        <!-- Placeholder for description -->
+                    </p>
+                </section>
+
+                <section class="packages">
+                    <h2>Packages</h2>
+                    <div id="packages-container">
+                        <!-- Packages will be dynamically generated here -->
+                         <div class="package">
+                            <div class="details add-package">
+                                <img src="/public/assets/images/Plus.png" id="plus" alt="Package Image">
+                            </div>
+                         </div>
+                    </div>
+                </section>
             </div>
-        </section>
-    </main>
+        </main>
 </body>
+
 </html>
