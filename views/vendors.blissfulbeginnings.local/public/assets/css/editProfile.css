@@ -147,6 +147,7 @@ main {
     cursor: pointer;
     font-size: 20px; /* Adjust icon size */
     color: rgb(255, 255, 255); /* Icon color */
+    transition: font-size 0.3s ease; /* Adjust duration and timing */
 }
 
 .package:hover .delete-icon {
@@ -154,8 +155,8 @@ main {
 }
 
 .delete-icon:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 24px;
+   
 }
 
 .package:hover {
@@ -225,6 +226,22 @@ label {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #b69f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #a28c53;
 }
 
 
