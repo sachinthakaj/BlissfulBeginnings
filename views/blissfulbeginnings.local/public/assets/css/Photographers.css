@@ -55,7 +55,7 @@ header {
 }
 
 /* left side of the page */
-.more-about-salons {
+.more-about-photographers {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -222,7 +222,7 @@ header {
     transition: ease-in 1s;
 }
 
-.more-about-salons > .container {
+.more-about-photographers > .container {
     scale: 0.8;
     opacity: 0;
     animation: fade-in linear forwards;
@@ -238,7 +238,7 @@ header {
 }
 
 .right .right-content {
-    width: 28.6%;
+    width: 34.5%;
     height: 90vh;
     bottom: 0;
     right: 0;
@@ -258,7 +258,7 @@ header {
 
 .right-title {
     font-family: "Gwendolyn", cursive;
-    font-size: 120px;
+    font-size: 90px;
     color: #fff;
     font-weight: 700;
     line-height: 40px;

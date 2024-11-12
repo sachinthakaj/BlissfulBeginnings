@@ -31,5 +31,17 @@ class HomeController {
     public function salons() {
         require_once '.\public\Salons.php';
     }
+
+    public function dressDesigners() {
+        require_once '.\public\DressDesigners.php';
+    }
+
+    public function photographers() {
+        require_once '.\public\Photographers.php';
+    }
+
+    public function florists() {
+        require_once '.\public\Florists.php';
+    }
 }
 
