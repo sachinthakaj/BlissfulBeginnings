@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       acceptButton.textContent = "Accept";
       acceptButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        alert("Planner Accept the wedding");
+        window.location.href='/selectPackages';
       });
       card.appendChild(acceptButton);
 
