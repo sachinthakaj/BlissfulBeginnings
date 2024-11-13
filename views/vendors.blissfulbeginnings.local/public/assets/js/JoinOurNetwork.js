@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Handle success (e.g., show a success message or redirect)
       alert('Registration successful!');
       console.log('Success:', data);
-      window.location.href = '/wedding-details'
+      window.location.href = '/vendor/' + data.vendorID
   })
   .catch(error => {
       // Handle error (e.g., show an error message)

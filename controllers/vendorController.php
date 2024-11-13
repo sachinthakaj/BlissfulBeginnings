@@ -22,7 +22,7 @@ class vendorController
             'image' => "/public/assets/images/camera_1361782 1.png",
             'packages' => [
                 "123145678987654321" =>[
-                    'name' => 'Package 1',
+                    'packageName' => 'Package 1',
                     'features' => ['Feature 1', 'Feature 2', 'Feature 3'],
                     'price' => '$99.99',
                     'state' => 'published',
@@ -30,7 +30,7 @@ class vendorController
                     'cameraCoverage' => 1
                 ],
                 "123145678987654322" => [
-                    'name' => 'Package 2',
+                    'packageName' => 'Package 2',
                     'features' => ['Feature 4', 'Feature 5', 'Feature 6'],
                     'price' => '$149.99',
                     'state' => 'unpublished',
@@ -38,7 +38,7 @@ class vendorController
                     'cameraCoverage' => 2
                 ],
                 "123145678987654323" => [
-                    'name' => 'Package 3',
+                    'packageName' => 'Package 3',
                     'features' => ['Feature 4', 'Feature 5', 'Feature 6'],
                     'price' => '$149.99',
                     'state' => 'unapproved',

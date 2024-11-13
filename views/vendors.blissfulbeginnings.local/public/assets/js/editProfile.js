@@ -6,6 +6,15 @@ const vendorID = pathParts[pathParts.length - 1];
 const mainContainer = document.querySelector('.main-container');
 const newPackage = document.querySelector('.add-package');
 
+async function createPackage(event) {
+    event.preventDefault();
+    console.log(event.target);
+    const formData = new FormData(event.target);
+    const package = Object.fromEntries(formData.entries());
+
+    console.log(event);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.getElementById("loading-screen");
     const mainContent = document.getElementById("main-content");
@@ -45,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <form id="updateForm" onsubmit=updatePackage>
                             <div class="input-group">
                                 <label for="packageName">Package Name</label>
-                                <input type="text" id="packageName" name="packageName" value=${package.name} required>
+                                <input type="text" id="packageName" name="packageName" value=${package.packageName} required>
                             </div>
                             <div class="input-group">
                                 <label for="feature1">Feature 1</label>
@@ -109,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
             packageDiv.innerHTML = `
                 <div class="details">
                 <span class="delete-icon">🗑️</span>
-                        <div>${package.name}</div>
+                        <div>${package.packageName}</div>
                         <div>What's Included:</div>
                         <ul>
                             ${package.features.map(feature => `<li>${feature}</li>`).join('')}
@@ -125,49 +134,90 @@ document.addEventListener("DOMContentLoaded", () => {
         newPackage.addEventListener('click', () => {
             const modal = document.getElementById("modal");
             const modalContent = document.getElementById("modal-content");
-            modalContent.innerHTML = `<span class="close">&times;</span>
-    <h2>Create new Package</h2>
-    <form id="updateForm" onsubmit=createPackage>
-        <div class="input-group">
-            <label for="packageName">Package Name</label>
-            <input type="text" id="packageName" name="packageName" required>
-        </div>
-        <div class="input-group">
-            <label for="feature1">Feature 1</label>
-            <input type="text" id="feature1" name="feature1" required>
-        </div>
-        <div class="input-group">
-            <label for="feature2">Feature 2</label>
-            <input type="text" id="feature2" name="feature2" >
-        </div>
-        <div class="input-group">
-            <label for="feature3">Feature 3</label>
-            <input type="text" id="feature3" name="feature3" >
-        </div>
-        <div class="input-group">
-            <label for="fixedCost">Fixed Cost</label>
-            <input type="text" id="fixedCost" name="fixedCost"  required>
-        </div>
-        `;
-            console.log(vendorData);
+            modalContent.innerHTML = `
+                <span class="close">&times;</span>
+                <h2>Create new Package</h2>
+                <form id="createForm" >
+                    <div class="input-group">
+                        <label for="packageName">Package Name</label>
+                        <input type="text" id="packageName" name="packageName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="feature1">Feature 1</label>
+                        <input type="text" id="feature1" name="feature1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="feature2">Feature 2</label>
+                        <input type="text" id="feature2" name="feature2" >
+                    </div>
+                    <div class="input-group">
+                        <label for="feature3">Feature 3</label>
+                        <input type="text" id="feature3" name="feature3" >
+                    </div>
+                    <div class="input-group">
+                        <label for="fixedCost">Fixed Cost</label>
+                        <input type="text" id="fixedCost" name="fixedCost"  required>
+                    </div>
+                    <div class="submit-button">
+                        <button type="submit" class="submit-button">Submit</button>
+                    </div>
+                </form>`;
             vendorCreatePackageFunctions[vendorData.type](modalContent);
-            modalContent.innerHTML += `
-        <div class="submit-button">
-            <button type="submit">Submit</button>
-        </div>`
+
+
+            modalContent.querySelector("#createForm").addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.currentTarget);
+                const package = Object.fromEntries(formData.entries());
+                package["type"] = vendorData.type;
+                fetch('/vendor/' + vendorID + '/create-package', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(package),
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    } else {
+                        return response.json();
+                    }
+                }).then(response => {
+
+                    const packagesContainer = document.getElementById('packages-container');
+                    const packageDiv = document.createElement('div');
+                    packageDiv.classList.add('package');
+                    console.log(response);
+                    packageDiv.setAttribute("id", response.packageID);
+                    packageDiv.innerHTML = `
+                            <div class="details">
+                                <span class="delete-icon">🗑️</span>
+                                <div>${package.packageName}</div>
+                                <div>What's Included:</div>
+                                <ul>
+                                    <li>${package.feature1}</li>
+                                    ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
+                                    ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
+                                </ul>
+                                <div class="price">${package.fixedCost}</div>
+                            </div >
+                        `;
+                    modal.style.display = "none";
+                    packageDiv.addEventListener('click', (event) => openUpdateModal(event.currentTarget.id));
+                    packagesContainer.appendChild(packageDiv);
+
+                });
+            })
+
             modal.style.display = "block";
             var span = document.getElementsByClassName("close")[0];
 
             // When the user clicks on <span> (x), close the modal
             span.onclick = function () {
-                currentStep = 0;
                 modal.style.display = "none";
             }
 
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function (event) {
                 if (event.target == modal) {
-                    currentStep = 0;
                     modal.style.display = "none";
                 }
             }
@@ -183,17 +233,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const createPhotographerPackage = (modalContent) => {
-    modalContent.innerHTML += `
+    const div = document.createElement("div");
+    div.innerHTML = `
         <div class="input-group">
             <label for="cameraCoverage">Camera Coverage</label>
             <input type="text" id="cameraCoverage" name="cameraCoverage"  required>
-        </div>
-        </form>`;
+        </div>`
+    modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 };
 
 const createDressDesignerPackage = (modalContent) => {
     modalContent.innerHTML += `
-        <div class="input-group">
+                <div class="input-group">
             <label for="theme">Theme</label>
             <input type="text" id="theme" name="theme"  required>
         </div>
@@ -209,12 +260,12 @@ const createDressDesignerPackage = (modalContent) => {
                 <option value="Both">Both</option>
             </select>
         </div>
-        </form>`;
+        </form > `;
 };
 
 const createSalonPackage = (modalContent) => {
     modalContent.innerHTML += `
-                            <div class="input-group">
+                <div class="input-group">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" required>
                             </div>
@@ -226,13 +277,13 @@ const createSalonPackage = (modalContent) => {
                                     <option value="Both">Both</option>
                                 </select>
                             </div>
-                            </form>`;
+                            </form > `;
 
 };
 
 const createFloristPackage = (modalContent) => {
     modalContent.innerHTML += `
-                            <div class="input-group">
+                <div class="input-group">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" required>
                             </div>
@@ -243,7 +294,7 @@ const createFloristPackage = (modalContent) => {
                                     <option value="Fresh">Fresh</option>
                                 </select>
                             </div>
-                            </form>`;
+                            </form > `;
 
 };
 
@@ -261,7 +312,7 @@ const displayPhotographerPackage = (packageDetails, modalContent) => {
                                 <label for="cameraCoverage">Camera Coverage</label>
                                 <input type="text" id="cameraCoverage" name="cameraCoverage" value=${packageDetails.cameraCoverage} required>
                             </div>
-                            </form>`;
+                            </form > `;
 }
 const displayDressDesignerPackage = (packageDetails, divElement) => {
     modalContent.innerHTML += `<div class="input-group">
@@ -280,11 +331,11 @@ const displayDressDesignerPackage = (packageDetails, divElement) => {
                                     <option value="Both">Both</option>
                                 </select>
                             </div>
-                            </form>`;
+                            </form > `;
 }
 const displaySalonPackage = (packageDetails, divElement) => {
     modalContent.innerHTML += `
-                            <div class="input-group">
+                <div class="input-group">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
                             </div>
@@ -296,11 +347,11 @@ const displaySalonPackage = (packageDetails, divElement) => {
                                     <option value="Both">Both</option>
                                 </select>
                             </div>
-                            </form>`;
+                            </form > `;
 }
 const displayFloristPackage = (packageDetails, divElement) => {
     modalContent.innerHTML += `
-                            <div class="input-group">
+                <div class="input-group">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
                             </div>
@@ -311,7 +362,7 @@ const displayFloristPackage = (packageDetails, divElement) => {
                                     <option value="Fresh">Fresh</option>
                                 </select>
                             </div>
-                            </form>`;
+                            </form > `;
 }
 
 const vendorDisplayFunctions = {
