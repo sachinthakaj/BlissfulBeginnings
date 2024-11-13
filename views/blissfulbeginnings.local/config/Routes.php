@@ -5,6 +5,7 @@ $router->get("/about", "HomeController@about");
 $router->get("/contact", "HomeController@contact");
 $router->get("/services", "HomeController@services");
 $router->get("/services/salons", "HomeController@salons");
+$router->get("/services/salons/salondetails", "HomeController@salons");
 $router->get("/services/dress-designers", "HomeController@dressDesigners");
 $router->get("/services/photographers", "HomeController@photographers");
 $router->get("/services/florists", "HomeController@florists");
