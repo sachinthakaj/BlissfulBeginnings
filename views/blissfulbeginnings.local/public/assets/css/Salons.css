@@ -63,7 +63,7 @@ header {
     height: 70vh;
     padding-top: 20px;
     padding-bottom: 250px;
-    padding-left: 100px;
+    padding-left: 120px;
 }
 
 .left {
@@ -258,7 +258,7 @@ header {
 
 .right-title {
     font-family: "Gwendolyn", cursive;
-    font-size: 120px;
+    font-size: 90px;
     color: #fff;
     font-weight: 700;
     line-height: 40px;
@@ -271,4 +271,23 @@ header {
     color: #fff;
     font-weight: 400;
     line-height: 80px;
+}
+
+.back-button {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-input {
+    width: 400px;
+    height: 40px;
+    border-radius: 60px;
+    border: #c1a42e solid 1px;
+    padding: 12px;
+    margin-left: 30vw;
+    margin-top: 15px;
+}
+
+.search-input:focus {
+    outline: #656233 solid 1px;
 }

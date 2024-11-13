@@ -25,7 +25,10 @@
     <div class="main-container">
         <div class="left">
             <div class="back-button">
-                <a href="#" class="go-back"><img src="/public/assets/images/Photographers/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Services</span></a>
+                <a href="/services" class="go-back"><img src="/public/assets/images/Photographers/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Services</span></a>
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-input" />
+                </div>
             </div>
             <div class="more-about-photographers">
                 <!-- Javascript is mentioned here -->
