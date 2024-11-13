@@ -527,3 +527,10 @@ Stack trace:
 #3 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/wedding/data/0...')
 #4 {main}
   thrown in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php on line 41
+[13-Nov-2024 12:10:14 Asia/Kolkata] PHP Warning:  require_once(.\public\VendorProfile.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 48
+[13-Nov-2024 12:10:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\public\VendorProfile.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:48
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): HomeController->vendorProfilePage(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/vendor/1232131...')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 48
