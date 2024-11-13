@@ -63,7 +63,7 @@ header {
     height: 70vh;
     padding-top: 20px;
     padding-bottom: 250px;
-    padding-left: 100px;
+    padding-left: 120px;
 }
 
 .left {
@@ -258,7 +258,7 @@ header {
 
 .right-title {
     font-family: "Gwendolyn", cursive;
-    font-size: 120px;
+    font-size: 90px;
     color: #fff;
     font-weight: 700;
     line-height: 40px;

@@ -63,7 +63,7 @@ header {
     height: 70vh;
     padding-top: 20px;
     padding-bottom: 250px;
-    padding-left: 100px;
+    padding-left: 80px;
 }
 
 .left {
@@ -284,7 +284,7 @@ header {
     border-radius: 60px;
     border: #c1a42e solid 1px;
     padding: 12px;
-    margin-left: 30vw;
+    margin-left: 24vw;
     margin-top: 15px;
 }
 
