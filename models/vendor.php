@@ -11,46 +11,63 @@ class Vendor
 
     public function emailExists($email)
     {
-        $this->db->query('SELECT COUNT(*) FROM vendor WHERE email = :email');
-        $this->db->bind(':email',$email,PDO::PARAM_STR);
+        $this->db->query('SELECT COUNT(*) FROM vendors WHERE email = :email');
+        $this->db->bind(':email', $email, PDO::PARAM_STR);
         $this->db->execute();
         return $this->db->fetchColumn() > 0;
     }
-    
 
-    public function createVendor($email,$password,$businessName,$type,$contact,$address,$bankAcc)
+
+    public function createVendor($email, $password, $businessName, $type, $contact, $address, $bankAcc, $description)
     {
         try {
-            $UUID= generateUUID($this->db);
-            $this->db->query("INSERT INTO vendors (vendorID,email,password,businessName,typeID,contact,address,bankAccDetails) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:bankAcc);");
-            $this->db->bind(':uuid',$UUID,PDO::PARAM_LOB);
-            $this->db->bind(':email',$email,PDO::PARAM_STR);
-            $this->db->bind(':password',$password,PDO::PARAM_STR);
-            $this->db->bind(':businessName',$businessName,PDO::PARAM_STR);
-            $this->db->bind(':type',$type,PDO::PARAM_STR);
-            $this->db->bind(':contact',$contact,PDO::PARAM_STR);
-            $this->db->bind(':address',$address,PDO::PARAM_STR);
-            $this->db->bind(':bankAcc',$bankAcc,PDO::PARAM_STR);
-            $numRows= $this->db->execute();
+            $UUID = generateUUID($this->db);
+            $this->db->query("INSERT INTO vendors (vendorID,email,password,businessName,typeID,contact,address,bankAccDetails, description) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:bankAcc, :description);");
+            $this->db->bind(':uuid', $UUID, PDO::PARAM_LOB);
+            $this->db->bind(':email', $email, PDO::PARAM_STR);
+            $this->db->bind(':password', $password, PDO::PARAM_STR);
+            $this->db->bind(':businessName', $businessName, PDO::PARAM_STR);
+            $this->db->bind(':type', $type, PDO::PARAM_STR);
+            $this->db->bind(':contact', $contact, PDO::PARAM_STR);
+            $this->db->bind(':address', $address, PDO::PARAM_STR);
+            $this->db->bind(':bankAcc', $bankAcc, PDO::PARAM_STR);
+            $this->db->bind(':description', $description, PDO::PARAM_STR);
+            $numRows = $this->db->execute();
             error_log("numrows: $numRows");
-            if($numRows == 1){
+            if ($numRows == 1) {
                 return $UUID;
-            }
-            else{
+            } else {
                 return 0;
             }
         } catch (Exception $e) {
             echo $e;
             throw new Exception("Error Processing Request", 1);
-            
         }
-       
     }
 
     public function getVendorByEmail($email)
     {
-        $this->db->query('SELECT * FROM vendor WHERE email= :email');
-        $this->db->bind(':email',$email);
+        $this->db->query('SELECT * FROM vendors WHERE email= :email');
+        $this->db->bind(':email', $email);
         return $this->db->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+
+    public function getVendorDetailsAndPackages($vendorID)
+    {
+        $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
+        $this->db->bind(':vendorID',$vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+        $vendorDetails = $this->db->fetch(PDO::FETCH_ASSOC);
+        if ($vendorDetails) {
+            $vendorDetails['vendorID'] = bin2hex($vendorDetails['vendorID']);
+            $package = new Package();
+            $packageDetails = $package->getPackages($vendorID, $vendorDetails['typeID']);
+            $vendorDetails['packages'] = $packageDetails;
+            return $vendorDetails;
+        } else {
+            throw new Exception("Empty Set returned", 1);
+        }
     }
 }

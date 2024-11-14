@@ -161,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
       contact:contact,
       address:signupForm.address.value,
       bankAcc:signupForm.accountNumber.value,
+      description:signupForm.description.value,
     }
     fetch('/register', {
       method: 'POST',

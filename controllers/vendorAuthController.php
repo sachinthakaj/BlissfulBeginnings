@@ -38,8 +38,9 @@ class vendorAuthController
             $contact = $parsed_data['contact'];
             $address = $parsed_data['address'];
             $bankAcc = $parsed_data['bankAcc'];
+            $description = $parsed_data['description'];
 
-            if (empty($email) || empty($password) || empty($businessName) || empty($type) || empty($contact) || empty($address) || empty($bankAcc)) {
+            if (empty($email) || empty($password) || empty($businessName) || empty($type) || empty($contact) || empty($address) || empty($bankAcc) || empty($description)) {
                 header('HTTP/1.1 400 Bad Request');
                 echo json_encode(['error' => 'All details are required']);
                 return;
@@ -48,7 +49,7 @@ class vendorAuthController
 
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-            if (($vendorID = $this->vendorModel->createVendor($email, $hashedPassword, $businessName, $type, $contact, $address, $bankAcc))) {
+            if (($vendorID = $this->vendorModel->createVendor($email, $hashedPassword, $businessName, $type, $contact, $address, $bankAcc, $description))) {
 
                 session_start();
                 $_SESSION['email'] = $email;

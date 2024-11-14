@@ -59,7 +59,7 @@ class Package
             $this->db->execute();
 
 
-            switch ($packageDetails['type']) {
+            switch ($packageDetails['typeID']) {
                 case "Photographer":
                     $this->createPhotographyPackage($packageID, $packageDetails);
                     break;
@@ -82,6 +82,67 @@ class Package
             throw new Exception("Transaction failed: " . $e->getMessage());
         }
     }
+
+    public function getPackages($vendorID, $type) {
+        switch ($type) {
+            case "Photographer":
+                $this->getPhotographerPackages($vendorID);
+                break;
+            case "Dressmaker":
+                $this->getDressmakerPackages($vendorID);
+                break;
+            case "Salon":
+                $this->getSalonPackages($vendorID);
+                break;
+            case "Florist":
+                $this->getFloristPackages($vendorID);
+                break;
+            default:
+                throw new Exception("Data Integrity Violated", 1);
+        }
+        $packageDetails = [];
+        while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+            $packageID = bin2hex($row['packageID']);
+            unset($row['packageID'], $row['vendorID']);
+            $packageDetails[$packageID] = $row;
+        }
+        return $packageDetails;
+    }
+
+    public function getPhotographerPackages($vendorID) {
+        $this->db->query("SELECT packages.*, photographyPackages.* FROM photographyPackages INNER JOIN packages ON photographyPackages.packageID = packages.packageID 
+        INNER JOIN vendors ON packages.vendorID = vendors.vendorID
+        WHERE packages.vendorID = UNHEX(:vendorID);");
+        $this->db->bind(':vendorID', $vendorID);
+        $this->db->execute();
+        return ;
+    }
+
+    public function getDressmakerPackages($vendorID) {
+        $this->db->query("SELECT * FROM dressmakerPackages INNER JOIN packages ON dressmakerPackages.packageID = packages.packageID 
+        INNER JOIN vendors ON packages.vendorID = vendors.vendorID
+        WHERE packages.vendorID = UNHEX(:vendorID);");
+        $this->db->bind(':vendorID', $vendorID);
+        $this->db->execute();
+    }
+
+    public function getSalonPackages($vendorID) {
+        $this->db->query("SELECT * FROM salonPackages INNER JOIN packages ON salonPackages.packageID = packages.packageID 
+        INNER JOIN vendors ON packages.vendorID = vendors.vendorID
+        WHERE packages.vendorID = UNHEX(:vendorID);");
+        $this->db->bind(':vendorID', $vendorID);
+        $this->db->execute();
+    }
+
+    public function getFloristPackages($vendorID) {
+        $this->db->query("SELECT * FROM floristPackages INNER JOIN packages ON floristPackages.packageID = packages.packageID 
+        INNER JOIN vendors ON packages.vendorID = vendors.vendorID
+        WHERE packages.vendorID = UNHEX(:vendorID);");
+        $this->db->bind(':vendorID', $vendorID);
+        $this->db->execute();
+    }
+
+    
 
     public function fetchWeddingPackages($weddingID)
     {

@@ -9,7 +9,7 @@ $router->get("/vendor/{vendorID}", "vendorAuthController@VendorDash");
 
 
 $router->get("/edit-profile/{vendorID}", "vendorController@editProfilePage");
-$router->get("/edit-profile/vendor-details/{vendorID}", "vendorController@editProfile");
+$router->get("/edit-profile/vendor-details/{vendorID}", "vendorController@getVendorDetailsAndPackages");
 
 
 $router->post("/vendor/{vendorID}/create-package", "PackageController@createPackage");

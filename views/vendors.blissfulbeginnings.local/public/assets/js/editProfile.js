@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }).then(vendorData => {
         console.log(vendorData)
         // update title and description
-        document.getElementById('name').textContent = vendorData.name;
+        document.getElementById('name').textContent = vendorData.businessName;
         document.getElementById('description').textContent = vendorData.description;
         document.getElementById("profile-image").setAttribute("src", vendorData.image);
 
@@ -58,22 +58,22 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                             <div class="input-group">
                                 <label for="feature1">Feature 1</label>
-                                <input type="text" id="feature1" name="feature1" value=${package.features[0]} required>
+                                <input type="text" id="feature1" name="feature1" value=${package.features1} required>
                             </div>
                             <div class="input-group">
                                 <label for="feature2">Feature 2</label>
-                                <input type="text" id="feature2" name="feature2" value=${package.features[1]}>
+                                <input type="text" id="feature2" name="feature2" value=${package.features2}>
                             </div>
                             <div class="input-group">
                                 <label for="feature3">Feature 3</label>
-                                <input type="text" id="feature3" name="feature3" value=${package.features[2]}>
+                                <input type="text" id="feature3" name="feature3" value=${package.features3}>
                             </div>
                             <div class="input-group">
                                 <label for="fixedCost">Fixed Cost</label>
                                 <input type="text" id="fixedCost" name="fixedCost" value=${package.fixedCost} required>
                             </div>
                             `;
-            vendorDisplayFunctions[vendorData.type](package, modalContent);
+            vendorDisplayFunctions[vendorData.typeID](package, modalContent);
             modalContent.innerHTML += `
                     <div class="submit-button">
                         <button type="submit">Submit</button>
@@ -121,7 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div>${package.packageName}</div>
                         <div>What's Included:</div>
                         <ul>
-                            ${package.features.map(feature => `<li>${feature}</li>`).join('')}
+                            <li>${package.feature1}</li>
+                            ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
+                            ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
                         </ul>
                         <div class="price">${package.fixedCost}</div>
                     </div>
@@ -162,14 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button type="submit" class="submit-button">Submit</button>
                     </div>
                 </form>`;
-            vendorCreatePackageFunctions[vendorData.type](modalContent);
+            vendorCreatePackageFunctions[vendorData.typeID](modalContent);
 
 
             modalContent.querySelector("#createForm").addEventListener("submit", async (event) => {
                 event.preventDefault();
                 const formData = new FormData(event.currentTarget);
                 const package = Object.fromEntries(formData.entries());
-                package["type"] = vendorData.type;
+                package["typeID"] = vendorData.typeID;
                 fetch('/vendor/' + vendorID + '/create-package', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
