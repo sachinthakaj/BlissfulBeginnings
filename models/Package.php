@@ -47,11 +47,11 @@ class Package
             $this->db->startTransaction();
             $packageID =  generateUUID($this->db);
             error_log($packageID);
-            $this->db->query("INSERT INTO packages (packageID, vendorID, name, feature1, feature2, feature3, fixedCost)
-             VALUES (UNHEX(:packageID), UNHEX(:vendorID), :name, :feature1, :feature2, :feature3, :fixedCost);");
+            $this->db->query("INSERT INTO packages (packageID, vendorID, packageName, feature1, feature2, feature3, fixedCost)
+             VALUES (UNHEX(:packageID), UNHEX(:vendorID), :packageName, :feature1, :feature2, :feature3, :fixedCost);");
             $this->db->bind(':packageID', $packageID, PDO::PARAM_LOB);
             $this->db->bind(':vendorID', $vendorID);
-            $this->db->bind(':name', $packageDetails['packageName']);
+            $this->db->bind(':packageName', $packageDetails['packageName']);
             $this->db->bind(':feature1', $packageDetails['feature1']);
             $this->db->bind(':feature2', $packageDetails['feature2']);
             $this->db->bind(':feature3', $packageDetails['feature3']);  
@@ -142,6 +142,28 @@ class Package
         $this->db->execute();
     }
 
+    public function updatePackage($vendorID, $packageID, $updatedPackageDetails) {
+        try {
+            $this->db->startTransaction();
+            $setPart = [];
+            $params = [];
+            foreach ($updatedPackageDetails["changedGeneralFields"] as $column => $value) {
+                $setPart[] = "$column = :$column";
+                $params[":$column"] = $value;
+            }
+            $params[':packageID'] = hex2bin($packageID);
+            $setPartString = implode(', ', $setPart);
+            $sql = "UPDATE packages SET $setPartString WHERE packageID = :packageID";
+            error_log($sql);
+            $this->db->query($sql);
+            $this->db->execute($params);
+            $this->db->commit();
+            return $packageID;
+    } catch (PDOException $e) {
+        error_log($e);
+        return false;
+    }
+}
     
 
     public function fetchWeddingPackages($weddingID)

@@ -10,7 +10,7 @@ class m0007_packages {
       $SQL = "CREATE TABLE `packages` (
         `packageID` BINARY(16)  PRIMARY KEY,
         `vendorID` Binary(16)  NOT NULL,
-        `name` varchar(255) NOT NULL,
+        `packageName` varchar(255) NOT NULL,
         `feature1` varchar(120) NOT NULL,
         `feature2` varchar(120),
         `feature3` varchar(120),

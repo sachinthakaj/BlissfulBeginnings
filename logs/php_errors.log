@@ -519,3 +519,111 @@ Stack trace:
 [14-Nov-2024 16:59:43 Asia/Kolkata] PHP Warning:  Undefined array key "type" in C:\xampp\htdocs\BlissfulBeginnings\models\Package.php on line 62
 [14-Nov-2024 17:01:00 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/create-package
 [14-Nov-2024 17:01:00 Asia/Kolkata] fb8a59efa27b11efad5bcc153136262a
+[14-Nov-2024 17:15:38 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 17:15:38 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 17:15:38 Asia/Kolkata] /favicon.ico
+[14-Nov-2024 17:15:38 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 17:15:38 Asia/Kolkata] /edit-profile/undefined
+[14-Nov-2024 17:16:56 Asia/Kolkata] /register
+[14-Nov-2024 17:16:56 Asia/Kolkata] /edit-profile/undefined
+[14-Nov-2024 17:16:56 Asia/Kolkata] /favicon.ico
+[14-Nov-2024 17:16:56 Asia/Kolkata] /edit-profile/undefined
+[14-Nov-2024 17:18:55 Asia/Kolkata] /edit-profile/25e4883ea1f411efad5bcc153136262a
+[14-Nov-2024 17:18:55 Asia/Kolkata] /edit-profile/vendor-details/25e4883ea1f411efad5bcc153136262a
+[14-Nov-2024 17:18:55 Asia/Kolkata] /favicon.ico
+[14-Nov-2024 17:18:55 Asia/Kolkata] Vendor ID: 25e4883ea1f411efad5bcc153136262a
+[14-Nov-2024 17:18:55 Asia/Kolkata] /edit-profile/undefined
+[14-Nov-2024 17:20:07 Asia/Kolkata] /edit-profile/25e4883ea1f411efad5bcc153136262a
+[14-Nov-2024 17:20:07 Asia/Kolkata] /edit-profile/vendor-details/25e4883ea1f411efad5bcc153136262a
+[14-Nov-2024 17:20:07 Asia/Kolkata] /favicon.ico
+[14-Nov-2024 17:20:07 Asia/Kolkata] Vendor ID: 25e4883ea1f411efad5bcc153136262a
+[14-Nov-2024 17:20:07 Asia/Kolkata] /edit-profile/undefined
+[14-Nov-2024 17:34:03 Asia/Kolkata] /edit-profile/undefined
+[14-Nov-2024 20:06:05 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:06:05 Asia/Kolkata] /favicon.ico
+[14-Nov-2024 20:06:05 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:06:05 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:06:05 Asia/Kolkata] PHP Parse error:  syntax error, unexpected token "public" in C:\xampp\htdocs\BlissfulBeginnings\models\Package.php on line 163
+[14-Nov-2024 20:06:17 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:06:17 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:06:17 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:06:17 Asia/Kolkata] PHP Parse error:  syntax error, unexpected token "public" in C:\xampp\htdocs\BlissfulBeginnings\models\Package.php on line 163
+[14-Nov-2024 20:06:17 Asia/Kolkata] /favicon.ico
+[14-Nov-2024 20:19:34 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:19:34 Asia/Kolkata] /favicon.ico
+[14-Nov-2024 20:19:34 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:19:34 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[14-Nov-2024 20:19:34 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 21:17:39 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:17:39 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:17:39 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:17:39 Asia/Kolkata] /favicon.ico
+[16-Nov-2024 21:17:39 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 21:18:16 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/update-packagefb8a59efa27b11efad5bcc153136262a
+[16-Nov-2024 21:18:41 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:18:41 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:18:41 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:18:41 Asia/Kolkata] /favicon.ico
+[16-Nov-2024 21:18:41 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 21:18:54 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/update-packagefb8a59efa27b11efad5bcc153136262a
+[16-Nov-2024 21:19:26 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:19:26 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:19:26 Asia/Kolkata] /favicon.ico
+[16-Nov-2024 21:19:26 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:19:26 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 21:19:36 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/update-package/fb8a59efa27b11efad5bcc153136262a
+[16-Nov-2024 21:19:36 Asia/Kolkata] PHP Warning:  Undefined array key "changedWeddingFields" in C:\xampp\htdocs\BlissfulBeginnings\models\Package.php on line 149
+[16-Nov-2024 21:19:36 Asia/Kolkata] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\BlissfulBeginnings\models\Package.php on line 149
+[16-Nov-2024 21:19:36 Asia/Kolkata] PHP Warning:  Undefined variable $weddingID in C:\xampp\htdocs\BlissfulBeginnings\models\Package.php on line 153
+[16-Nov-2024 21:19:36 Asia/Kolkata] PHP Deprecated:  hex2bin(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\Package.php on line 153
+[16-Nov-2024 21:19:36 Asia/Kolkata] UPDATE wedding SET  WHERE weddingID = :weddingID
+[16-Nov-2024 21:19:36 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE weddingID = ''' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Package.php(158): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\PackageController.php(42): Package->updatePackage('af3689eca27a11e...', 'fb8a59efa27b11e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): PackageController->updatePackage(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('POST', '/vendor/af3689e...')
+#5 {main}
+[16-Nov-2024 21:22:51 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:22:51 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:22:51 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:22:51 Asia/Kolkata] /favicon.ico
+[16-Nov-2024 21:22:51 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 21:22:59 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/update-package/fb8a59efa27b11efad5bcc153136262a
+[16-Nov-2024 21:22:59 Asia/Kolkata] UPDATE wedding SET feature3 = :feature3 WHERE weddingID = :weddingID
+[16-Nov-2024 21:22:59 Asia/Kolkata] PDOException: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Package.php(159): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\PackageController.php(42): Package->updatePackage('af3689eca27a11e...', 'fb8a59efa27b11e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): PackageController->updatePackage(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('POST', '/vendor/af3689e...')
+#5 {main}
+[16-Nov-2024 21:24:17 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:24:18 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:24:18 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 21:24:18 Asia/Kolkata] /favicon.ico
+[16-Nov-2024 21:24:18 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 21:24:20 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/update-package/fb8a59efa27b11efad5bcc153136262a
+[16-Nov-2024 21:24:20 Asia/Kolkata] UPDATE packages SET  WHERE packageID = :packageID
+[16-Nov-2024 21:24:20 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE packageID = '??Y??{??[?16&*'' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Package.php(159): Database->execute(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\PackageController.php(42): Package->updatePackage('af3689eca27a11e...', 'fb8a59efa27b11e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): PackageController->updatePackage(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('POST', '/vendor/af3689e...')
+#5 {main}
+[16-Nov-2024 21:25:17 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 21:25:26 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/update-package/fb8a59efa27b11efad5bcc153136262a
+[16-Nov-2024 21:25:26 Asia/Kolkata] UPDATE packages SET feature3 = :feature3 WHERE packageID = :packageID
+[16-Nov-2024 21:26:32 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/create-package
+[16-Nov-2024 21:26:32 Asia/Kolkata] 7331d0f1a43311efad5bcc153136262a
+[16-Nov-2024 23:16:09 Asia/Kolkata] /edit-profile/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 23:16:09 Asia/Kolkata] /edit-profile/vendor-details/af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 23:16:09 Asia/Kolkata] Vendor ID: af3689eca27a11efad5bcc153136262a
+[16-Nov-2024 23:16:09 Asia/Kolkata] /favicon.ico
+[16-Nov-2024 23:16:09 Asia/Kolkata] /edit-profile/undefined
+[16-Nov-2024 23:16:35 Asia/Kolkata] /vendor/af3689eca27a11efad5bcc153136262a/create-package
+[16-Nov-2024 23:16:35 Asia/Kolkata] d33a04c3a44211efad5bcc153136262a
