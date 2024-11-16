@@ -10,8 +10,10 @@ class m0007_packages {
       $SQL = "CREATE TABLE `packages` (
         `packageID` BINARY(16)  PRIMARY KEY,
         `vendorID` Binary(16)  NOT NULL,
-        `name` varchar(255) NOT NULL,
-        `description` varchar(511),
+        `packageName` varchar(255) NOT NULL,
+        `feature1` varchar(120) NOT NULL,
+        `feature2` varchar(120),
+        `feature3` varchar(120),
         `fixedCost` int(10) NOT NULL,
 
   CONSTRAINT Package_fk FOREIGN KEY (vendorID) REFERENCES vendors(vendorID)
@@ -54,11 +56,12 @@ class m0007_packages {
     }
 
     public function down() {
-      $SQL = "DROP TABLE packages;
+      $SQL = "
       DROP TABLE photographyPackages;
       DROP TABLE dressmakerPackages;
       DROP TABLE salonPackages;
-      DROP TABLE floristPackages;";
+      DROP TABLE floristPackages;
+      DROP TABLE packages;";
       $this->dbh->exec($SQL);
     }
 }

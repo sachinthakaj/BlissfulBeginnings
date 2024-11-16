@@ -16,7 +16,8 @@ class m0005_vendors {
   typeID varchar(20) NOT NULL,
   contact varchar(255) NOT NULL,
   address varchar(255) NOT NULL,
-  bankAccDetails varchar(255) NOT NULL
+  bankAccDetails varchar(255) NOT NULL,
+  description varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
               $this->dbh->exec($SQL);
     }
