@@ -29,3 +29,4 @@ $router->get("/wedding/couple-details/{weddingID}", "CustomerController@fetchPer
 $router->put("/update-wedding/{weddingID}","WeddingController@update");
 
 $router->get("/package-assignments/{weddingID}", "CustomerController@packages");    
+$router->get("/reccomendations/{weddingID}", "CustomerController@getReccomendations");

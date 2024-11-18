@@ -14,49 +14,56 @@
 </head>
 
 <body>
-    <header>
-        <div class="nav-bar-logo-container">
-            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
-        </div>
-        <div class="wedding-title-container">
-            <h1 class="wedding-title"></h1>
-        </div>
-        <button class="pay-now">Pay Now</button>
-    </header>
 
-    <div class="main-container">
-
-
-        <main>
-            <div class="time-remaining-container">
-                <h2 id="days-left"></h2>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+    <div id="main-content" style="display: none;">
+        <header>
+            <div class="nav-bar-logo-container">
+                <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
             </div>
+            <div class="wedding-title-container">
+                <h1 class="wedding-title"></h1>
+            </div>
+            <button class="pay-now">Pay Now</button>
+        </header>
 
-            <div class="progress-bars">
-                <div class="progress-bar-container">
-                    <label>Wedding Progress</label>
-                    <div class="bar"></div>
-                    <div class="bar wedding-progress-bar" id="wedding-progress-bar"></div>
+        <div class="main-container">
+
+
+            <main>
+                <div class="time-remaining-container">
+                    <h2 id="days-left"></h2>
                 </div>
-                <div class="progress-bar-container">
-                    <label>Budget Progress</label>
-                    <div class="bar"></div>
-                    <div class="bar budget-progress-bar" id="budget-progress-bar"></div>
+
+                <div class="progress-bars">
+                    <div class="progress-bar-container">
+                        <label>Wedding Progress</label>
+                        <div class="bar"></div>
+                        <div class="bar wedding-progress-bar" id="wedding-progress-bar"></div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <label>Budget Progress</label>
+                        <div class="bar"></div>
+                        <div class="bar budget-progress-bar" id="budget-progress-bar"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="vendor-grid">
+                <div class="vendor-grid">
 
-            </div>
-        </main>
+                </div>
+            </main>
 
-        <aside style="flex: 1;">
-            <div class="chat-container"></div>
-            <div class="text-field">
-                <input class="chat-type-field">
-                <button class="chat-send-button">Send</button>
-            </div>
-        </aside>
+            <aside style="flex: 1;">
+                <div class="chat-container"></div>
+                <div class="text-field">
+                    <input class="chat-type-field">
+                    <button class="chat-send-button">Send</button>
+                </div>
+            </aside>
+        </div>
     </div>
     <script src="/public/assets/js/CustomerWeddingDashboard.js"></script>
 </body>

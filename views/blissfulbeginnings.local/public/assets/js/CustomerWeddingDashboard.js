@@ -8,15 +8,30 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
+function showNotification(message, color) {
+    // Create notification element
+    const notification = document.createElement("div");
+    notification.textContent = message;
+    notification.style.position = "fixed";
+    notification.style.bottom = "20px";
+    notification.style.left = "20px";
+    notification.style.backgroundColor = color;
+    notification.style.color = "white";
+    notification.style.padding = "10px 20px";
+    notification.style.borderRadius = "5px";
+    notification.style.zIndex = 1000;
+    notification.style.fontSize = "16px";
 
-const vendors = [
-    { name: 'Salon 1', type: "Groom's Salon", progress: 60, budget: 40 },
-    { name: 'Salon 2', type: "Bride's Salon", progress: 60, budget: 40 },
-    { name: 'Dressmaker 1', type: "Bride's Dressmaker", progress: 60, budget: 40 },
-    { name: 'Dressmaker 2', type: "Groom's Dressmaker", progress: 60, budget: 40 },
-    { name: 'Photographer', type: 'Photographer', progress: 100, budget: 40 },
-    { name: 'Florist', type: 'Florist', progress: 60, budget: 40 },
-];
+    // Append to body
+    document.body.appendChild(notification);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+
 
 function createVendorCard(vendor) {
     return `
@@ -215,28 +230,6 @@ function newWedding(data) {
                 });
 
                 // Function to display the notification
-                function showNotification(message, color) {
-                    // Create notification element
-                    const notification = document.createElement("div");
-                    notification.textContent = message;
-                    notification.style.position = "fixed";
-                    notification.style.bottom = "20px";
-                    notification.style.left = "20px";
-                    notification.style.backgroundColor = color;
-                    notification.style.color = "white";
-                    notification.style.padding = "10px 20px";
-                    notification.style.borderRadius = "5px";
-                    notification.style.zIndex = 1000;
-                    notification.style.fontSize = "16px";
-
-                    // Append to body
-                    document.body.appendChild(notification);
-                
-                    // Remove after 3 seconds
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 3000);
-                }
 
                 form.addEventListener("submit", (event) => {
                     event.preventDefault(); // Prevents default form submission
@@ -244,7 +237,7 @@ function newWedding(data) {
                     fetch("/update-wedding/" + weddingID, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({changedWeddingFields, changedBrideFields, changedGroomFields}),
+                        body: JSON.stringify({ changedWeddingFields, changedBrideFields, changedGroomFields }),
                     }).then(response => {
                         currentStep = 0;
                         modal.style.display = "none";
@@ -362,39 +355,166 @@ const ongoing = (data) => {
 
         })
     } catch (e) {
-
+        console.error(e);
     }
 }
 
-function getNames() {
-    Names = {
-        brideName: "Samantha",
-        groomName: "Keerthi",
+const unassigned = (data) => {
+    try {
+        fetch('/reccomendations/' + weddingID, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
+            }
+        }).then(response => {
+            if (!response.ok) {
+                alert(response);
+                if (response.status === 401) {
+                    window.location.href = '/signin';
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            }
+            return response.json();
+        }).then(response => {
+            let selectedPackages = {};
+            currentStepCounter = 0;
+            vendorGrid.innerHTML = `
+            <div class="step current">
+                <div class="package-selector" id="salon-package-selector">
+                    <div class="package-selector-information">
+                    <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
+                    <p>Choose a Salon Package</p>
+                    </div>
+                    <div class="reccomendation-grid" id="Salons"></div>
+                    <button class="next-button">Next</button>
+                </div>
+            </div>
+            <div class="step">
+                <div class="package-selector" id="photographer-package-selector">
+                    <div class="package-selector-information">
+                    <img src="/public/assets/images/camera_1361782 1.png" alt="picture of a Camera">
+                    <p>Choose a  Package</p>
+                    </div>
+                    <div class="reccomendation-grid" id="Photographers"></div>
+                    <button class="next-button">Next</button>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="package-selector" id="dressmaker-package-selector">
+                    <div class="package-selector-information">
+                    <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
+                    <p>Choose a Salon Package</p>
+                    </div>
+                    <div class="reccomendation-grid" id="Dressmakers"></div>
+                    <button class="next-button">Next</button>
+
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="package-selector" id="florist-package-selector">
+                    <div class="package-selector-information">
+                    <img src="/public/assets/images/nature_10601927 1.png" alt="picture of a Flower">
+                    <p>Choose a Salon Package</p>
+                    </div>
+                    <div class="reccomendation-grid" id="Florists"></div>
+                    <button class="submit-button">Submit</button>
+                </div>
+            </div>`
+                ;
+            vendorGrid.querySelectorAll('.next-button').forEach(btn => {
+                btn.addEventListener('click', (event) => {
+                    const currentStep = vendorGrid.querySelector('.step.current');
+                    const nextStep = currentStep.nextElementSibling;
+                    console.log(currentStepCounter);
+                    if (Object.keys(selectedPackages).length === currentStepCounter + 1) {
+                        currentStepCounter++;
+                        currentStep.classList.remove('current');
+                        nextStep.classList.add('current');
+                    } else {
+                        showNotification("Please select a package", "red");
+                    }
+                })
+            })
+            vendorGrid.querySelector('.submit-button').addEventListener('click', (event) => {
+                if (Object.keys(selectedPackages).length === currentStepCounter) {
+                    const packages = Object.values(selectedPackages);
+                    fetch('/assign-packages/' + weddingID, {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                        body: JSON.stringify(packages)
+                    }).then(response => {
+                        if (!response.ok) {
+                            alert(response);
+                            if (response.status === 401) {
+                                window.location.href = '/signin';
+                            } else {
+                                throw new Error('Network response was not ok');
+                            }
+                        } else {
+                            location.reload();
+                        }
+                    })
+                }
+            })
+
+            vendorGrid.querySelectorAll('.package-selector').forEach(packagesDiv => {
+                recGrid = packagesDiv.querySelector(".reccomendation-grid");
+                response[recGrid.id].forEach(package => {
+                    const packageDiv = document.createElement('div');
+                    packageDiv.classList.add('package');
+                    packageDiv.setAttribute("id", package.packageID);
+                    packageDiv.innerHTML += `
+                    <div class="package-details">
+                        <div>${package.packageName}</div>
+                        <div>What's Included:</div>
+                        <ul>
+                            <li>${package.feature1}</li>
+                            ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
+                            ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
+                        </ul>
+                        <div class="price">${package.fixedCost}</div>
+                        <btn class="visit">Visit Vendor</btn>
+                    </div>
+                    `
+                    packageDiv.querySelector('.visit').addEventListener('click', (event) => {
+                        window.location.href = '/vendor/' + package.vendorID;
+                    })
+                    packageDiv.addEventListener('click', (event) => {
+                        console.log(packageDiv.parentElement.id);
+                        if (packageDiv.classList.contains('active')) {
+                            delete selectedPackages[packageDiv.parentElement.id];
+                        } else {
+                            if (selectedPackages[packageDiv.parentElement.id]) {
+                                console.log(packageDiv.parentElement)
+                                packageDiv.parentElement.querySelector('#' + selectedPackages[packageDiv.parentElement.id]).classList.toggle('active');
+                            }
+                            selectedPackages[packageDiv.parentElement.id] = package.packageID;
+                        }
+                        packageDiv.classList.toggle('active');
+                        console.log(selectedPackages);
+                    });
+                    recGrid.appendChild(packageDiv);
+                }
+                )
+            })
+
+        }).catch()
+
+    } catch (e) {
+        console.error(e);
+        showNotification("Something went wrong", "red");
     }
-    return (Names.brideName + "'s & " + Names.groomName + "'s Wedding");
 }
 
-
-const getTimeRemaining = () => {
-    time = {
-        days: 21,
-    }
-    return (
-        `<h2>${time.days} days left...</h2>`
-    );
-}
-
-const getProgress = (wedding, budget) => {
-    progress = {
-        budget: 40,
-        wedding: 60,
-    }
-    wedding.style.width = `${progress.wedding}%`;
-    budget.style.width = `${progress.budget}%`;
-
-}
 
 function render() {
+    const loadingScreen = document.getElementById("loading-screen");
+    const mainContent = document.getElementById("main-content");
     try {
         fetch('/wedding/data/' + weddingID, {
             method: 'GET',
@@ -413,12 +533,17 @@ function render() {
         }).then(data => {
             if (data.weddingState === "new") {
                 newWedding(data);
-            } else if(data.weddingState === "ongoing") {
+            } else if (data.weddingState === "ongoing") {
                 ongoing(data);
+            } else if (data.weddingState === "unassigned") {
+                unassigned(data)
             }
+            loadingScreen.style.display = "none";
+            mainContent.style.display = "block";
         })
     } catch (error) {
-
+        console.error('Error fetching data early:', error)
+        loadingScreen.innerHTML = "<p>Error loading data. Please try again later.</p>";
     }
 }
 

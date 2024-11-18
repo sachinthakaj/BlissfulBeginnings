@@ -1,0 +1,49 @@
+
+header {
+    background-color: #ddd;
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+   
+    align-items: center;
+    border-radius: 8px;
+}
+
+.nav-bar-logo-container {
+    height: 100%;
+
+}
+
+.nav-bar-logo {
+    max-height: 100%;
+    max-width: auto;
+    align-items:left;
+}
+
+.number{
+    font-size: 170px;
+  font-family: "Gwendolyn";
+  color: #c1a42e;
+    margin-left: 630px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    margin-top: 170px;
+   
+}
+.string{
+    font-size: 25px;
+    text-align: center;
+    color:#c1a42e;
+    margin-left: 520px;
+}
+
+.button{
+    margin-left: 700px;
+    font-size: 18px;           
+    color: white;             
+    background-color: #c1a42e; 
+    padding: 10px 20px;      
+    border: none;              
+    border-radius: 5px;       
+    cursor: pointer;  
+}

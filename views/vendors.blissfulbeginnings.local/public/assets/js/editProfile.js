@@ -6,14 +6,6 @@ const vendorID = pathParts[pathParts.length - 1];
 const mainContainer = document.querySelector('.main-container');
 const newPackage = document.querySelector('.add-package');
 
-async function createPackage(event) {
-    event.preventDefault();
-    console.log(event.target);
-    const formData = new FormData(event.target);
-    const package = Object.fromEntries(formData.entries());
-
-    console.log(event);
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.getElementById("loading-screen");
