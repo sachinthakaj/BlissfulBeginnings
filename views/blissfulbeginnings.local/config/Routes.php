@@ -10,6 +10,9 @@ $router->get("/services/dress-designers", "HomeController@dressDesigners");
 $router->get("/services/photographers", "HomeController@photographers");
 $router->get("/services/florists", "HomeController@florists");
 
+$router->get("/vendor/{vendorID}","HomeController@vendorProfilePage");
+$router->get("/vendor/vendor-details/{vendorID}","HomeController@vendorProfile");
+$router->get("/vendor","vendorController@getVendors");
 $router->get("/register", "HomeController@Register");
 $router->post("/register", "AuthController@register");
 

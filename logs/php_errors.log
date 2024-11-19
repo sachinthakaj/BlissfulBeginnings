@@ -456,3 +456,35 @@ Stack trace:
 [06-Nov-2024 16:09:07 Asia/Kolkata] Create a user
 [06-Nov-2024 16:09:07 Asia/Kolkata] {"message":"Registration successful"}
 
+[19-Nov-2024 21:29:52 Asia/Kolkata] PHP Warning:  Undefined array key "vendorID" in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 42
+[19-Nov-2024 21:29:52 Asia/Kolkata] Vendor ID: 
+[19-Nov-2024 21:29:52 Asia/Kolkata] PHP Warning:  Undefined variable $venModel in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 43
+[19-Nov-2024 21:29:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function getVendors() on null in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): vendorController->getVendors(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/vendor')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 43
+[19-Nov-2024 21:30:44 Asia/Kolkata] PHP Warning:  Undefined array key "vendorID" in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 42
+[19-Nov-2024 21:30:44 Asia/Kolkata] Vendor ID: 
+[19-Nov-2024 21:30:44 Asia/Kolkata] PHP Warning:  Undefined variable $venModel in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 43
+[19-Nov-2024 21:30:44 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function getVendors() on null in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): vendorController->getVendors(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/vendor')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 43
+[19-Nov-2024 21:32:36 Asia/Kolkata] PHP Warning:  Undefined array key "vendorID" in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 42
+[19-Nov-2024 21:32:36 Asia/Kolkata] Vendor ID: 
+[19-Nov-2024 21:32:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Vendor::getVendors() in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): vendorController->getVendors(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/vendor')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 43
+[19-Nov-2024 21:40:02 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Vendor::getVendors() in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(74): vendorController->getVendors(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('GET', '/vendor')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 43
