@@ -18,7 +18,7 @@
             <header>
                 <div class="logo-container">
                     <img
-                        src=" /public/assets/images/Logo.png"
+                        src="/public/assets/images/Logo.png"
                         alt="Blissful Beginnings Logo"
                         class="logo" />
                 </div>
