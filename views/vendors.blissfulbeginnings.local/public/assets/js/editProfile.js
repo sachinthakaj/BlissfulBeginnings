@@ -6,14 +6,6 @@ const vendorID = pathParts[pathParts.length - 1];
 const mainContainer = document.querySelector('.main-container');
 const newPackage = document.querySelector('.add-package');
 
-async function createPackage(event) {
-    event.preventDefault();
-    console.log(event.target);
-    const formData = new FormData(event.target);
-    const package = Object.fromEntries(formData.entries());
-
-    console.log(event);
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.getElementById("loading-screen");
@@ -159,16 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
             let changedGeneralFields = {};
             let changedSpecificFields = {};
 
-            const updatePackage = () => {
-                console.log("Updating package");
-            }
-
-
-
             modalContent.innerHTML = `
                         <span class="close">&times;</span>
                         <h2>Update Package</h2>
-                        <form id="updateForm" onsubmit=updatePackage>
+                        <form id="updateForm">
                             <div class="input-group general">
                                 <label for="packageName">Package Name</label>
                                 <input type="text" id="packageName" name="packageName" value=${package.packageName} required>
@@ -207,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.addEventListener("change", (event) => {
                     const { name, value } = event.target;
                     changedSpecificFields[name] = value;
-                    console.log(`changedPackageFields`);
+                    console.log(changedPackageFields);
                 });
             });
 
@@ -355,7 +341,7 @@ const displayPhotographerPackage = (packageDetails, modalContent) => {
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
 }
-const displayDressDesignerPackage = (packageDetails, divElement) => {
+const displayDressDesignerPackage = (packageDetails, modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `<div class="input-group specific">
                                 <label for="theme">Theme</label>

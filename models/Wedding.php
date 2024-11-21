@@ -113,8 +113,8 @@ class Wedding
             $this->db->startTransaction();
             $weddingID =  generateUUID($this->db);
             error_log($weddingID);
-            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, budget, sepSalons, sepDressmakers, weddingstate)
-             VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressmakers, 'new')");
+            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, budget, sepSalons, sepDressDesigners, weddingstate)
+             VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressDesigners, 'new')");
             $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
             $this->db->bind(':userID', $_SESSION['userID']);
             $this->db->bind(':date', $weddingDetails['date']);
@@ -123,7 +123,7 @@ class Wedding
             $this->db->bind(':theme', $weddingDetails['theme']);
             $this->db->bind(':budget', $weddingDetails['budget']);
             $this->db->bind(':sepSalons', $weddingDetails['sepSalons']);
-            $this->db->bind(':sepDressmakers', $weddingDetails['sepDressmakers']);
+            $this->db->bind(':sepDressDesigners', $weddingDetails['sepDressDesigners']);
             $this->db->execute();
 
 

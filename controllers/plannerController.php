@@ -21,8 +21,8 @@ class plannerController {
     public function selectPackages_saloon(){
         require_once './public/selectPackages-saloon.php';
     }
-    public function selectPackages_dressmaker(){
-        require_once './public/selectPackages-dressmaker.php';
+    public function selectPackages_dressDesigner(){
+        require_once './public/selectPackages-dressDesigner.php';
     }
     public function selectPackages_photographer(){
         require_once './public/selectPackages-photographer.php';

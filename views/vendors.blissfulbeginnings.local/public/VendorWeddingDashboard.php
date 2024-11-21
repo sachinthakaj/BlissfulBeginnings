@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendor - Wedding Dashboard 1</title>
-    <link rel="stylesheet" href="\public\assets\js\VendorWeddingDashboard.js">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="../assets/js/VendorWeddingDashboard.js"></script>
+    <script src="/public/assets/js/VendorWeddingDashboard.js"></script>
+    <link rel="stylesheet" href="/public/assets/css/VendorWeddingDashboard.css"></script>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
     
             <div class="slide-container">
                 <button id="backBtn">
-                    <img src="/public/images/left-arrow-svgrepo-com.svg" alt="Left arrow" />
+                    <img src="/public/assets/images/left-arrow-svgrepo-com.svg" alt="Left arrow" />
                 </button>
                 
                 <div class="slide-content">

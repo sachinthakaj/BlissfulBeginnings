@@ -26,7 +26,7 @@ class m0007_packages {
   CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-      CREATE TABLE `dressmakerPackages` (
+      CREATE TABLE `dressDesignerPackages` (
         `packageID` BINARY(16)  PRIMARY KEY,
         `variableCost` int(10) NOT NULL,
         `theme` varchar(255) NOT NULL,
@@ -58,7 +58,7 @@ class m0007_packages {
     public function down() {
       $SQL = "
       DROP TABLE photographyPackages;
-      DROP TABLE dressmakerPackages;
+      DROP TABLE dressDesignerPackages;
       DROP TABLE salonPackages;
       DROP TABLE floristPackages;
       DROP TABLE packages;";

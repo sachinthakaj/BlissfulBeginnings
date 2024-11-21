@@ -11,6 +11,8 @@ $router->get("/vendor/{vendorID}", "vendorAuthController@VendorDash");
 $router->get("/edit-profile/{vendorID}", "vendorController@editProfilePage");
 $router->get("/edit-profile/vendor-details/{vendorID}", "vendorController@getVendorDetailsAndPackages");
 
+$router->get("/vendor/{vendorID}/wedding/{weddingID}", "vendorController@weddingDashboard");
+
 
 $router->post("/vendor/{vendorID}/create-package", "PackageController@createPackage");
 $router->post("/vendor/{vendorID}/delete-package/{packageID}", "PackageController@deletePackage");
