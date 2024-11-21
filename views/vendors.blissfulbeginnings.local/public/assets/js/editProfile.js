@@ -151,16 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
             let changedGeneralFields = {};
             let changedSpecificFields = {};
 
-            const updatePackage = () => {
-                console.log("Updating package");
-            }
-
-
-
             modalContent.innerHTML = `
                         <span class="close">&times;</span>
                         <h2>Update Package</h2>
-                        <form id="updateForm" onsubmit=updatePackage>
+                        <form id="updateForm">
                             <div class="input-group general">
                                 <label for="packageName">Package Name</label>
                                 <input type="text" id="packageName" name="packageName" value=${package.packageName} required>
@@ -199,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.addEventListener("change", (event) => {
                     const { name, value } = event.target;
                     changedSpecificFields[name] = value;
-                    console.log(`changedPackageFields`);
+                    console.log(changedPackageFields);
                 });
             });
 
@@ -347,7 +341,7 @@ const displayPhotographerPackage = (packageDetails, modalContent) => {
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
 }
-const displayDressDesignerPackage = (packageDetails, divElement) => {
+const displayDressDesignerPackage = (packageDetails, modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `<div class="input-group specific">
                                 <label for="theme">Theme</label>

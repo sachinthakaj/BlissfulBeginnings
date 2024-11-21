@@ -121,21 +121,24 @@ main {
 
 
 .vendor-grid {
+    position: grid;
     overflow: auto;
     height: 80vh;
     display: flex;
     flex-direction: column;
 }
 
-.step {
-    width: 100%;
+.package-step {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     position: absolute;
     display: none;
     align-items: center;
     justify-content: center;
 }
 
-.step.current {
+.package-step.current {
     display: block;
 }
 
@@ -277,6 +280,8 @@ aside {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    justify-content: center;
+    align-items: center;
 }
 
 /* Modal content */

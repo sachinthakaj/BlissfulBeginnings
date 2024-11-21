@@ -120,7 +120,7 @@ function newWedding(data) {
                                     </div>
                                     <div class="checkbox-group">
                                         <label><input type="checkbox" name="salon" id="sepSalons" ${data.sepSalons ? 'checked' : ''}     > Get the service of separate Salons for bride and groom</label>
-                                        <label><input type="checkbox" name="dressmakers" id="sepDressmakers" value=${data.sepDressmakers} > Get the service of separate Dress Makers for bride and groom</label>
+                                        <label><input type="checkbox" name="dressdesigner" id="sepDressDesigners" value=${data.sepDressDesigners} > Get the service of separate Dress Makers for bride and groom</label>
                                     </div>
                                     <br>
                                     <button type="button" id="nextBtn">Next</button>
@@ -379,54 +379,140 @@ const unassigned = (data) => {
         }).then(response => {
             let selectedPackages = {};
             currentStepCounter = 0;
-            vendorGrid.innerHTML = `
-            <div class="step current">
-                <div class="package-selector" id="salon-package-selector">
-                    <div class="package-selector-information">
-                    <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
-                    <p>Choose a Salon Package</p>
+            if (data.sepSalons) {
+                vendorGrid.innerHTML += `
+                <div class="package-step current">
+                    <div class="package-selector" id="bride-salon-package-selector">
+                        <div class="package-selector-information">
+                        <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
+                        <p>Choose Bride's Salon Package</p>
+                        </div>
+                        <div class="reccomendation-grid" id="BrideSalons"></div>
+                        <div class=step-buttons>
+                            <button class="next-button">Next</button>
+                            <button class="prev-button">Previous</button>
+                        </div>
                     </div>
-                    <div class="reccomendation-grid" id="Salons"></div>
-                    <button class="next-button">Next</button>
                 </div>
-            </div>
-            <div class="step">
+                <div class="package-step">
+                    <div class="package-selector" id="groom-salon-package-selector">
+                        <div class="package-selector-information">
+                        <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
+                        <p>Choose Groom's Salon Package</p>
+                        </div>
+                        <div class="reccomendation-grid" id="GroomSalons"></div>
+                        <div class=step-buttons>
+                            <button class="next-button">Next</button>
+                            <button class="prev-button">Previous</button>
+                        </div>
+                    </div>
+                </div>
+                `
+            } else {
+                vendorGrid.innerHTML += `
+                <div class="package-step current">
+                    <div class="package-selector" id="salon-package-selector">
+                        <div class="package-selector-information">
+                        <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
+                        <p>Choose a Salon Package</p>
+                        </div>
+                        <div class="reccomendation-grid" id="Salons"></div>
+                        <div class=step-buttons>
+                            <button class="next-button">Next</button>
+                            <button class="prev-button">Previous</button>
+                        </div>
+                    </div>
+                </div>
+                `
+            }
+            vendorGrid.innerHTML += `
+            <div class="package-step">
                 <div class="package-selector" id="photographer-package-selector">
                     <div class="package-selector-information">
                     <img src="/public/assets/images/camera_1361782 1.png" alt="picture of a Camera">
                     <p>Choose a  Package</p>
                     </div>
                     <div class="reccomendation-grid" id="Photographers"></div>
-                    <button class="next-button">Next</button>
+                    <div class=step-buttons>
+                        <button class="next-button">Next</button>
+                        <button class="prev-button">Previous</button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="step">
-                <div class="package-selector" id="dressmaker-package-selector">
-                    <div class="package-selector-information">
-                    <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
-                    <p>Choose a Salon Package</p>
+            `;
+            if (data.sepDressDesigners) {
+                vendorGrid.innerHTML += `
+                    <div class="package-step">
+                        <div class="package-selector" id="bride-dress-designer-package-selector">
+                            <div class="package-selector-information">
+                            <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
+                            <p>Choose a Bride's Dress Designer Package</p>
+                            </div>
+                            <div class="reccomendation-grid" id="BrideDressDesigner"></div>
+                            <div class=step-buttons>
+                                <button class="next-button">Next</button>
+                                <button class="prev-button">Previous</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="reccomendation-grid" id="Dressmakers"></div>
-                    <button class="next-button">Next</button>
-
-                </div>
-            </div>
-            
-            <div class="step">
-                <div class="package-selector" id="florist-package-selector">
-                    <div class="package-selector-information">
-                    <img src="/public/assets/images/nature_10601927 1.png" alt="picture of a Flower">
-                    <p>Choose a Salon Package</p>
+                    <div class="package-step">
+                        <div class="package-selector" id="groom-dress-desginer-package-selector">
+                            <div class="package-selector-information">
+                            <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
+                            <p>Choose a Grroom's Dress Designer Package</p>
+                            </div>
+                            <div class="reccomendation-grid" id="GroomDressDesigner"></div>
+                            <div class=step-buttons>
+                                <button class="next-button">Next</button>
+                                <button class="prev-button">Previous</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="reccomendation-grid" id="Florists"></div>
-                    <button class="submit-button">Submit</button>
-                </div>
-            </div>`
-                ;
+                    `
+            } else {
+                vendorGrid.innerHTML += `
+                    <div class="package-step">
+                        <div class="package-selector" id="dress-designer-package-selector">
+                            <div class="package-selector-information">
+                            <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
+                            <p>Choose Dress Designer Package</p>
+                            </div>
+                            <div class="reccomendation-grid" id="DressDesigner"></div>
+                            <div class=step-buttons>
+                                <button class="next-button">Next</button>
+                                <button class="prev-button">Previous</button>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+            }
+            vendorGrid.innerHTML += `
+                <div class="package-step">
+                    <div class="package-selector" id="florist-package-selector">
+                        <div class="package-selector-information">
+                        <img src="/public/assets/images/nature_10601927 1.png" alt="picture of a Flower">
+                        <p>Choose Florist Package</p>
+                        </div>
+                        <div class="reccomendation-grid" id="Florists"></div>
+                        <div class=step-buttons>
+                            <button class="prev-button">Previous</button>
+                            <button class="submit-button">Submit</button>
+                        </div>
+                    </div>
+                </div>`
+            vendorGrid.querySelector('.package-selector').querySelector('.prev-button').remove();
+            vendorGrid.querySelectorAll('.prev-button').forEach(prevButton=> {
+                prevButton.addEventListener('click', (event) => {
+                    currentStepCounter--;
+                    const currentStep = vendorGrid.querySelector('.package-step.current');
+                    const prevStep = currentStep.previousElementSibling;
+                    currentStep.classList.remove('current');
+                    prevStep.classList.add('current');
+                })
+            })
             vendorGrid.querySelectorAll('.next-button').forEach(btn => {
                 btn.addEventListener('click', (event) => {
-                    const currentStep = vendorGrid.querySelector('.step.current');
+                    const currentStep = vendorGrid.querySelector('.package-step.current');
                     const nextStep = currentStep.nextElementSibling;
                     console.log(currentStepCounter);
                     if (Object.keys(selectedPackages).length === currentStepCounter + 1) {
@@ -446,7 +532,7 @@ const unassigned = (data) => {
                         headers: {
                             "Content-type": "application/json"
                         },
-                        body: JSON.stringify(packages)
+                        body: JSON.stringify(selectedPackages)
                     }).then(response => {
                         if (!response.ok) {
                             alert(response);

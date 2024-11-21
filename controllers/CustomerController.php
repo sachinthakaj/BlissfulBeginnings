@@ -64,144 +64,54 @@ class CustomerController
                 header('HTTP/1.1 401 Unauthorized');
                 echo json_encode(['error' => 'Invalid UserID']);
             }
-        } catch (Exception) {
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching data']);
         }
     }
 
     public function getReccomendations($parameters)
     {
-        $data = [
-            "Salons" => [
-                [
-                    "packageID" => "asdfasdfasd",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd1",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd2",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-            ],
-            "Photographers" => [
-                [
-                    "packageID" => "asdfasdfasd3",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd4",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd5",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-            ],
-            "Dressmakers" => [
-                [
-                    "packageID" => "asdfasdfasd6",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd7",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd8",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-            ],
-            "Florists" => [
-                [
-                    "packageID" => "asdfasdfasd9",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd10",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-                [
-                    "packageID" => "asdfasdfasd11",
-                    "packageName" => "Deluxe",
-                    "vendorID" => "afasdfasd",
-                    "vendorName" => "asdfasdf",
-                    "feature1" => "adfasdfasd",
-                    "feature2" => "adfasdfasd",
-                    "feature3" => "adfasdfasd",
-                    "fixedCost" => 1234123
-                ],
-            ]
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Registration failed']);
+        }
+        try {
+            $package = new Package();
+            $recommendations = $package->fetchRecommendations($parameters['weddingID']);
+            if ($recommendations) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($recommendations);
+            } else {
+                header('HTTP/1.1 404 Resource Not Found');
+                echo json_encode(['error' => 'Resource not Found']);
+            }
 
-        ];
-
-        echo json_encode($data);
+        } catch (Exception $e ) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching data']);
+        }
+      
     }
+
+    public function setPackages($parameters) {
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Registration failed']);
+        }
+        try {
+            $data = file_get_contents('php://input');
+            $parsed_data = json_decode($data, true);
+            $package = new Package();
+            $package->setPackages($parameters['weddingID'], $parsed_data);
+
+
+        } catch(PDOException $e) {
+            error_log($e);
+        }
+    }
+
+    
 }

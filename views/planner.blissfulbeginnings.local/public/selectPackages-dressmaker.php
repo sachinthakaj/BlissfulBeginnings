@@ -23,7 +23,7 @@
                     class="logo"
                     />
                 </div>
-                <div class="page-title">Dressmaker Packages</div>
+                <div class="page-title">Dress Designer Packages</div>
             </header>
 
             <div class="package-cards"></div>
