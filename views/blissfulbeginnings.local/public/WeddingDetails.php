@@ -50,7 +50,7 @@
                 </div>
                 <div class="checkbox-group">
                     <label><input type="checkbox" name="salon" id="sepSalons"> Get the service of separate Salons for bride and groom</label>
-                    <label><input type="checkbox" name="dressmakers" id="sepDressmakers"> Get the service of separate Dress Makers for bride and groom</label>
+                    <label><input type="checkbox" name="dressDesigners" id="sepDressDesigners"> Get the service of separate Dress Makers for bride and groom</label>
                 </div>
                 <br>
                 <button type="button" id="nextBtn">Next</button>

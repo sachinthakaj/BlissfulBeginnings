@@ -18,7 +18,7 @@
             <header>
                 <div class="logo-container">
                     <img
-                        src=" /public/assets/images/Logo.png"
+                        src="/public/assets/images/Logo.png"
                         alt="Blissful Beginnings Logo"
                         class="logo" />
                 </div>
@@ -32,7 +32,7 @@
                         <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                         <h1>Salon</h1>
                     </button>
-                    <button class="card-button" onclick="window.location.href='/selectPackages-dressmaker'">
+                    <button class="card-button" onclick="window.location.href='/selectPackages-dress-designer'">
                         <img src="/public/assets/images/dress_14383759 1.png" alt="Dress Maker" />
                         <h1>Dress Maker</h1>
                     </button>

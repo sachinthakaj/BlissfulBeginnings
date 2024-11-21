@@ -8,10 +8,14 @@ class m0008_packageAssignment {
 
     public function up() {
       $SQL = "CREATE TABLE `packageAssignment` (
+        `assignmentID` BINARY(16)  PRIMARY KEY,
         `weddingID` BINARY(16)  NOT NULL,
         `packageID` Binary(16)  NOT NULL,
+        `typeID` ENUM('Photographer', 'Salon', 'BrideSalon', 'GroomSalon', 'Florist', 'BrideDressDesigner', 'GroomDressDesigner', 'DressDesigner') NOT NULL,
         `state` varchar(255) NOT NULL,
-        `progress` varchar(511),
+        `progress` decimal(5, 1) NOT NULL,
+
+        PRIMARY KEY (weddingID, packageID),
 
   CONSTRAINT WeddingID_fk FOREIGN KEY (weddingID) REFERENCES wedding(weddingID),
   CONSTRAINT PackageID_fk FOREIGN KEY (packageID) REFERENCES packages(packageID)

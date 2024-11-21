@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Select Packeges</title>
-        <link rel="stylesheet" href="./public/assets/css/selectPackages.css" />
+        <link rel="stylesheet" href="/public/assets/css/selectPackages.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -18,7 +18,7 @@
             <header>
                 <div class="logo-container">
                     <img
-                        src="./public/assets/images/Logo.png"
+                        src="/public/assets/images/Logo.png"
                         alt="Blissful Beginnings Logo"
                         class="logo" />
                 </div>
@@ -36,7 +36,7 @@
 
 
 
-        <script src="./public/assets/js/selectPackages.js"></script>
+        <script src="/public/assets/js/selectPackages.js"></script>
 
     </body>
 

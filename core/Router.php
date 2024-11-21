@@ -60,7 +60,9 @@ class Router
     }
     public function route(string $method, string $uri): bool {
         $result = dataGet($this->routes, $method .".". $uri);
-        if(!$result) abort("Route not found", 404);
+        if(!$result) {
+            require_once('../../core/404page.html');
+        }
 
         $controller = $result['controller'];
         $function = $result['method'];
