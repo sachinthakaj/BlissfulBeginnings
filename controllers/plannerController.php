@@ -3,6 +3,14 @@
 class plannerController {
     public function dashboard(){
         require_once './public/plannerDashboard.php';
+       
+    }
+
+    public function fetchWeddingData(){
+        $weddingModel = new Wedding();
+        $weddings=$weddingModel->getEveryWeddingData();
+        header('Content-Type:application/json');
+        echo json_encode($weddings);
     }
     public function plannerWedding(){
         require_once './public/plannerWeddingPage.php';

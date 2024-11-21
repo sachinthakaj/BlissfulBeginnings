@@ -1,70 +1,35 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const weddings = [
-    {
-      couple: "Mahima & Tharindi",
-      date: "23rd May",
-      time: "Day",
-      cost: "LKR 540,000.00",
-      location: "Gampaha District, Western",
-      type: "Western",
-      bridePhone: "0777456434",
-      groomPhone: "0768451122",
-      isNew: false,
-    },
-    {
-      couple: "Chamodya & Induma",
-      date: "23rd June",
-      time: "Night",
-      cost: "LKR 240,000.00",
-      location: "Colombo District, Western",
-      type: "Kandyan",
-      bridePhone: "0777456789",
-      groomPhone: "0768459352",
-      isNew: true,
-    },
-    {
-      couple: "Pamudu & Indumini",
-      date: "23rd May",
-      time: "Day",
-      cost: "LKR 540,000.00",
-      location: "Gampaha District, Western",
-      type: "Western",
-      bridePhone: "0777456434",
-      groomPhone: "0768451122",
-      isNew: true,
-    },
-    {
-      couple: "Ravindu & Hirushi",
-      date: "23rd May",
-      time: "Day",
-      cost: "LKR 540,000.00",
-      location: "Gampaha District, Western",
-      type: "Western",
-      bridePhone: "0777456434",
-      groomPhone: "0768451122",
-      isNew: false,
-    },
-  ];
 
+
+document.addEventListener("DOMContentLoaded", function () {
+  
   const weddingCardsContainer = document.querySelector(".wedding-cards");
+
+  fetch('/fetch-wedding-data')
+  .then(response => {
+    if(!response.ok) throw new Error("Network response was not ok");
+    return response.json();
+
+  })
+  .then(weddings => {
 
   weddings.forEach((wedding) => {
     const card = document.createElement("div");
     card.classList.add("wedding-card");
 
     card.innerHTML = `
-            <h3>${wedding.couple}'s Wedding</h3>
-            <p><strong>${wedding.date} - ${wedding.time}</strong></p>
+            <p>${wedding.weddingID}<p>
+            <p>${wedding.date}</p>
+            <p>${wedding.location}</p>
+            <p>${wedding.theme}</p>
             
         `;
 
     if (wedding.isNew) {
       card.innerHTML = `
-            <h3>${wedding.couple}'s Wedding</h3>
-            <p><strong>${wedding.date} - ${wedding.time}</strong></p>
-            <p>${wedding.cost}</p>
+            <p>${wedding.weddingID}<p>
+            <p>${wedding.date}</p>
             <p>${wedding.location}</p>
-            <p>${wedding.type}</p>
+            <p>${wedding.theme}</p>
         
         `;
       card.classList.add("new");
@@ -73,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       acceptButton.textContent = "Accept";
       acceptButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        window.location.href='/selectPackages';
+        window.location.href=`/selectPackages/${wedding.weddingID}`;
       });
       card.appendChild(acceptButton);
 
@@ -95,4 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     weddingCardsContainer.appendChild(card);
   });
+})
+.catch(error=>console.error("Error fetching wedding data:",error));
 });
