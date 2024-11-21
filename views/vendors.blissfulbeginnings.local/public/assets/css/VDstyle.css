@@ -1,9 +1,17 @@
-/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #fff;
+    overflow: hidden;
+    min-height: 100vh;
 }
 
 header {
@@ -11,249 +19,270 @@ header {
     height: 10vh;
     padding: 10px;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 8px;
+    border-bottom-left-radius: 10px;
 }
 
 .nav-bar-logo-container {
     height: 100%;
-
+    flex-shrink: 0; /* Prevent the logo from shrinking */
 }
 
 .nav-bar-logo {
     max-height: 100%;
     max-width: auto;
-    align-items: left;
 }
 
-.header-content h1 {
-    font-family: "Gwendolyn";
+.wedding-title-container {
+    flex-grow: 1; /* Allow the title to take up the middle space */
+    display: flex;
+    justify-content: left; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+}
+
+.wedding-title {
+    font-family: "Gwendolyn", cursive;
     font-size: 40px;
     color: #c1a42e;
+    text-align: center;
+    margin-left: 40px;
 }
 
 
-
-button {
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-button:hover {
-    background-color: #555;
-}
-
-/* Search Bar Styles */
-.search-container {
+.main-container {
     display: flex;
-    justify-content: left;
+}
+
+main {
+    flex: 4;
+    padding: 20px;
+}
+
+/* Go Back Link */
+.go-back {
+    display: flex;
     align-items: center;
-    margin: 20px;
-    position: relative;
+    margin: 20px 0;
+    color: #c1a42e;
+    text-decoration: none;
+    font-size: 15px;
 }
 
-.search-container input {
-    width: 1120px;
-    padding: 10px 40px; /* Adding space for the icon */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #ccc;
+.go-back:hover {
+    color: #656233;
+    transition: ease-in 0.3s;
 }
 
-.search-icon {
-    position: absolute;
-    left: 20px;
-    font-size: 18px;
-    color: gray;
+.go-back-arrow {
+    width: 15px;
+    margin-right: 8px;
+    transform: scale(-1);
 }
 
-/* Main Content */
-.main-content {
-    display: flex;
-    justify-content: flex-start;
-    padding: 20px;
-}
-
-/* Events Container with Grid Layout and Scroll */
-.events-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
-    gap: 20px;
-    max-height: 600px;
-    overflow-y: auto;
-    width: 80%;
-    padding: 20px;
-  
-}
-.events-container  h2{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
-    gap: 20px;
-    max-height: 600px;
-    overflow-y: auto;
-    width: 80%;
-    padding: 20px;
-    color: #656333;
-  
-}
-.p red{
-    color: red;
-}
-
-.event-card {
-    background-color: lightgrey;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 600px;
-    width: 300px;
+/* right hand side */
+aside {
+    height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-/* Wedding Progress and Budget Bars */
-.progress-bar, .budget-bar {
-    height: 15px;
-    border-radius: 5px;
-    background-color: #ddd;
-    margin-bottom: 10px;
-}
-
-.progress {
-    height: 100%;
-    border-radius: 5px;
-    background-color: #656233;
-}
-
-.budget {
-    height: 100%;
-    border-radius: 5px;
-    background-color: #C1A42E;
-}
-
-/* Modal Styles */
-.profile-edit-modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1;
-    left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.profile-edit-modal form {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 40%;
-    border-radius: 10px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input[type="text"],
-.form-group textarea {
-    width: 30%;
-    padding: 5px;
-    border: 1px solid gray;
+    padding: 0px 10px;
+    background-color: #ddd;
    
 }
 
-.form-group2 textarea {
-    width: 60%;
-    padding: 30px;
-  
+.chat-container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-.form-group textarea {
-    height: 100px;
-    resize: none;
+/* search bar */
+.search-input {
+    width: 100%;
+    height: 40px;
+    border-radius: 60px;
+    border: #c1a42e solid 1px;
+    padding: 12px;
+    margin-top: 15px;
 }
 
-.form-buttons {
-    display: flex;
-    justify-content:right;
-    gap: 15px;
-    margin-top: 30px;
+.search-input:focus {
+    outline: #656233 solid 1px;
 }
 
-.form-buttons button {
-    padding: 5px 20px;
-    border:none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
+.top-row {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 10px; 
 }
 
-#editProfileBtn {
-    color:#656333;
-    background-color: #ccc;
-    font-size: 16px;
-}
-
-#logout {
-    color:#656333;
-    background-color: #ccc;
-    font-size: 16px;
-}
-
-#cancelButton {
-    background-color:  #4a5d23;
-    color:white;
-}
-
-#saveButton {
+.view-packages-button {
     background-color: #c1a42e;
-    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 35px;
+    border: none;
 }
 
-/* File Upload Styles */
-.drop-zone {
-    border: 2px dashed #ccc;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    margin-top: 10px;
+.view-packages-button:hover {
+    background-color: #656233;
+    transition: ease-in 0.3s;
 }
 
-.drop-zone:hover {
-    border-color: #333;
+/* scroll bars */
+.slide-content::-webkit-scrollbar {
+    width: 7px;
 }
 
-.drop-zone img {
-    width: 50px;
-    height: 50px;
+.slide-content::-webkit-scrollbar-track {
+    background-color: #e0dcdc;
+    border-radius: 10px;
 }
 
-.drop-zone h3 {
-    margin: 10px 0;
+.slide-content::-webkit-scrollbar-thumb {
+    background-color: #c1a42e;
+    border-radius: 10px
+}
+
+.slide-content::-webkit-scrollbar-thumb:hover {
+    background-color: #656233;
+    transition: ease-in 1s;
+}
+
+/* card styling */
+.slide-container {
+    max-width: 1120px;
+    width: 100%;
+}
+
+.slide-content {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding: 10px 0;
+    justify-content: flex-start;
+    align-items: center;
+    height: 63vh;
+} 
+
+.card {
+    width: 280px;
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover {
+    box-shadow: 0 5px 10px #656233;
+    transform: scale(1.025);
+    transition: 0.5s ease-in-out;
+    transform: translateY(-5%);
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.image-content, .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px
+}
+
+.image-content {
+    row-gap: 5px;
+    position: relative;
+    padding: 25px 0;
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #c1a42e;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before, .overlay::after {
+    content: '';
+    right: 0;
+    bottom: -40px;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background-color: #c1a42e;
+}
+
+.overlay::after {
+    border-radius: 0 25px 0 0;
+    background-color: #fff;
+
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #c1a42e;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #656233;
+}
+
+.description {
+    font-size: 14px;
+    color: #707070;
+    text-align: center;;
+}
+
+.card-button {
+    border: none;
     font-size: 16px;
-}
-
-.drop-zone input[type="file"] {
-    display: none;
-}
-
-.close {
-    color: red;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+    color: #fff;
+    padding: 8px 16px;
+    background-color: #c1a42e;
+    border-radius: 6px;
+    margin: 14px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-button:hover {
+    background-color: #656233;
+}
+
+.slide-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
 }

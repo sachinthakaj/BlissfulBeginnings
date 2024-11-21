@@ -20,7 +20,7 @@ class m0002_weddings {
         numTasks int,
         currentCompleted int,
         sepSalons BOOLEAN, 
-        sepDressmakers BOOLEAN,
+        sepDressDesigners BOOLEAN,
         weddingState ENUM('new', 'unassigned', 'ongoing', 'finished') NOT NULL
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
               $this->dbh->exec($SQL);

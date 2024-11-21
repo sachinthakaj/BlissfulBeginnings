@@ -4,7 +4,8 @@ require_once './core/Config.php';
 loadEnv(__DIR__ . '/.env');
 
 class Migrations
-{   private static $instance = null;
+{
+    private static $instance = null;
 
     private $dbh;  // Database handler
     private $stmt; // Statement handler
@@ -13,7 +14,7 @@ class Migrations
     public function __construct()
     {
         // Set DSN (Data Source Name)
-        $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';port='. $_ENV['DB_PORT'] . ';dbname=' . $_ENV['DB_NAME'];
+        $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';port=' . $_ENV['DB_PORT'] . ';dbname=' . $_ENV['DB_NAME'];
         $options = array(
             PDO::ATTR_PERSISTENT => true,   // Persistent connection
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Error mode
@@ -56,9 +57,8 @@ class Migrations
             } catch (\Throwable $th) {
                 throw $th;
             }
-
         }
-            echo "All migrations are applied";
+        echo "All migrations are applied";
     }
 
     public function saveMigrations(array $migrations)
@@ -100,7 +100,7 @@ class Migrations
 
     public function undoLastMigration()
     {
-        $statement = $this->dbh->prepare("SELECT * FROM migrations ORDER BY created_at DESC LIMIT 1;");
+        $statement = $this->dbh->prepare("SELECT * FROM migrations ORDER BY id DESC LIMIT 1;");
         $statement->execute();
         $lastMigration = $statement->fetch(PDO::FETCH_OBJ);
         require_once './migrations/' . $lastMigration->migration;
@@ -114,10 +114,30 @@ class Migrations
             echo "Migration with id $lastMigration->id removed successfully";
         };
     }
+
+    public function undoAllMigrations()
+    {
+        $statement = $this->dbh->prepare("SELECT * FROM migrations ORDER BY id DESC;");
+        $statement->execute();
+        $migrations = $statement->fetchAll(PDO::FETCH_OBJ);
+        foreach ($migrations as $migration) {
+            require_once './migrations/' . $migration->migration;
+            $className = pathinfo($migration->migration, PATHINFO_FILENAME);
+            $instance = new $className($this->dbh);
+            echo "Removing migration $migration->migration" . PHP_EOL;
+            $instance->down();
+            echo "Removed migration $migration->migration" . PHP_EOL;
+            $statement = $this->dbh->prepare("DELETE FROM migrations WHERE id= $migration->id");
+            if ($statement->execute()) {
+                echo "Migration with id $migration->id removed successfully";
+            }
+        }
+        echo "All migrations are removed";	
+    }
 }
 
-$shortopts = "u";
-$longopts = ["undo"];
+$shortopts = "ua";
+$longopts = ["undo", "all"];
 
 $options = getopt($shortopts, $longopts);
 
@@ -126,6 +146,8 @@ $migrations = new Migrations();
 
 if (isset($options['u']) || isset($options['undo'])) {
     $migrations->undoLastMigration();
+} else if (isset($options['a']) || isset($options['all'])) {
+    $migrations->undoAllMigrations();
 } else {
     $migrations->applyMigrations();
 }

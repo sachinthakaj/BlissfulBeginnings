@@ -43,14 +43,14 @@ class Wedding
             error_log($sql);
             $this->db->query($sql);
             $this->db->execute($params);
-            if($updatedColumns["changedBrideFields"]){
+            if ($updatedColumns["changedBrideFields"]) {
                 $this->updatePerson($weddingID, $updatedColumns["changedBrideFields"], "Female");
             }
-            if($updatedColumns["changedGroomFields"]) {
+            if ($updatedColumns["changedGroomFields"]) {
                 $this->updatePerson($weddingID, $updatedColumns["changedGroomFields"], "Male");
             }
             $this->db->commit();
-            return true; 
+            return true;
         } catch (PDOException $e) {
             error_log(($e));
             $this->db->rollbackTransaction();
@@ -61,7 +61,7 @@ class Wedding
     public function updatePerson($weddingID, $updatedColumns, $gender)
     {
         try {
-            
+
             $setPart = [];
             $params = [];
             foreach ($updatedColumns as $column => $value) {
@@ -113,8 +113,8 @@ class Wedding
             $this->db->startTransaction();
             $weddingID =  generateUUID($this->db);
             error_log($weddingID);
-            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, budget, sepSalons, sepDressmakers, weddingstate)
-             VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressmakers, 'new')");
+            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, budget, sepSalons, sepDressDesigners, weddingstate)
+             VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressDesigners, 'new')");
             $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
             $this->db->bind(':userID', $_SESSION['userID']);
             $this->db->bind(':date', $weddingDetails['date']);
@@ -123,7 +123,7 @@ class Wedding
             $this->db->bind(':theme', $weddingDetails['theme']);
             $this->db->bind(':budget', $weddingDetails['budget']);
             $this->db->bind(':sepSalons', $weddingDetails['sepSalons']);
-            $this->db->bind(':sepDressmakers', $weddingDetails['sepDressmakers']);
+            $this->db->bind(':sepDressDesigners', $weddingDetails['sepDressDesigners']);
             $this->db->execute();
 
 
@@ -164,5 +164,23 @@ class Wedding
         $this->db->bind(":groomID", $groomID, PDO::PARAM_LOB);
         $this->db->execute();
         return;
+    }
+
+    public function getEveryWeddingData()
+    {
+        try {
+            $this->db->query("SELECT * from wedding ORDER BY isNew DESC, date ASC");
+            $this->db->execute();
+            $weddings = [];
+
+            while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+                $weddings[] = $row;
+            }
+
+            return $weddings;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
     }
 }

@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Select Packeges</title>
-        <link rel="stylesheet" href="./public/assets/css/selectPackages.css" />
+        <link rel="stylesheet" href="/public/assets/css/selectPackages.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -18,20 +18,21 @@
             <header>
                 <div class="logo-container">
                     <img
-                        src="./public/assets/images/Logo.png"
+                        src="/public/assets/images/Logo.png"
                         alt="Blissful Beginnings Logo"
                         class="logo" />
                 </div>
                 <div class="page-title">Vendor Packages</div>
             </header>
-            <div clas="main-body">
+            <div class="above-main">
+            <div class="main-body">
                 <div class="card-container">
 
                     <button class="card-button" onclick="window.location.href='/selectPackages-saloon'">
                         <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                         <h1>Salon</h1>
                     </button>
-                    <button class="card-button" onclick="window.location.href='/selectPackages-dressmaker'">
+                    <button class="card-button" onclick="window.location.href='/selectPackages-dress-designer'">
                         <img src="/public/assets/images/dress_14383759 1.png" alt="Dress Maker" />
                         <h1>Dress Maker</h1>
                     </button>
@@ -46,11 +47,12 @@
 
                 </div>
             </div>
+            </div>
         </div>
 
 
 
-        <script src="./public/assets/js/selectPackages.js"></script>
+        <script src=" /public/assets/js/selectPackages.js"></script>
 
     </body>
 

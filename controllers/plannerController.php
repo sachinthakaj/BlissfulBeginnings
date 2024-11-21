@@ -3,6 +3,14 @@
 class plannerController {
     public function dashboard(){
         require_once './public/plannerDashboard.php';
+       
+    }
+
+    public function fetchWeddingData(){
+        $weddingModel = new Wedding();
+        $weddings=$weddingModel->getEveryWeddingData();
+        header('Content-Type:application/json');
+        echo json_encode($weddings);
     }
     public function plannerWedding(){
         require_once './public/plannerWeddingPage.php';
@@ -13,8 +21,8 @@ class plannerController {
     public function selectPackages_saloon(){
         require_once './public/selectPackages-saloon.php';
     }
-    public function selectPackages_dressmaker(){
-        require_once './public/selectPackages-dressmaker.php';
+    public function selectPackages_dressDesigner(){
+        require_once './public/selectPackages-dressDesigner.php';
     }
     public function selectPackages_photographer(){
         require_once './public/selectPackages-photographer.php';

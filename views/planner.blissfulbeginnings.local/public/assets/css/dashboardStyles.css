@@ -67,7 +67,9 @@ body {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 15px;
     padding: 20px;
-    overflow-y: auto;
+    max-height: 500px; 
+    overflow-y: auto; 
+    
   }
   
   .wedding-card {
@@ -77,6 +79,7 @@ body {
     cursor: pointer;
     position: relative;
     min-width: 400px;
+    min-height: 200px;
   }
   
   .wedding-card:hover {

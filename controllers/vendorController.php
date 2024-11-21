@@ -35,6 +35,10 @@ class vendorController
    
     }
 
+    
+public function weddingDashboard($parameters) {
+    require_once '.\public\VendorWeddingDashboard.php';}
+
     public function getSalons()
     {
         try {
