@@ -12,7 +12,12 @@ $router->get("/services/florists", "HomeController@florists");
 
 $router->get("/vendor/{vendorID}","HomeController@vendorProfilePage");
 $router->get("/vendor/vendor-details/{vendorID}","HomeController@vendorProfile");
-$router->get("/vendor","vendorController@getVendors");
+
+$router->get("/get-salons","vendorController@getSalons");
+$router->get("/get-photographers","vendorController@getPhotographers");
+$router->get("/get-dressdesigners","vendorController@getDdesigners");
+$router->get("/get-florists","vendorController@getFlorists");
+
 $router->get("/register", "HomeController@Register");
 $router->post("/register", "AuthController@register");
 

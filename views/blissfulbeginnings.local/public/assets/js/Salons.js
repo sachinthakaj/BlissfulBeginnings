@@ -1,15 +1,15 @@
 
     function render() {
         try {
-            fetch('/salondetails/', {
+            fetch('/get-salons/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
             }).then(response => {
                 if (!response.ok) {
-                    if (response.status === 401) {
-                        window.location.href = '/SignIn';
+                    if (response.status === 403) {
+                        console.log("No Salons Found");
                     } else {
                         throw new Error('Network response was not ok');
                     }
@@ -18,14 +18,6 @@
                 
             }).then(data => {
                 const scrollContainer = document.querySelector('.more-about-salons');
-
-                const data = [
-                    { imgSrc: '/public/assets/images/Salons/Best Makeup for your Wedding Day.jpg', title: 'Company Name', rating: 4, description: 'Description of the salon is mentioned here Description of the salon is mentioned here Description of the salon is mentioned here ' },
-                    { imgSrc: '/public/assets/images/Salons/Best Makeup for your Wedding Day.jpg', title: 'Company Name', rating: 3, description: 'Description of the salon is mentioned here Description of the salon is mentioned here Description of the salon is mentioned here ' },
-                    { imgSrc: '/public/assets/images/Salons/Best Makeup for your Wedding Day.jpg', title: 'Company Name', rating: 1, description: 'Description of the salon is mentioned here Description of the salon is mentioned here Description of the salon is mentioned here ' },
-                    { imgSrc: '/public/assets/images/Salons/Best Makeup for your Wedding Day.jpg', title: 'Company Name', rating: 5, description: 'Description of the salon is mentioned here Description of the salon is mentioned here Description of the salon is mentioned here ' },
-                    { imgSrc: '/public/assets/images/Salons/Best Makeup for your Wedding Day.jpg', title: 'Company Name', rating: 2, description: 'Description of the salon is mentioned here Description of the salon is mentioned here Description of the salon is mentioned here ' },
-                ];
             
                 // Clear the container first
                scrollContainer.innerHTML = '';
