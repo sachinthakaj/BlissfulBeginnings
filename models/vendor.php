@@ -51,6 +51,29 @@ class Vendor
         $this->db->bind(':email', $email);
         return $this->db->fetch(PDO::FETCH_ASSOC);
     }
+    public function getSalons(){
+        $this->db->query('SELECT * FROM vendors WHERE typeID="Salon"');
+        $this->db->execute();
+        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+    public function getPhotographers(){
+        $this->db->query('SELECT * FROM vendors WHERE typeID="Photographer"');
+        $this->db->execute();
+        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getDdesigners(){
+        $this->db->query('SELECT * FROM vendors WHERE typeID="Dress Designer"');
+        $this->db->execute();
+        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getFlorists(){
+        $this->db->query('SELECT * FROM vendors WHERE typeID="Florist"');
+        $this->db->execute();
+        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+}
 
 
 
