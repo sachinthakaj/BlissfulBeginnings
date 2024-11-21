@@ -30,4 +30,27 @@ class plannerController {
     public function selectPackages_decorator(){
         require_once './public/selectPackages-decorator.php';
     }
+
+
+    public function getVendorList()
+    {
+        try {
+            $listModel = new Vendor();
+            $venList = $listModel->getVendorList();
+            for($i = 0; $i < count($venList); $i++) {
+                $venList[$i]['vendorID'] = bin2hex($venList[$i]['vendorID']);
+                }
+            if($venList) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($venList);
+            } else {
+                header('HTTP/1.1 404 Unauthorized');
+                echo json_encode(['error' => 'No Vendors Found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+}
 }

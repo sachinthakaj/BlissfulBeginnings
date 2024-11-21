@@ -23,4 +23,10 @@ class Planner
         $this->db->bind(':email',$email);
         return $this->db->fetch(PDO::FETCH_ASSOC);
     }
+    public function getVendorList(){
+        $this->db->query('SELECT * FROM vendors');
+        $this->db->execute();
+        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
