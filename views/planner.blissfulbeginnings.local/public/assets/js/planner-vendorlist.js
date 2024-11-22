@@ -23,7 +23,7 @@ function render() {
                 <img src="${cardData.imgSrc}" alt="Image here" class="image">
             </div>
             <div class="text-container">
-                <div class="heading">${cardData.title}</div>
+                <div class="heading">${cardData.businessName}</div>
                 <div class="stars">
                     ${Array(5).fill(0).map((_, i) => `
                         <span class="star ${i < cardData.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
