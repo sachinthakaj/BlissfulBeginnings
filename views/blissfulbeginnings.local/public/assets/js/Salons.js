@@ -41,6 +41,7 @@
                             <div class="description">${data.description}</div>
                         </div>
                     `;
+                    data.forEach(createCard);
                     card.innerHTML = cardHTML;
             
                     // Append card to the container
@@ -51,7 +52,6 @@
     
         }
         // Render all cards
-        data.forEach(createCard);
         
     }
     
