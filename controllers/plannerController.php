@@ -74,9 +74,11 @@ class plannerController
     {
         require_once './public/selectPackages-saloon.php';
     }
+
     public function selectPackages_dressmaker()
     {
         require_once './public/selectPackages-dressmaker.php';
+
     }
     public function selectPackages_photographer()
     {

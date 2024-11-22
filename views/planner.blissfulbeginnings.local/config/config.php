@@ -19,7 +19,7 @@ ini_set('display_errors', 1); // Display errors on the screen during development
 
 // Error reporting
 ini_set('log_errors', 1);
-ini_set('error_log', './logs/php_errors.log');  // Define the path to your log file
+ini_set('error_log', '../../logs/php_errors.log');  // Define the path to your log file
 error_reporting(E_ALL);
 
 // Other application settings or constants

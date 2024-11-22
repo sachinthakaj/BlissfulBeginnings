@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             theme: document.getElementById('theme').value,
             budget: document.getElementById('budget').value,
             sepSalons: document.getElementById('sepSalons').checked,
-            sepDressmakers: document.getElementById('sepDressmakers').checked,
+            sepDressDesigners: document.getElementById('sepDressDesigners').checked,
         };
         const brideDetails = {
             name: document.getElementById('bride_name').value,
