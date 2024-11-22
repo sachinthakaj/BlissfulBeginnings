@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Send the data using Fetch API
-        fetch('/signin', {
+        fetch('/SignIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,14 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             // Handle success (e.g., show a success message or redirect)
-            alert('Registration successful!');
+            alert('Login successful!');
             console.log('Success:', data);
-            window.location.href = '/';
+            window.location.href = 'http://planner.blissfulbeginnings.local//plannerDashboard';
         })
         .catch(error => {
             // Handle error (e.g., show an error message)
-            console.error('Error registering:', error);
-            alert('Registration failed, please try again.');
+            console.error('Error loging:', error);
+            alert('Login failed, please try again.');
         });
     });
 });
