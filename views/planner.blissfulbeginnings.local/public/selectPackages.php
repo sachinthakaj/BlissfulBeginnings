@@ -15,38 +15,41 @@
 
     <body>
         <div>
+            <div id="loading-screen">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+            </div>
             <header>
-                <div class="logo-container">
-                    <img
-                        src="/public/assets/images/Logo.png"
-                        alt="Blissful Beginnings Logo"
-                        class="logo" />
+                <div class="nav-bar-logo-container">
+                    <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
                 </div>
-                <div class="page-title">Vendor Packages</div>
+                <div class="wedding-title-container">
+                    <h1 class="wedding-title"></h1>
+                </div>
             </header>
             <div class="above-main">
-            <div class="main-body">
-                <div class="card-container">
+                <div class="main-body">
+                    <div class="card-container">
 
-                    <button class="card-button" onclick="window.location.href='/selectPackages-saloon'">
-                        <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
-                        <h1>Salon</h1>
-                    </button>
-                    <button class="card-button" onclick="window.location.href='/selectPackages-dress-designer'">
-                        <img src="/public/assets/images/dress_14383759 1.png" alt="Dress Maker" />
-                        <h1>Dress Maker</h1>
-                    </button>
-                    <button class="card-button" onclick="window.location.href='/selectPackages-photographer'">
-                        <img src="/public/assets/images/camera_1361782 1.png" alt="Photographer" />
-                        <h1>Photographer</h1>
-                    </button>
-                    <button class="card-button" onclick="window.location.href='/selectPackages-decorator'">
-                        <img src="/public/assets/images/nature_10601927 1.png" alt="Florist" />
-                        <h1>Florist</h1>
-                    </button>
+                        <button class="card-button" onclick="window.location.href='/selectPackages-saloon'">
+                            <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
+                            <h1>Salon</h1>
+                        </button>
+                        <button class="card-button" onclick="window.location.href='/selectPackages-dress-designer'">
+                            <img src="/public/assets/images/dress_14383759 1.png" alt="Dress Maker" />
+                            <h1>Dress Maker</h1>
+                        </button>
+                        <button class="card-button" onclick="window.location.href='/selectPackages-photographer'">
+                            <img src="/public/assets/images/camera_1361782 1.png" alt="Photographer" />
+                            <h1>Photographer</h1>
+                        </button>
+                        <button class="card-button" onclick="window.location.href='/selectPackages-decorator'">
+                            <img src="/public/assets/images/nature_10601927 1.png" alt="Florist" />
+                            <h1>Florist</h1>
+                        </button>
 
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
 

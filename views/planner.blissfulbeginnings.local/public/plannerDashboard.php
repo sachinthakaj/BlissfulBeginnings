@@ -24,7 +24,7 @@
           />
         </div>
         <h1 class="wedding-dashboard-title">Wedding Planners - Dashboard</h1>
-        <button class="LogOut" onclick="window.location.href='/SignIn'">Log Out</button>
+        <button class="LogOut" onclick="window.location.href='/signin'">Log Out</button>
       </header>
       <div class="content-wrapper">
         <main>
