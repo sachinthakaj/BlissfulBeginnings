@@ -31,7 +31,7 @@ function render() {
                         <img src="${data.imgSrc}" alt="Image here" class="image">
                     </div>
                     <div class="text-container">
-                        <div class="heading">${data.title}</div>
+                        <div class="heading">${data.businessName}</div>
                         <div class="stars">
                             ${Array(5).fill(0).map((_, i) => `
                                 <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
@@ -45,12 +45,14 @@ function render() {
                 // Append card to the container
                 scrollContainer.appendChild(card);
                             }
+                 // Render all cards
+                    data.forEach(createCard);
+
         })
     } catch (error) {
 
     }
-    // Render all cards
-    data.forEach(createCard);
+   
     
 }
 
