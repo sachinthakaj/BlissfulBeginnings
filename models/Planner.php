@@ -19,8 +19,9 @@ class Planner
 
     public function getPlannerByEmail($email)
     {
-        $this->db->query('SELECT * FROM planner WHERE email= :email');
+        $this->db->query('SELECT * FROM planner WHERE email = :email');
         $this->db->bind(':email',$email);
+        $this->db->execute();
         return $this->db->fetch(PDO::FETCH_ASSOC);
     }
     public function getVendorList(){
