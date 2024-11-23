@@ -1,22 +1,8 @@
 const businessType = ["Photographer", "Dress Designer", "Salon", "Florist"]
-const banks = ["Access Bank", "Citibank", "Diamond Bank", "Ecobank",]
-const branch = ["Colombo", "Wattala", "Kiribathgoda", "Ragama"]
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // options for banks
-  const bank_list = document.getElementById("bank");
-
-  banks.forEach(element => {
-    bank_list.innerHTML += `<option value="${element}">${element}</option>`;
-  });
-
-  // options for branch
-  const branch_list = document.getElementById("branch");
-
-  branch.forEach(element => {
-    branch_list.innerHTML += `<option value="${element}">${element}</option>`;
-  });
 
   // options for business type
   const businessType_list = document.getElementById("businessType");
@@ -160,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
       type:signupForm.businessType.value,
       contact:contact,
       address:signupForm.address.value,
-      bankAcc:signupForm.accountNumber.value,
       description:signupForm.description.value,
     }
     fetch('/register', {
