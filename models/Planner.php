@@ -24,10 +24,32 @@ class Planner
         $this->db->execute();
         return $this->db->fetch(PDO::FETCH_ASSOC);
     }
-    public function getVendorList(){
-        $this->db->query('SELECT * FROM vendors');
+   
+    
+    public function getSalonsList(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Salon"');
         $this->db->execute();
-        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+        $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+
+    }
+    public function getPhotographersList(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="photographer"');
+        $this->db->execute();
+        $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getDressDesignersList(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Dress Designer"');
+        $this->db->execute();
+        $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getFloristsList(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Florist"');
+        $this->db->execute();
+        $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
 }
