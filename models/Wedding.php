@@ -169,11 +169,16 @@ class Wedding
     public function getEveryWeddingData()
     {
         try {
-            $this->db->query("SELECT * from wedding ORDER BY isNew DESC, date ASC");
+            $this->db->query("SELECT w.weddingID,date,theme,location,weddingState,dayNight,b.name AS brideName,g.name AS groomName from wedding w 
+            JOIN weddingbridegrooms wbg ON w.weddingID=wbg.weddingID 
+            JOIN bridegrooms b ON wbg.brideID = b.brideGroomsID AND b.gender='Female' 
+            JOIN bridegrooms g ON wbg.groomID = g.brideGroomsID AND g.gender='Male' 
+            ORDER BY FIELD(weddingState, 'new','unassigned','ongoing','finished'), date ASC");
             $this->db->execute();
             $weddings = [];
 
             while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+                $row["weddingID"] = bin2hex($row["weddingID"]);
                 $weddings[] = $row;
             }
 
@@ -182,5 +187,31 @@ class Wedding
             error_log($e->getMessage());
             return false;
         }
+    }
+
+    public function updateNewtounassigned($weddingID)
+    {
+        $this->db->query("UPDATE wedding SET weddingState='unassigned' WHERE weddingID=UNHEX(:weddingID) AND weddingState='new'");
+        $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+        $this->db->execute();
+       
+    }
+
+    public function deleteFromPlannerDashboard($weddingID)
+    {
+        $this->db->query("DELETE FROM bridegrooms 
+        WHERE brideGroomsID IN (SELECT brideID FROM weddingbridegrooms WHERE weddingID=UNHEX(:weddingID))
+        OR brideGroomsID IN (SELECT groomID FROM weddingbridegrooms WHERE weddingID=UNHEX(:weddingID))");
+        $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+        $this->db->execute();
+
+        $this->db->query("DELETE FROM weddingbridegrooms WHERE weddingID=UNHEX(:weddingID)");
+        $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+        $this->db->execute();
+
+        $this->db->query("DELETE FROM wedding WHERE weddingID=UNHEX(:weddingID)");
+        $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+        $this->db->execute();
+       
     }
 }

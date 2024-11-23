@@ -1,75 +1,123 @@
-.container{
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f9f9f9;
+  }
+  
+  .dashboard {
     display: flex;
     flex-direction: column;
-    align-items:center;
-    width:100%;
-    background-color:#f0f0f0 ;
-}
-
-
-
-.weddingDetails{
-    background-color:#ddd;
-    padding: 30px;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #c1a42e;
-    margin-left: 20px;
-    margin-right: 20px;
-    position:relative;
-    width: 90%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.coupleDetails{
-    background-color: #ddd;
-    display:flex;
-    gap:20px;
-    padding:30px;
-    justify-content: space-between;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 90%;
-
-}
-
-.bride{
-    flex:1;
-    background-color: #9a9fc1;
-    padding: 20px;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
     
-   
-
-}
-
-.groom{
-    flex:1;
-    background-color:#7b7d85;
+  }
+  header {
+    font-family: "Gwendolyn";
+    background-color: #ddd;
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+  
+  .wedding-dashboard-title {
+    font-family: "Gwendolyn";
+    font-size: 40px;
+    position: absolute;
+  }
+  
+  .nav-bar-logo-container {
+    height: 100%;
+    margin-right: auto;
+  }
+  
+  .nav-bar-logo {
+    max-height: 100%;
+    max-width: auto;
+  }
+  
+  header h1 {
+    font-size: 24px;
+    color: #c1a42e;
+  }
+ 
+  
+  main {
+    display: flex;
+    flex: 1;
+  }
+  
+  .main-container {
+    display: flex;
+  }
+  .vendor-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
     padding: 20px;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-   
-   
-
-}
-
-.progressButton{
-    background-color: #4a5d23;
-    color: #f0f0f0;
-    border:none;
-    position:absolute;
-    top: 10px;
-    right: 10px;
-    padding:8px 12px;
+    max-height: 500px; 
+    overflow-y: auto; 
+    
+  }
+  
+  .vendor-card {
+    background: linear-gradient(145deg, #f3f3f3, #dcdcdc); /* Modern gradient effect */
+    border-radius: 12px; /* More rounded corners for a sleek look */
+    padding: 20px;
     cursor: pointer;
+    position: relative;
+    min-width: 250px;
+    min-height: 400px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.7); /* Neomorphic shadow effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transitions */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .vendor-card:hover {
+    transform: translateY(-5px) scale(1.05); /* Subtle lift and scale effect */
+    box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.2), -6px -6px 16px rgba(255, 255, 255, 0.8); /* Enhanced shadow for hover */
+  }
+
+
+  .content-wrapper {
+    display: flex;
+    flex: 1;
+  }
+
+  main {
+    flex: 2;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  aside.calendar-container {
+    flex-basis: 250px;
+    max-width: 300px;
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-left: 2px solid #e0e0e0;
+    min-width: 100px;
     border-radius: 10px;
-}
-
-.progressButton:hover{
-    background-color: #739e1b;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
-}
+  }
+  
+  .vendor-search-and-cards {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+ 
+ 
+  
+  .vendor-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  

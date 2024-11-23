@@ -2,59 +2,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        New Wedding
-    </title>
-    <link href="./public/assets/css/weddingPage.css" rel="stylesheet" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Page</title>
+  <link rel="stylesheet" href="./public/assets/css/weddingPage.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
 </head>
 
 <body>
-    <div class="container">
-    <div class="weddingDetails">
-        <button class="progressButton">See Progress</button>
-        <h2>Wedding Details</h2>
-        <p>
-            Title :Saman & Kamala s' Wedding<Br /><Br />
-            Date :20th November 2024<Br /><Br />
-            Day/Night:Night<Br /><Br />
-            Budget :LKR 2,500,000
-        </p>
+  <div class="dashboard">
+    <header>
+      <div class="nav-bar-logo-container">
+        <img
+          src="./public/assets/images/Logo.png"
+          alt="Blissful Beginnings Logo"
+          class="nav-bar-logo" />
+      </div>
+      <h1 class="wedding-dashboard-title">Wedding Planners - Dashboard</h1>
 
 
+    </header>
+    <div class="content-wrapper">
+      <main>
 
+        <div class="vendor-search-and-cards">
 
-    </div>
-
-    <div class="coupleDetails">
-
-        <div class="bride">
-            <h2>Bride Details</h2>
-            <p>
-                Name:Kamala Wijesinghe<Br /><Br />
-                Age:25<Br /><Br />
-                Birthday:1996.12.21<Br /><Br />
-                Contact No.:0774316178<Br /><Br />
-                email:kamala@gamil.com<Br /><Br />
-            </p>
+          
+          <div class="vendor-cards"></div>
         </div>
-
-        <div class="groom">
-            <h2>Groom Details</h2>
-            <p>
-                Name:Saman Dharmasiri<Br /><Br />
-                Age:26<Br /><Br />
-                Birthday:1995.09.26<Br /><Br />
-                Contact No.:0764386178<Br /><Br />
-                email:saman@gamil.com<Br /><Br />
-            </p>
-        </div>
+      </main>
+      <aside class="calendar-container"></aside>
     </div>
-    </div>
-
-
+  </div>
+  <script src="./public/assets/js/weddingPage.js"></script>
 </body>
 
 </html>

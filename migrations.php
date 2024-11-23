@@ -50,14 +50,18 @@ class Migrations
             $className = pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className($this->dbh);
             echo "Applying migration $migration" . PHP_EOL;
+            $this->dbh->beginTransaction();
             try {
                 $instance->up();
                 echo "Applied migration $migration" . PHP_EOL;
                 $this->saveMigration($migration, $instance);
             } catch (\Throwable $th) {
+                $this->dbh->rollBack();
+                echo $th;
                 throw $th;
             }
         }
+        $this->dbh->commit();
         echo "All migrations are applied";
     }
 
