@@ -277,5 +277,4 @@ function render() {
     }
 }
 
-// Initialize modal when DOM is loaded
 document.addEventListener('DOMContentLoaded', render);
