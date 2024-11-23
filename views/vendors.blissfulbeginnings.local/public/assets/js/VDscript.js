@@ -268,7 +268,6 @@ function render() {
             closeEditModal();
         });
 
-        // Close modal with Escape key
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && editModalContainer.classList.contains('show')) {
                 closeEditModal();
