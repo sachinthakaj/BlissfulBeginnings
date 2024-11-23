@@ -18,11 +18,11 @@ class Vendor
     }
 
 
-    public function createVendor($email, $password, $businessName, $type, $contact, $address, $bankAcc, $description)
+    public function createVendor($email, $password, $businessName, $type, $contact, $address, $description)
     {
         try {
             $UUID = generateUUID($this->db);
-            $this->db->query("INSERT INTO vendors (vendorID,email,password,businessName,typeID,contact,address,bankAccDetails, description) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:bankAcc, :description);");
+            $this->db->query("INSERT INTO vendors (vendorID,email,password,businessName,typeID,contact,address, description) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:description);");
             $this->db->bind(':uuid', $UUID, PDO::PARAM_LOB);
             $this->db->bind(':email', $email, PDO::PARAM_STR);
             $this->db->bind(':password', $password, PDO::PARAM_STR);
@@ -30,7 +30,6 @@ class Vendor
             $this->db->bind(':type', $type, PDO::PARAM_STR);
             $this->db->bind(':contact', $contact, PDO::PARAM_STR);
             $this->db->bind(':address', $address, PDO::PARAM_STR);
-            $this->db->bind(':bankAcc', $bankAcc, PDO::PARAM_STR);
             $this->db->bind(':description', $description, PDO::PARAM_STR);
             $numRows = $this->db->execute();
             error_log("numrows: $numRows");
@@ -40,7 +39,7 @@ class Vendor
                 return 0;
             }
         } catch (Exception $e) {
-            echo $e;
+            error_log($e);
             throw new Exception("Error Processing Request", 1);
         }
     }
@@ -49,7 +48,9 @@ class Vendor
     {
         $this->db->query('SELECT * FROM vendors WHERE email= :email');
         $this->db->bind(':email', $email);
-        return $this->db->fetch(PDO::FETCH_ASSOC);
+        $this->db->execute();
+        $result = $this->db->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
     public function getSalons(){
         $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Salon"');

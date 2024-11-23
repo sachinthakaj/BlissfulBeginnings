@@ -173,7 +173,7 @@ class Wedding
             JOIN weddingbridegrooms wbg ON w.weddingID=wbg.weddingID 
             JOIN bridegrooms b ON wbg.brideID = b.brideGroomsID AND b.gender='Female' 
             JOIN bridegrooms g ON wbg.groomID = g.brideGroomsID AND g.gender='Male' 
-            ORDER BY FIELD(weddingState, 'new', 'unassign', 'unassigned', 'finished'), date ASC");
+            ORDER BY FIELD(weddingState, 'new','unassigned','ongoing','finished'), date ASC");
             $this->db->execute();
             $weddings = [];
 
