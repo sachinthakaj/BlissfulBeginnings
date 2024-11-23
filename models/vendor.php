@@ -74,6 +74,10 @@ class Vendor
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+
+
+
     public function getVendorDetailsAndPackages($vendorID)
     {
         $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
