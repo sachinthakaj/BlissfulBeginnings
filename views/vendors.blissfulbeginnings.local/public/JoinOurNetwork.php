@@ -67,31 +67,6 @@
                 </div>
             </div>
             <div class="vendor-right">
-                <div class="vendor-top">
-                    <h2>Sign Up Details</h2>
-                    <!-- Bank -->
-                    <div class="form-group">
-                        <label for="business-type">Bank</label>
-                        <select id="bank" name="type" required>
-                        </select>
-                    </div>
-                    <!-- Branch -->
-                    <div class="form-group">
-                        <label for="business-type">Branch</label>
-                        <select id="branch" name="type" required>
-                        </select>
-                    </div>
-                    <!-- Account Name -->
-                    <div class="form-group">
-                        <label for="account-name">Account Name</label>
-                        <input type="text" id="account-name" name="account-name" placeholder="Enter account name" required>
-                    </div>
-                    <!-- Account Number -->
-                    <div class="form-group">
-                        <label for="accountNumber">Account Number</label>
-                        <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" required>
-                    </div>
-                </div>
                 <div class="vendor-middle">
                     <h2>Account Details</h2>
                     <!-- Email -->

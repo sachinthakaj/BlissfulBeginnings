@@ -43,7 +43,6 @@ public function weddingDashboard($parameters) {
     {
         try {
             $salonModel = new Vendor();
-           // error_log("Vendor ID: " . $para['vendorID']);
             $salonList = $salonModel->getSalons();
             for($i = 0; $i < count($salonList); $i++) {
                 $salonList[$i]['vendorID'] = bin2hex($salonList[$i]['vendorID']);
