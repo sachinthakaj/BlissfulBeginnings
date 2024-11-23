@@ -363,7 +363,7 @@ const displayDressDesignerPackage = (packageDetails, modalContent) => {
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
 }
-const displaySalonPackage = (packageDetails, divElement) => {
+const displaySalonPackage = (packageDetails, modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `
                 <div class="input-group specific">
@@ -382,7 +382,7 @@ const displaySalonPackage = (packageDetails, divElement) => {
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
 }
-const displayFloristPackage = (packageDetails, divElement) => {
+const displayFloristPackage = (packageDetails, modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `
                 <div class="input-group specific">

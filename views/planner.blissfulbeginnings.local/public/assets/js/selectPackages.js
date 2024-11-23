@@ -26,6 +26,8 @@ function showNotification(message, color) {
   }, 3000);
 }
 
+let selectedPackages = {};
+
 document.addEventListener("DOMContentLoaded", function () {
 
   const loadingScreen = document.getElementById("loading-screen");
@@ -141,8 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll('.card-button').forEach(vendorType => {
       vendorType.addEventListener('click', (event) => {
-
         const assignmentType = event.target.parentNode.id;
+        selectedPackages[assignmentType] = [];
         const allocatedBudget = event.target.parentNode.querySelector('input').value;
         if (!allocatedBudget) {
           showNotification("Please enter allocated budget", "red");
@@ -166,16 +168,22 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           return response.json();
         }).then(data => {
+          if(!data) {
+            return;
+          }
           const modal = document.getElementById('modal');
           const modalContent = document.getElementById('modal-content');
           modalContent.classList.add('modal-content');
           modalContent.innerHTML = `
               <span class="close-button">&times;</span>
-              <h2>${vendorType} Packages</h2>
+              <h2>${vendorType.parentNode.id} Packages</h2>
+              <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-input" />
+                </div>
               <div class="package-grid">
                 <!-- Vendor information will be populated here -->
               </div>
-              <button class="submit-button">Submit</button>
+              <button class="submit-button">Reccomend Packages</button>
             
           `;
 
@@ -184,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
           data.forEach(package => {
             const packageCard = document.createElement('div');
             packageCard.classList.add('package-card');
+            packageCard.id = package.packageID;
             packageCard.innerHTML = `
               <h3>${package.packageName}</h3>
               <h2>${package.vendorName}</h2>
@@ -192,7 +201,22 @@ document.addEventListener("DOMContentLoaded", function () {
               <p>${package.feature3}</p>
 
             `;
+            packageCard.addEventListener('click', () => {
+              if(selectedPackages[assignmentType].includes(packageCard.id)) {
+                packageCard.classList.toggle('selected');
+                selectedPackages[assignmentType]  = selectedPackages[assignmentType].filter(id => id !== packageCard.id);
+                console.log(selectedPackages);
+              } else {
+                packageCard.classList.toggle('selected');
+                selectedPackages[assignmentType].push(packageCard.id);
+                console.log(selectedPackages);
+              }
+            })
             packageGrid.appendChild(packageCard);
+          })
+
+          modalContent.querySelector('.submit-button').addEventListener('click', () => {
+            modal.style.display = 'none';
           })
 
           modal.style.display = 'block';
@@ -200,7 +224,6 @@ document.addEventListener("DOMContentLoaded", function () {
           const closeButton = modalContent.querySelector('.close-button');
           closeButton.addEventListener('click', () => {
             modal.style.display = 'none';
-            modal.innerHTML = '';
           });
 
           modal.addEventListener('click', (e) => {

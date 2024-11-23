@@ -13,39 +13,41 @@
     </head>
 
     <body>
-        <div>
-            <div id="loading-screen">
-                <div class="spinner"></div>
-                <p>Loading...</p>
+
+        <div id="loading-screen">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div class=main-content>
+
+        
+        <div id="main-content">
+        <header>
+            <div class="nav-bar-logo-container">
+                <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
             </div>
-            <div id="main-content">
-                <div id="modal">
-                    <div id="modal-content">
-                    </div>
-                </div>
-                <header>
-                    <div class="nav-bar-logo-container">
-                        <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
-                    </div>
-                    <div class="wedding-title-container">
-                        <h1 class="wedding-title"></h1>
-                    </div>
-                </header>
-                <div class="budget-info">
-                    <p>Total allocated budget: <span id="total-budget">0</span></p>
-                </div>
-                <div class="above-main">
-                    <div class="main-body">
-                        <div id="card-container">
-
-
-
-                        </div>
-                    </div>
+            <div class="wedding-title-container">
+                <h1 class="wedding-title"></h1>
+            </div>
+        </header>
+            <div id="modal">
+                <div id="modal-content">
                 </div>
             </div>
+            <div class="budget-info">
+                <p>Total allocated budget: <span id="total-budget">0</span></p>
+            </div>
+            <div class="above-main">
+                <div class="main-body">
+                    <div id="card-container">
 
+
+
+                    </div>
+                </div>
+            </div>
         </div>
+
+
 
         <script src=" /public/assets/js/selectPackages.js"></script>
 
