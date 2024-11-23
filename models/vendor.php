@@ -73,7 +73,7 @@ class Vendor
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
 
-}
+
 
 
 

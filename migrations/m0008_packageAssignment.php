@@ -15,7 +15,6 @@ class m0008_packageAssignment {
         `state` varchar(255) NOT NULL,
         `progress` decimal(5, 1) NOT NULL,
 
-        PRIMARY KEY (weddingID, packageID),
 
   CONSTRAINT WeddingID_fk FOREIGN KEY (weddingID) REFERENCES wedding(weddingID),
   CONSTRAINT PackageID_fk FOREIGN KEY (packageID) REFERENCES packages(packageID)
