@@ -17,9 +17,9 @@ class plannerController
 
     public function updateWeddingData()
     {
-        session_start(); 
+        session_start();
 
-        
+
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode([
@@ -78,7 +78,6 @@ class plannerController
     public function selectPackages_dressmaker()
     {
         require_once './public/selectPackages-dressmaker.php';
-
     }
     public function selectPackages_photographer()
     {
@@ -88,7 +87,6 @@ class plannerController
     {
         require_once './public/selectPackages-decorator.php';
     }
-<<<<<<< HEAD
 
 
     public function getVendorList()
@@ -96,10 +94,10 @@ class plannerController
         try {
             $listModel = new Vendor();
             $venList = $listModel->getVendorList();
-            for($i = 0; $i < count($venList); $i++) {
+            for ($i = 0; $i < count($venList); $i++) {
                 $venList[$i]['vendorID'] = bin2hex($venList[$i]['vendorID']);
-                }
-            if($venList) {
+            }
+            if ($venList) {
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($venList);
             } else {
@@ -111,8 +109,5 @@ class plannerController
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
         }
+    }
 }
-}
-=======
-}
->>>>>>> origin

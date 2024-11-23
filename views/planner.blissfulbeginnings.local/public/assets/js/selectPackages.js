@@ -22,7 +22,7 @@ function showNotification(message, color) {
 
   // Remove after 3 seconds
   setTimeout(() => {
-      notification.remove();
+    notification.remove();
   }, 3000);
 }
 
@@ -47,80 +47,108 @@ document.addEventListener("DOMContentLoaded", function () {
   }).then(data => {
     const cardContainer = document.getElementById('card-container');
     if (data.sepSalons) {
-      cardContainer.innerHTML += `<div class="card" id="BrideSalons">
+      cardContainer.innerHTML += `<div class="card" id="bride-salons">
                                   <h1>Bride's Salon</h1>
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
-                                  <label for="BrideSalons-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="BrideSalons-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="bride-salons-budget">Allocated Budget</label>
+                                    <input type="number" id="bride-salons-budget" class="vendor-budget" />
                                   </div>
-                                  <div class="card" id="GroomSalons">
+                                  <button class="card-button">Allocate Packages</button>
+                                  </div>
+                                  <div class="card" id="groom-salons">
                                   <h1>Groom's Salon</h1>
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
-                                  <label for="GroomSalons-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="GroomSalons-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="groom-salons-budget">Allocated Budget</label>
+                                    <input type="number" id="groom-salons-budget" class="vendor-budget" />
+                                  </div>
+                                  <button class="card-button">Allocate Packages</button>
                                   </div>`
     } else {
-      cardContainer.innerHTML += `<div class="card" id="Salons">
+      cardContainer.innerHTML += `<div class="card" id="salons">
                                   <h1>Salon</h1>
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
-                                  <label for="Salons-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="Salons-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="salons-budget">Allocated Budget</label>
+                                    <input type="number" id="salons-budget" class="vendor-budget" />
+                                  </div>
+                                  <button class="card-button">Allocate Packages</button>
                                   </div>`
     }
-    cardContainer.innerHTML += `<div class="card" id="Photographers">
+    cardContainer.innerHTML += `<div class="card" id="photographers">
                                   <h1>Photographer</h1>
                                   <img src="/public/assets/images/camera_1361782 1.png" alt="Photographer" />
-                                  <label for="Photographers-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="Photographers-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="photographers-budget">Allocated Budget</label>
+                                    <input type="number" id="photographers-budget" class="vendor-budget" />
+                                  </div>
+                                  <button class="card-button">Allocate Packages</button>
                                   </div>`
     if (data.sepDressDesigners) {
-      cardContainer.innerHTML += `<div class="card" id="BrideDressDesigner">
+      cardContainer.innerHTML += `<div class="card" id="bride-dress-designers">
                                   <h1>Bride's Salon</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
-                                  <label for="BrideDressDesigner-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="BrideDressDesigner-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="bride-dress-designers-budget">Allocated Budget</label>
+                                    <input type="number" id="bride-dress-designers-budget" class="vendor-budget" />
                                   </div>
-                                  <div class="card" id="GroomDressDesigner">
+                                  <button class="card-button">Allocate Packages</button>
+                                  </div>
+                                  <div class="card" id="groom-dress-designers">
                                   <h1>Groom's Salon</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
-                                  <label for="GroomDressDesigner-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="GroomDressDesigner-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="groom-dress-designers-budget">Allocated Budget</label>
+                                    <input type="number" id="groom-dress-designers-budget" class="vendor-budget" />
+                                  </div>
+                                  <button class="card-button">Allocate Packages</button>
                                   </div>`
     } else {
-      cardContainer.innerHTML += `<div class="card" id="DressDesigners">
+      cardContainer.innerHTML += `<div class="card" id="dress-designers">
                                   <h1>Salon</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
-                                  <label for="DressDesigners-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="DressDesigners-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="dress-designers-budget">Allocated Budget</label>
+                                    <input type="number" id="dress-designers-budget" class="vendor-budget" />
+                                  </div>
+                                  <button class="card-button">Allocate Packages</button>
                                   </div>`
     }
-    cardContainer.innerHTML += `<div class="card" id="Florists">
+    cardContainer.innerHTML += `<div class="card" id="florists">
                                   <h1>Florist</h1>
                                   <img src="/public/assets/images/nature_10601927 1.png" alt="Picture of an flower" />
-                                  <label for="Florists-allocatedBudget">Allocated Budget</label>
-                                  <input type="number" id="Florists-allocatedBudget" class="vendor-budget" />
-                                  <button class="card-button">
-                                  </button>
+                                  <div class="budget-info">
+                                    <label for="florists-budget">Allocated Budget</label>
+                                    <input type="number" id="florists-budget" class="vendor-budget" />
+                                  </div>
+                                  <button class="card-button">Allocate Packages</button>
                                   </div>`
+    const vendorBudgetInputs = document.querySelectorAll('.vendor-budget');
+    const budgetSumIndicator = document.createElement('p');
+    budgetSumIndicator.classList.add('budget-sum-indicator');
+    cardContainer.parentNode.appendChild(budgetSumIndicator);
+
+    vendorBudgetInputs.forEach(input => input.addEventListener('input', () => {
+      const totalAllocatedBudget = Array.from(vendorBudgetInputs).reduce((sum, input) => sum + Number(input.value), 0);
+      if (totalAllocatedBudget > data.budget) {
+        budgetSumIndicator.style.color = 'red';
+        budgetSumIndicator.textContent = `Total allocated budget is ${totalAllocatedBudget} which is greater than the total budget of ${data.budget}`;
+      } else {
+        budgetSumIndicator.textContent = '';
+      }
+    }));
+
     document.querySelectorAll('.card-button').forEach(vendorType => {
       vendorType.addEventListener('click', (event) => {
-        const vendorType = event.target.parentNode.id;
+
+        const assignmentType = event.target.parentNode.id;
         const allocatedBudget = event.target.parentNode.querySelector('input').value;
-        fetch('/wedding' + weddingID +'/vendor/' + vendorType, {
+        if (!allocatedBudget) {
+          showNotification("Please enter allocated budget", "red");
+          return;
+        }
+        fetch('/wedding/' + weddingID + '/get-packages/' + assignmentType, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -132,21 +160,26 @@ document.addEventListener("DOMContentLoaded", function () {
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
+          if (response.status == 204) {
+            showNotification("No packages available for this budget", "red");
+            return;
+          }
           return response.json();
         }).then(data => {
-          const modal = document.createElement('div');
-          modal.classList.add('modal');
-          modal.innerHTML = `
-            <div class="modal-content">
+          const modal = document.getElementById('modal');
+          const modalContent = document.getElementById('modal-content');
+          modalContent.classList.add('modal-content');
+          modalContent.innerHTML = `
               <span class="close-button">&times;</span>
-              <h2>${vendorType} Vendors</h2>
+              <h2>${vendorType} Packages</h2>
               <div class="package-grid">
                 <!-- Vendor information will be populated here -->
               </div>
-            </div>
+              <button class="submit-button">Submit</button>
+            
           `;
 
-          const packageGrid = modal.querySelector('.pacage-grid');
+          const packageGrid = modalContent.querySelector('.package-grid');
 
           data.forEach(package => {
             const packageCard = document.createElement('div');
@@ -161,12 +194,13 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
             packageGrid.appendChild(packageCard);
           })
-          
-          document.body.appendChild(modal);
 
-          const closeButton = modal.querySelector('.close-button');
+          modal.style.display = 'block';
+
+          const closeButton = modalContent.querySelector('.close-button');
           closeButton.addEventListener('click', () => {
-            document.body.removeChild(modal);
+            modal.style.display = 'none';
+            modal.innerHTML = '';
           });
 
           modal.addEventListener('click', (e) => {
