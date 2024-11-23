@@ -44,6 +44,22 @@ class HomeController {
         require_once '.\public\Florists.php';
     }
 
+    public function salonsList() {
+        require_once '.\public\planner-salonList.html';
+    }
+
+    public function dressDesignersList() {
+        require_once '.\public\planner-dressDesignerList.html';
+    }
+
+    public function photographersList() {
+        require_once '.\public\photographerList.html';
+    }
+
+    public function floristsList() {
+        require_once '.\public\planner-floristList.html';
+    }
+
     public function vendorProfilePage($vendorID) {
         require_once '.\public\VendorProfile.html';
     }

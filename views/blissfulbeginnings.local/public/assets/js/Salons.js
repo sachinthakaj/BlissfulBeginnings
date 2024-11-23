@@ -46,12 +46,13 @@
                     // Append card to the container
                     scrollContainer.appendChild(card);
                 }
+                 // Render all cards
                 data.forEach(createCard);
             })
         } catch (error) {
     
         }
-        // Render all cards
+       
         
     }
     
