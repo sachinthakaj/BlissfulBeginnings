@@ -12,7 +12,7 @@ class m0002_weddings {
         weddingID BINARY(16) PRIMARY KEY,
         userID BINARY(16)  NOT NULL,
         date date NOT NULL,
-        dayNight varchar(255) NOT NULL,
+        dayNight enum('day', 'night') NOT NULL,
         location varchar(255) NOT NULL,
         theme varchar(255) NOT NULL,
         budget int,
@@ -21,7 +21,9 @@ class m0002_weddings {
         currentCompleted int,
         sepSalons BOOLEAN, 
         sepDressDesigners BOOLEAN,
-        weddingState ENUM('new', 'unassigned', 'ongoing', 'finished') NOT NULL
+        weddingState ENUM('new', 'unassigned', 'ongoing', 'finished') NOT NULL,
+
+        CONSTRAINT fk_weds_ref_users FOREIGN KEY (userID) REFERENCES users(userID)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
               $this->dbh->exec($SQL);
     }
