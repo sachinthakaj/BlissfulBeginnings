@@ -22,6 +22,7 @@ class vendorAuthController
     {
         require_once './public/VendorDash.html';
     }
+  
 
 
     public function registerAsVendor()
