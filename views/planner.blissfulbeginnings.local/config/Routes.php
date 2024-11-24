@@ -34,6 +34,9 @@ $router->get("/get-floristlist","plannerController@getFloristsList");
 $router->get("/get-photographerslist","plannerController@getPhotographersList");
 $router->get("/get-dressdesignerslist","plannerController@getDressDesignersList");
 
+$router->get("/resetpassword", "plannerController@resetPassword");
+
+
 
 
 $router->post("/wedding/{weddingID}/get-packages/salons","ReccomendationsController@getSalonReccomendations");

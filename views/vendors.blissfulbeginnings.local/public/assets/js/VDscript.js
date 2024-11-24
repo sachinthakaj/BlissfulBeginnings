@@ -1,3 +1,7 @@
+const path = window.location.pathname;
+const pathParts = path.split('/');
+const vendorID = pathParts[pathParts.length - 1];
+
 function render() {
     const scrollContainer = document.querySelector(".slide-content");
     const deleteProfile = document.querySelector('.delete-profile');
@@ -203,7 +207,46 @@ function render() {
         editModalContainer.classList.add('show');
         currentPage = 1;
         updateModalPage();
-    }
+
+        fetch('/get-profile-details/vendor-details/' + vendorID, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+    
+            return response.json();
+        }).then(vendorData => {
+            let changedFields = {};
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.value = vendorData[input.id];
+                input.addEventListener('change', () => {
+                    changedFields[input.id] = input.value;  
+                })
+            })
+            document.querySelector('submit-button').addEventListener('submit', () => {
+            if (Object.keys(changedFields).length > 0) {
+                fetch('/update-profile/vendor-details/' + vendorID, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(changedFields)
+                }).then(response => {
+                    return response.json();
+                }).then(data => {
+
+                    vendorData=data
+                }).catch(error => {
+                    console.error(error);
+                });
+            }
+            })
+
+
+
+    })}
+    
 
     function closeEditModal() {
         editModalContainer.classList.remove('show');
@@ -274,6 +317,7 @@ function render() {
             }
         });
     }
+
 }
 
 document.addEventListener('DOMContentLoaded', render);

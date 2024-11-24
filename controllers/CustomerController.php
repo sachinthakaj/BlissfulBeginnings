@@ -6,6 +6,12 @@ class CustomerController
     {
         require_once '.\public\CustomerWeddingDashboard.php';
     }
+    public function resetPassword()
+    {
+        require_once './public/resetPassword.html';
+    }
+
+
 
     public function fetchData($weddingID)
     {

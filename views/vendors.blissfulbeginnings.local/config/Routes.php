@@ -18,3 +18,7 @@ $router->get("/vendor/{vendorID}/wedding/{weddingID}", "vendorController@wedding
 $router->post("/vendor/{vendorID}/create-package", "PackageController@createPackage");
 $router->post("/vendor/{vendorID}/delete-package/{packageID}", "PackageController@deletePackage");
 $router->post("/vendor/{vendorID}/update-package/{packageID}", "PackageController@updatePackage");
+
+
+$router->get("/get-profile-details/vendor-details/{vendorID}","vendorController@getProfileDetails");
+$router->get("/update-profile/vendor-details/{vendorID}","vendorController@updateProfileDetails");
