@@ -62,6 +62,7 @@ class Router
         $result = dataGet($this->routes, $method .".". $uri);
         if(!$result) {
             require_once('../../core/404page.html');
+            return false;
         }
 
         $controller = $result['controller'];

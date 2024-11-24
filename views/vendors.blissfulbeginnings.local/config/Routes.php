@@ -7,6 +7,8 @@ $router->get("/register", "vendorAuthController@Register");
 $router->post("/register", "vendorAuthController@registerAsVendor");
 $router->get("/vendor/{vendorID}", "vendorAuthController@VendorDash");
 $router->get("/vendor/{vendorID}/get-weddings","vendorController@getWeddings");
+$router->get("/resetpassword", "vendorHomeController@resetPassword");
+
 
 $router->get("/edit-profile/{vendorID}", "vendorController@editProfilePage");
 $router->get("/edit-profile/vendor-details/{vendorID}", "vendorController@getVendorDetailsAndPackages");
