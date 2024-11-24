@@ -45,3 +45,6 @@ $router->post("/wedding/{weddingID}/get-packages/bride-dress-designers", "Reccom
 $router->post("/wedding/{weddingID}/get-packages/groom-dress-designers", "ReccomendationsController@getGroomDressDesignerReccomendations");
 $router->post("/wedding/{weddingID}/get-packages/florists","ReccomendationsController@getFloristReccomendations");
 $router->post("/wedding/{weddingID}/get-packages/photographers","ReccomendationsController@getPhotographerReccomendations");
+
+
+$router->get("/wedding/{weddingID}/submit-selected-packages","plannerController@submitSelectedPackages");
