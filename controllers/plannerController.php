@@ -15,6 +15,12 @@ class plannerController
         echo json_encode($weddings);
     }
 
+    public function resetPassword()
+    {
+        require_once './public/resetPassword.html';
+    }
+
+
     public function updateWeddingData()
     {
         session_start(); 

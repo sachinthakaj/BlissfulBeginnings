@@ -126,5 +126,50 @@ public function getFlorists()
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode(['error' => 'Error fetching Data']);
     }
+} 
+
+public function getProfileDetails($parameters)
+{
+    try {
+        $getProfiledetailsModel = new Vendor();
+        error_log("Vendor ID: " . $parameters['vendorID']);
+        $profileDetails =  $getProfiledetailsModel->getProfileDetails($parameters['vendorID']);
+        $profileDetails['vendorID'] = bin2hex($profileDetails['vendorID']);
+        if($profileDetails) {
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode($profileDetails);
+        } else {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Invalid UserID']);
+        }
+    } catch (Exception $e) {
+        error_log($e);
+        header('HTTP/1.1 500 Internal Server Error');
+        echo json_encode(['error' => 'Error fetching Data']);
+    }
 }
+public function updateProfileDetails($parameters){
+    try {
+        $updateProfiledetailsModel = new Vendor();
+        error_log("Vendor ID: " . $parameters['vendorID']);
+        $updateDetails =  $updateProfiledetailsModel->updateProfileDetails($parameters['vendorID']);
+        $updateDetails['vendorID'] = bin2hex( $updateDetails['vendorID']);
+        if( $updateDetails) {
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode( $updateDetails);
+        } else {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Invalid UserID']);
+        }
+    } catch (Exception $e) {
+        error_log($e);
+        header('HTTP/1.1 500 Internal Server Error');
+        echo json_encode(['error' => 'Error fetching Data']);
+    }
+
+
+
+
+}
+
 }
