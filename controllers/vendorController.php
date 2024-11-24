@@ -150,10 +150,13 @@ public function getProfileDetails($parameters)
 }
 public function updateProfileDetails($parameters){
     try {
+        $data = file_get_contents('php://input');
+        // Decode the JSON into a PHP associative array
+        $parsed_data = json_decode($data, true);
         $updateProfiledetailsModel = new Vendor();
         error_log("Vendor ID: " . $parameters['vendorID']);
-        $updateDetails =  $updateProfiledetailsModel->updateProfileDetails($parameters['vendorID']);
-        $updateDetails['vendorID'] = bin2hex( $updateDetails['vendorID']);
+        $updateDetails =  $updateProfiledetailsModel->updateProfileDetails($parameters['vendorID'], $parsed_data );
+        
         if( $updateDetails) {
             header("Content-Type: application/json; charset=utf-8");
             echo json_encode( $updateDetails);

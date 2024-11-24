@@ -21,4 +21,4 @@ $router->post("/vendor/{vendorID}/update-package/{packageID}", "PackageControlle
 
 
 $router->get("/get-profile-details/vendor-details/{vendorID}","vendorController@getProfileDetails");
-$router->get("/update-profile/vendor-details/{vendorID}","vendorController@updateProfileDetails");
+$router->post("/update-profile/vendor-details/{vendorID}","vendorController@updateProfileDetails");

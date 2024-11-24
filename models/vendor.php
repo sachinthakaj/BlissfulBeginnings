@@ -135,11 +135,13 @@ class Vendor
             error_log($sql);
             $this->db->query($sql);
             $this->db->execute($params);
+            return $this->db->rowCount();
         }
 
-        catch{
-  
-
+        catch (Exception $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
         }
+
     }
 }
