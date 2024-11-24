@@ -74,9 +74,15 @@ class Vendor
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
+    public function getWeddings($vendorID) {
+        $this->db->query('SELECT wedding.* FROM wedding INNER JOIN packageassignment 
+                        ON wedding.weddingID=packageassignment.weddingID INNER JOIN packages 
+                        ON packageassignment.packageID=packages.packageID INNER JOIN vendors 
+                        ON packages.vendorID=vendors.vendorID WHERE vendors.vendorID=UNHEX(:vendorID)');
+        $this->db->bind(':vendorID', $vendorID);
+        $this->db->execute();
+        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getVendorDetailsAndPackages($vendorID)
     {

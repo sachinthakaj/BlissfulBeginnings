@@ -128,7 +128,24 @@ public function getFlorists()
     }
 }
 
-    public function getWeddings() {
-
+    public function getWeddings($parameters) {
+        try {
+            $reccomendations = new vendor();
+            $weddingsList = $reccomendations->getWeddings($parameters['vendorID']);
+            if(empty($weddingsList)){
+                header('HTTP/1.1 204 No Content');
+                echo json_encode(['error' => 'No Weddings Found']);
+            }
+            for ($i = 0; $i < count($weddingsList); $i++) {
+                $weddingsList[$i]['weddingID'] = bin2hex($weddingsList[$i]['weddingID']);
+                $weddingsList[$i]['userID'] = bin2hex($weddingsList[$i]['userID']);
+            }
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode($weddingsList);
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
     }
 }
