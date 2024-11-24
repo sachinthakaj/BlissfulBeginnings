@@ -87,16 +87,16 @@
                 <div class="modal-body">
                     <h3>Basic Information</h3>
                     <div class="form-group">
-                        <label for="name">Full Name:</label>
-                        <input type="text" id="name" name="name">
+                        <label for="name" >Business Name:</label>
+                        <input type="text" disabled id="businessName" name="name" class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email">
+                        <input type="email" disabled id="email" name="email" class="form-input" >
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" name="phone">
+                        <input type="tel" id="contact" disabled name="phone" class="form-input">
                     </div>
                 </div>
             </div>
@@ -105,23 +105,24 @@
             <div class="modal-page" data-page="2">
                 <div class="modal-body">
                     <h3>Business Information</h3>
-                    <div class="form-group">
-                        <label for="businessName">Business Name:</label>
-                        <input type="text" id="businessName" name="businessName">
-                    </div>
+                   
                     <div class="form-group">
                         <label for="businessType">Business Type:</label>
-                        <select id="businessType" name="businessType">
+                        <select id="typeID"  disabled name="businessType" class="form-input">
                             <option value="">Select type</option>
-                            <option value="photography">Photography</option>
-                            <option value="catering">Catering</option>
-                            <option value="decoration">Decoration</option>
-                            <option value="venue">Venue</option>
+                            <option value="photography">Photographer</option>
+                            <option value="catering">Florist</option>
+                            <option value="decoration">Dress Designer</option>
+                            <option value="venue">Salon</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="location">Location:</label>
-                        <input type="text" id="location" name="location">
+                        <input type="text" id="address" name="location" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Social Media Links:</label>
+                        <input type="url" id="website" name="website" class="form-input">
                     </div>
                 </div>
             </div>
@@ -132,16 +133,10 @@
                     <h3>Additional Information</h3>
                     <div class="form-group">
                         <label for="description">Business Description:</label>
-                        <textarea id="description" name="description" rows="4"></textarea>
+                        <textarea id="description" name="description" rows="4" class="form-input"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="experience">Years of Experience:</label>
-                        <input type="number" id="experience" name="experience">
-                    </div>
-                    <div class="form-group">
-                        <label for="website">Website:</label>
-                        <input type="url" id="website" name="website">
-                    </div>
+                  
+                  
                 </div>
             </div>
     

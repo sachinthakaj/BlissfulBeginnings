@@ -100,4 +100,54 @@ class Vendor
             throw new Exception("Empty Set returned", 1);
         }
     }
+    public function getProfileDetails($vendorID)
+    {
+        try
+        { 
+            $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
+            $this->db->bind(':vendorID',$vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            $vendorDetails = $this->db->fetch(PDO::FETCH_ASSOC);
+            unset($vendorDetails['password']);
+            return $vendorDetails;
+
+
+
+
+
+        } catch (Exception $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
+        }
+
+        
+
+
+
+    }
+
+    public function updateProfileDetails($vendorID,$updatedColumns){
+        try {
+          
+            $setPart = [];
+            $params = [];
+            foreach ($updatedColumns as $column => $value) {
+                $setPart[] = "$column = :$column";
+                $params[":$column"] = $value;
+            }
+            $params[':vendorID'] = hex2bin($vendorID);
+            $setPartString = implode(', ', $setPart);
+            $sql = "UPDATE vendors SET $setPartString WHERE vendorID = :vendorID";
+            error_log($sql);
+            $this->db->query($sql);
+            $this->db->execute($params);
+            return $this->db->rowCount();
+        }
+
+        catch (Exception $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
+        }
+
+    }
 }

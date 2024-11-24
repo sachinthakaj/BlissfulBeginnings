@@ -1,3 +1,7 @@
+const path = window.location.pathname;
+const pathParts = path.split('/');
+const vendorID = pathParts[pathParts.length - 1];
+
 function render() {
     const scrollContainer = document.querySelector(".slide-content");
     const deleteProfile = document.querySelector('.delete-profile');
@@ -260,7 +264,49 @@ function render() {
         editModalContainer.classList.add('show');
         currentPage = 1;
         updateModalPage();
-    }
+
+        fetch('/get-profile-details/vendor-details/' + vendorID, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+    
+            return response.json();
+        }).then(vendorData => {
+            let changedFields = {};
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.value = vendorData[input.id];
+                input.addEventListener('change', () => {
+                    changedFields[input.id] = input.value;  
+                })
+            })
+            document.querySelector('.submit-button').addEventListener('click', () => {
+                console.log(changedFields);
+            if (Object.keys(changedFields).length > 0) {
+                fetch('/update-profile/vendor-details/' + vendorID, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(changedFields)
+                }).then(response => {
+                    return response.json();
+                }).then(data => {
+                    Object.keys(changedFields).forEach((column) => {
+                        vendorData[column] = changedFields[column];
+                      });
+                      closeEditModal();
+                }).catch(error => {
+                    console.error(error);
+                });
+            }
+            })
+
+
+
+    })}
+    
 
     function closeEditModal() {
         editModalContainer.classList.remove('show');
@@ -303,27 +349,7 @@ function render() {
             });
         });
 
-        // Form submission
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Collect form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                businessName: document.getElementById('businessName').value,
-                businessType: document.getElementById('businessType').value,
-                location: document.getElementById('location').value,
-                description: document.getElementById('description').value,
-                experience: document.getElementById('experience').value,
-                website: document.getElementById('website').value
-            };
-            
-            console.log('Form submitted:', formData);
-            // Add your form submission logic here
-            
-            closeEditModal();
-        });
+        
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && editModalContainer.classList.contains('show')) {
@@ -331,6 +357,7 @@ function render() {
             }
         });
     }
+
 }
 
 document.addEventListener('DOMContentLoaded', render);
