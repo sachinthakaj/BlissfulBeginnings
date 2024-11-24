@@ -224,7 +224,8 @@ function render() {
                     changedFields[input.id] = input.value;  
                 })
             })
-            document.querySelector('submit-button').addEventListener('submit', () => {
+            document.querySelector('.submit-button').addEventListener('click', () => {
+                console.log(changedFields);
             if (Object.keys(changedFields).length > 0) {
                 fetch('/update-profile/vendor-details/' + vendorID, {
                     method: 'POST',
@@ -235,8 +236,10 @@ function render() {
                 }).then(response => {
                     return response.json();
                 }).then(data => {
-
-                    vendorData=data
+                    Object.keys(changedFields).forEach((column) => {
+                        vendorData[column] = changedFields[column];
+                      });
+                      closeEditModal();
                 }).catch(error => {
                     console.error(error);
                 });
@@ -289,27 +292,7 @@ function render() {
             });
         });
 
-        // Form submission
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Collect form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                businessName: document.getElementById('businessName').value,
-                businessType: document.getElementById('businessType').value,
-                location: document.getElementById('location').value,
-                description: document.getElementById('description').value,
-                experience: document.getElementById('experience').value,
-                website: document.getElementById('website').value
-            };
-            
-            console.log('Form submitted:', formData);
-            // Add your form submission logic here
-            
-            closeEditModal();
-        });
+        
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && editModalContainer.classList.contains('show')) {
