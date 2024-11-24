@@ -177,23 +177,5 @@ public function getDressDesignersList()
     }
 }
 
-public function submitSelectedPackages($parameters) {
-    try {
-        $data = file_get_contents('php://input');
-        $parsed_data = json_decode($data, true);
-        $plannerModel = new Planner();
-        $result = $plannerModel->submitSelectedPackages($parsed_data);
-        if($result) {
-            header("Content-Type: application/json; charset=utf-8");
-            echo json_encode($result);
-        } else {
-            header('HTTP/1.1 404 Unauthorized');
-            echo json_encode(['error' => 'No Vendors Found']);
-        }
-    } catch (Exception $e) {
-        error_log($e);
-        header('HTTP/1.1 500 Internal Server Error');
-        echo json_encode(['error' => 'Error Submitting Data']);
-    }
-}
+
 }

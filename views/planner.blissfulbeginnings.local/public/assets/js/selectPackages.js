@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>`
     if (data.sepDressDesigners) {
       cardContainer.innerHTML += `<div class="card" id="bride-dress-designers">
-                                  <h1>Bride's Salon</h1>
+                                  <h1>Bride's Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="bride-dress-designers-budget">Allocated Budget</label>
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <button class="card-button">Allocate Packages</button>
                                   </div>
                                   <div class="card" id="groom-dress-designers">
-                                  <h1>Groom's Salon</h1>
+                                  <h1>Groom's Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="groom-dress-designers-budget">Allocated Budget</label>
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>`
     } else {
       cardContainer.innerHTML += `<div class="card" id="dress-designers">
-                                  <h1>Salon</h1>
+                                  <h1>Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="dress-designers-budget">Allocated Budget</label>
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        showNotification("Packages submitted successfully!", "green");
+        window.location.href = '/wedding/' + weddingID;
       }).catch(error => {
         console.error('Error submitting packages:', error);
         showNotification("Error submitting packages. Please try again later.", 'red');

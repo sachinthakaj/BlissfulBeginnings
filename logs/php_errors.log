@@ -923,3 +923,314 @@ Stack trace:
 [24-Nov-2024 11:56:28 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
 [24-Nov-2024 11:56:28 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
 [24-Nov-2024 11:56:28 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:02:08 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 13:02:15 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 13:03:30 Asia/Kolkata] /vendor/5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:03:30 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:03:51 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:11:49 Asia/Kolkata] /packages5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:11:49 Asia/Kolkata] /core/404page.css
+[24-Nov-2024 13:11:49 Asia/Kolkata] /core/images/BB_logo.PNG
+[24-Nov-2024 13:11:49 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:11:52 Asia/Kolkata] /packages/5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:11:52 Asia/Kolkata] /core/404page.css
+[24-Nov-2024 13:11:52 Asia/Kolkata] /core/images/BB_logo.PNG
+[24-Nov-2024 13:11:53 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:12:02 Asia/Kolkata] /edit-profile/5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:12:02 Asia/Kolkata] /edit-profile/vendor-details/5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:12:02 Asia/Kolkata] Vendor ID: 5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:12:02 Asia/Kolkata] Exception: Empty Set returned in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php:94
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(21): Vendor->getVendorDetailsAndPackages('5837625ca71511e...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->getVendorDetailsAndPackages(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('GET', '/edit-profile/v...')
+#3 {main}
+[24-Nov-2024 13:12:02 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:12:02 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 13:12:08 Asia/Kolkata] /edit-profile/5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:12:08 Asia/Kolkata] /edit-profile/vendor-details/5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:12:08 Asia/Kolkata] Vendor ID: 5837625ca71511efb5fbcc153136262a
+[24-Nov-2024 13:12:08 Asia/Kolkata] Exception: Empty Set returned in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php:94
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(21): Vendor->getVendorDetailsAndPackages('5837625ca71511e...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->getVendorDetailsAndPackages(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('GET', '/edit-profile/v...')
+#3 {main}
+[24-Nov-2024 13:12:08 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 13:12:09 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:12:41 Asia/Kolkata] /edit-profile/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 13:12:41 Asia/Kolkata] /edit-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 13:12:41 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 13:12:41 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:12:41 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 13:13:09 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:13:09 Asia/Kolkata] dc45662faa3711ef8612cc153136262a
+[24-Nov-2024 13:13:12 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:13:12 Asia/Kolkata] ddabf661aa3711ef8612cc153136262a
+[24-Nov-2024 13:39:43 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:39:43 Asia/Kolkata] 9206b387aa3b11ef8612cc153136262a
+[24-Nov-2024 13:40:24 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:40:24 Asia/Kolkata] aaf067feaa3b11ef8612cc153136262a
+[24-Nov-2024 13:51:35 Asia/Kolkata] /edit-profile/2a309042a98d11ef8612cc153136262a
+[24-Nov-2024 13:51:35 Asia/Kolkata] /edit-profile/vendor-details/2a309042a98d11ef8612cc153136262a
+[24-Nov-2024 13:51:35 Asia/Kolkata] Vendor ID: 2a309042a98d11ef8612cc153136262a
+[24-Nov-2024 13:51:35 Asia/Kolkata] Exception: Empty Set returned in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php:94
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(21): Vendor->getVendorDetailsAndPackages('2a309042a98d11e...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->getVendorDetailsAndPackages(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('GET', '/edit-profile/v...')
+#3 {main}
+[24-Nov-2024 13:51:35 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:51:35 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 13:52:07 Asia/Kolkata] /edit-profile/ac902193a8b111efac950a0027000004
+[24-Nov-2024 13:52:07 Asia/Kolkata] /edit-profile/vendor-details/ac902193a8b111efac950a0027000004
+[24-Nov-2024 13:52:07 Asia/Kolkata] Vendor ID: ac902193a8b111efac950a0027000004
+[24-Nov-2024 13:52:07 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:52:07 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 13:52:47 Asia/Kolkata] /vendor/ac902193a8b111efac950a0027000004/create-package
+[24-Nov-2024 13:52:47 Asia/Kolkata] 6574a1d6aa3d11ef8612cc153136262a
+[24-Nov-2024 13:54:30 Asia/Kolkata] /edit-profile/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 13:54:30 Asia/Kolkata] /edit-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 13:54:30 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 13:54:30 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 13:54:30 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 13:54:39 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:54:39 Asia/Kolkata] a88fd1a3aa3d11ef8612cc153136262a
+[24-Nov-2024 13:54:41 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:54:41 Asia/Kolkata] a9c99b4caa3d11ef8612cc153136262a
+[24-Nov-2024 13:54:42 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:54:42 Asia/Kolkata] aa462486aa3d11ef8612cc153136262a
+[24-Nov-2024 13:54:43 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:54:43 Asia/Kolkata] aa68a82faa3d11ef8612cc153136262a
+[24-Nov-2024 13:55:45 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:55:45 Asia/Kolkata] Package ID: cf8cc431aa3d11ef8612cc153136262a
+[24-Nov-2024 13:55:45 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:55:45 Asia/Kolkata] Package ID: cfe5202aaa3d11ef8612cc153136262a
+[24-Nov-2024 13:55:46 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:55:46 Asia/Kolkata] Package ID: d0033e7caa3d11ef8612cc153136262a
+[24-Nov-2024 13:56:40 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:56:40 Asia/Kolkata] Package ID: f045556aaa3d11ef8612cc153136262a
+[24-Nov-2024 13:56:40 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:56:40 Asia/Kolkata] Package ID: f0ab100faa3d11ef8612cc153136262a
+[24-Nov-2024 13:56:49 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:56:49 Asia/Kolkata] Package ID in Florist: f5ff67a4aa3d11ef8612cc153136262a
+[24-Nov-2024 13:57:06 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:57:15 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:57:16 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:58:11 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 13:58:20 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:01:51 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:01:51 Asia/Kolkata] Package ID in Florist: a9badb39aa3e11ef8612cc153136262a
+[24-Nov-2024 14:03:11 Asia/Kolkata] /edit-profile/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 14:03:11 Asia/Kolkata] /edit-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 14:03:11 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 14:03:11 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:03:11 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 14:03:41 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:03:41 Asia/Kolkata] Package ID in Florist: eb95d723aa3e11ef8612cc153136262a
+[24-Nov-2024 14:04:13 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:04:13 Asia/Kolkata] Package ID in Florist: fe756484aa3e11ef8612cc153136262a
+[24-Nov-2024 14:04:57 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:04:57 Asia/Kolkata] Package ID in Florist: 189eec2faa3f11ef8612cc153136262a
+[24-Nov-2024 14:05:52 Asia/Kolkata] /edit-profile/3f9891a9a8b211efac950a0027000004
+[24-Nov-2024 14:05:52 Asia/Kolkata] /edit-profile/vendor-details/3f9891a9a8b211efac950a0027000004
+[24-Nov-2024 14:05:52 Asia/Kolkata] Vendor ID: 3f9891a9a8b211efac950a0027000004
+[24-Nov-2024 14:05:52 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:05:52 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 14:06:29 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:07:46 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:08:27 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:09:19 Asia/Kolkata] /edit-profile/e00e1dc1a8b111efac950a0027000004
+[24-Nov-2024 14:09:19 Asia/Kolkata] /edit-profile/vendor-details/e00e1dc1a8b111efac950a0027000004
+[24-Nov-2024 14:09:19 Asia/Kolkata] Vendor ID: e00e1dc1a8b111efac950a0027000004
+[24-Nov-2024 14:09:19 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:09:19 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 14:09:44 Asia/Kolkata] /vendor/e00e1dc1a8b111efac950a0027000004/create-package
+[24-Nov-2024 14:10:25 Asia/Kolkata] /vendor/e00e1dc1a8b111efac950a0027000004/create-package
+[24-Nov-2024 14:11:03 Asia/Kolkata] /vendor/e00e1dc1a8b111efac950a0027000004/create-package
+[24-Nov-2024 14:27:26 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:27:26 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:27:26 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 14:27:26 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:27:35 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 14:27:56 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 14:28:05 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 14:28:13 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/photographers
+[24-Nov-2024 14:28:18 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 14:28:29 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/florists
+[24-Nov-2024 14:29:00 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/photographers
+[24-Nov-2024 14:29:11 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/photographers
+[24-Nov-2024 14:29:19 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:29:25 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:30:35 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:30:51 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:34:02 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:34:05 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:34:15 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:37:40 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:37:48 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:37:48 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:37:48 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:37:48 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 14:38:12 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 14:38:32 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 14:38:36 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/photographers
+[24-Nov-2024 14:38:42 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/florists
+[24-Nov-2024 14:38:49 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:40:10 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:40:11 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/florists
+[24-Nov-2024 14:40:22 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 14:42:30 Asia/Kolkata] /edit-profile/3f9891a9a8b211efac950a0027000004
+[24-Nov-2024 14:42:30 Asia/Kolkata] /edit-profile/vendor-details/3f9891a9a8b211efac950a0027000004
+[24-Nov-2024 14:42:30 Asia/Kolkata] Vendor ID: 3f9891a9a8b211efac950a0027000004
+[24-Nov-2024 14:42:30 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:42:30 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 14:43:16 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:43:22 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:43:31 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:43:31 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:43:31 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:43:31 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 14:43:39 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:44:42 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004/create-package
+[24-Nov-2024 14:44:59 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:45:01 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:45:01 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:45:01 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:45:01 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 14:45:05 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:51:20 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:51:22 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:51:22 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:51:22 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:51:22 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 14:54:41 Asia/Kolkata] /edit-profile/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 14:54:41 Asia/Kolkata] /edit-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 14:54:41 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[24-Nov-2024 14:54:41 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:54:41 Asia/Kolkata] /edit-profile/undefined
+[24-Nov-2024 14:54:46 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:54:46 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 14:54:46 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 14:54:46 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 14:54:51 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 14:55:05 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 14:55:15 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 14:55:20 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 14:55:28 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/photographers
+[24-Nov-2024 14:55:34 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/florists
+[24-Nov-2024 14:55:42 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 14:56:32 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 14:59:38 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:01:40 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:01:40 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'assignmentID' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Planner.php(31): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php(185): Planner->submitSelectedPackages('2ecb172ea8a311e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): plannerController->submitSelectedPackages(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#5 {main}
+[24-Nov-2024 15:36:40 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:36:40 Asia/Kolkata] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'assignmentID' in 'field list' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Planner.php(31): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php(185): Planner->submitSelectedPackages('2ecb172ea8a311e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): plannerController->submitSelectedPackages(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#5 {main}
+[24-Nov-2024 15:44:30 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:44:30 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Reccomendations::createReccomendations() in C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php:185
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): plannerController->submitSelectedPackages(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php on line 185
+[24-Nov-2024 15:48:29 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:48:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Reccomendations::createReccomendations() in C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php:185
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): plannerController->submitSelectedPackages(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php on line 185
+[24-Nov-2024 15:48:38 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:48:38 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method Reccomendations::createReccomendations() in C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php:185
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): plannerController->submitSelectedPackages(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\plannerController.php on line 185
+[24-Nov-2024 15:55:25 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:55:25 Asia/Kolkata] PDOException: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blissful_beginnings`.`recommendations`, CONSTRAINT `fk_recc_refs_weddings` FOREIGN KEY (`weddingID`) REFERENCES `wedding` (`weddingID`)) in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Recommendations.php(126): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\RecommendationsController.php(206): Recommendations->createRecommendations('2ecb172ea8a311e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): RecommendationsController->submitSelectedPackages(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#5 {main}
+[24-Nov-2024 15:55:51 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 15:55:51 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 15:55:51 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 15:55:51 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 15:55:56 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 15:55:59 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 15:57:15 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 15:57:20 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 15:57:26 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 15:57:26 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 15:57:26 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 15:57:26 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 15:57:30 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 15:58:53 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 15:58:53 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 15:58:53 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[24-Nov-2024 15:58:53 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 15:58:57 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/bride-salons
+[24-Nov-2024 15:59:05 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/groom-salons
+[24-Nov-2024 15:59:13 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/photographers
+[24-Nov-2024 15:59:28 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/dress-designers
+[24-Nov-2024 15:59:41 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/get-packages/florists
+[24-Nov-2024 15:59:50 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 15:59:50 Asia/Kolkata] PDOException: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blissful_beginnings`.`recommendations`, CONSTRAINT `fk_recc_refs_weddings` FOREIGN KEY (`weddingID`) REFERENCES `wedding` (`weddingID`)) in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Recommendations.php(126): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\RecommendationsController.php(206): Recommendations->createRecommendations('2ecb172ea8a311e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): RecommendationsController->submitSelectedPackages(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#5 {main}
+[24-Nov-2024 16:09:24 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 16:09:24 Asia/Kolkata] weddingID: 2ecb172ea8a311ef8612cc153136262a packageID: c6f94118a98111ef8612cc153136262a typeID: bride-salons
+[24-Nov-2024 16:09:24 Asia/Kolkata] PDOException: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blissful_beginnings`.`recommendations`, CONSTRAINT `fk_recc_refs_weddings` FOREIGN KEY (`weddingID`) REFERENCES `wedding` (`weddingID`)) in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Recommendations.php(127): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\RecommendationsController.php(206): Recommendations->createRecommendations('2ecb172ea8a311e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): RecommendationsController->submitSelectedPackages(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#5 {main}
+[24-Nov-2024 16:26:39 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 16:26:39 Asia/Kolkata] weddingID: 2ecb172ea8a311ef8612cc153136262a packageID: c6f94118a98111ef8612cc153136262a typeID: bride-salons
+[24-Nov-2024 16:26:39 Asia/Kolkata] 1
+[24-Nov-2024 17:13:49 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 17:13:49 Asia/Kolkata] weddingID: 2ecb172ea8a311ef8612cc153136262a packageID: c6f94118a98111ef8612cc153136262a typeID: bride-salons
+[24-Nov-2024 17:13:49 Asia/Kolkata] 1
+[24-Nov-2024 17:16:29 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 17:16:29 Asia/Kolkata] weddingID: 2ecb172ea8a311ef8612cc153136262a packageID: c6f94118a98111ef8612cc153136262a typeID: bride-salons
+[24-Nov-2024 17:16:29 Asia/Kolkata] PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '.\xCB\x17.\xA8\xA3\x11\xEF\x86\x12\xCC\x1516&*-\xC6\xF9A\x18\...' for key 'PRIMARY' in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\Recommendations.php(127): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\RecommendationsController.php(206): Recommendations->createRecommendations('2ecb172ea8a311e...', Array)
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): RecommendationsController->submitSelectedPackages(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\planner.blissfulbeginnings.local\index.php(36): Router->route('POST', '/wedding/2ecb17...')
+#5 {main}
+[24-Nov-2024 17:21:30 Asia/Kolkata] /wedding/2ecb172ea8a311ef8612cc153136262a/submit-selected-packages
+[24-Nov-2024 17:21:30 Asia/Kolkata] weddingID: 2ecb172ea8a311ef8612cc153136262a packageID: c6f94118a98111ef8612cc153136262a typeID: bride-salons
+[24-Nov-2024 17:21:30 Asia/Kolkata] 1
+[24-Nov-2024 22:57:26 Asia/Kolkata] /selectPackages/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 22:57:27 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 22:57:27 Asia/Kolkata] /wedding/data/2ecb172ea8a311ef8612cc153136262a
+[24-Nov-2024 22:57:27 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}

@@ -17,24 +17,7 @@ class Planner
         return $this->db->fetchColumn() > 0;
     }
 
-    public function submitSelectedPackages($weddingID, $selectedPackages)
-    {
-        try {
-            foreach ($selectedPackages as $typeID => $packages) {
-                foreach ($packages as $packageID) {
-                    $assignmentID = generateUUID($this->db);
-                    $this->db->query('INSERT INTO recommendations (weddingID, packageID, assignmentID, typeID) VALUES (:weddingID, :packageID, :assignmentID, :typeID)');
-                    $this->db->bind(':weddingID', $weddingID);
-                    $this->db->bind(':packageID', $packageID);
-                    $this->db->bind(':assignmentID', $assignmentID);
-                    $this->db->bind(':typeID', $typeID);
-                    $this->db->execute();
-                }
-            }
-        } catch (Exception $e) {
-            error_log($e);
-        }
-    }
+    
 
     public function getPlannerByEmail($email)
     {

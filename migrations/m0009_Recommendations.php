@@ -10,7 +10,7 @@ class m0009_Recommendations {
       $SQL = "CREATE TABLE `recommendations` (
     `weddingID` BINARY(16) NOT NULL,
     `packageID` BINARY(16) NOT NULL,
-    `typeID` ENUM('Photographer', 'Salon', 'BrideSalon', 'GroomSalon', 'Florist', 'BrideDressDesigner', 'GroomDressDesigner', 'DressDesigner') NOT NULL,
+    `typeID` ENUM('photographer', 'salon', 'bride-salon', 'groom-salon', 'florist', 'bride-dressd-dsigner', 'groom-dress-designer', 'dress-designer') NOT NULL,
     
     PRIMARY KEY (`weddingID`, `packageID`),
 
