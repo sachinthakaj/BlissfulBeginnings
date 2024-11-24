@@ -171,8 +171,29 @@ public function updateProfileDetails($parameters){
     }
 
 
-
-
 }
+public function deleteProfile($parameters){
+    try {
+        $data = file_get_contents('php://input');
+        // Decode the JSON into a PHP associative array
+        $parsed_data = json_decode($data, true);
+        $deleteProfileModel = new Vendor();
+        error_log("Vendor ID: " . $parameters['vendorID']);
+        $deleteProfile =   $deleteProfileModel->deleteProfile($parameters['vendorID'], $parsed_data );
+        
+        if(  $deleteProfile ) {
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode(  $deleteProfile );
+        } else {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Invalid UserID']);
+        }
+    } catch (Exception $e) {
+        error_log($e);
+        header('HTTP/1.1 500 Internal Server Error');
+        echo json_encode(['error' => 'Error fetching Data']);
+    }
+
+
 
 }

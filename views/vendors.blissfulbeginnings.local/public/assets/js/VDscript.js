@@ -151,10 +151,23 @@ function render() {
 
         // Handle delete action
         deleteButton.addEventListener('click', () => {
+            fetch('/delete-profile/vendor-details/' + vendorID, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => {
+                return response.json();
+            }).then(vendorData => {
+                
+            })
+                
+            })
             console.log("Profile deleted");
             closeModal();
-            // Add your delete logic here
-        });
+            
+        };
 
         // Close modal when clicking outside
         modalContainer.addEventListener('click', (event) => {
