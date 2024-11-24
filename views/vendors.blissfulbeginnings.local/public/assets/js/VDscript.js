@@ -82,6 +82,32 @@ function render() {
         },
     ];
 
+    // fetch cards data
+    async function fetchCards() {
+      try {
+        const response = await fetch('/vendor/{vendorID}/get-weddings');
+
+        if (!response.ok) {
+          throw new Error('HTTP error: ' + response.status);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching cards:', error);
+
+        return [];
+      }
+    }
+
+    // initialize cards
+    async function initializeCards() {
+      const cardsData = await fetchCards();
+      if(cardsData.length > 0) {
+        loadCards(cardsData);
+      }
+    }
+
     function createCard(cardData) {
         return `
             <div class="card">
@@ -127,7 +153,9 @@ function render() {
         scrollContainer.innerHTML = cardWrappersHTML;
       }
       
-      loadCards(cardsData);
+      // loadCards(cardsData);
+
+      initializeCards();
 
     // modal for delete profile
     function openModal() {

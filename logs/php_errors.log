@@ -2763,3 +2763,209 @@ Stack trace:
 [23-Nov-2024 12:58:04 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
 [23-Nov-2024 12:58:04 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
 [23-Nov-2024 12:58:04 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 13:49:24 Asia/Kolkata] /vendor/314/
+[23-Nov-2024 13:49:26 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 13:49:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 13:49:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 13:49:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 13:54:37 Asia/Kolkata] /SignIn
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 13:54:37 Asia/Kolkata] /core/404page.css
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 13:54:37 Asia/Kolkata] /core/images/BB_logo.PNG
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 13:54:37 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 13:54:37 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 13:54:38 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 13:54:38 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 13:54:38 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 13:54:38 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 15:06:33 Asia/Kolkata] /vendor/314/
+[23-Nov-2024 15:06:35 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 15:06:35 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 15:06:35 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 15:06:35 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 16:33:42 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 16:33:42 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 16:33:42 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 16:33:48 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 16:33:48 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 16:33:48 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 16:33:55 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 16:33:55 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 16:33:55 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 16:34:09 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 16:34:10 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 16:34:10 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:28:50 Asia/Kolkata] /
+[23-Nov-2024 19:28:51 Asia/Kolkata] PHP Warning:  require_once(.\public\Index.html): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[23-Nov-2024 19:28:51 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\public\Index.html' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(76): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[23-Nov-2024 19:28:51 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:28:51 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:28:51 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:28:51 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:29:32 Asia/Kolkata] /
+[23-Nov-2024 19:29:32 Asia/Kolkata] PHP Warning:  require_once(.\public\Index.html): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[23-Nov-2024 19:29:32 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\public\Index.html' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(76): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[23-Nov-2024 19:29:32 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:29:32 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:29:32 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:29:32 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:30:44 Asia/Kolkata] /
+[23-Nov-2024 19:30:44 Asia/Kolkata] PHP Warning:  require_once(.\public\Index.html): Failed to open stream: No such file or directory in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[23-Nov-2024 19:30:44 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '.\public\Index.html' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php:5
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(76): HomeController->index(Array)
+#1 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('GET', '/')
+#2 {main}
+  thrown in C:\xampp\htdocs\BlissfulBeginnings\controllers\HomeController.php on line 5
+[23-Nov-2024 19:30:44 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:30:44 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:30:44 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:30:44 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:30:50 Asia/Kolkata] /13/vendor
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:30:50 Asia/Kolkata] /core/images/BB_logo.PNG
+[23-Nov-2024 19:30:50 Asia/Kolkata] /core/404page.css
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:30:50 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:30:50 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:22 Asia/Kolkata] /13/vendor/wedding/21312
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:22 Asia/Kolkata] /13/core/images/BB_logo.PNG
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:22 Asia/Kolkata] /core/404page.css
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:22 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:22 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:25 Asia/Kolkata] /13/vendor/wedding/21312
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:25 Asia/Kolkata] /core/404page.css
+[23-Nov-2024 19:31:25 Asia/Kolkata] /13/core/images/BB_logo.PNG
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:25 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:25 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] /13/vendor/wedding/21312
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] /core/404page.css
+[23-Nov-2024 19:31:26 Asia/Kolkata] /13/core/images/BB_logo.PNG
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] /13/vendor/wedding/21312
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] /core/404page.css
+[23-Nov-2024 19:31:26 Asia/Kolkata] /13/core/images/BB_logo.PNG
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:26 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:27 Asia/Kolkata] /13/vendor/wedding/21312
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:27 Asia/Kolkata] /core/404page.css
+[23-Nov-2024 19:31:27 Asia/Kolkata] /13/core/images/BB_logo.PNG
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:31:27 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:31:27 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:36:57 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:36:57 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:36:57 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:36:57 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:36:57 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:36:57 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:36:57 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:36:57 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:37:07 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:37:07 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:37:07 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:38:32 Asia/Kolkata] /vendor/314
+[23-Nov-2024 19:38:32 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:38:32 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:38:32 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:38:32 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[23-Nov-2024 19:38:40 Asia/Kolkata] /favicon.ico
+[23-Nov-2024 19:38:40 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[23-Nov-2024 19:38:40 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[23-Nov-2024 19:38:40 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[24-Nov-2024 09:38:26 Asia/Kolkata] /vendor/314
+[24-Nov-2024 09:38:26 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[24-Nov-2024 09:38:26 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 09:38:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[24-Nov-2024 09:38:26 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[24-Nov-2024 09:38:26 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
+[24-Nov-2024 09:38:44 Asia/Kolkata] /vendor/314
+[24-Nov-2024 09:38:44 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[24-Nov-2024 09:38:44 Asia/Kolkata] /favicon.ico
+[24-Nov-2024 09:38:44 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 67
+[24-Nov-2024 09:38:44 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 68
+[24-Nov-2024 09:38:44 Asia/Kolkata] PHP Deprecated:  class_exists(): Passing null to parameter #1 ($class) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\core\Router.php on line 69
