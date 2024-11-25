@@ -218,4 +218,32 @@ class Wedding
         $this->db->execute();
        
     }
+
+    public function deleteWedding($weddingID)
+    {
+        try {
+            $this->db->startTransaction();
+            $this->db->query("SELECT weddingState FROM wedding WHERE weddingID=UNHEX(:weddingID)");
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+            $this->db->execute();
+            $state = $this->db->fetch(PDO::FETCH_ASSOC);
+
+            if($state['weddingState'] != "ongoing" ) {
+                $this->db->query("DELETE FROM wedding WHERE weddingID=UNHEX(:weddingID)");
+                $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+                $this->db->execute();
+
+                $this->db->commit();
+                return $this->db->rowCount();
+            }
+            else {
+                $this->db->commit();
+                return -1;
+            }
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
 }

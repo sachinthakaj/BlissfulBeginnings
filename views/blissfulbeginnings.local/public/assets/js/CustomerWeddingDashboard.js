@@ -650,6 +650,32 @@ function render() {
     let currentPage = 1;
     const totalPages = modalPages.length;
 
+    // event listener for delete wedding
+    function deleteWedding() {
+        fetch('/wedding/delete-wedding/' + weddingID, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            if(response.status == 409) {
+                showNotification("The wedding is still ongoing can't delete", "red");
+                closeEditModal();
+                return;   
+            } else if(response.status == 203) {
+                window.location.href = '/signin';
+            } 
+            alert("Vendor Deleted sucesssfully");
+            
+            console.log(data);
+            window.location.href = '/register';
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+
     // Delete modal functionality
     if (deleteProfile && modalContainer) {
         deleteProfile.addEventListener('click', () => {
@@ -657,12 +683,10 @@ function render() {
             modalContainer.classList.add('show');
         });
 
-        cancelButton.addEventListener('click', () => {
-            modalContainer.classList.remove('show');
-        });
+        cancelButton.addEventListener('click', closeEditModal);
 
         deleteButton.addEventListener('click', () => {
-            // Add your delete logic here
+            deleteWedding();
             console.log('Profile deleted');
             modalContainer.classList.remove('show');
         });
@@ -701,19 +725,13 @@ function render() {
     }
 
     if (editProfile && editModalContainer) {
-        editProfile.addEventListener('click', () => {
-            editModalContainer.classList.add('show');
-            currentPage = 1;
-            updateModalPage();
-        });
+        editProfile.addEventListener('click', openEditModal);
 
-        closeButton.addEventListener('click', () => {
-            editModalContainer.classList.remove('show');
-        });
+        closeButton.addEventListener('click', closeEditModal);
 
         editModalContainer.addEventListener('click', (event) => {
             if (event.target === editModalContainer) {
-                editModalContainer.classList.remove('show');
+                closeEditModal();
             }
         });
 
@@ -771,6 +789,60 @@ function render() {
             }
         }
     });
+
+    function closeEditModal() {
+        editModalContainer.classList.remove('show');
+    }
+
+
+    // edit modal retreive from the backend
+    function openEditModal() {
+        editModalContainer.classList.add('show');
+        currentPage = 1;
+        updateModalPage();
+
+        fetch('/wedding/data/' + weddingID, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+    
+            return response.json();
+        }).then(weddingData => {
+            let changedFields = {};
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.value = weddingData[input.id];
+                input.addEventListener('change', () => {
+                    changedFields[input.id] = input.value;  
+                })
+            })
+            document.querySelector('.submit-button').addEventListener('click', () => {
+                console.log(changedFields);
+            if (Object.keys(changedFields).length > 0) {
+                fetch('/update-wedding/' + weddingID, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(changedFields)
+                }).then(response => {
+                    return response.json();
+                }).then(data => {
+                    Object.keys(changedFields).forEach((column) => {
+                        weddingData[column] = changedFields[column];
+                      });
+                      closeEditModal();
+                }).catch(error => {
+                    console.error(error);
+                });
+            }
+            })
+
+            
+        
+
+    })}
 }
 
 document.addEventListener('DOMContentLoaded', render);

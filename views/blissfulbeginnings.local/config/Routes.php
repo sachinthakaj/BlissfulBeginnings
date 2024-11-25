@@ -28,6 +28,8 @@ $router->post("/signin","AuthController@login");
 
 $router->get("/wedding/{weddingID}", "CustomerController@dashboard");
 $router->get("/wedding/data/{weddingID}", "CustomerController@fetchData");
+$router->delete("/wedding/delete-wedding/{weddingID}","CustomerController@deleteWedding");
+
 
 $router->get("/wedding/couple-details/{weddingID}", "CustomerController@fetchPersons");
 
@@ -37,3 +39,4 @@ $router->get("/assign-packages/{weddingID}", "CustomerController@setPackages");
 $router->get("/reccomendations/{weddingID}", "CustomerController@getReccomendations");
 
 $router->get("/resetpassword", "customerController@resetPassword");
+
