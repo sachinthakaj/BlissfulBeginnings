@@ -52,23 +52,26 @@ class Vendor
         $result = $this->db->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function getSalons(){
+    public function getSalons()
+    {
         $this->db->query('SELECT * FROM vendors WHERE typeID="Salon"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
-
     }
-    public function getPhotographers(){
+    public function getPhotographers()
+    {
         $this->db->query('SELECT * FROM vendors WHERE typeID="Photographer"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getDdesigners(){
+    public function getDdesigners()
+    {
         $this->db->query('SELECT * FROM vendors WHERE typeID="Dress Designer"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getFlorists(){
+    public function getFlorists()
+    {
         $this->db->query('SELECT * FROM vendors WHERE typeID="Florist"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
@@ -81,7 +84,7 @@ class Vendor
     public function getVendorDetailsAndPackages($vendorID)
     {
         $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
-        $this->db->bind(':vendorID',$vendorID, PDO::PARAM_STR);
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
         $this->db->execute();
         $vendorDetails = $this->db->fetch(PDO::FETCH_ASSOC);
         if ($vendorDetails) {
@@ -92,6 +95,30 @@ class Vendor
             return $vendorDetails;
         } else {
             throw new Exception("Empty Set returned", 1);
+        }
+    }
+
+    public function getAllVendorsForWedding($weddingID)
+    {
+        try {
+            $this->db->query("SELECT v.vendorID,v.businessName,v.typeID
+        FROM vendors v
+        JOIN packages p ON v.vendorID=p.vendorID
+        JOIN packageAssignment pa ON p.packageID=pa.packageID
+        WHERE pa.weddingID=UNHEX(:weddingID)");
+
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+            $this->db->execute();
+            $vendors = [];
+            while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+                $row["vendorID"] = bin2hex($row["vendorID"]);
+                $vendors[] = $row;
+            }
+
+            return $vendors;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
         }
     }
 }

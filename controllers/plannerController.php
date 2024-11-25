@@ -17,9 +17,9 @@ class plannerController
 
     public function updateWeddingData()
     {
-        session_start(); 
+        session_start();
 
-        
+
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode([
@@ -62,6 +62,75 @@ class plannerController
             echo json_encode(["status" => "success", "message" => "Wedding Successfully deleted"]);
         }
     }
+
+    public function showAllVendorsForWedding()
+    {
+        $weddingID = $_GET["weddingID"];
+        if (isset($weddingID)) {
+            $vendorModel = new Vendor();
+            $vendors = $vendorModel->getAllVendorsForWedding($weddingID);
+            header('Content-Type:application/json');
+            echo json_encode($vendors);
+        }
+    }
+
+    public function linkTaskForVendors()
+    {
+
+
+        $vendorID = $_GET["vendorID"];
+        $weddingID = $_GET["weddingID"];
+        if (isset($weddingID)) {
+            $taskModel = new Task();
+            $assignmentID = $taskModel->getAssignmentIDfroAVendorofAWedding($weddingID, $vendorID);
+            header('Content-Type:application/json');
+            echo json_encode($assignmentID);
+        }
+    }
+
+    public function createTasksForVendors()
+    {
+        $taskDetails = json_decode(file_get_contents("php://input"), true);
+        $taskModel = new Task();
+        $taskModel->createTask($taskDetails);
+        header('Content-Type:application/json');
+        echo json_encode(["status" => "success", "message" => "Task Successfully Created"]);
+    }
+
+    public function updateOfTasks()
+    {
+        $taskDetails = json_decode(file_get_contents("php://input"), true);
+        $taskModel = new Task();
+        $taskModel->updateTask($taskDetails);
+        header('Content-Type:application/json');
+        echo json_encode(["status" => "success", "message" => "Task Successfully updated"]);
+    }
+
+    public function deleteOfTasks()
+    {
+        
+        $input = json_decode(file_get_contents("php://input"), true);
+        $taskID = $input["taskID"];
+        $taskModel = new Task();
+        $taskModel->deleteTask($taskID);
+        header('Content-Type:application/json');
+        echo json_encode(["status" => "success", "message" => "Task Successfully deleted"]);
+    }
+
+
+
+    public function getAllTasksForVendor()
+    {
+
+        $assignmentID = $_GET["assignmentID"];
+        if (isset($assignmentID)) {
+            $taskModel = new Task();
+            $tasks = $taskModel->getAllTasks($assignmentID);
+            header('Content-Type:application/json');
+            echo json_encode($tasks);
+        }
+    }
+
     public function plannerWedding()
     {
         require_once './public/plannerWeddingPage.php';
@@ -78,7 +147,6 @@ class plannerController
     public function selectPackages_dressmaker()
     {
         require_once './public/selectPackages-dressmaker.php';
-
     }
     public function selectPackages_photographer()
     {
@@ -88,10 +156,9 @@ class plannerController
     {
         require_once './public/selectPackages-decorator.php';
     }
-<<<<<<< HEAD
 
 
-    public function getVendorList()
+    /*public function getVendorList()
     {
         try {
             $listModel = new Vendor();
@@ -110,9 +177,5 @@ class plannerController
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
-        }
+        }*/
 }
-}
-=======
-}
->>>>>>> origin
