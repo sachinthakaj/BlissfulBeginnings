@@ -55,7 +55,7 @@ header {
 }
 
 /* left side of the page */
-.more-about-photographer {
+.more-about-photographers {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -91,7 +91,15 @@ header {
     transform: scale(-1);
 }
 
-
+/*
+.right {
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+} 
+*/
 
 .right-image {
     width: 100%; 

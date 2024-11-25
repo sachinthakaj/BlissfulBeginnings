@@ -5,17 +5,18 @@ function render() {
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(response => {
-            if (!response.ok) {
-                if (response.status === 403) {
-                    console.log("No salons Found");
-                } else {
-                    throw new Error('Network response was not ok');
+        })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        console.log("No salons Found");
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
                 }
-            }
-            return response.json();
-            
-        }).then(data => {
+                return response.json();
+           
+           }).then(data => {
             const scrollContainer = document.querySelector('.more-about-salons');
         
             // Clear the container first
@@ -42,7 +43,8 @@ function render() {
                       <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
                 `;
                 card.innerHTML = cardHTML;
-            // Add delete functionality
+                
+                   // Add delete functionality
         const deleteIcon = card.querySelector('.delete-icon');
         deleteIcon.addEventListener('click', () => {
             card.remove();
@@ -51,8 +53,6 @@ function render() {
         // Append card to the container
         scrollContainer.appendChild(card);
     }
-
-
             // Render all cards
             data.forEach(createCard);
         })
