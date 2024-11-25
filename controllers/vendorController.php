@@ -197,3 +197,4 @@ public function deleteProfile($parameters){
 
 
 }
+}
