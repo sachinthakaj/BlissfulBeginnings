@@ -17,130 +17,260 @@ function render() {
     const modalPages = editModalContainer.querySelectorAll('.modal-page');
     const paginationDots = editModalContainer.querySelectorAll('.dot');
 
-    const cardsData = [
-        {
-          imgSrc: "/public/assets/images/VendorWeddingDashboard/img1.jpg",
-          bride: "Chamodya",
-          groom: "Induma",
-          date: "2024-06-23",
-          dayNight: "Night",
-          location: "Colombo District, Western",
-          cost: "LKR 240,000",
-          progress: 60,
-          budget: 40,
-        },
-        {
-          imgSrc: "/public/assets/images/VendorWeddingDashboard/img2.jpg",
-          bride: "Chamodya",
-          groom: "Induma",
-          date: "2024-06-23",
-          dayNight: "Night",
-          location: "Colombo District, Western",
-          cost: "LKR 240,000",
-          progress: 60,
-          budget: 40,
-        },
-        {
-          imgSrc: "/public/assets/images/VendorWeddingDashboard/img3.jpg",
-          bride: "Chamodya",
-          groom: "Induma",
-          date: "2024-06-23",
-          dayNight: "Night",
-          location: "Colombo District, Western",
-          cost: "LKR 240,000",
-          progress: 60,
-          budget: 40,
-        },
-        {
-          imgSrc: "/public/assets/images/VendorWeddingDashboard/img4.jpg",
-          bride: "Chamodya",
-          groom: "Induma",
-          date: "2024-06-23",
-          dayNight: "Night",
-          location: "Colombo District, Western",
-          cost: "LKR 240,000",
-          progress: 60,
-          budget: 40,
-        },
-        {
-          imgSrc: "/public/assets/images/VendorWeddingDashboard/img5.jpg",
-          bride: "Chamodya",
-          groom: "Induma",
-          date: "2024-06-23",
-          dayNight: "Night",
-          location: "Colombo District, Western",
-          cost: "LKR 240,000",
-          progress: 60,
-          budget: 40,
-        },
-        {
-          imgSrc: "/public/assets/images/VendorWeddingDashboard/img6.jpg",
-          bride: "Chamodya",
-          groom: "Induma",
-          date: "2024-06-23",
-          dayNight: "Night",
-          location: "Colombo District, Western",
-          cost: "LKR 240,000",
-          progress: 60,
-          budget: 40,
-        },
+    // script.js
+
+    // Define an array to store events
+    let events = [];
+
+    // letiables to store event input fields and reminder list
+    let eventDateInput =
+        document.getElementById("eventDate");
+    let eventTitleInput =
+        document.getElementById("eventTitle");
+    let eventDescriptionInput =
+        document.getElementById("eventDescription");
+    let reminderList =
+        document.getElementById("reminderList");
+
+    // Counter to generate unique event IDs
+    let eventIdCounter = 1;
+
+
+    // Function to generate a range of 
+    // years for the year select input
+    function generate_year_range(start, end) {
+        let years = "";
+        for (let year = start; year <= end; year++) {
+            years += "<option value='" +
+                year + "'>" + year + "</option>";
+        }
+        return years;
+    }
+
+    // Initialize date-related letiables
+    today = new Date();
+    currentMonth = today.getMonth();
+    currentYear = today.getFullYear();
+    selectYear = document.getElementById("year");
+    selectMonth = document.getElementById("month");
+
+    createYear = generate_year_range(1970, 2050);
+
+    document.getElementById("year").innerHTML = createYear;
+
+    let calendar = document.getElementById("calendar");
+
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
     ];
+    let days = [
+        "Sun", "Mon", "Tue", "Wed",
+        "Thu", "Fri", "Sat"];
+
+    $dataHead = "<tr>";
+    for (dhead in days) {
+        $dataHead += "<th data-days='" +
+            days[dhead] + "'>" +
+            days[dhead] + "</th>";
+    }
+    $dataHead += "</tr>";
+
+    document.getElementById("thead-month").innerHTML = $dataHead;
+
+    monthAndYear =
+        document.getElementById("monthAndYear");
+    showCalendar(currentMonth, currentYear);
+
+    // Function to navigate to the next month
+    function next() {
+        currentYear = currentMonth === 11 ?
+            currentYear + 1 : currentYear;
+        currentMonth = (currentMonth + 1) % 12;
+        showCalendar(currentMonth, currentYear);
+    }
+
+    // Function to navigate to the previous month
+    function previous() {
+        currentYear = currentMonth === 0 ?
+            currentYear - 1 : currentYear;
+        currentMonth = currentMonth === 0 ?
+            11 : currentMonth - 1;
+        showCalendar(currentMonth, currentYear);
+    }
+
+    // Function to jump to a specific month and year
+    function jump() {
+        currentYear = parseInt(selectYear.value);
+        currentMonth = parseInt(selectMonth.value);
+        showCalendar(currentMonth, currentYear);
+    }
+
+    // Function to display the calendar
+    function showCalendar(month, year) {
+        let firstDay = new Date(year, month, 1).getDay();
+        tbl = document.getElementById("calendar-body");
+        tbl.innerHTML = "";
+        monthAndYear.innerHTML = months[month] + " " + year;
+        selectYear.value = year;
+        selectMonth.value = month;
+
+        let date = 1;
+        for (let i = 0; i < 6; i++) {
+            let row = document.createElement("tr");
+            for (let j = 0; j < 7; j++) {
+                if (i === 0 && j < firstDay) {
+                    cell = document.createElement("td");
+                    cellText = document.createTextNode("");
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+                } else if (date > daysInMonth(month, year)) {
+                    break;
+                } else {
+                    cell = document.createElement("td");
+                    cell.setAttribute("data-date", date);
+                    cell.setAttribute("data-month", month + 1);
+                    cell.setAttribute("data-year", year);
+                    cell.setAttribute("data-month_name", months[month]);
+                    cell.className = "date-picker";
+                    cell.innerHTML = "<span>" + date + "</span";
+
+                    if (
+                        date === today.getDate() &&
+                        year === today.getFullYear() &&
+                        month === today.getMonth()
+                    ) {
+                        cell.className = "date-picker selected";
+                    }
+
+                    // Check if there are events on this date
+                    if (hasEventOnDate(date, month, year)) {
+                        cell.classList.add("event-marker");
+                        cell.appendChild(
+                            createEventTooltip(date, month, year)
+                        );
+                    }
+
+                    row.appendChild(cell);
+                    date++;
+                }
+            }
+            tbl.appendChild(row);
+        }
+
+    }
+
+    // Function to create an event tooltip
+    function createEventTooltip(date, month, year) {
+        let tooltip = document.createElement("div");
+        tooltip.className = "event-tooltip";
+        let eventsOnDate = getEventsOnDate(date, month, year);
+        for (let i = 0; i < eventsOnDate.length; i++) {
+            let event = eventsOnDate[i];
+            let eventDate = new Date(event.date);
+            let eventText = `<strong>${event.title}</strong> - 
+            ${event.description} on 
+            ${eventDate.toLocaleDateString()}`;
+            let eventElement = document.createElement("p");
+            eventElement.innerHTML = eventText;
+            tooltip.appendChild(eventElement);
+        }
+        return tooltip;
+    }
+
+    // Function to get events on a specific date
+    function getEventsOnDate(date, month, year) {
+        return events.filter(function (event) {
+            let eventDate = new Date(event.date);
+            return (
+                eventDate.getDate() === date &&
+                eventDate.getMonth() === month &&
+                eventDate.getFullYear() === year
+            );
+        });
+    }
+
+    // Function to check if there are events on a specific date
+    function hasEventOnDate(date, month, year) {
+        return getEventsOnDate(date, month, year).length > 0;
+    }
+
+    // Function to get the number of days in a month
+    function daysInMonth(iMonth, iYear) {
+        return 32 - new Date(iYear, iMonth, 32).getDate();
+    }
+
+    // Call the showCalendar function initially to display the calendar
+    showCalendar(currentMonth, currentYear);
+
+
+
 
     function showNotification(message, color) {
-      // Create notification element
-      const notification = document.createElement("div");
-      notification.textContent = message;
-      notification.style.position = "fixed";
-      notification.style.bottom = "20px";
-      notification.style.left = "20px";
-      notification.style.backgroundColor = color;
-      notification.style.color = "white";
-      notification.style.padding = "10px 20px";
-      notification.style.borderRadius = "5px";
-      notification.style.zIndex = 1000;
-      notification.style.fontSize = "16px";
-    
-      // Append to body
-      document.body.appendChild(notification);
-    
-      // Remove after 3 seconds
-      setTimeout(() => {
-        notification.remove();
-      }, 3000);
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.textContent = message;
+        notification.style.position = "fixed";
+        notification.style.bottom = "20px";
+        notification.style.left = "20px";
+        notification.style.backgroundColor = color;
+        notification.style.color = "white";
+        notification.style.padding = "10px 20px";
+        notification.style.borderRadius = "5px";
+        notification.style.zIndex = 1000;
+        notification.style.fontSize = "16px";
+
+        // Append to body
+        document.body.appendChild(notification);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
     }
 
     // fetch cards
     async function fetchCards() {
-      try {
-        const response = await fetch('/vendor/{vendorID}/get-weddings');
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
+        try {
+            const response = await fetch('/vendor/{vendorID}/get-weddings');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+
+            const textData = await response.text();
+            const data = textData ? JSON.parse(textData) : [];
+
+            return data;
+        } catch (error) {
+            console.error('Error fetching cards:', error);
+            showNotification("Could not fetch weddings", "red");
+            return [];
         }
-    
-        const textData = await response.text(); 
-        const data = textData ? JSON.parse(textData) : []; 
-    
-        return data;
-      } catch (error) {
-        console.error('Error fetching cards:', error);
-        showNotification("Could not fetch weddings", "red");
-        return []; 
-      }
     }
-    
+
 
     // initialize cards
     async function initializeCards() {
-      const cardsData = await fetchCards();
-    
-      if (Array.isArray(cardsData) && cardsData.length > 0) {
-        loadCards(cardsData);
-      } else {
-        showNotification("No wedding data available", "red");
-      }
+        const cardsData = await fetchCards();
+
+        if (Array.isArray(cardsData) && cardsData.length > 0) {
+            loadCards(cardsData);
+        } else {
+            showNotification("No wedding data available", "red");
+        }
     }
-    
+
     function createCard(cardData) {
         return `
             <div class="card">
@@ -170,25 +300,25 @@ function render() {
         `;
     }
 
-      function loadCards(cards) {
+    function loadCards(cards) {
         let cardWrappersHTML = "";
-    
+
         // 3 cards in card-wrapper and appending the rest
         for (let i = 0; i < cards.length; i += 3) {
-          const cardsInGroup = cards
-            .slice(i, i + 3)
-            .map((card) => createCard(card))
-            .join("");
-          cardWrappersHTML += `<div class="card-wrapper">${cardsInGroup}</div>`;
+            const cardsInGroup = cards
+                .slice(i, i + 3)
+                .map((card) => createCard(card))
+                .join("");
+            cardWrappersHTML += `<div class="card-wrapper">${cardsInGroup}</div>`;
         }
-    
+
         // inserting into slide-content
         scrollContainer.innerHTML = cardWrappersHTML;
-      }
-      
-      // loadCards(cardsData);
+    }
 
-      initializeCards();
+    // loadCards(cardsData);
+
+    initializeCards();
 
     // modal for delete profile
     function openModal() {
@@ -214,17 +344,27 @@ function render() {
                     'Content-Type': 'application/json'
                 },
             })
-            .then(response => {
-                return response.json();
-            }).then(vendorData => {
-                
-            })
-                
-            })
-            console.log("Profile deleted");
+                .then(response => {
+
+                    if (response.status === 204) {
+                        showNotification(" There is no vendor in this vendorID", "red");
+                    }
+                    if (!response.ok) {
+                        if (response.status === 409) {
+                            closeModal();
+                            showNotification(" This vendor has assigned weddings", "red");
+                            return
+                        }
+
+                    }
+
+
+                })
+            showNotification("Profile deleted", "red");
+            window.location.href = '/register';
             closeModal();
-            
-        };
+
+        });
 
         // Close modal when clicking outside
         modalContainer.addEventListener('click', (event) => {
@@ -285,43 +425,44 @@ function render() {
                 'Content-Type': 'application/json'
             },
         }).then(response => {
-    
+
             return response.json();
         }).then(vendorData => {
             let changedFields = {};
             document.querySelectorAll('.form-input').forEach(input => {
                 input.value = vendorData[input.id];
                 input.addEventListener('change', () => {
-                    changedFields[input.id] = input.value;  
+                    changedFields[input.id] = input.value;
                 })
             })
             document.querySelector('.submit-button').addEventListener('click', () => {
                 console.log(changedFields);
-            if (Object.keys(changedFields).length > 0) {
-                fetch('/update-profile/vendor-details/' + vendorID, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(changedFields)
-                }).then(response => {
-                    return response.json();
-                }).then(data => {
-                    Object.keys(changedFields).forEach((column) => {
-                        vendorData[column] = changedFields[column];
-                      });
-                      closeEditModal();
-                }).catch(error => {
-                    console.error(error);
-                });
-            }
+                if (Object.keys(changedFields).length > 0) {
+                    fetch('/update-profile/vendor-details/' + vendorID, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(changedFields)
+                    }).then(response => {
+                        return response.json();
+                    }).then(data => {
+                        Object.keys(changedFields).forEach((column) => {
+                            vendorData[column] = changedFields[column];
+                        });
+                        closeEditModal();
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                }
             })
 
             
 
 
-    })}
-    
+        })
+    }
+
 
     function closeEditModal() {
         editModalContainer.classList.remove('show');
@@ -364,7 +505,7 @@ function render() {
             });
         });
 
-        
+
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && editModalContainer.classList.contains('show')) {

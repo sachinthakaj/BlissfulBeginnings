@@ -7,11 +7,7 @@ body {
     margin: 0;
 }
 
-.wrapper {
-    max-width: 1100px;
-    margin: 15px auto;
-}
-
+    
 /* Calendar container */
 .container-calendar {
     background: #ffffff;
