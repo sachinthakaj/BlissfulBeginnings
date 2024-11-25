@@ -598,9 +598,24 @@ const unassigned = (data) => {
 }
 
 
+
 function render() {
     const loadingScreen = document.getElementById("loading-screen");
     const mainContent = document.getElementById("main-content");
+
+    const deleteProfile = document.querySelector('.delete-profile');
+    const editProfile = document.querySelector('.edit-profile');
+    const modalContainer = document.querySelector('.modal-container');
+    const editModalContainer = document.querySelector('#edit-modal-container');
+    const closeButton = editModalContainer.querySelector('.close-button');
+    const prevButton = editModalContainer.querySelector('.prev-button');
+    const nextButton = editModalContainer.querySelector('.next-button');
+    const submitButton = editModalContainer.querySelector('.submit-button');
+    const modalPages = editModalContainer.querySelectorAll('.modal-page');
+    const paginationDots = editModalContainer.querySelectorAll('.dot');
+    const cancelButton = document.querySelector('.cancel-button');
+    const deleteButton = document.querySelector('.delete-button');
+
     try {
         fetch('/wedding/data/' + weddingID, {
             method: 'GET',
@@ -631,6 +646,131 @@ function render() {
         console.error('Error fetching data early:', error)
         loadingScreen.innerHTML = "<p>Error loading data. Please try again later.</p>";
     }
+
+    let currentPage = 1;
+    const totalPages = modalPages.length;
+
+    // Delete modal functionality
+    if (deleteProfile && modalContainer) {
+        deleteProfile.addEventListener('click', () => {
+            console.log("Delete button clicked");
+            modalContainer.classList.add('show');
+        });
+
+        cancelButton.addEventListener('click', () => {
+            modalContainer.classList.remove('show');
+        });
+
+        deleteButton.addEventListener('click', () => {
+            // Add your delete logic here
+            console.log('Profile deleted');
+            modalContainer.classList.remove('show');
+        });
+
+        modalContainer.addEventListener('click', (event) => {
+            if (event.target === modalContainer) {
+                modalContainer.classList.remove('show');
+            }
+        });
+    }
+
+    // Edit modal functionality
+    function updateModalPage() {
+        modalPages.forEach(page => {
+            page.classList.remove('active');
+            if (parseInt(page.dataset.page) === currentPage) {
+                page.classList.add('active');
+            }
+        });
+
+        paginationDots.forEach(dot => {
+            dot.classList.remove('active');
+            if (parseInt(dot.dataset.page) === currentPage) {
+                dot.classList.add('active');
+            }
+        });
+
+        prevButton.disabled = currentPage === 1;
+        if (currentPage === totalPages) {
+            nextButton.style.display = 'none';
+            submitButton.style.display = 'block';
+        } else {
+            nextButton.style.display = 'block';
+            submitButton.style.display = 'none';
+        }
+    }
+
+    if (editProfile && editModalContainer) {
+        editProfile.addEventListener('click', () => {
+            editModalContainer.classList.add('show');
+            currentPage = 1;
+            updateModalPage();
+        });
+
+        closeButton.addEventListener('click', () => {
+            editModalContainer.classList.remove('show');
+        });
+
+        editModalContainer.addEventListener('click', (event) => {
+            if (event.target === editModalContainer) {
+                editModalContainer.classList.remove('show');
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updateModalPage();
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateModalPage();
+            }
+        });
+
+        paginationDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentPage = parseInt(dot.dataset.page);
+                updateModalPage();
+            });
+        });
+
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Collect form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                businessName: document.getElementById('businessName').value,
+                businessType: document.getElementById('businessType').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value,
+                experience: document.getElementById('experience').value,
+                website: document.getElementById('website').value
+            };
+            
+            console.log('Form submitted:', formData);
+            // Add your form submission logic here
+            
+            editModalContainer.classList.remove('show');
+        });
+    }
+
+    // Close modals with Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            if (modalContainer.classList.contains('show')) {
+                modalContainer.classList.remove('show');
+            }
+            if (editModalContainer.classList.contains('show')) {
+                editModalContainer.classList.remove('show');
+            }
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', render);

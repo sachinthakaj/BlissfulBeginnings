@@ -23,7 +23,7 @@ function render() {
           bride: "Chamodya",
           groom: "Induma",
           date: "2024-06-23",
-          time: "Night",
+          dayNight: "Night",
           location: "Colombo District, Western",
           cost: "LKR 240,000",
           progress: 60,
@@ -34,7 +34,7 @@ function render() {
           bride: "Chamodya",
           groom: "Induma",
           date: "2024-06-23",
-          time: "Night",
+          dayNight: "Night",
           location: "Colombo District, Western",
           cost: "LKR 240,000",
           progress: 60,
@@ -45,7 +45,7 @@ function render() {
           bride: "Chamodya",
           groom: "Induma",
           date: "2024-06-23",
-          time: "Night",
+          dayNight: "Night",
           location: "Colombo District, Western",
           cost: "LKR 240,000",
           progress: 60,
@@ -56,7 +56,7 @@ function render() {
           bride: "Chamodya",
           groom: "Induma",
           date: "2024-06-23",
-          time: "Night",
+          dayNight: "Night",
           location: "Colombo District, Western",
           cost: "LKR 240,000",
           progress: 60,
@@ -67,7 +67,7 @@ function render() {
           bride: "Chamodya",
           groom: "Induma",
           date: "2024-06-23",
-          time: "Night",
+          dayNight: "Night",
           location: "Colombo District, Western",
           cost: "LKR 240,000",
           progress: 60,
@@ -78,7 +78,7 @@ function render() {
           bride: "Chamodya",
           groom: "Induma",
           date: "2024-06-23",
-          time: "Night",
+          dayNight: "Night",
           location: "Colombo District, Western",
           cost: "LKR 240,000",
           progress: 60,
@@ -86,6 +86,61 @@ function render() {
         },
     ];
 
+    function showNotification(message, color) {
+      // Create notification element
+      const notification = document.createElement("div");
+      notification.textContent = message;
+      notification.style.position = "fixed";
+      notification.style.bottom = "20px";
+      notification.style.left = "20px";
+      notification.style.backgroundColor = color;
+      notification.style.color = "white";
+      notification.style.padding = "10px 20px";
+      notification.style.borderRadius = "5px";
+      notification.style.zIndex = 1000;
+      notification.style.fontSize = "16px";
+    
+      // Append to body
+      document.body.appendChild(notification);
+    
+      // Remove after 3 seconds
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // fetch cards
+    async function fetchCards() {
+      try {
+        const response = await fetch('/vendor/{vendorID}/get-weddings');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+    
+        const textData = await response.text(); 
+        const data = textData ? JSON.parse(textData) : []; 
+    
+        return data;
+      } catch (error) {
+        console.error('Error fetching cards:', error);
+        showNotification("Could not fetch weddings", "red");
+        return []; 
+      }
+    }
+    
+
+    // initialize cards
+    async function initializeCards() {
+      const cardsData = await fetchCards();
+    
+      if (Array.isArray(cardsData) && cardsData.length > 0) {
+        loadCards(cardsData);
+      } else {
+        showNotification("No wedding data available", "red");
+      }
+    }
+    
     function createCard(cardData) {
         return `
             <div class="card">
@@ -99,7 +154,7 @@ function render() {
                     <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
                     <div class="content">
                         <h4 class="description">Date: ${cardData.date}</h4>
-                        <h4 class="description">Time: ${cardData.time}</h4>
+                        <h4 class="description">Time: ${cardData.dayNight}</h4>
                         <h4 class="description">Location: ${cardData.location}</h4>
                         <h4 class="description">Wedding Progress: </h4> 
                         <div class="progress-bar-container">
@@ -131,7 +186,9 @@ function render() {
         scrollContainer.innerHTML = cardWrappersHTML;
       }
       
-      loadCards(cardsData);
+      // loadCards(cardsData);
+
+      initializeCards();
 
     // modal for delete profile
     function openModal() {
@@ -151,10 +208,23 @@ function render() {
 
         // Handle delete action
         deleteButton.addEventListener('click', () => {
+            fetch('/delete-profile/vendor-details/' + vendorID, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => {
+                return response.json();
+            }).then(vendorData => {
+                
+            })
+                
+            })
             console.log("Profile deleted");
             closeModal();
-            // Add your delete logic here
-        });
+            
+        };
 
         // Close modal when clicking outside
         modalContainer.addEventListener('click', (event) => {
@@ -203,6 +273,7 @@ function render() {
         }
     }
 
+    // edit modal open
     function openEditModal() {
         editModalContainer.classList.add('show');
         currentPage = 1;

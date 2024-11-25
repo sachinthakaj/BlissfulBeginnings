@@ -116,7 +116,7 @@ aside {
 .top-row {
     display: flex; 
     flex-direction: row; 
-    justify-content: space-between; 
+    justify-content: flex-end; 
     align-items: center; 
     margin-bottom: 10px; 
 }

@@ -6,6 +6,7 @@ $router->post("/signin", "vendorAuthController@login");
 $router->get("/register", "vendorAuthController@Register");
 $router->post("/register", "vendorAuthController@registerAsVendor");
 $router->get("/vendor/{vendorID}", "vendorAuthController@VendorDash");
+$router->get("/vendor/{vendorID}/get-weddings","vendorController@getWeddings");
 $router->get("/resetpassword", "vendorHomeController@resetPassword");
 
 
@@ -22,3 +23,4 @@ $router->post("/vendor/{vendorID}/update-package/{packageID}", "PackageControlle
 
 $router->get("/get-profile-details/vendor-details/{vendorID}","vendorController@getProfileDetails");
 $router->post("/update-profile/vendor-details/{vendorID}","vendorController@updateProfileDetails");
+$router->delete("/delete-profile/vendor-details/{vendorID}","vendorController@deleteProfile");
