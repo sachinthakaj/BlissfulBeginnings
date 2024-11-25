@@ -650,6 +650,32 @@ function render() {
     let currentPage = 1;
     const totalPages = modalPages.length;
 
+    // event listener for delete wedding
+    function deleteWedding() {
+        fetch('/wedding/delete-wedding/' + weddingID, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            if(response.status == 409) {
+                showNotification("The wedding is still ongoing can't delete", "red");
+                closeEditModal();
+                return;   
+            } else if(response.status == 203) {
+                window.location.href = '/signin';
+            } 
+            alert("Vendor Deleted sucesssfully");
+            
+            console.log(data);
+            window.location.href = '/register';
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+
     // Delete modal functionality
     if (deleteProfile && modalContainer) {
         deleteProfile.addEventListener('click', () => {
@@ -657,12 +683,10 @@ function render() {
             modalContainer.classList.add('show');
         });
 
-        cancelButton.addEventListener('click', () => {
-            modalContainer.classList.remove('show');
-        });
+        cancelButton.addEventListener('click', closeEditModal);
 
         deleteButton.addEventListener('click', () => {
-            // Add your delete logic here
+            deleteWedding();
             console.log('Profile deleted');
             modalContainer.classList.remove('show');
         });
@@ -816,7 +840,7 @@ function render() {
             })
 
             
-
+        
 
     })}
 }

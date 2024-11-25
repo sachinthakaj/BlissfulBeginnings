@@ -117,6 +117,10 @@ class Recommendations
     public function createRecommendations($weddingID, $selectedPackages)
     {
         try {
+            $this->db->startTransaction();
+            $this->db->query('UPDATE wedding SET state = "unassigned" WHERE weddingID = UNHEX(:weddingID)');
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
             foreach ($selectedPackages as $typeID => $packages) {
                 foreach ($packages as $packageID) {
                         $this->db->query('INSERT INTO recommendations (weddingID, packageID, typeID) VALUES (UNHEX(:weddingID), UNHEX(:packageID), :typeID)');
@@ -130,7 +134,9 @@ class Recommendations
                     return $result;
                 }
             }
+            $this->db->commit();
         } catch (Exception $e) {
+            $this->db->rollbackTransaction();
             error_log($e);
         }
     }

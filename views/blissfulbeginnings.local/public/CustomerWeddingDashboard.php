@@ -28,16 +28,20 @@
                 <h1 class="wedding-title"></h1>
             </div>
             <div class="top-right">
-                <li>
-                    <a href="#">Profile ▼</a>
-                    <ul class="dropdown">
-                        <li><a href="#" class="edit-profile" id="edit-profile">Edit Profile</a></li>
-                        <li><a href="#" class="delete-profile" id="delete-profile">Delete Profile</a></li>
-                        <li><a class="logout-button top-right-item" onclick="window.location.href='/signin'">Log Out</a></li>
-                    </ul>
-                </li>
+                <ul>
+                    <li>
+                        <a href="#">Profile ▼</a>
+                        <ul class="dropdown">
+                            <li><a href="#" class="edit-profile" id="edit-profile">Edit Profile</a></li>
+                            <li><a href="#" class="delete-profile" id="delete-profile">Delete Profile</a></li>
+                            <li><a class="logout-button top-right-item" onclick="window.location.href='/signin'">Log Out</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="pay-now">Pay Now</button>
+                    </li>
+                </ul>
             </div>
-            <button class="pay-now">Pay Now</button>
         </header>
 
         <div class="main-container">
