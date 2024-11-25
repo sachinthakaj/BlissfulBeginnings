@@ -215,16 +215,26 @@ function render() {
                 },
             })
             .then(response => {
-                return response.json();
-            }).then(vendorData => {
+             
+                 if(response.status ===204){
+                    showNotification(" There is no vendor in this vendorID", "red");
+                }
+                if (!response.ok) {
+                    if (response.status === 409) {
+                        closeModal();
+                        showNotification(" This vendor has assigned weddings", "red");
+                        return
+                    }
+                    
+            }
+
                 
             })
-                
-            })
-            console.log("Profile deleted");
+            showNotification("Profile deleted","red");
+              window.location.href = '/register';
             closeModal();
             
-        };
+        });
 
         // Close modal when clicking outside
         modalContainer.addEventListener('click', (event) => {

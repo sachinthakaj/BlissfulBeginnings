@@ -55,7 +55,7 @@ header {
 }
 
 /* left side of the page */
-.more-about-salon {
+.more-about-salons {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -63,7 +63,7 @@ header {
     height: 70vh;
     padding-top: 20px;
     padding-bottom: 250px;
-    padding-left: 130px;
+    padding-left: 80px;
 }
 
 .left {
@@ -136,7 +136,7 @@ header {
 }
 
 .image {
-    width:230px;
+    width: 230px;
     height: 220px;
     border-radius: 30px;
     background-color: #fff;
@@ -222,7 +222,7 @@ header {
     transition: ease-in 1s;
 }
 
-.more-about-dress > .container {
+.more-about-salons > .container {
     scale: 0.8;
     opacity: 0;
     animation: fade-in linear forwards;
@@ -258,7 +258,7 @@ header {
 
 .right-title {
     font-family: "Gwendolyn", cursive;
-    font-size: 70px;
+    font-size: 90px;
     color: #fff;
     font-weight: 700;
     line-height: 40px;
@@ -284,14 +284,13 @@ header {
     border-radius: 60px;
     border: #c1a42e solid 1px;
     padding: 12px;
-    margin-left: 31vw;
+    margin-left: 24vw;
     margin-top: 15px;
 }
 
 .search-input:focus {
     outline: #656233 solid 1px;
 }
-/* Styling for the delete icon */
 .delete-icon {
    
     position: absolute;
@@ -302,4 +301,3 @@ header {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
