@@ -22,6 +22,7 @@ class CustomerController
         try {
             $wedding = new Wedding();
             $weddingDetails = $wedding->fetchDataCustomer($weddingID['weddingID']);
+            error_log(json_encode($weddingDetails));
             if ($weddingDetails) {
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($weddingDetails);

@@ -18,6 +18,10 @@ class Wedding
             $this->db->query("SELECT * from wedding WHERE weddingID = :weddingID");
             $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
             $this->db->execute();
+            if($this->db->rowCount() == 0){
+                error_log("No wedding found");
+                throw new Exception("Wedding not found", 1);
+            }
             $weddingData = $this->db->fetch(PDO::FETCH_ASSOC);
             $weddingData['weddingID'] = bin2hex($weddingData['weddingID']);
             $weddingData['userID'] = bin2hex($weddingData['userID']);

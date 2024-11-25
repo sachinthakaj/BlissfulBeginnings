@@ -23,9 +23,9 @@ class plannerController
 
     public function updateWeddingData()
     {
-        session_start(); 
+        session_start();
 
-        
+
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode([
@@ -84,7 +84,6 @@ class plannerController
     public function selectPackages_dressmaker()
     {
         require_once './public/selectPackages-dressmaker.php';
-
     }
     public function selectPackages_photographer()
     {
