@@ -82,6 +82,30 @@ class Vendor
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function getAllVendorsForWedding($weddingID)
+    {
+        try {
+            $this->db->query("SELECT v.vendorID,v.businessName,v.typeID
+        FROM vendors v
+        JOIN packages p ON v.vendorID=p.vendorID
+        JOIN packageAssignment pa ON p.packageID=pa.packageID
+        WHERE pa.weddingID=UNHEX(:weddingID)");
+
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+            $this->db->execute();
+            $vendors = [];
+            while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+                $row["vendorID"] = bin2hex($row["vendorID"]);
+                $vendors[] = $row;
+            }
+
+            return $vendors;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 
     public function getVendorDetailsAndPackages($vendorID)
     {
