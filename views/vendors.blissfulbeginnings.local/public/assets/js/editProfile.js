@@ -5,7 +5,10 @@ const vendorID = pathParts[pathParts.length - 1];
 
 const mainContainer = document.querySelector('.main-container');
 const newPackage = document.querySelector('.add-package');
-
+const deleteProfile = document.querySelector('.delete-icon');
+const modalContainer = document.querySelector('.modal-container');
+const cancelButton = document.querySelector('.cancel-button');
+const deleteButton = document.querySelector('.delete-button');
 
 document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.getElementById("loading-screen");
@@ -141,7 +144,41 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
 
-        function openUpdateModal(packageID) {
+        // delete package confirmation modal
+        function openModal() {
+            modalContainer.classList.add('show');
+        }
+    
+        function closeModal() {
+            modalContainer.classList.remove('show');
+        }
+
+        if (deleteProfile && modalContainer) {
+            deleteProfile.addEventListener('click', openModal);
+
+            // Close modal when clicking cancel button
+            cancelButton.addEventListener('click', closeModal);
+
+            // deleteButton.addEventListener('click', () => {
+            //     fetch('/delete-profile/vendor-details/' + vendorID, {
+            //         method: 'DELETE',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //     })
+            //     .then(response => {
+            //         return response.json();
+            //     }).then(vendorData => {
+                    
+            //     })
+                    
+            //     })
+            //     console.log("Profile deleted");
+            //     closeModal();
+            // })
+        }
+
+        function openUpdateModal(packageID) { 
             console.log(packageID);
             const package = vendorData.packages[packageID];
             console.log(package);
@@ -363,7 +400,7 @@ const displayDressDesignerPackage = (packageDetails, modalContent) => {
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
 }
-const displaySalonPackage = (packageDetails, divElement) => {
+const displaySalonPackage = (packageDetails, modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `
                 <div class="input-group specific">
@@ -382,7 +419,7 @@ const displaySalonPackage = (packageDetails, divElement) => {
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
 }
-const displayFloristPackage = (packageDetails, divElement) => {
+const displayFloristPackage = (packageDetails, modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `
                 <div class="input-group specific">

@@ -15,6 +15,12 @@ class plannerController
         echo json_encode($weddings);
     }
 
+    public function resetPassword()
+    {
+        require_once './public/resetPassword.html';
+    }
+
+
     public function updateWeddingData()
     {
         session_start();
@@ -158,17 +164,18 @@ class plannerController
     }
 
 
-    /*public function getVendorList()
+    public function getSalonsList()
     {
+       
         try {
-            $listModel = new Vendor();
-            $venList = $listModel->getVendorList();
-            for($i = 0; $i < count($venList); $i++) {
-                $venList[$i]['vendorID'] = bin2hex($venList[$i]['vendorID']);
+            $list1Model = new Planner();
+            $salonList = $list1Model->getSalonsList();
+            for($i = 0; $i < count($salonList); $i++) {
+                $salonList[$i]['vendorID'] = bin2hex($salonList[$i]['vendorID']);
                 }
-            if($venList) {
+            if($salonList) {
                 header("Content-Type: application/json; charset=utf-8");
-                echo json_encode($venList);
+                echo json_encode($salonList);
             } else {
                 header('HTTP/1.1 404 Unauthorized');
                 echo json_encode(['error' => 'No Vendors Found']);
@@ -177,5 +184,73 @@ class plannerController
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
-        }*/
+        }
+}
+public function getFloristsList()
+    {
+        try {
+            $list2Model = new Planner();
+            $floristList = $list2Model->getFloristsList();
+            for($i = 0; $i < count( $floristList); $i++) {
+                $floristList[$i]['vendorID'] = bin2hex( $floristList[$i]['vendorID']);
+                }
+            if($floristList) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode( $floristList);
+            } else {
+                header('HTTP/1.1 404 Unauthorized');
+                echo json_encode(['error' => 'No Vendors Found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+}
+public function getPhotographersList()
+{
+   
+    try {
+        $list3Model = new Planner();
+        $photographerList = $list3Model->getPhotographersList();
+        for($i = 0; $i < count($photographerList); $i++) {
+            $photographerList[$i]['vendorID'] = bin2hex($photographerList[$i]['vendorID']);
+            }
+        if($photographerList) {
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode($photographerList);
+        } else {
+            header('HTTP/1.1 404 Unauthorized');
+            echo json_encode(['error' => 'No Vendors Found']);
+        }
+    } catch (Exception $e) {
+        error_log($e);
+        header('HTTP/1.1 500 Internal Server Error');
+        echo json_encode(['error' => 'Error fetching Data']);
+    }
+}
+public function getDressDesignersList()
+{
+   
+    try {
+        $list4Model = new Planner();
+        $dressDesignerList = $list4Model->getDressDesignersList();
+        for($i = 0; $i < count( $dressDesignerList); $i++) {
+            $dressDesignerList [$i]['vendorID'] = bin2hex( $dressDesignerList[$i]['vendorID']);
+            }
+        if($dressDesignerList) {
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode($dressDesignerList);
+        } else {
+            header('HTTP/1.1 404 Unauthorized');
+            echo json_encode(['error' => 'No Vendors Found']);
+        }
+    } catch (Exception $e) {
+        error_log($e);
+        header('HTTP/1.1 500 Internal Server Error');
+        echo json_encode(['error' => 'Error fetching Data']);
+    }
+}
+
+
 }

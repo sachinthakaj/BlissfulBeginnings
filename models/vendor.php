@@ -52,34 +52,36 @@ class Vendor
         $result = $this->db->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function getSalons()
-    {
-        $this->db->query('SELECT * FROM vendors WHERE typeID="Salon"');
+    public function getSalons(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Salon"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getPhotographers()
-    {
-        $this->db->query('SELECT * FROM vendors WHERE typeID="Photographer"');
+    public function getPhotographers(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="photographer"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getDdesigners()
-    {
-        $this->db->query('SELECT * FROM vendors WHERE typeID="Dress Designer"');
+    public function getDdesigners(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Dress Designer"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getFlorists()
-    {
-        $this->db->query('SELECT * FROM vendors WHERE typeID="Florist"');
+    public function getFlorists(){
+        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Florist"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
+    public function getWeddings($vendorID) {
+        $this->db->query('SELECT wedding.* FROM wedding INNER JOIN packageassignment 
+                        ON wedding.weddingID=packageassignment.weddingID INNER JOIN packages 
+                        ON packageassignment.packageID=packages.packageID INNER JOIN vendors 
+                        ON packages.vendorID=vendors.vendorID WHERE vendors.vendorID=UNHEX(:vendorID)');
+        $this->db->bind(':vendorID', $vendorID);
+        $this->db->execute();
+        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getVendorDetailsAndPackages($vendorID)
     {
@@ -97,28 +99,73 @@ class Vendor
             throw new Exception("Empty Set returned", 1);
         }
     }
-
-    public function getAllVendorsForWedding($weddingID)
+    public function getProfileDetails($vendorID)
     {
-        try {
-            $this->db->query("SELECT v.vendorID,v.businessName,v.typeID
-        FROM vendors v
-        JOIN packages p ON v.vendorID=p.vendorID
-        JOIN packageAssignment pa ON p.packageID=pa.packageID
-        WHERE pa.weddingID=UNHEX(:weddingID)");
-
-            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+        try
+        { 
+            $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
+            $this->db->bind(':vendorID',$vendorID, PDO::PARAM_STR);
             $this->db->execute();
-            $vendors = [];
-            while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
-                $row["vendorID"] = bin2hex($row["vendorID"]);
-                $vendors[] = $row;
-            }
+            $vendorDetails = $this->db->fetch(PDO::FETCH_ASSOC);
+            unset($vendorDetails['password']);
+            return $vendorDetails;
 
-            return $vendors;
-        } catch (PDOException $e) {
-            error_log($e->getMessage());
-            return false;
+
+
+
+
+        } catch (Exception $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
+        }
+
+        
+
+
+
+    }
+
+    public function updateProfileDetails($vendorID,$updatedColumns){
+        try {
+          
+            $setPart = [];
+            $params = [];
+            foreach ($updatedColumns as $column => $value) {
+                $setPart[] = "$column = :$column";
+                $params[":$column"] = $value;
+            }
+            $params[':vendorID'] = hex2bin($vendorID);
+            $setPartString = implode(', ', $setPart);
+            $sql = "UPDATE vendors SET $setPartString WHERE vendorID = :vendorID";
+            error_log($sql);
+            $this->db->query($sql);
+            $this->db->execute($params);
+            return $this->db->rowCount();
+        } 
+
+        catch (Exception $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
+        }
+
+    }
+    public function deleteProfile($vendorID){
+        try {
+            $this->db->query('SELECT COUNT(*) as numweddings FROM packageassignment  INNER JOIN packages ON packageassignment.packageID = packages.packageID INNER JOIN vendors ON packages.vendorID = vendors.vendorID WHERE vendors.vendorID = UNHEX(:vendorID)');
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            $result = $this->db->fetch(PDO::FETCH_ASSOC);
+            if ($result['numweddings'] == 0) {
+            $this->db->query("DELETE FROM vendors WHERE vendorID = UNHEX(:vendorID);");
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            return $this->db->rowCount();
+            } else {
+                return -1;
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
         }
     }
 }
