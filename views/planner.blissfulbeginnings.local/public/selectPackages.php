@@ -19,22 +19,25 @@
             <p>Loading...</p>
         </div class=main-content>
 
-        
+
         <div id="main-content">
-        <header>
-            <div class="nav-bar-logo-container">
-                <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
-            </div>
-            <div class="wedding-title-container">
-                <h1 class="wedding-title"></h1>
-            </div>
-        </header>
+            <header>
+                <div class="nav-bar-logo-container">
+                    <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+                </div>
+                <div class="wedding-title-container">
+                    <h1 class="wedding-title"></h1>
+                </div>
+            </header>
             <div id="modal">
                 <div id="modal-content">
                 </div>
             </div>
-            <div class="budget-info">
-                <p>Total allocated budget: <span id="total-budget">0</span></p>
+            <div class="budget-container">
+                <div class="budget-info">
+                    <p>Total allocated budget: <span id="total-budget">0</span> 
+                </div>
+                <button id="proceed-button">Proceed</button></p>
             </div>
             <div class="above-main">
                 <div class="main-body">
