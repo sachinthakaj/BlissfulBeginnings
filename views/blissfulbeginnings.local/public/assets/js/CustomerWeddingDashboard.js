@@ -701,19 +701,13 @@ function render() {
     }
 
     if (editProfile && editModalContainer) {
-        editProfile.addEventListener('click', () => {
-            editModalContainer.classList.add('show');
-            currentPage = 1;
-            updateModalPage();
-        });
+        editProfile.addEventListener('click', openEditModal);
 
-        closeButton.addEventListener('click', () => {
-            editModalContainer.classList.remove('show');
-        });
+        closeButton.addEventListener('click', closeEditModal);
 
         editModalContainer.addEventListener('click', (event) => {
             if (event.target === editModalContainer) {
-                editModalContainer.classList.remove('show');
+                closeEditModal();
             }
         });
 
@@ -771,6 +765,60 @@ function render() {
             }
         }
     });
+
+    function closeEditModal() {
+        editModalContainer.classList.remove('show');
+    }
+
+
+    // edit modal retreive from the backend
+    function openEditModal() {
+        editModalContainer.classList.add('show');
+        currentPage = 1;
+        updateModalPage();
+
+        fetch('/wedding/data/' + weddingID, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+    
+            return response.json();
+        }).then(weddingData => {
+            let changedFields = {};
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.value = weddingData[input.id];
+                input.addEventListener('change', () => {
+                    changedFields[input.id] = input.value;  
+                })
+            })
+            document.querySelector('.submit-button').addEventListener('click', () => {
+                console.log(changedFields);
+            if (Object.keys(changedFields).length > 0) {
+                fetch('/update-wedding/' + weddingID, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(changedFields)
+                }).then(response => {
+                    return response.json();
+                }).then(data => {
+                    Object.keys(changedFields).forEach((column) => {
+                        weddingData[column] = changedFields[column];
+                      });
+                      closeEditModal();
+                }).catch(error => {
+                    console.error(error);
+                });
+            }
+            })
+
+            
+
+
+    })}
 }
 
 document.addEventListener('DOMContentLoaded', render);
