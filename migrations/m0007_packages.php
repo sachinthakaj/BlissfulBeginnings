@@ -47,7 +47,7 @@ class m0007_packages {
       CREATE TABLE `floristPackages` (
         `packageID` BINARY(16)  PRIMARY KEY,
         `variableCost` int(10) NOT NULL,
-        `type` ENUM('Fresh', 'Artificial') NOT NULL,
+        `flowerType` ENUM('Fresh', 'Artificial') NOT NULL,
 
   CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

@@ -42,17 +42,63 @@ INSERT INTO `weddingbridegrooms` (`weddingID`, `brideID`, `groomID`) VALUES
 (0xa9129b1ba8a611ef8612cc153136262a, 0xa912cdb8a8a611ef8612cc153136262a, 0xa912d6cca8a611ef8612cc153136262a),
 (0xaec44e7ba8a711ef8612cc153136262a, 0xaec48bd1a8a711ef8612cc153136262a, 0xaec4e6d7a8a711ef8612cc153136262a);
 
+
+INSERT INTO `packages` (`packageID`, `vendorID`, `packageName`, `feature1`, `feature2`, `feature3`, `fixedCost`) VALUES
+(0x189eec2faa3f11ef8612cc153136262a, 0x1415e1b4a8b211efac950a0027000004, \'Gold\', \'Flower Bouqet\', \'Sette Back\', \'Table Decoration\', 20000),
+(0x2a309042a98d11ef8612cc153136262a, 0xac902193a8b111efac950a0027000004, \'Elite Wedding\', \'Facial Treatments\', \'Manicures\', \'Pedicures\', 180000),
+(0x4fa7d5d6aa3f11ef8612cc153136262a, 0x3f9891a9a8b211efac950a0027000004, \'Bronze\', \'Saree\', \'\', \'\', 50000),
+(0x6574a1d6aa3d11ef8612cc153136262a, 0xac902193a8b111efac950a0027000004, \'Platinum\', \'Facial\', \'Beauty treatments\', \'\', 1400),
+(0x7da01591aa3f11ef8612cc153136262a, 0x3f9891a9a8b211efac950a0027000004, \'Silver\', \'Saree\', \'Jacket\', \'\', 50000),
+(0x95994369aa3f11ef8612cc153136262a, 0x3f9891a9a8b211efac950a0027000004, \'Gold \', \'Saree\', \'Jacket\', \'Full Suits\', 100000),
+(0xa9badb39aa3e11ef8612cc153136262a, 0x1415e1b4a8b211efac950a0027000004, \'asd\', \'adfa\', \'asd\', \'\', 1231),
+(0xb438a7d5a98111ef8612cc153136262a, 0xac902193a8b111efac950a0027000004, \'Basic\', \'Bridal Makeup\', \'Facial\', \'\', 120000),
+(0xc37ef387aa3f11ef8612cc153136262a, 0xe00e1dc1a8b111efac950a0027000004, \'Bronze\', \'Wedding Album\', \'\', \'\', 300000),
+(0xc6f94118a98111ef8612cc153136262a, 0xac902193a8b111efac950a0027000004, \'Deluxe\', \'Bridal Makeup\', \'Group Makeup\', \'Facial\', 10000),
+(0xdc4c4895aa3f11ef8612cc153136262a, 0xe00e1dc1a8b111efac950a0027000004, \'Silver\', \'Wedding Album\', \'Drone Photography\', \'\', 40000),
+(0xeb95d723aa3e11ef8612cc153136262a, 0x1415e1b4a8b211efac950a0027000004, \'Deluxe\', \'Flower Bouquet\', \'\', \'\', 12000),
+(0xf3158f05aa3f11ef8612cc153136262a, 0xe00e1dc1a8b111efac950a0027000004, \'Gold\', \'Wedding Album\', \'Drone Photography\', \'Photo Location\', 100000),
+(0xfe756484aa3e11ef8612cc153136262a, 0x1415e1b4a8b211efac950a0027000004, \'Silver\', \'Sette back\', \'Flower Bouquet\', \'\', 15000);
+
+
+
+INSERT INTO `dressdesignerpackages` (`packageID`, `variableCost`, `theme`, `demographic`) VALUES
+(0x4fa7d5d6aa3f11ef8612cc153136262a, 50000, \'Kandyan\', \'Both\' ),
+(0x7da01591aa3f11ef8612cc153136262a, 25000, \'Kandyan\', \'Both\' ),
+(0x95994369aa3f11ef8612cc153136262a, 50000, \'Kandyan\', \'Both\' );
+
+INSERT INTO `floristpackages` (`packageID`, `variableCost`, `flowerType`) VALUES
+(0x189eec2faa3f11ef8612cc153136262a, 9000, \'Fresh\' ),
+(0xa9badb39aa3e11ef8612cc153136262a, 12, \'Artificial\' ),
+(0xeb95d723aa3e11ef8612cc153136262a, 4500, \'Artificial\' ),
+(0xfe756484aa3e11ef8612cc153136262a, 5000, \'Artificial\' );
+
+INSERT INTO `photographypackages` (`packageID`, `cameraCoverage`) VALUES
+(0xc37ef387aa3f11ef8612cc153136262a, 3 ),
+(0xdc4c4895aa3f11ef8612cc153136262a, 3 ),
+(0xf3158f05aa3f11ef8612cc153136262a, 4 );
+
+INSERT INTO `salonpackages` (`packageID`, `variableCost`, `demographic`) VALUES
+(0x2a309042a98d11ef8612cc153136262a, 40000, \'Bride\' ),
+(0x6574a1d6aa3d11ef8612cc153136262a, 100, \'Bride\' ),
+(0xb438a7d5a98111ef8612cc153136262a, 10000, \'Both\' ),
+(0xc6f94118a98111ef8612cc153136262a, 1300, \'Bride\' )
+
 ';
       $this->dbh->exec($SQL);;
     }
 
     public function down() {
       $SQL = "
-      TRUNCATE TABLE bridegrooms;
-      TRUNCATE TABLE weddingbridegrooms;
-      TRUNCATE TABLE wedding;
-      TRUNCATE TABLE users;
-      TRUNCATE TABLE vendors; ";
+      DELETE FROM photographyPackages;
+      DELETE FROM floristPackages;
+      DELETE FROM dressdesignerPackages;
+      DELETE FROM salonPackages;
+      DELETE FROM packages;
+      DELETE FROM weddingbridegrooms;
+      DELETE FROM bridegrooms;
+      DELETE FROM wedding;
+      DELETE FROM users;
+      DELETE FROM vendors; ";
       $this->dbh->exec($SQL);
     }
 }
