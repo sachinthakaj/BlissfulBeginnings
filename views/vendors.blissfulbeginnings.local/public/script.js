@@ -149,7 +149,6 @@ function showCalendar(month, year) {
         tbl.appendChild(row);
     }
 
-    displayReminders();
 }
 
 // Function to create an event tooltip
