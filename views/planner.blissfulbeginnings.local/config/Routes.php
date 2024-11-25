@@ -4,6 +4,13 @@ $router->get("/plannerDashboard", "plannerController@dashboard");
 $router->get("/fetch-wedding-data", "plannerController@fetchWeddingData");
 $router->post("/update-wedding-state","plannerController@updateWeddingData");
 $router->delete("/delete-wedding","plannerController@deleteWeddingData");
+$router->get("/vendors-for-wedding", "plannerController@showAllVendorsForWedding");
+$router->get("/task-vendors-for-wedding", "plannerController@linkTaskForVendors");
+$router->post("/tasks-create-for-vendors", "plannerController@createTasksForVendors");
+$router->get("/fetch-all-tasks", "plannerController@getAllTasksForVendor");
+$router->post("/update-tasks", "plannerController@updateOfTasks");
+$router->delete("/delete-tasks","plannerController@deleteOfTasks");
+
 
 
 

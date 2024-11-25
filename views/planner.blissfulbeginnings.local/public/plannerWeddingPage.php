@@ -22,7 +22,7 @@
           alt="Blissful Beginnings Logo"
           class="nav-bar-logo" />
       </div>
-      <h1 class="wedding-dashboard-title">Wedding Planners - Dashboard</h1>
+      <h1 class="wedding-dashboard-title"></h1>
 
 
     </header>
@@ -33,6 +33,22 @@
 
           
           <div class="vendor-cards"></div>
+          <div id="taskFormModal"  class="modal">
+            <div class="modal-content">
+              <span id="closeModal" class="close">&times;</span>
+              <h2>Add Task</h2>
+              <form id="taskForm">
+                <input id="assignmentID"type="hidden" name="assignmentID" value="">
+                <lable for="taskDescription">Description:</lable>
+                <textarea id="taskDescription" name="taskDescription" required></textarea>
+                <label for="dateToFinish">Finish Before:</label>
+                <input id="dateToFinish" name="dateToFinish" type="date" required>
+                <button type="submit">Submit</button>
+
+              </form>
+            </div>
+
+          </div>
         </div>
       </main>
       <aside class="calendar-container"></aside>

@@ -1,123 +1,182 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f9f9f9;
-  }
-  
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    
-  }
-  header {
-    font-family: "Gwendolyn";
-    background-color: #ddd;
-    height: 10vh;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-  }
-  
-  .wedding-dashboard-title {
-    font-family: "Gwendolyn";
-    font-size: 40px;
-    position: absolute;
-  }
-  
-  .nav-bar-logo-container {
-    height: 100%;
-    margin-right: auto;
-  }
-  
-  .nav-bar-logo {
-    max-height: 100%;
-    max-width: auto;
-  }
-  
-  header h1 {
-    font-size: 24px;
-    color: #c1a42e;
-  }
- 
-  
-  main {
-    display: flex;
-    flex: 1;
-  }
-  
-  .main-container {
-    display: flex;
-  }
-  .vendor-cards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 15px;
-    padding: 20px;
-    max-height: 500px; 
-    overflow-y: auto; 
-    
-  }
-  
-  .vendor-card {
-    background: linear-gradient(145deg, #f3f3f3, #dcdcdc); /* Modern gradient effect */
-    border-radius: 12px; /* More rounded corners for a sleek look */
-    padding: 20px;
-    cursor: pointer;
-    position: relative;
-    min-width: 250px;
-    min-height: 400px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.7); /* Neomorphic shadow effect */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transitions */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .vendor-card:hover {
-    transform: translateY(-5px) scale(1.05); /* Subtle lift and scale effect */
-    box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.2), -6px -6px 16px rgba(255, 255, 255, 0.8); /* Enhanced shadow for hover */
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f9f9f9;
+}
 
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+header {
+  font-family: "Gwendolyn";
+  background-color: #ddd;
+  height: 10vh;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
 
-  .content-wrapper {
-    display: flex;
-    flex: 1;
-  }
+.wedding-dashboard-title {
+  font-family: "Gwendolyn";
+  font-size: 40px;
+  position: absolute;
+}
 
-  main {
-    flex: 2;
-    padding: 20px;
-    background-color: #f0f0f0;
-  }
-  
-  aside.calendar-container {
-    flex-basis: 250px;
-    max-width: 300px;
-    flex: 1;
-    padding: 20px;
-    background-color: #fff;
-    border-left: 2px solid #e0e0e0;
-    min-width: 100px;
-    border-radius: 10px;
-  }
-  
-  .vendor-search-and-cards {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
- 
- 
-  
-  .vendor-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
-  }
-  
+.nav-bar-logo-container {
+  height: 100%;
+  margin-right: auto;
+}
+
+.nav-bar-logo {
+  max-height: 100%;
+  max-width: auto;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #c1a42e;
+}
+
+main {
+  display: flex;
+  flex: 1;
+}
+
+.main-container {
+  display: flex;
+}
+.vendor-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  padding: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.vendor-card {
+  background: linear-gradient(
+    145deg,
+    #f3f3f3,
+    #dcdcdc
+  ); /* Modern gradient effect */
+  border-radius: 12px; /* More rounded corners for a sleek look */
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  min-width: 250px;
+  min-height: 400px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+    -4px -4px 8px rgba(255, 255, 255, 0.7); /* Neomorphic shadow effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transitions */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vendor-card:hover {
+  transform: translateY(-5px) scale(1.05); /* Subtle lift and scale effect */
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.2),
+    -6px -6px 16px rgba(255, 255, 255, 0.8); /* Enhanced shadow for hover */
+}
+.taskArea {
+  background-color: #ddddddb8;
+  position: relative;
+  min-width: 50px;
+  min-height: 300px;
+}
+
+.taskDetailsArea{
+  background-color: #ddd;
+}
+
+.addButton {
+  position: relative;
+  margin-left: 200px;
+}
+.taskShowArea {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: relative;
+  min-width: 100px;
+  min-height: 300px;
+  padding: 2px;
+}
+
+.taskEditButton{
+  position:relative;
+}
+
+.taskDeleteButton{
+  position:relative;
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+}
+
+main {
+  flex: 2;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+aside.calendar-container {
+  flex-basis: 250px;
+  max-width: 300px;
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  border-left: 2px solid #e0e0e0;
+  min-width: 100px;
+  border-radius: 10px;
+}
+
+.vendor-search-and-cards {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.vendor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+.close {
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+  margin-top: -10px;
+}
+
+.modal.show {
+  display: flex; 
+}

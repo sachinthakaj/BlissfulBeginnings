@@ -56,7 +56,6 @@ class Vendor
         $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Salon"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
-
     }
     public function getPhotographers(){
         $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="photographer"');
@@ -87,7 +86,7 @@ class Vendor
     public function getVendorDetailsAndPackages($vendorID)
     {
         $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
-        $this->db->bind(':vendorID',$vendorID, PDO::PARAM_STR);
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
         $this->db->execute();
         $vendorDetails = $this->db->fetch(PDO::FETCH_ASSOC);
         if ($vendorDetails) {

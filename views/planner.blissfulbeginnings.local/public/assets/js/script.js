@@ -330,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
        `;
           card.classList.add("ongoing");
           card.addEventListener("click", () => {
-            window.location.href = "/plannerWedding";
+            window.location.href = `/plannerWedding?id=${wedding.weddingID}`;
           });
         }
 
