@@ -142,12 +142,23 @@ class Vendor
             $this->db->query($sql);
             $this->db->execute($params);
             return $this->db->rowCount();
-        }
+        } 
 
         catch (Exception $e) {
             error_log($e);
             throw new Exception("Error Processing Request", 1);
         }
 
+    }
+    public function deleteProfile($vendorID){
+        try {
+            $this->db->query("DELETE FROM vendors WHERE vendorID = UNHEX(:vendorID);");
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            return $this->db->rowCount();
+        } catch (Exception $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
+        }
     }
 }
