@@ -9,14 +9,16 @@ class Package
         $this->db = Database::getInstance();
     }
 
-    public function createPhotographyPackage($packageID, $packageDetails) {
+    public function createPhotographyPackage($packageID, $packageDetails)
+    {
         $this->db->query("INSERT INTO photographyPackages (packageID, cameraCoverage) VALUES (UNHEX(:packageID), :cameraCoverage);");
         $this->db->bind(':packageID', $packageID);
         $this->db->bind(':cameraCoverage', $packageDetails['cameraCoverage']);
         $this->db->execute();
     }
 
-    public function createDressDesignerPackage($packageID, $packageDetails) {
+    public function createDressDesignerPackage($packageID, $packageDetails)
+    {
         $this->db->query("INSERT INTO dressDesignerPackages (packageID, variableCost, theme, demographic) VALUES (UNHEX(:packageID), :variableCost, :demographic, :theme);");
         $this->db->bind(':packageID', $packageID);
         $this->db->bind(':variableCost', $packageDetails['variableCost']);
@@ -25,7 +27,8 @@ class Package
         $this->db->execute();
     }
 
-    public function createSalonPackage($packageID, $packageDetails) {
+    public function createSalonPackage($packageID, $packageDetails)
+    {
         $this->db->query("INSERT INTO salonPackages (packageID, variableCost, demographic) VALUES (UNHEX(:packageID), :variableCost, :demographic);");
         $this->db->bind(':packageID', $packageID);
         $this->db->bind(':variableCost', $packageDetails['variableCost']);
@@ -33,12 +36,14 @@ class Package
         $this->db->execute();
     }
 
-    public function createFloristPackage($packageID, $packageDetails) {
+    public function createFloristPackage($packageID, $packageDetails)
+    {
         $this->db->query("INSERT INTO floristPackages (packageID, variableCost, flowerType) VALUES (UNHEX(:packageID), :variableCost, :flowerType);");
         $this->db->bind(':packageID', $packageID);
         $this->db->bind(':variableCost', $packageDetails['variableCost']);
         $this->db->bind(':flowerType', $packageDetails['flowerType']);
         $this->db->execute();
+        error_log("Package ID in Florist: " . $packageID);
     }
 
     public function createPackage($vendorID, $packageDetails)
@@ -46,7 +51,6 @@ class Package
         try {
             $this->db->startTransaction();
             $packageID =  generateUUID($this->db);
-            error_log($packageID);
             $this->db->query("INSERT INTO packages (packageID, vendorID, packageName, feature1, feature2, feature3, fixedCost)
              VALUES (UNHEX(:packageID), UNHEX(:vendorID), :packageName, :feature1, :feature2, :feature3, :fixedCost);");
             $this->db->bind(':packageID', $packageID, PDO::PARAM_LOB);
@@ -54,7 +58,7 @@ class Package
             $this->db->bind(':packageName', $packageDetails['packageName']);
             $this->db->bind(':feature1', $packageDetails['feature1']);
             $this->db->bind(':feature2', $packageDetails['feature2']);
-            $this->db->bind(':feature3', $packageDetails['feature3']);  
+            $this->db->bind(':feature3', $packageDetails['feature3']);
             $this->db->bind(':fixedCost', $packageDetails['fixedCost']);
             $this->db->execute();
 
@@ -83,7 +87,8 @@ class Package
         }
     }
 
-    public function getPackages($vendorID, $type) {
+    public function getPackages($vendorID, $type)
+    {
         switch ($type) {
             case "Photographer":
                 $this->getPhotographerPackages($vendorID);
@@ -109,16 +114,18 @@ class Package
         return $packageDetails;
     }
 
-    public function getPhotographerPackages($vendorID) {
+    public function getPhotographerPackages($vendorID)
+    {
         $this->db->query("SELECT packages.*, photographyPackages.* FROM photographyPackages INNER JOIN packages ON photographyPackages.packageID = packages.packageID 
         INNER JOIN vendors ON packages.vendorID = vendors.vendorID
         WHERE packages.vendorID = UNHEX(:vendorID);");
         $this->db->bind(':vendorID', $vendorID);
         $this->db->execute();
-        return ;
+        return;
     }
 
-    public function getDressDesignerPackages($vendorID) {
+    public function getDressDesignerPackages($vendorID)
+    {
         $this->db->query("SELECT * FROM dressDesignerPackages INNER JOIN packages ON dressDesignerPackages.packageID = packages.packageID 
         INNER JOIN vendors ON packages.vendorID = vendors.vendorID
         WHERE packages.vendorID = UNHEX(:vendorID);");
@@ -126,7 +133,8 @@ class Package
         $this->db->execute();
     }
 
-    public function getSalonPackages($vendorID) {
+    public function getSalonPackages($vendorID)
+    {
         $this->db->query("SELECT * FROM salonPackages INNER JOIN packages ON salonPackages.packageID = packages.packageID 
         INNER JOIN vendors ON packages.vendorID = vendors.vendorID
         WHERE packages.vendorID = UNHEX(:vendorID);");
@@ -134,7 +142,8 @@ class Package
         $this->db->execute();
     }
 
-    public function getFloristPackages($vendorID) {
+    public function getFloristPackages($vendorID)
+    {
         $this->db->query("SELECT * FROM floristPackages INNER JOIN packages ON floristPackages.packageID = packages.packageID 
         INNER JOIN vendors ON packages.vendorID = vendors.vendorID
         WHERE packages.vendorID = UNHEX(:vendorID);");
@@ -142,7 +151,8 @@ class Package
         $this->db->execute();
     }
 
-    public function updatePackage($vendorID, $packageID, $updatedPackageDetails) {
+    public function updatePackage($vendorID, $packageID, $updatedPackageDetails)
+    {
         try {
             $this->db->startTransaction();
             $setPart = [];
@@ -159,12 +169,12 @@ class Package
             $this->db->execute($params);
             $this->db->commit();
             return $packageID;
-    } catch (PDOException $e) {
-        error_log($e);
-        return false;
+        } catch (PDOException $e) {
+            error_log($e);
+            return false;
+        }
     }
-}
-    
+
 
     public function fetchWeddingPackages($weddingID)
     {
@@ -190,7 +200,8 @@ class Package
         }
     }
 
-    public function fetchRecommendations($weddingID) {
+    public function fetchRecommendations($weddingID)
+    {
         try {
             $this->db->query('SELECT p.*, r.typeID as typeID
             FROM recommendations AS r JOIN packages AS p ON r.packageID=p.packageID WHERE r.weddingID=UNHEX(:weddingID);');
@@ -198,7 +209,7 @@ class Package
             $this->db->execute();
             $queryResults =  $this->db->fetchAll(PDO::FETCH_ASSOC);
             $results = [];
-            foreach($queryResults as $row) {
+            foreach ($queryResults as $row) {
                 $row['packageID'] = bin2hex($row['packageID']);
                 $row['vendorID'] = bin2hex($row['vendorID']);
                 $results[$row['typeID']][] = $row;
@@ -207,10 +218,10 @@ class Package
         } catch (Exception $e) {
             error_log($e);
         }
-            
     }
 
-    public function setPackages($weddingID, $packages) {
+    public function setPackages($weddingID, $packages)
+    {
         try {
             $this->db->startTransaction();
             $this->db->query('INSERT INTO packageAssignment (assignmentID,weddingID, packageID, typeID, state) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, "Unagreed", 0);');
@@ -223,10 +234,9 @@ class Package
                 $this->db->execute();
             }
             $this->db->commit();
-            
-    } catch (Exception $e) {
-        $this->db->rollbackTransaction();
-        error_log($e);
-    }
+        } catch (Exception $e) {
+            $this->db->rollbackTransaction();
+            error_log($e);
+        }
     }
 }

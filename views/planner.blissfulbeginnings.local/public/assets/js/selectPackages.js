@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>`
     if (data.sepDressDesigners) {
       cardContainer.innerHTML += `<div class="card" id="bride-dress-designers">
-                                  <h1>Bride's Salon</h1>
+                                  <h1>Bride's Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="bride-dress-designers-budget">Allocated Budget</label>
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <button class="card-button">Allocate Packages</button>
                                   </div>
                                   <div class="card" id="groom-dress-designers">
-                                  <h1>Groom's Salon</h1>
+                                  <h1>Groom's Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="groom-dress-designers-budget">Allocated Budget</label>
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>`
     } else {
       cardContainer.innerHTML += `<div class="card" id="dress-designers">
-                                  <h1>Salon</h1>
+                                  <h1>Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="dress-designers-budget">Allocated Budget</label>
@@ -126,25 +126,29 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
-    const vendorBudgetInputs = document.querySelectorAll('.vendor-budget');
-    const budgetSumIndicator = document.createElement('p');
-    budgetSumIndicator.classList.add('budget-sum-indicator');
-    cardContainer.parentNode.appendChild(budgetSumIndicator);
 
-    vendorBudgetInputs.forEach(input => input.addEventListener('input', () => {
-      const totalAllocatedBudget = Array.from(vendorBudgetInputs).reduce((sum, input) => sum + Number(input.value), 0);
-      if (totalAllocatedBudget > data.budget) {
-        budgetSumIndicator.style.color = 'red';
-        budgetSumIndicator.textContent = `Total allocated budget is ${totalAllocatedBudget} which is greater than the total budget of ${data.budget}`;
+    const vendorBudgets = document.querySelectorAll('.vendor-budget');
+    const totalBudgetElement = document.querySelector('.budget-info span');
+    const updateTotalBudget = () => {
+      const totalBudget = Array.from(vendorBudgets).reduce((total, input) => total + Number(input.value), 0);
+      totalBudgetElement.textContent = totalBudget;
+      if (totalBudget > data.budget) {
+        totalBudgetElement.style.color = "red";
       } else {
-        budgetSumIndicator.textContent = '';
+        totalBudgetElement.style.color = "";
       }
-    }));
+    }
+    vendorBudgets.forEach(input => {
+      input.addEventListener('input', updateTotalBudget);
+    });
+    updateTotalBudget();
+    document.querySelectorAll('.card').forEach(card => {
+      selectedPackages[card.id] = [];
+    })
 
     document.querySelectorAll('.card-button').forEach(vendorType => {
       vendorType.addEventListener('click', (event) => {
         const assignmentType = event.target.parentNode.id;
-        selectedPackages[assignmentType] = [];
         const allocatedBudget = event.target.parentNode.querySelector('input').value;
         if (!allocatedBudget) {
           showNotification("Please enter allocated budget", "red");
@@ -168,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           return response.json();
         }).then(data => {
-          if(!data) {
+          if (!data) {
             return;
           }
           const modal = document.getElementById('modal');
@@ -202,9 +206,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             `;
             packageCard.addEventListener('click', () => {
-              if(selectedPackages[assignmentType].includes(packageCard.id)) {
+              if (selectedPackages[assignmentType].includes(packageCard.id)) {
                 packageCard.classList.toggle('selected');
-                selectedPackages[assignmentType]  = selectedPackages[assignmentType].filter(id => id !== packageCard.id);
+                selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(id => id !== packageCard.id);
                 console.log(selectedPackages);
               } else {
                 packageCard.classList.toggle('selected');
@@ -231,13 +235,37 @@ document.addEventListener("DOMContentLoaded", function () {
               document.body.removeChild(modal);
             }
           });
+         
         }).catch(error => {
           console.error('Error fetching vendor data:', error);
           showNotification("Error loading vendor data. Please try again later.", 'red');
         });
       });
     });
+    document.getElementById('proceed-button').addEventListener('click', () => {
+      const allVendorsSelected = Object.keys(selectedPackages).every(vendorType => selectedPackages[vendorType].length > 0);
 
+      if (!allVendorsSelected) {
+        showNotification("Please select packages for every vendor-type", "red");
+        return;
+      }
+
+      fetch('/wedding/' + weddingID + '/submit-selected-packages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(selectedPackages),
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        window.location.href = '/wedding/' + weddingID;
+      }).catch(error => {
+        console.error('Error submitting packages:', error);
+        showNotification("Error submitting packages. Please try again later.", 'red');
+      });
+    });
     loadingScreen.style.display = 'none';
     mainContent.style.display = 'block';
 

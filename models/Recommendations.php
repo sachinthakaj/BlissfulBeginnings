@@ -1,6 +1,6 @@
 <?php
 
-class Reccomendations
+class Recommendations
 {
     private $db;
 
@@ -10,7 +10,7 @@ class Reccomendations
     }
 
 
-    public function getBrideSalonReccomendations($allocatedBudget) {
+    public function getBrideSalonRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , salonPackages.* FROM salonPackages JOIN Packages ON salonPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic != 'Groom';");
@@ -23,7 +23,7 @@ class Reccomendations
         }
     }
 
-    public function getGroomSalonReccomendations($allocatedBudget) {
+    public function getGroomSalonRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , salonPackages.* FROM salonPackages JOIN Packages ON salonPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic != 'Bride';");
@@ -36,7 +36,7 @@ class Reccomendations
         }
     }
 
-    public function getSalonReccomendations($allocatedBudget) {
+    public function getSalonRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , salonPackages.* FROM salonPackages JOIN Packages ON salonPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic = 'Both';");
@@ -49,7 +49,7 @@ class Reccomendations
         }
     }
 
-    public function getPhotographerReccomendations($allocatedBudget) {
+    public function getPhotographerRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , photographyPackages.* FROM photographyPackages JOIN Packages ON photographyPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget;");
@@ -62,7 +62,7 @@ class Reccomendations
         }
     }
 
-    public function getBrideDressDesignerReccomendations($allocatedBudget) {
+    public function getBrideDressDesignerRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , dressDesignerPackages.* FROM dressDesignerPackages JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic != 'Groom';");
@@ -75,7 +75,7 @@ class Reccomendations
         }
     }
 
-    public function getGroomDressDesignerReccomendations($allocatedBudget) {
+    public function getGroomDressDesignerRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , dressDesignerPackages.* FROM dressDesignerPackages JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic != 'Bride';");
@@ -88,7 +88,7 @@ class Reccomendations
         }
     }
 
-    public function getDressDesignerReccomendations($allocatedBudget) {
+    public function getDressDesignerRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , dressDesignerPackages.* FROM dressDesignerPackages JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic = 'Both';");
@@ -101,7 +101,7 @@ class Reccomendations
         }
     }
 
-    public function getFloristReccomendations($allocatedBudget) {
+    public function getFloristRecommendations($allocatedBudget) {
         try {
             $this->db->query("SELECT packages.* , floristPackages.* FROM floristPackages JOIN Packages ON floristPackages.packageID = Packages.packageID 
             WHERE packages.fixedCost <= :allocatedBudget ;");
@@ -109,6 +109,27 @@ class Reccomendations
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
+        } catch (Exception $e) {
+            error_log($e);
+        }
+    }
+
+    public function createRecommendations($weddingID, $selectedPackages)
+    {
+        try {
+            foreach ($selectedPackages as $typeID => $packages) {
+                foreach ($packages as $packageID) {
+                        $this->db->query('INSERT INTO recommendations (weddingID, packageID, typeID) VALUES (UNHEX(:weddingID), UNHEX(:packageID), :typeID)');
+                    $this->db->bind(':weddingID', $weddingID);
+                    $this->db->bind(':packageID', $packageID);
+                    $this->db->bind(':typeID', $typeID);
+                    error_log("weddingID: ". $weddingID." packageID: ". $packageID." typeID: ". $typeID);
+                    $this->db->execute();
+                    $result = $this->db->rowCount();
+                    error_log($result);
+                    return $result;
+                }
+            }
         } catch (Exception $e) {
             error_log($e);
         }
