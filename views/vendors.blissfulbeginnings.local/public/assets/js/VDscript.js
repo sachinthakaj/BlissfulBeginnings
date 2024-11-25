@@ -260,6 +260,7 @@ function render() {
         }
     }
 
+    // edit modal open
     function openEditModal() {
         editModalContainer.classList.add('show');
         currentPage = 1;
