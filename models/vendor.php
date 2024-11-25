@@ -152,10 +152,18 @@ class Vendor
     }
     public function deleteProfile($vendorID){
         try {
+            $this->db->query('SELECT COUNT(*) as numweddings FROM packageassignment  INNER JOIN packages ON packageassignment.packageID = packages.packageID INNER JOIN vendors ON packages.vendorID = vendors.vendorID WHERE vendors.vendorID = UNHEX(:vendorID)');
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            $result = $this->db->fetch(PDO::FETCH_ASSOC);
+            if ($result['numweddings'] == 0) {
             $this->db->query("DELETE FROM vendors WHERE vendorID = UNHEX(:vendorID);");
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
             $this->db->execute();
             return $this->db->rowCount();
+            } else {
+                return -1;
+            }
         } catch (Exception $e) {
             error_log($e);
             throw new Exception("Error Processing Request", 1);

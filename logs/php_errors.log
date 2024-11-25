@@ -3262,3 +3262,503 @@ Stack trace:
 #2 C:\xampp\htdocs\BlissfulBeginnings\views\blissfulbeginnings.local\index.php(36): Router->route('PUT', '/update-wedding...')
 #3 {main}
 [24-Nov-2024 21:07:20 Asia/Kolkata] {"weddingID":"2ecb172ea8a311ef8612cc153136262a","userID":"406b854ba8a511ef8612cc153136262a","date":"2024-11-23","dayNight":"day","location":"Colombo","theme":"Kandyan","budget":10000000,"currentPaid":null,"numTasks":null,"currentCompleted":null,"sepSalons":1,"sepDressDesigners":0,"weddingState":"new"}
+[25-Nov-2024 10:16:34 Asia/Kolkata] /register
+[25-Nov-2024 10:16:42 Asia/Kolkata] /vendor/dhhh
+[25-Nov-2024 10:16:42 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:16:42 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:16:50 Asia/Kolkata] /vendor/dhhh
+[25-Nov-2024 10:16:50 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:16:50 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:16:57 Asia/Kolkata] /get-profile-details/vendor-details/dhhh
+[25-Nov-2024 10:16:57 Asia/Kolkata] Vendor ID: dhhh
+[25-Nov-2024 10:16:57 Asia/Kolkata] PHP Deprecated:  Automatic conversion of false to array is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php on line 111
+[25-Nov-2024 10:16:57 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:16:57 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:16:57 Asia/Kolkata] PHP Deprecated:  Automatic conversion of false to array is deprecated in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:16:57 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:19:08 Asia/Kolkata] /vendor/1415e1b4a8b211efac9
+[25-Nov-2024 10:19:08 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:19:08 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:19:15 Asia/Kolkata] /get-profile-details/vendor-details/1415e1b4a8b211efac9
+[25-Nov-2024 10:19:15 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac9
+[25-Nov-2024 10:19:15 Asia/Kolkata] PHP Deprecated:  Automatic conversion of false to array is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php on line 111
+[25-Nov-2024 10:19:15 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:19:15 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:19:15 Asia/Kolkata] PHP Deprecated:  Automatic conversion of false to array is deprecated in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:19:15 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:19:26 Asia/Kolkata] /vendor/1415e1b4a8b211efac9
+[25-Nov-2024 10:19:26 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:19:26 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:19:32 Asia/Kolkata] /vendor/1415e1b4a8b211efac9
+[25-Nov-2024 10:19:32 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:19:32 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:19:42 Asia/Kolkata] /get-profile-details/vendor-details/1415e1b4a8b211efac9
+[25-Nov-2024 10:19:42 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac9
+[25-Nov-2024 10:19:42 Asia/Kolkata] PHP Deprecated:  Automatic conversion of false to array is deprecated in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php on line 111
+[25-Nov-2024 10:19:42 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:19:42 Asia/Kolkata] PHP Deprecated:  bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:19:42 Asia/Kolkata] PHP Deprecated:  Automatic conversion of false to array is deprecated in C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php on line 137
+[25-Nov-2024 10:20:29 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:20:29 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:20:29 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:20:33 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:20:33 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:20:33 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:20:36 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:20:37 Asia/Kolkata] /get-profile-details/vendor-details/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:20:37 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:20:59 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:20:59 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:20:59 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*) as numweddings FROM packageassignment  INNER JOIN packages ON packageassig...' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php(157): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#5 {main}
+[25-Nov-2024 10:20:59 Asia/Kolkata] Exception: Error Processing Request in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php:169
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#3 {main}
+[25-Nov-2024 10:21:36 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:21:36 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:21:36 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:21:40 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:21:41 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:21:41 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:21:49 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:21:49 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:21:49 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*) as numweddings FROM packageassignment  INNER JOIN packages ON packageassig...' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php(157): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#5 {main}
+[25-Nov-2024 10:21:49 Asia/Kolkata] Exception: Error Processing Request in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php:169
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#3 {main}
+[25-Nov-2024 10:23:46 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:23:46 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:23:46 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*) as numweddings FROM packageassignment  INNER JOIN packages ON packageassig...' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php(157): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#5 {main}
+[25-Nov-2024 10:23:46 Asia/Kolkata] Exception: Error Processing Request in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php:169
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#3 {main}
+[25-Nov-2024 10:27:29 Asia/Kolkata] /vendor/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:27:29 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:27:29 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:27:45 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:27:45 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:27:45 Asia/Kolkata] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*) as numweddings FROM packageassignment  INNER JOIN packages ON packageassig...' at line 1 in C:\xampp\htdocs\BlissfulBeginnings\core\Database.php:66
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\core\Database.php(66): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php(157): Database->execute()
+#2 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#3 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#4 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#5 {main}
+[25-Nov-2024 10:27:45 Asia/Kolkata] Exception: Error Processing Request in C:\xampp\htdocs\BlissfulBeginnings\models\vendor.php:169
+Stack trace:
+#0 C:\xampp\htdocs\BlissfulBeginnings\controllers\vendorController.php(180): Vendor->deleteProfile('1415e1b4a8b211e...')
+#1 C:\xampp\htdocs\BlissfulBeginnings\core\Router.php(77): vendorController->deleteProfile(Array)
+#2 C:\xampp\htdocs\BlissfulBeginnings\views\vendors.blissfulbeginnings.local\index.php(36): Router->route('DELETE', '/delete-profile...')
+#3 {main}
+[25-Nov-2024 10:35:02 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:35:02 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac950a0027000004
+[25-Nov-2024 10:39:35 Asia/Kolkata] /vendor/e00e1dc1a8b111efac950a0027000004
+[25-Nov-2024 10:39:35 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:39:35 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:40:15 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:40:18 Asia/Kolkata] /delete-profile/vendor-details/e00e1dc1a8b111efac950a0027000004
+[25-Nov-2024 10:40:18 Asia/Kolkata] /signin
+[25-Nov-2024 10:40:18 Asia/Kolkata] Vendor ID: e00e1dc1a8b111efac950a0027000004
+[25-Nov-2024 10:40:18 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:41:17 Asia/Kolkata] /signin
+[25-Nov-2024 10:41:17 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:41:19 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:42:34 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:42:34 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:42:34 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:42:36 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:42:39 Asia/Kolkata] /register
+[25-Nov-2024 10:42:39 Asia/Kolkata] /delete-profile/vendor-details/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:42:39 Asia/Kolkata] Vendor ID: 3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:42:39 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:42:57 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:43:05 Asia/Kolkata] /register
+[25-Nov-2024 10:43:05 Asia/Kolkata] /delete-profile/vendor-details/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:43:05 Asia/Kolkata] Vendor ID: 3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:43:05 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:43:10 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:43:19 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:43:19 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:43:19 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:43:21 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:43:21 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:43:21 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:43:31 Asia/Kolkata] /delete-profile/vendor-details/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:43:31 Asia/Kolkata] /register
+[25-Nov-2024 10:43:31 Asia/Kolkata] Vendor ID: 3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:43:31 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:45:11 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:45:13 Asia/Kolkata] /vendor/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:45:13 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:45:13 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:45:20 Asia/Kolkata] /delete-profile/vendor-details/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:45:20 Asia/Kolkata] Vendor ID: 3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:45:20 Asia/Kolkata] /register
+[25-Nov-2024 10:45:20 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:45:23 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:47:31 Asia/Kolkata] /delete-profile/vendor-details/3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:47:31 Asia/Kolkata] Vendor ID: 3f9891a9a8b211efac950a0027000004
+[25-Nov-2024 10:47:31 Asia/Kolkata] /register
+[25-Nov-2024 10:47:31 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:47:42 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:50:38 Asia/Kolkata] /vendor/ac902193a8b111efac950a0027000004
+[25-Nov-2024 10:50:38 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:50:38 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:50:40 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:50:54 Asia/Kolkata] /vendor/1415e1b4a8b211efac9
+[25-Nov-2024 10:50:54 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:50:54 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:50:57 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:51:00 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac9
+[25-Nov-2024 10:51:00 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac9
+[25-Nov-2024 10:51:00 Asia/Kolkata] /register
+[25-Nov-2024 10:51:00 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:52:01 Asia/Kolkata] /register
+[25-Nov-2024 10:52:01 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:52:02 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:52:09 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac9
+[25-Nov-2024 10:52:09 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac9
+[25-Nov-2024 10:52:09 Asia/Kolkata] /register
+[25-Nov-2024 10:52:09 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:52:12 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:52:18 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac9
+[25-Nov-2024 10:52:18 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac9
+[25-Nov-2024 10:52:18 Asia/Kolkata] /register
+[25-Nov-2024 10:52:18 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:52:40 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:53:13 Asia/Kolkata] /delete-profile/vendor-details/1415e1b4a8b211efac9
+[25-Nov-2024 10:53:13 Asia/Kolkata] Vendor ID: 1415e1b4a8b211efac9
+[25-Nov-2024 10:53:14 Asia/Kolkata] /register
+[25-Nov-2024 10:53:14 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:58:13 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:58:26 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:59:29 Asia/Kolkata] /salons
+[25-Nov-2024 10:59:29 Asia/Kolkata] /core/images/BB_logo.PNG
+[25-Nov-2024 10:59:29 Asia/Kolkata] /core/404page.css
+[25-Nov-2024 10:59:29 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 10:59:43 Asia/Kolkata] /vendor/1415e1b4a8b211efac9
+[25-Nov-2024 10:59:43 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 10:59:43 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:00:05 Asia/Kolkata] /salons
+[25-Nov-2024 11:00:05 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:00:05 Asia/Kolkata] /undefined
+[25-Nov-2024 11:00:05 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:00:53 Asia/Kolkata] /salons
+[25-Nov-2024 11:00:53 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:00:53 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:00:53 Asia/Kolkata] /undefined
+[25-Nov-2024 11:01:05 Asia/Kolkata] /photographers
+[25-Nov-2024 11:01:06 Asia/Kolkata] /get-photographerslist/
+[25-Nov-2024 11:01:06 Asia/Kolkata] /undefined
+[25-Nov-2024 11:01:14 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:01:21 Asia/Kolkata] /salons
+[25-Nov-2024 11:01:21 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:01:21 Asia/Kolkata] /undefined
+[25-Nov-2024 11:01:28 Asia/Kolkata] /florists
+[25-Nov-2024 11:01:28 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:01:28 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:01:30 Asia/Kolkata] /florists
+[25-Nov-2024 11:01:30 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:01:30 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:01:48 Asia/Kolkata] /register
+[25-Nov-2024 11:01:48 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:02:41 Asia/Kolkata] /register
+[25-Nov-2024 11:02:41 Asia/Kolkata] numrows: 1
+[25-Nov-2024 11:02:41 Asia/Kolkata] Something
+[25-Nov-2024 11:02:41 Asia/Kolkata] Create a vendor
+[25-Nov-2024 11:02:45 Asia/Kolkata] /vendor/c373a5c9aaee11efac950a0027000004
+[25-Nov-2024 11:02:45 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 11:02:45 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:03:02 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:03:04 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:03:15 Asia/Kolkata] /salons
+[25-Nov-2024 11:03:15 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:03:15 Asia/Kolkata] /undefined
+[25-Nov-2024 11:03:40 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:03:52 Asia/Kolkata] /florists
+[25-Nov-2024 11:03:52 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:04:57 Asia/Kolkata] /register
+[25-Nov-2024 11:04:58 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:06:17 Asia/Kolkata] /register
+[25-Nov-2024 11:06:17 Asia/Kolkata] numrows: 1
+[25-Nov-2024 11:06:17 Asia/Kolkata] Something
+[25-Nov-2024 11:06:17 Asia/Kolkata] Create a vendor
+[25-Nov-2024 11:06:19 Asia/Kolkata] /vendor/44105315aaef11efac950a0027000004
+[25-Nov-2024 11:06:19 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 11:06:19 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:06:27 Asia/Kolkata] /salons
+[25-Nov-2024 11:06:28 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:06:28 Asia/Kolkata] /undefined
+[25-Nov-2024 11:06:29 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:07:04 Asia/Kolkata] /florists
+[25-Nov-2024 11:07:05 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:07:05 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:07:18 Asia/Kolkata] /register
+[25-Nov-2024 11:07:18 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:08:35 Asia/Kolkata] /register
+[25-Nov-2024 11:08:35 Asia/Kolkata] numrows: 1
+[25-Nov-2024 11:08:35 Asia/Kolkata] Something
+[25-Nov-2024 11:08:35 Asia/Kolkata] Create a vendor
+[25-Nov-2024 11:08:37 Asia/Kolkata] /vendor/96153f25aaef11efac950a0027000004
+[25-Nov-2024 11:08:37 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 11:08:37 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:08:42 Asia/Kolkata] /salons
+[25-Nov-2024 11:08:42 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:08:42 Asia/Kolkata] /undefined
+[25-Nov-2024 11:08:44 Asia/Kolkata] /florists
+[25-Nov-2024 11:08:44 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:08:44 Asia/Kolkata] /undefined
+[25-Nov-2024 11:08:44 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:08:47 Asia/Kolkata] /florists
+[25-Nov-2024 11:08:47 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:08:47 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:08:47 Asia/Kolkata] /undefined
+[25-Nov-2024 11:08:57 Asia/Kolkata] /register
+[25-Nov-2024 11:08:57 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:10:02 Asia/Kolkata] /register
+[25-Nov-2024 11:10:02 Asia/Kolkata] numrows: 1
+[25-Nov-2024 11:10:02 Asia/Kolkata] Something
+[25-Nov-2024 11:10:02 Asia/Kolkata] Create a vendor
+[25-Nov-2024 11:10:04 Asia/Kolkata] /vendor/c9f8ef10aaef11efac950a0027000004
+[25-Nov-2024 11:10:04 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 11:10:04 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:10:14 Asia/Kolkata] /salons
+[25-Nov-2024 11:10:14 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:10:14 Asia/Kolkata] /undefined
+[25-Nov-2024 11:10:22 Asia/Kolkata] /florists
+[25-Nov-2024 11:10:22 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:10:22 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:10:22 Asia/Kolkata] /undefined
+[25-Nov-2024 11:10:25 Asia/Kolkata] /florists
+[25-Nov-2024 11:10:25 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:10:25 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:10:25 Asia/Kolkata] /undefined
+[25-Nov-2024 11:10:27 Asia/Kolkata] /florists
+[25-Nov-2024 11:10:27 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:10:27 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:10:27 Asia/Kolkata] /undefined
+[25-Nov-2024 11:10:27 Asia/Kolkata] /florists
+[25-Nov-2024 11:10:27 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:10:27 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:10:27 Asia/Kolkata] /undefined
+[25-Nov-2024 11:10:27 Asia/Kolkata] /florists
+[25-Nov-2024 11:10:27 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:10:27 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:10:27 Asia/Kolkata] /undefined
+[25-Nov-2024 11:10:58 Asia/Kolkata] /salons
+[25-Nov-2024 11:10:58 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:10:58 Asia/Kolkata] /undefined
+[25-Nov-2024 11:11:02 Asia/Kolkata] /florists
+[25-Nov-2024 11:11:02 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:11:02 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:11:02 Asia/Kolkata] /undefined
+[25-Nov-2024 11:11:08 Asia/Kolkata] /florists
+[25-Nov-2024 11:11:08 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:11:08 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:11:08 Asia/Kolkata] /undefined
+[25-Nov-2024 11:11:13 Asia/Kolkata] /florists
+[25-Nov-2024 11:11:13 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:11:13 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:11:13 Asia/Kolkata] /undefined
+[25-Nov-2024 11:12:26 Asia/Kolkata] /salons
+[25-Nov-2024 11:12:26 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:12:26 Asia/Kolkata] /undefined
+[25-Nov-2024 11:12:26 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:12:41 Asia/Kolkata] /florists
+[25-Nov-2024 11:12:42 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:12:42 Asia/Kolkata] /undefined
+[25-Nov-2024 11:12:46 Asia/Kolkata] /dress-designers
+[25-Nov-2024 11:12:47 Asia/Kolkata] /get-dressdesignerslist/
+[25-Nov-2024 11:12:49 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:12:52 Asia/Kolkata] /dress-designers
+[25-Nov-2024 11:12:52 Asia/Kolkata] /get-dressdesignerslist/
+[25-Nov-2024 11:12:52 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:13:00 Asia/Kolkata] /photographers
+[25-Nov-2024 11:13:00 Asia/Kolkata] /get-photographerslist/
+[25-Nov-2024 11:13:00 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:13:00 Asia/Kolkata] /undefined
+[25-Nov-2024 11:13:39 Asia/Kolkata] /register
+[25-Nov-2024 11:13:40 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:15:09 Asia/Kolkata] /register
+[25-Nov-2024 11:15:09 Asia/Kolkata] numrows: 1
+[25-Nov-2024 11:15:09 Asia/Kolkata] Something
+[25-Nov-2024 11:15:09 Asia/Kolkata] Create a vendor
+[25-Nov-2024 11:15:12 Asia/Kolkata] /vendor/80f9d7eeaaf011efac950a0027000004
+[25-Nov-2024 11:15:12 Asia/Kolkata] /vendor/%7BvendorID%7D/get-weddings
+[25-Nov-2024 11:15:12 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:15:20 Asia/Kolkata] /florists
+[25-Nov-2024 11:15:20 Asia/Kolkata] /get-floristlist/
+[25-Nov-2024 11:15:20 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:15:20 Asia/Kolkata] /undefined
+[25-Nov-2024 11:16:36 Asia/Kolkata] /salons
+[25-Nov-2024 11:16:36 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:16:36 Asia/Kolkata] /undefined
+[25-Nov-2024 11:16:38 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:26:57 Asia/Kolkata] /salons
+[25-Nov-2024 11:26:57 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:26:57 Asia/Kolkata] /undefined
+[25-Nov-2024 11:26:57 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:27:00 Asia/Kolkata] /salons
+[25-Nov-2024 11:27:00 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:27:00 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:27:00 Asia/Kolkata] /undefined
+[25-Nov-2024 11:27:02 Asia/Kolkata] /salons
+[25-Nov-2024 11:27:02 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:27:02 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:27:02 Asia/Kolkata] /undefined
+[25-Nov-2024 11:27:02 Asia/Kolkata] /salons
+[25-Nov-2024 11:27:02 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:27:02 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:27:02 Asia/Kolkata] /undefined
+[25-Nov-2024 11:27:02 Asia/Kolkata] /salons
+[25-Nov-2024 11:27:02 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:27:02 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:27:02 Asia/Kolkata] /undefined
+[25-Nov-2024 11:27:54 Asia/Kolkata] /salons
+[25-Nov-2024 11:27:54 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:27:54 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:27:54 Asia/Kolkata] /undefined
+[25-Nov-2024 11:27:56 Asia/Kolkata] /salons
+[25-Nov-2024 11:27:56 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:27:56 Asia/Kolkata] /path/to/default-image.jpg
+[25-Nov-2024 11:27:58 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:30:35 Asia/Kolkata] /salons
+[25-Nov-2024 11:30:35 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:30:35 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:30:35 Asia/Kolkata] /undefined
+[25-Nov-2024 11:30:37 Asia/Kolkata] /salons
+[25-Nov-2024 11:30:37 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:30:37 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:30:37 Asia/Kolkata] /undefined
+[25-Nov-2024 11:30:38 Asia/Kolkata] /salons
+[25-Nov-2024 11:30:38 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:30:38 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:30:38 Asia/Kolkata] /undefined
+[25-Nov-2024 11:30:38 Asia/Kolkata] /salons
+[25-Nov-2024 11:30:38 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:30:38 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:30:38 Asia/Kolkata] /undefined
+[25-Nov-2024 11:30:39 Asia/Kolkata] /salons
+[25-Nov-2024 11:30:39 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:30:39 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:30:39 Asia/Kolkata] /undefined
+[25-Nov-2024 11:30:42 Asia/Kolkata] /salons
+[25-Nov-2024 11:30:42 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:30:42 Asia/Kolkata] /undefined
+[25-Nov-2024 11:30:43 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:07 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:07 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:07 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:07 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:08 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:08 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:08 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:08 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:08 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:08 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:08 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:08 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:09 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:09 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:09 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:09 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:09 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:09 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:09 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:09 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:09 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:09 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:09 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:09 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:10 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:10 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:10 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:10 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:10 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:10 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:10 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:35:10 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:16 Asia/Kolkata] /salons
+[25-Nov-2024 11:35:16 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:35:16 Asia/Kolkata] /undefined
+[25-Nov-2024 11:35:17 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:36:09 Asia/Kolkata] /dress-designers
+[25-Nov-2024 11:36:10 Asia/Kolkata] /get-dressdesignerslist/
+[25-Nov-2024 11:36:11 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:36:18 Asia/Kolkata] /salons
+[25-Nov-2024 11:36:18 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:36:18 Asia/Kolkata] /undefined
+[25-Nov-2024 11:36:26 Asia/Kolkata] /photographers
+[25-Nov-2024 11:36:27 Asia/Kolkata] /get-photographerslist/
+[25-Nov-2024 11:36:27 Asia/Kolkata] /undefined
+[25-Nov-2024 11:38:59 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:41:16 Asia/Kolkata] /photographers
+[25-Nov-2024 11:41:16 Asia/Kolkata] /get-photographerslist/
+[25-Nov-2024 11:41:16 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:41:16 Asia/Kolkata] /undefined
+[25-Nov-2024 11:41:17 Asia/Kolkata] /photographers
+[25-Nov-2024 11:41:18 Asia/Kolkata] /get-photographerslist/
+[25-Nov-2024 11:41:18 Asia/Kolkata] /undefined
+[25-Nov-2024 11:41:19 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:42:02 Asia/Kolkata] /photographers
+[25-Nov-2024 11:42:02 Asia/Kolkata] /get-photographerslist/
+[25-Nov-2024 11:42:02 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:42:02 Asia/Kolkata] /undefined
+[25-Nov-2024 11:42:10 Asia/Kolkata] /salons
+[25-Nov-2024 11:42:10 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:42:10 Asia/Kolkata] /undefined
+[25-Nov-2024 11:42:10 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:47:12 Asia/Kolkata] /salons
+[25-Nov-2024 11:47:12 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:47:12 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:47:12 Asia/Kolkata] /undefined
+[25-Nov-2024 11:47:28 Asia/Kolkata] /salons
+[25-Nov-2024 11:47:28 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:47:28 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:47:28 Asia/Kolkata] /undefined
+[25-Nov-2024 11:47:31 Asia/Kolkata] /salons
+[25-Nov-2024 11:47:31 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:47:31 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:47:31 Asia/Kolkata] /undefined
+[25-Nov-2024 11:47:41 Asia/Kolkata] /salons
+[25-Nov-2024 11:47:41 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:47:41 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:47:41 Asia/Kolkata] /undefined
+[25-Nov-2024 11:47:42 Asia/Kolkata] /salons
+[25-Nov-2024 11:47:42 Asia/Kolkata] /get-salonslist/
+[25-Nov-2024 11:47:42 Asia/Kolkata] /favicon.ico
+[25-Nov-2024 11:47:42 Asia/Kolkata] /undefined
+[25-Nov-2024 11:47:57 Asia/Kolkata] /photographers
+[25-Nov-2024 11:47:58 Asia/Kolkata] /get-photographerslist/
+[25-Nov-2024 11:47:58 Asia/Kolkata] /undefined
+[25-Nov-2024 11:47:59 Asia/Kolkata] /favicon.ico
