@@ -68,19 +68,49 @@ document.addEventListener('DOMContentLoaded', () => {
     function validateStep(stepIndex) {
         const inputs = steps[stepIndex].querySelectorAll('input');
         let valid = true;
+
         inputs.forEach(input => {
+            if (input.id === 'date') {
+                // Date validation
+                const today = new Date();
+                const selectedDate = new Date(input.value);
+                if (selectedDate < today.setHours(0, 0, 0, 0)) {
+                    alert('Date cannot be in the past.');
+                    valid = false;
+                }
+            }
+
+            if (input.id === 'bride_age' || input.id === 'groom_age') {
+                // Age validation
+                const age = parseInt(input.value, 10);
+                if (age < 18 || age > 120) {
+                    alert('Age must be between 18 and 120.');
+                    valid = false;
+                }
+            }
+
+            if (input.id === 'bride_contact' || input.id === 'groom_contact') {
+                // Contact number validation
+                const contact = input.value.trim();
+                if (!/^\d{10}$/.test(contact)) {
+                    alert('Contact number must be exactly 10 digits.');
+                    valid = false;
+                }
+            }
+
             if (!input.checkValidity()) {
                 input.reportValidity();
                 valid = false;
             }
         });
+
         return valid;
     }
 
     // Show the first step on page load
     showStep(currentStep);
-    console.log(form);
 
+    // Form submission logic
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -108,11 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
             address: document.getElementById('groom_address').value,
             age: document.getElementById('groom_age').value,
         };
+
         const formData = {
             weddingDetails,
             brideDetails,
             groomDetails,
-        }
+        };
+
         console.log(formData);
 
         console.log(form);
@@ -122,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
         })
         .then(response => {
             console.log(response);

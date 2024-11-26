@@ -34,7 +34,10 @@
                 </div>
                 <div class="input-group">
                     <label for="daynight">Day/Night</label>
-                    <input type="text" id="daynight" name="daynight" required>
+                    <select id="daynight" name="daynight" required>
+                        <option value="Day">Day</option>
+                        <option value="Night">Night</option>
+                    </select>
                 </div>
                 <div class="input-group">
                     <label for="location">Location</label>
