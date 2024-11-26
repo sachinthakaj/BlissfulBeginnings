@@ -14,8 +14,8 @@ $router->delete("/delete-tasks","plannerController@deleteOfTasks");
 
 
 
-$router->get("/signin", "PlannerHomeController@signIn");
-$router->post("/signin","PlannerAuthController@login");
+$router->get("/SignIn", "PlannerHomeController@signIn");
+$router->post("/SignIn","PlannerAuthController@login");
 $router->post("/planner-logout","PlannerAuthController@logout");
 
 
