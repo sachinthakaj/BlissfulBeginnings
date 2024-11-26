@@ -16,6 +16,10 @@ class PackageController
     public function createPackage($parameters)
     {
         try {
+            if (!Authenticate('vendor', $parameters['vendorID'])) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Authorization failed']);
+            }
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
 
@@ -37,6 +41,10 @@ class PackageController
     public function updatePackage($parameters)
     {
         try {
+            if (!Authenticate('vendor', $parameters['vendorID'])) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Authorization failed']);
+            }
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
             $packageID = $this->packageModel->updatePackage($parameters["vendorID"], $parameters["packageID"], $parsed_data);

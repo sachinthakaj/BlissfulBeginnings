@@ -351,6 +351,10 @@ class plannerController
     public function vendorProfile($parameters)
     {
         try {
+            if(!Authenticate('planner', 123)) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            };
             $packageModel = new Vendor();
             error_log("Vendor ID: " . $parameters['vendorID']);
             $vendorPackages = $packageModel->getVendorDetailsAndPackages($parameters['vendorID']);
