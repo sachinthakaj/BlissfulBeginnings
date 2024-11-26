@@ -194,6 +194,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Call the showCalendar function initially to display the calendar
   showCalendar(currentMonth, currentYear);
+  // Assuming you have a function to fetch notifications from the backend
+  const notificationContainer = document.querySelector('.notification-container');
+fetch('/notifications')
+    .then(response => response.json())
+    .then(notifications => {
+      notifications.forEach(notification => {
+        const notificationDiv = document.createElement('div');
+        notificationDiv.id = notification.id;
+        notificationDiv.classList.add('notification', `type-${notification.typeID}`);
+        notificationDiv.innerHTML = `
+          <h4>${notification.title}</h4>
+          <p>${notification.message}</p>
+        `;
+        notificationContainer.appendChild(notificationDiv);
+    
+        if (notification.typeID === 'new-vendor') {
+          notificationDiv.addEventListener('click', () => {
+            window.location.href = `/new-vendor/${notification.reference}`;
+          });
+        } else if (notification.typeID === 'new-package') {
+          notificationDiv.addEventListener('click', () => {
+            window.location.href = `/new-package/${notification.reference}`;
+          });
+        }
+      });
+    });
+
+// Get the notification container
+
 
 
   const weddingCardsContainer = document.querySelector(".wedding-cards");

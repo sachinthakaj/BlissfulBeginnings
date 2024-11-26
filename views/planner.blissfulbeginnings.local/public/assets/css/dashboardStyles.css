@@ -342,4 +342,49 @@ body {
   padding: 5px 1em;
 }
 
+.notification-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification h4 {
+  margin-top: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.notification p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.type-new-vendor {
+  background-color: #f7f7f7;
+  border-color: #ccc;
+}
+
+.type-new-package {
+  background-color: #f2f2f2;
+  border-color: #aaa;
+}
+
+.type-new-vendor h4 {
+  color: #337ab7;
+}
+
+.type-new-package h4 {
+  color: #5cb85c;
+}
   

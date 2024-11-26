@@ -60,8 +60,8 @@ class Migrations
                 echo $th;
                 throw $th;
             }
+            $this->dbh->commit();
         }
-        $this->dbh->commit();
         echo "All migrations are applied";
     }
 

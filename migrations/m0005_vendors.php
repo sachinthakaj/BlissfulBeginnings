@@ -19,7 +19,8 @@ class m0005_vendors {
   description varchar(255) NOT NULL,
   rating float default 0,
   imgSrc varchar(512),
-  websiteLink varchar(512)
+  websiteLink varchar(512),
+  vendorstate ENUM('new', 'accepted') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
               $this->dbh->exec($SQL);
     }

@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }).then(data => {
     const cardContainer = document.getElementById('card-container');
     if (data.sepSalons) {
-      cardContainer.innerHTML += `<div class="card" id="bride-salons">
+      cardContainer.innerHTML += `<div class="card" id="bride-salon ">
                                   <h1>Bride's Salon</h1>
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                                   <div class="budget-info">
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>
-                                  <div class="card" id="groom-salons">
+                                  <div class="card" id="groom-salon">
                                   <h1>Groom's Salon</h1>
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                                   <div class="budget-info">
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
     } else {
-      cardContainer.innerHTML += `<div class="card" id="salons">
+      cardContainer.innerHTML += `<div class="card" id="salon">
                                   <h1>Salon</h1>
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                                   <div class="budget-info">
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
     }
-    cardContainer.innerHTML += `<div class="card" id="photographers">
+    cardContainer.innerHTML += `<div class="card" id="photographer">
                                   <h1>Photographer</h1>
                                   <img src="/public/assets/images/camera_1361782 1.png" alt="Photographer" />
                                   <div class="budget-info">
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
     if (data.sepDressDesigners) {
-      cardContainer.innerHTML += `<div class="card" id="bride-dress-designers">
+      cardContainer.innerHTML += `<div class="card" id="bride-dress-designer">
                                   <h1>Bride's Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>
-                                  <div class="card" id="groom-dress-designers">
+                                  <div class="card" id="groom-dress-designer">
                                   <h1>Groom's Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
     } else {
-      cardContainer.innerHTML += `<div class="card" id="dress-designers">
+      cardContainer.innerHTML += `<div class="card" id="dress-designer">
                                   <h1>Dress Designer</h1>
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
     }
-    cardContainer.innerHTML += `<div class="card" id="florists">
+    cardContainer.innerHTML += `<div class="card" id="florist">
                                   <h1>Florist</h1>
                                   <img src="/public/assets/images/nature_10601927 1.png" alt="Picture of an flower" />
                                   <div class="budget-info">
@@ -205,13 +205,16 @@ document.addEventListener("DOMContentLoaded", function () {
               <p>${package.feature3}</p>
 
             `;
+            if (selectedPackages[assignmentType].includes(packageCard.id)) {
+              packageCard.classList.add('selected');
+            }
             packageCard.addEventListener('click', () => {
               if (selectedPackages[assignmentType].includes(packageCard.id)) {
-                packageCard.classList.toggle('selected');
+                packageCard.classList.remove('selected');
                 selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(id => id !== packageCard.id);
                 console.log(selectedPackages);
               } else {
-                packageCard.classList.toggle('selected');
+                packageCard.classList.add('selected');
                 selectedPackages[assignmentType].push(packageCard.id);
                 console.log(selectedPackages);
               }

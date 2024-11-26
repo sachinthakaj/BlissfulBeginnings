@@ -353,6 +353,38 @@ const ongoing = (data) => {
             return response.json();
         }).then(packageData => {
 
+            packageData.forEach(package => {
+
+                const packageCard = document.createElement('div');
+                packageCard.classList.add('package-card');
+                packageCard.innerHTML = `
+                    <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="${cardData.imgSrc}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
+                        <div class="content">
+                            <h4 class="description">Date: ${cardData.date}</h4>
+                            <h4 class="description">Time: ${cardData.dayNight}</h4>
+                            <h4 class="description">Location: ${cardData.location}</h4>
+                            <h4 class="description">Wedding Progress: </h4> 
+                            <div class="progress-bar-container">
+                                <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
+                            </div>
+                            <h4 class="description">Wedding Budget: </h4> 
+                            <div class="progress-bar-container">
+                                <div class="progress-bar budget-progress-bar" style="width: ${cardData.budget}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        `;;
+                vendorGrid.appendChild(packageCard);
+            })
         })
     } catch (e) {
         console.error(e);
@@ -387,7 +419,7 @@ const unassigned = (data) => {
                         <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
                         <p>Choose Bride's Salon Package</p>
                         </div>
-                        <div class="reccomendation-grid" id="BrideSalons"></div>
+                        <div class="reccomendation-grid" id="bride-salon"></div>
                         <div class=step-buttons>
                             <button class="next-button">Next</button>
                             <button class="prev-button">Previous</button>
@@ -400,7 +432,7 @@ const unassigned = (data) => {
                         <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
                         <p>Choose Groom's Salon Package</p>
                         </div>
-                        <div class="reccomendation-grid" id="GroomSalons"></div>
+                        <div class="reccomendation-grid" id="groom-salon"></div>
                         <div class=step-buttons>
                             <button class="next-button">Next</button>
                             <button class="prev-button">Previous</button>
@@ -416,7 +448,7 @@ const unassigned = (data) => {
                         <img src="/public/assets/images/desk-chair_341178 1.png" alt="picture of a Salon Chair">
                         <p>Choose a Salon Package</p>
                         </div>
-                        <div class="reccomendation-grid" id="Salons"></div>
+                        <div class="reccomendation-grid" id="salon"></div>
                         <div class=step-buttons>
                             <button class="next-button">Next</button>
                             <button class="prev-button">Previous</button>
@@ -432,7 +464,7 @@ const unassigned = (data) => {
                     <img src="/public/assets/images/camera_1361782 1.png" alt="picture of a Camera">
                     <p>Choose a  Package</p>
                     </div>
-                    <div class="reccomendation-grid" id="Photographers"></div>
+                    <div class="reccomendation-grid" id="photographer"></div>
                     <div class=step-buttons>
                         <button class="next-button">Next</button>
                         <button class="prev-button">Previous</button>
@@ -448,7 +480,7 @@ const unassigned = (data) => {
                             <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
                             <p>Choose a Bride's Dress Designer Package</p>
                             </div>
-                            <div class="reccomendation-grid" id="BrideDressDesigner"></div>
+                            <div class="reccomendation-grid" id="bride-dress-designer"></div>
                             <div class=step-buttons>
                                 <button class="next-button">Next</button>
                                 <button class="prev-button">Previous</button>
@@ -461,7 +493,7 @@ const unassigned = (data) => {
                             <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
                             <p>Choose a Grroom's Dress Designer Package</p>
                             </div>
-                            <div class="reccomendation-grid" id="GroomDressDesigner"></div>
+                            <div class="reccomendation-grid" id="groom-dress-designer"></div>
                             <div class=step-buttons>
                                 <button class="next-button">Next</button>
                                 <button class="prev-button">Previous</button>
@@ -477,7 +509,7 @@ const unassigned = (data) => {
                             <img src="/public/assets/images/dress_14383759 1.png" alt="picture of a Dress">
                             <p>Choose Dress Designer Package</p>
                             </div>
-                            <div class="reccomendation-grid" id="DressDesigner"></div>
+                            <div class="reccomendation-grid" id="dress-designer"></div>
                             <div class=step-buttons>
                                 <button class="next-button">Next</button>
                                 <button class="prev-button">Previous</button>
@@ -493,7 +525,7 @@ const unassigned = (data) => {
                         <img src="/public/assets/images/nature_10601927 1.png" alt="picture of a Flower">
                         <p>Choose Florist Package</p>
                         </div>
-                        <div class="reccomendation-grid" id="Florists"></div>
+                        <div class="reccomendation-grid" id="florist"></div>
                         <div class=step-buttons>
                             <button class="prev-button">Previous</button>
                             <button class="submit-button">Submit</button>
@@ -501,7 +533,7 @@ const unassigned = (data) => {
                     </div>
                 </div>`
             vendorGrid.querySelector('.package-selector').querySelector('.prev-button').remove();
-            vendorGrid.querySelectorAll('.prev-button').forEach(prevButton=> {
+            vendorGrid.querySelectorAll('.prev-button').forEach(prevButton => {
                 prevButton.addEventListener('click', (event) => {
                     currentStepCounter--;
                     const currentStep = vendorGrid.querySelector('.package-step.current');
@@ -550,6 +582,7 @@ const unassigned = (data) => {
 
             vendorGrid.querySelectorAll('.package-selector').forEach(packagesDiv => {
                 recGrid = packagesDiv.querySelector(".reccomendation-grid");
+                console.log(recGrid.id)
                 response[recGrid.id].forEach(package => {
                     const packageDiv = document.createElement('div');
                     packageDiv.classList.add('package');
@@ -660,15 +693,15 @@ function render() {
         }).then(response => {
             return response.json();
         }).then(data => {
-            if(response.status == 409) {
+            if (response.status == 409) {
                 showNotification("The wedding is still ongoing can't delete", "red");
                 closeEditModal();
-                return;   
-            } else if(response.status == 203) {
+                return;
+            } else if (response.status == 203) {
                 window.location.href = '/signin';
-            } 
+            }
             alert("Vendor Deleted sucesssfully");
-            
+
             console.log(data);
             window.location.href = '/register';
         }).catch(error => {
@@ -770,10 +803,10 @@ function render() {
                 experience: document.getElementById('experience').value,
                 website: document.getElementById('website').value
             };
-            
+
             console.log('Form submitted:', formData);
             // Add your form submission logic here
-            
+
             editModalContainer.classList.remove('show');
         });
     }
@@ -807,42 +840,43 @@ function render() {
                 'Content-Type': 'application/json'
             },
         }).then(response => {
-    
+
             return response.json();
         }).then(weddingData => {
             let changedFields = {};
             document.querySelectorAll('.form-input').forEach(input => {
                 input.value = weddingData[input.id];
                 input.addEventListener('change', () => {
-                    changedFields[input.id] = input.value;  
+                    changedFields[input.id] = input.value;
                 })
             })
             document.querySelector('.submit-button').addEventListener('click', () => {
                 console.log(changedFields);
-            if (Object.keys(changedFields).length > 0) {
-                fetch('/update-wedding/' + weddingID, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(changedFields)
-                }).then(response => {
-                    return response.json();
-                }).then(data => {
-                    Object.keys(changedFields).forEach((column) => {
-                        weddingData[column] = changedFields[column];
-                      });
-                      closeEditModal();
-                }).catch(error => {
-                    console.error(error);
-                });
-            }
+                if (Object.keys(changedFields).length > 0) {
+                    fetch('/update-wedding/' + weddingID, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(changedFields)
+                    }).then(response => {
+                        return response.json();
+                    }).then(data => {
+                        Object.keys(changedFields).forEach((column) => {
+                            weddingData[column] = changedFields[column];
+                        });
+                        closeEditModal();
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                }
             })
 
-            
-        
 
-    })}
+
+
+        })
+    }
 }
 
 document.addEventListener('DOMContentLoaded', render);
