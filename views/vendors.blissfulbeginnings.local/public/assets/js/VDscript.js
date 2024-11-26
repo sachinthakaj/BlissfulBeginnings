@@ -357,8 +357,6 @@ function render() {
                         }
 
                     }
-
-
                 })
             showNotification("Profile deleted", "red");
             window.location.href = '/register';
@@ -515,6 +513,6 @@ function render() {
     }
 
 
-
+}
 
 document.addEventListener('DOMContentLoaded', render);
