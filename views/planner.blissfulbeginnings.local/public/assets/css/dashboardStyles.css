@@ -58,9 +58,23 @@ body {
   
   main {
     display: flex;
+    flex-direction: column;
     flex: 1;
   }
   
+.image-links-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px
+  }
+
+  .image-links-container img{
+    margin: 0px 20px;
+  }
+  
+
+
   .main-container {
     display: flex;
   }

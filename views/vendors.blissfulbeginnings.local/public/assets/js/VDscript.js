@@ -1,5 +1,4 @@
 const path = window.location.pathname;
-console.log(path)
 const pathParts = path.split('/');
 const vendorID = pathParts[pathParts.length - 1];
 
@@ -244,10 +243,16 @@ function render() {
     async function fetchCards() {
         try {
             console.log(vendorID);
-            const response = await fetch(`/vendor/${vendorID}/get-weddings`);
+            const response = await fetch(`/vendor/${vendorID}/get-weddings`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                },
 
-            if (!response.ok) {
-                throw new Error(`HTTP error: ${response.status}`);
+            });
+            if(response.status==201) {
+                window.location.href = "/signin"
             }
 
             const textData = await response.text();
@@ -268,6 +273,13 @@ function render() {
 
         if (Array.isArray(cardsData) && cardsData.length > 0) {
             loadCards(cardsData);
+            document.querySelectorAll('.card').forEach(card => {
+                console.log('Adding event listener')
+                card.addEventListener('click', () => {
+                    console.log("Here")
+                    window.location.href=`/vendor/${vendorID}/assignment/${card.id}`
+                })
+            })
         } else {
             showNotification("No wedding data available", "red");
         }
@@ -275,7 +287,7 @@ function render() {
 
     function createCard(cardData) {
         return `
-            <div class="card">
+            <div class="card" id=${cardData.assignmentID}>
                 <div class="image-content">
                     <span class="overlay"></span>
                     <div class="card-image">
@@ -313,14 +325,17 @@ function render() {
                 .join("");
             cardWrappersHTML += `<div class="card-wrapper">${cardsInGroup}</div>`;
         }
-
+        
         // inserting into slide-content
         scrollContainer.innerHTML = cardWrappersHTML;
+
     }
 
     // loadCards(cardsData);
 
     initializeCards();
+
+    
 
     // modal for delete profile
     function openModal() {
@@ -343,7 +358,8 @@ function render() {
             fetch('/delete-profile/vendor-details/' + vendorID, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
             })
                 .then(response => {
@@ -421,7 +437,9 @@ function render() {
 
         fetch('/get-profile-details/vendor-details/' + vendorID, {
             method: 'GET',
-            headers: {
+            headers:
+            {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => {
@@ -441,6 +459,7 @@ function render() {
                     fetch('/update-profile/vendor-details/' + vendorID, {
                         method: 'POST',
                         headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(changedFields)
@@ -456,10 +475,6 @@ function render() {
                     });
                 }
             })
-
-            
-
-
         })
     }
 

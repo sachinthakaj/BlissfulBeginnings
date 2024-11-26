@@ -563,7 +563,7 @@ const unassigned = (data) => {
                 })
             })
             vendorGrid.querySelector('.submit-button').addEventListener('click', (event) => {
-                if (Object.keys(selectedPackages).length === currentStepCounter) {
+                if (Object.keys(selectedPackages).length === currentStepCounter + 1) {
                     const packages = Object.values(selectedPackages);
                     fetch('/assign-packages/' + weddingID, {
                         method: "POST",
@@ -584,6 +584,9 @@ const unassigned = (data) => {
                             location.reload();
                         }
                     })
+                } else {
+                    console.log(currentStepCounter)
+                    alert("Please select a package for all vendor types");
                 }
             })
 

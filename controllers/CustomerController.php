@@ -127,11 +127,19 @@ class CustomerController
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
             $package = new Package();
-            $package->setPackages($parameters['weddingID'], $parsed_data);
+            if($package->setPackages($parameters['weddingID'], $parsed_data)){
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['message' => 'Packages set successfully']);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Error setting packages']);
+            }
 
 
         } catch(PDOException $e) {
             error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error setting packages']);
         }
     }
 
