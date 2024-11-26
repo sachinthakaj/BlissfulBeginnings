@@ -7,11 +7,11 @@ class m0010_SampleData {
     }
 
     public function up() {
-      $SQL = 'INSERT INTO `vendors` (`vendorID`, `email`, `password`, `businessName`, `typeID`, `contact`, `address`,  `description`) VALUES
-(0x1415e1b4a8b211efac950a0027000004, \'kamalflora@gmail.com\', \'$2y$10$cOTf5/ccPqIFGCAWKMZ.zui/6gqYcKj.HRSUuOn/J8r8qh9tpXoB6\', \'Kamal Flora\', \'Florist\', \'0711234566\', \'127,main street,colombo\',  \'flora\'),
-(0x3f9891a9a8b211efac950a0027000004, \'hasinifashion@gmail.com\', \'$2y$10$lrC1m.snOE.8neexlOMj9utWdoGlXhhZaxYJr.7VurFzG8uEep6Fm\', \'Hasini Fashion\', \'Dress Designer\', \'0711234596\', \'130,main street,colombo\', \'Hasini jkkl\'),
-(0xac902193a8b111efac950a0027000004, \'sandalisalon@gmail.com\', \'$2y$10$tTpibYjUrCN.cV5/xVFPeeIKZ49uYadwCVgh2kOU/sueuniHdtSJq\', \'Sandali  Salon\', \'Salon\', \'0711234567\', \'123,main street,colombo\',  \'sandali\'),
-(0xe00e1dc1a8b111efac950a0027000004, \'sakyastudio@gmail.com\', \'$2y$10$q0YLSwPvI3C8NP.zNe9wWeUEkwoVFbz3w0A5.qwAz1S3u7./HSLWq\', \'Sakya Studio\', \'Photographer\', \'0711234567\', \'124,main street,colombo\', \'sakya studi\');
+      $SQL = 'INSERT INTO `vendors` (`vendorID`, `email`, `password`, `businessName`, `typeID`, `contact`, `address`,  `description`, `vendorstate`) VALUES
+(0x1415e1b4a8b211efac950a0027000004, \'kamalflora@gmail.com\', \'$2y$10$cOTf5/ccPqIFGCAWKMZ.zui/6gqYcKj.HRSUuOn/J8r8qh9tpXoB6\', \'Kamal Flora\', \'Florist\', \'0711234566\', \'127,main street,colombo\',  \'flora\', \'new\'),
+(0x3f9891a9a8b211efac950a0027000004, \'hasinifashion@gmail.com\', \'$2y$10$lrC1m.snOE.8neexlOMj9utWdoGlXhhZaxYJr.7VurFzG8uEep6Fm\', \'Hasini Fashion\', \'Dress Designer\', \'0711234596\', \'130,main street,colombo\', \'Hasini jkkl\', \'new\'),
+(0xac902193a8b111efac950a0027000004, \'sandalisalon@gmail.com\', \'$2y$10$tTpibYjUrCN.cV5/xVFPeeIKZ49uYadwCVgh2kOU/sueuniHdtSJq\', \'Sandali  Salon\', \'Salon\', \'0711234567\', \'123,main street,colombo\',  \'sandali\', \'new\'),
+(0xe00e1dc1a8b111efac950a0027000004, \'sakyastudio@gmail.com\', \'$2y$10$q0YLSwPvI3C8NP.zNe9wWeUEkwoVFbz3w0A5.qwAz1S3u7./HSLWq\', \'Sakya Studio\', \'Photographer\', \'0711234567\', \'124,main street,colombo\', \'sakya studi\', \'new\');
 
 INSERT INTO `users` (`userID`, `email`, `password`) VALUES
 (0x406b854ba8a511ef8612cc153136262a, \'navod@gmail.com\', \'$2y$10$XER0sKO32loJ8xrypU72wedHQ79dZAVlsmns2J8fuO0aQtux2Vqei\'),

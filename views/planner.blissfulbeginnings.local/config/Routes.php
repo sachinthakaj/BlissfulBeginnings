@@ -46,15 +46,21 @@ $router->get("/resetpassword", "plannerController@resetPassword");
 
 
 
-$router->post("/wedding/{weddingID}/get-packages/salons","RecommendationsController@getSalonRecommendations");
-$router->post("/wedding/{weddingID}/get-packages/bride-salons","RecommendationsController@getBrideSalonRecommendations");
-$router->post("/wedding/{weddingID}/get-packages/groom-salons","RecommendationsController@getGroomSalonRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/salon","RecommendationsController@getSalonRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/bride-salon","RecommendationsController@getBrideSalonRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/groom-salon","RecommendationsController@getGroomSalonRecommendations");
 
-$router->post("/wedding/{weddingID}/get-packages/dress-designers","RecommendationsController@getDressDesignerRecommendations");
-$router->post("/wedding/{weddingID}/get-packages/bride-dress-designers", "RecommendationsController@getBrideDressDesignerRecommendations");
-$router->post("/wedding/{weddingID}/get-packages/groom-dress-designers", "RecommendationsController@getGroomDressDesignerRecommendations");
-$router->post("/wedding/{weddingID}/get-packages/florists","RecommendationsController@getFloristRecommendations");
-$router->post("/wedding/{weddingID}/get-packages/photographers","RecommendationsController@getPhotographerRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/dress-designer","RecommendationsController@getDressDesignerRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/bride-dress-designer", "RecommendationsController@getBrideDressDesignerRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/groom-dress-designer", "RecommendationsController@getGroomDressDesignerRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/florist","RecommendationsController@getFloristRecommendations");
+$router->post("/wedding/{weddingID}/get-packages/photographer","RecommendationsController@getPhotographerRecommendations");
 
 
 $router->post("/wedding/{weddingID}/submit-selected-packages","RecommendationsController@submitSelectedPackages");
+
+
+$router->get("/notifications", "plannerController@notifications");
+
+$router->get("/vendor/{vendorID}","plannerController@vendorProfilePage");
+$router->get("/vendor/vendor-details/{vendorID}","plannerController@vendorProfile");
