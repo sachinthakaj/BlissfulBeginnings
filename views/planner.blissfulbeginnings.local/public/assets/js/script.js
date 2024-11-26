@@ -280,44 +280,13 @@ document.addEventListener("DOMContentLoaded", function () {
         
         `;
           card.classList.add("new");
+          card.id = wedding.weddingID;
           const acceptButton = document.createElement("button");
           acceptButton.classList.add("acceptButton");
           acceptButton.textContent = "Accept";
-          acceptButton.addEventListener("click", (e) => {
-            const confirmed = confirm("Are you sure you want to accept?");
-            if (confirmed) {
-              e.stopPropagation();
-
-              fetch("/update-wedding-state", {
-                method: "POST",
-                headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                  'Content-Type': 'application/json'
-
-                },
-                body: JSON.stringify({
-                  weddingID: wedding.weddingID,
-                }),
-              })
-                .then((res) => {
-                  if (res.status === 401) {
-                    window.location.href = '/signin';
-                  }
-                  return res.json();
-                })
-                .then((data) => {
-                  if (data.status === "success") {
-                    alert(data.message);
-                    window.location.reload();
-                  } else {
-                    alert("Error" + data.message);
-                  }
-                })
-                .catch((error) => {
-                  console.error("Error updating wedding state:", error);
-                });
-            }
-          });
+          acceptButton.addEventListener('click', () => {
+            window.location.href = `/`
+          })
           card.appendChild(acceptButton);
 
           const rejectButton = document.createElement("button");

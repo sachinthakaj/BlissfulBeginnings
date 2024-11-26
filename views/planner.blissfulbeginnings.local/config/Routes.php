@@ -21,7 +21,7 @@ $router->post("/planner-logout","PlannerAuthController@logout");
 
 
 
-$router->get("/plannerWedding", "PlannerController@plannerWedding");
+$router->get("/wedding/{weddingID}", "PlannerController@plannerWedding");
 $router->get("/selectPackages/{weddingID}","PlannerController@selectPackages");
 
 $router->get("/wedding/data/{weddingID}", "customerController@fetchData");

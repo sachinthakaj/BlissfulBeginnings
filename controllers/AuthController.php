@@ -53,7 +53,7 @@ class AuthController
                 'message' => 'Registration successful',
                 'token' => $token,
                 'userID' => $userID,
-        ]);
+            ]);
         } else {
 
             header('HTTP/1.1 500 Internal Server Error');
@@ -85,13 +85,24 @@ class AuthController
             echo json_encode(['error' => 'Invalid credentials']);
             return;
         }
-
-        $token = createToken(bin2hex($user['userID']), 'customer');
+        if ($user['weddingID'] == null) {
+            $userID = bin2hex($user['userID']);
+            $token = createToken($userID, 'customer');
+            header('HTTP/1.1 403 Forbidden');
+            header('Content-Type:application/json; charset=utf-8');
+            echo json_encode([
+                'token' => $token,
+            ]);
+            return;
+        }
+        $weddingID = bin2hex($user['weddingID']);
+        $token = createToken($weddingID, 'customer');
 
         header('Content-Type:application/json; charset=utf-8');
         echo json_encode([
             'message' => 'Login Successful',
-            'token' => $token
+            'token' => $token,
+            'weddingID' => $weddingID
         ]);
     }
 }

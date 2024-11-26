@@ -97,13 +97,14 @@ class vendorAuthController
                 echo json_encode(['error' => 'Invalid credentials']);
                 return;
             }
-            $token = createToken($vendor['vendorID'], 'vendor');
+            $vendorID = bin2hex($vendor['vendorID']);
+            $token = createToken($vendorID, 'vendor');
             header('HTTP/1.1 200 OK');
             header('Content-Type:application/json; charset=utf-8');
             echo json_encode([
                 'message' => 'Login Successful',
                 'token' => $token,
-                'vendorID' => $vendor["vendorID"]
+                'vendorID' => $vendorID
             ]);
         } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');

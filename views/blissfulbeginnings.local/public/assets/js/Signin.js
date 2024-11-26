@@ -22,30 +22,34 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify(formData)
         })
-        .then(response => {
-            console.log(response);
-            if (!response.ok) {
-                if (response.status == 409) {
-                    alert("Email is already registered");
-                    return;
-                } else {
-                    throw new Error('Network response was not ok');
+            .then(response => {
+                console.log(response);
+                if (!response.ok) {
+                    if (response.status == 401) {
+                        alert("Wrong credentials");
+                        return;
+                    } if (response.state = 403) {
+                        localStorage.setItem('authToken', data.token); // Store token securely
+                        window.location.href = '/wedding-details'
+                    }
+                    else {
+                        throw new Error('Network response was not ok');
+                    }
                 }
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('authToken', data.token); // Store token securely
-                window.location.href = '/wedding-details'
-              } else {
-                console.error('Login failed');
-              }
-        })
-        .catch(error => {
-            // Handle error (e.g., show an error message)
-            console.error('Error registering:', error);
-            alert('SignUp failed, please try again.');
-        });
+                return response.json();
+            })
+            .then(data => {
+                if (data.token) {
+                    localStorage.setItem('authToken', data.token); // Store token securely
+                    window.location.href = '/wedding/' + data.weddingID
+                } else {
+                    console.error('Login failed');
+                }
+            })
+            .catch(error => {
+                // Handle error (e.g., show an error message)
+                console.error('Error registering:', error);
+                alert('SignUp failed, please try again.');
+            });
     });
 });

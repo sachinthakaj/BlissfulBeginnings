@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }).then(response => {
     if (!response.ok) {
       if (response.status === 401) {
+        alert("Not registered");
         window.location.href = '/signin';
       } else {
         throw new Error('Network response was not ok');
