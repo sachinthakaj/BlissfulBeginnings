@@ -20,8 +20,9 @@ $router->get("/get-florists","vendorController@getFlorists");
 $router->get("/register", "HomeController@Register");
 $router->post("/register", "AuthController@register");
 
-$router->get("/wedding-details", "WeddingController@create");
-$router->post("/wedding-details", "WeddingController@newWedding");
+$router->get("/wedding-details/{userID}", "WeddingController@create");
+$router->post("/validate-userID/{userID}", "CustomerController@validateUserID");
+$router->post("/wedding-details/{userID}", "WeddingController@newWedding");
 
 $router->get("/signin", "HomeController@signIn");
 $router->post("/signin","AuthController@login");
@@ -38,5 +39,5 @@ $router->put("/update-wedding/{weddingID}","WeddingController@update");
 $router->get("/assign-packages/{weddingID}", "CustomerController@setPackages");    
 $router->get("/reccomendations/{weddingID}", "CustomerController@getReccomendations");
 
-$router->get("/resetpassword", "customerController@resetPassword");
+$router->get("/resetpassword", "CustomerController@resetPassword");
 

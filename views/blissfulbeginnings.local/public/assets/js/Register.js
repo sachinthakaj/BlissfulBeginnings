@@ -51,9 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             // Handle success (e.g., show a success message or redirect)
-            alert('Registration successful!');
-            console.log('Success:', data);
-            window.location.href = '/wedding-details'
+            if (data.token) {
+                localStorage.setItem('authToken', data.token); // Store token securely
+                window.location.href = '/wedding-details/' + data.userID;
+              } else {
+                console.error('Login failed');
+              }
         })
         .catch(error => {
             // Handle error (e.g., show an error message)

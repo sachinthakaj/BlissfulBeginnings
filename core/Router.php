@@ -61,6 +61,7 @@ class Router
     public function route(string $method, string $uri): bool {
         $result = dataGet($this->routes, $method .".". $uri);
         if(!$result) {
+            header("HTTP/1.1 404 Not Found");
             require_once('../../core/404page.html');
             return false;
         }

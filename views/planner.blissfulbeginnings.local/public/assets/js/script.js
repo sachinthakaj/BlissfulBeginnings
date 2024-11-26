@@ -196,8 +196,19 @@ document.addEventListener("DOMContentLoaded", function () {
   showCalendar(currentMonth, currentYear);
   // Assuming you have a function to fetch notifications from the backend
   const notificationContainer = document.querySelector('.notification-container');
-fetch('/notifications')
-    .then(response => response.json())
+  fetch('/notifications', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (response.status === 401) {
+        window.location.href = '/signin';
+      }
+      return response.json()
+    })
     .then(notifications => {
       notifications.forEach(notification => {
         const notificationDiv = document.createElement('div');
@@ -208,7 +219,7 @@ fetch('/notifications')
           <p>${notification.message}</p>
         `;
         notificationContainer.appendChild(notificationDiv);
-    
+
         if (notification.typeID === 'new-vendor') {
           notificationDiv.addEventListener('click', () => {
             window.location.href = `/new-vendor/${notification.reference}`;
@@ -221,15 +232,25 @@ fetch('/notifications')
       });
     });
 
-// Get the notification container
+  // Get the notification container
 
 
 
   const weddingCardsContainer = document.querySelector(".wedding-cards");
 
-  fetch("/fetch-wedding-data")
+  fetch("/fetch-wedding-data", {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+      'Content-Type': 'application/json'
+    }
+  })
     .then((response) => {
-      if (!response.ok) throw new Error("Network response was not ok");
+      if (response.status == 401) {
+        window.location.href = '/signin';
+      } else if (response.status == 500) {
+        showNotification("error", "Something went wrong");
+      }
       return response.json();
     })
     .then((weddings) => {
@@ -259,37 +280,13 @@ fetch('/notifications')
         
         `;
           card.classList.add("new");
+          card.id = wedding.weddingID;
           const acceptButton = document.createElement("button");
           acceptButton.classList.add("acceptButton");
           acceptButton.textContent = "Accept";
-          acceptButton.addEventListener("click", (e) => {
-            const confirmed = confirm("Are you sure you want to accept?");
-            if (confirmed) {
-              e.stopPropagation();
-
-              fetch("/update-wedding-state", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  weddingID: wedding.weddingID,
-                }),
-              })
-                .then((res) => res.json())
-                .then((data) => {
-                  if (data.status === "success") {
-                    alert(data.message);
-                    window.location.reload();
-                  } else {
-                    alert("Error" + data.message);
-                  }
-                })
-                .catch((error) => {
-                  console.error("Error updating wedding state:", error);
-                });
-            }
-          });
+          acceptButton.addEventListener('click', () => {
+            window.location.href = `/`
+          })
           card.appendChild(acceptButton);
 
           const rejectButton = document.createElement("button");
@@ -309,7 +306,12 @@ fetch('/notifications')
                   weddingID: wedding.weddingID,
                 }),
               })
-                .then((res) => res.json())
+                .then((res) => {
+                  if (res.status === 401) {
+                    window.location.href = '/signin';
+                  }
+                  res.json();
+                })
                 .then((data) => {
                   if (data.status === "success") {
                     alert(data.message);
@@ -374,13 +376,18 @@ fetch('/notifications')
       const confirmed = confirm("Are you sure you want to log out?");
       if (confirmed) {
         fetch("/planner-logout", {
+
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            'Content-Type': 'application/json'
+          },
           method: "POST",
         })
           .then((response) => response.json())
           .then((data) => {
             alert(data.message);
             window.location.href =
-              "http://planner.blissfulbeginnings.local/SignIn";
+              "http://planner.blissfulbeginnings.local/signin";
           })
           .catch((error) => console.error("Error logging out", error));
       }

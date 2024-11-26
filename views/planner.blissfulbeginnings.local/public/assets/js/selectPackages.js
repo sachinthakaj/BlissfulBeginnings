@@ -35,11 +35,13 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch('/wedding/data/' + weddingID, {
     method: 'GET',
     headers: {
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
       'Content-Type': 'application/json'
     },
   }).then(response => {
     if (!response.ok) {
       if (response.status === 401) {
+        alert("Not registered");
         window.location.href = '/signin';
       } else {
         throw new Error('Network response was not ok');
@@ -157,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch('/wedding/' + weddingID + '/get-packages/' + assignmentType, {
           method: 'POST',
           headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -256,6 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
       fetch('/wedding/' + weddingID + '/submit-selected-packages', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(selectedPackages),

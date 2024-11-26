@@ -8,6 +8,8 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
+alert("Now in the customer Dashboard");
+
 function showNotification(message, color) {
     // Create notification element
     const notification = document.createElement("div");
@@ -69,6 +71,7 @@ function newWedding(data) {
             fetch('/wedding/couple-details/' + weddingID, {
                 method: 'GET',
                 headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                     'Content-Type': 'application/json'
                 },
             }).then(response => {
@@ -236,7 +239,9 @@ function newWedding(data) {
                     // Send `changedFields` to the backend
                     fetch("/update-wedding/" + weddingID, {
                         method: "PUT",
-                        headers: { "Content-Type": "application/json" },
+                        headers: { 
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                            "Content-Type": "application/json" },
                         body: JSON.stringify({ changedWeddingFields, changedBrideFields, changedGroomFields }),
                     }).then(response => {
                         currentStep = 0;
@@ -396,6 +401,7 @@ const unassigned = (data) => {
         fetch('/reccomendations/' + weddingID, {
             method: "GET",
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 "Content-type": "application/json"
             }
         }).then(response => {
@@ -562,6 +568,7 @@ const unassigned = (data) => {
                     fetch('/assign-packages/' + weddingID, {
                         method: "POST",
                         headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                             "Content-type": "application/json"
                         },
                         body: JSON.stringify(selectedPackages)
@@ -653,12 +660,13 @@ function render() {
         fetch('/wedding/data/' + weddingID, {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => {
             if (!response.ok) {
                 if (response.status === 401) {
-                    window.location.href = '/SignIn';
+                    window.location.href = '/signin';
                 } else {
                     throw new Error('Network response was not ok');
                 }
@@ -688,6 +696,7 @@ function render() {
         fetch('/wedding/delete-wedding/' + weddingID, {
             method: 'DELETE',
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => {
@@ -837,6 +846,7 @@ function render() {
         fetch('/wedding/data/' + weddingID, {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => {

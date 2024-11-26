@@ -1,4 +1,5 @@
 const path = window.location.pathname;
+console.log(path)
 const pathParts = path.split('/');
 const vendorID = pathParts[pathParts.length - 1];
 
@@ -242,7 +243,8 @@ function render() {
     // fetch cards
     async function fetchCards() {
         try {
-            const response = await fetch('/vendor/{vendorID}/get-weddings');
+            console.log(vendorID);
+            const response = await fetch(`/vendor/${vendorID}/get-weddings`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error: ${response.status}`);

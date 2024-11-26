@@ -7,12 +7,12 @@ class m0006_planner {
     }
 
     public function up() {
-      $SQL = "
+      $SQL = '
      CREATE TABLE planner (
-  email varchar(255) NOT NULL,
+  email varchar(255) PRIMARY KEY,
   password varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
- INSERT INTO planner VALUE ('123@gmail.com','$2y$10$6L.rZc45hil3/nY9pY2lROJxgK./YLl9QdgdSWaa8F3wkAashrYTm');";
+ INSERT INTO `planner` VALUE (\'123@gmail.com\',\'$2y$10$Y8jpTwE5K2cM/ZZCC9xR5uWfEf9Np0pcXDjRkRjISR0Snk.vl/o1y\');';
               $this->dbh->exec($SQL);
     }
 

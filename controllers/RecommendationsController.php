@@ -6,6 +6,10 @@ class RecommendationsController
     public function __construct() {}
 
     public function getSalonrecommendations($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -31,6 +35,10 @@ class RecommendationsController
 
     public function getBrideSalonrecommendations($parameters)
     {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -55,6 +63,10 @@ class RecommendationsController
     }
 
     public function getGroomSalonrecommendations($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -79,6 +91,10 @@ class RecommendationsController
     }
 
     public function getPhotographerrecommendations($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -103,6 +119,10 @@ class RecommendationsController
     }
 
     public function getDressDesignerrecommendations($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -127,6 +147,10 @@ class RecommendationsController
     }
 
     public function getBrideDressDesignerrecommendations($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -151,6 +175,10 @@ class RecommendationsController
     }
 
     public function getGroomDressDesignerrecommendations($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -175,6 +203,10 @@ class RecommendationsController
     }
 
     public function getFloristrecommendations($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
@@ -199,6 +231,14 @@ class RecommendationsController
     }
 
     public function submitSelectedPackages($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
