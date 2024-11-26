@@ -43,17 +43,17 @@ class AuthController
         // Create a new user
         if (($userID = $this->userModel->createUser($email, $hashedPassword))) {
 
-            // Start the session and store user information
-            session_start();
-            $_SESSION['email'] = $email;
-            $_SESSION['logged_in'] = true;
-            $_SESSION['userID'] = $userID;
+            $token = createToken($userID, 'customer');
 
             // Send a confirmation response
             header('Content-Type: application/json; charset=utf-8');
             error_log("Create a user");
             error_log(json_encode(['message' => 'Registration successful']));
-            echo json_encode(['message' => 'Registration successful']);
+            echo json_encode([
+                'message' => 'Registration successful',
+                'token' => $token,
+                'userID' => $userID,
+        ]);
         } else {
 
             header('HTTP/1.1 500 Internal Server Error');
@@ -61,35 +61,37 @@ class AuthController
         }
     }
 
-    public function login() {
+    public function login()
+    {
         $data = file_get_contents('php://input');
-        $parsed_data = json_decode($data,true);
+        $parsed_data = json_decode($data, true);
         $email = $parsed_data['email'];
-        $password= $parsed_data['password'];
+        $password = $parsed_data['password'];
 
-        if(empty($email) || empty($password)){
+        if (empty($email) || empty($password)) {
             header('HTTP/1.1 400 Bad Request');
             echo json_encode(['error' => 'Email and password are required']);
-            return ;
-        }
-
-        $user=$this->userModel->getUserByEmail($email);
-        if(!$user){
-            header('HTTP/1.1 401 Not Found');
-            return ;
-        }
-
-        if(!password_verify($password,$user['password'])){
-            header('HTTP/1.1 401 Unathorized');
-            echo json_encode(['error'=>'Invalid credentials']);
             return;
         }
 
-        session_start();
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['logged_in']=true;
+        $user = $this->userModel->getUserByEmail($email);
+        if (!$user) {
+            header('HTTP/1.1 401 Not Found');
+            return;
+        }
+
+        if (!password_verify($password, $user['password'])) {
+            header('HTTP/1.1 401 Unathorized');
+            echo json_encode(['error' => 'Invalid credentials']);
+            return;
+        }
+
+        $token = createToken(bin2hex($user['userID']), 'customer');
 
         header('Content-Type:application/json; charset=utf-8');
-        echo json_encode(['message' => 'Login Successful']);
+        echo json_encode([
+            'message' => 'Login Successful',
+            'token' => $token
+        ]);
     }
 }

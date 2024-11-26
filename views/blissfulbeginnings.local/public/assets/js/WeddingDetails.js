@@ -1,4 +1,22 @@
+const path = window.location.pathname;
+const pathParts = path.split('/');
+const userID = pathParts[pathParts.length - 1];
+
 document.addEventListener('DOMContentLoaded', () => {
+    fetch('/validate-userID/' + userID , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return
+        } else {
+          window.location.href = '/register';
+        }
+      });
     // Multi-Step Form Logic
     const steps = document.querySelectorAll('.step');
     const nextBtn = document.querySelectorAll('#nextBtn');
@@ -98,28 +116,36 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(formData);
 
         console.log(form);
-        fetch('/BlissfulBeginnings/wedding-details', {
+        fetch('/wedding-details/' + userID, {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         })
         .then(response => {
             console.log(response);
-            if (!response.ok) {
+            
                 if (response.status == 409) {
                     alert("Email is already registered");
-                } else {
+                    return;
+                } else if(response.status == 401) {
+                    window.location.href = '/signin';
+                } else if(response.status == 201) {
+                    console.log(response);
+                    return response.json();
+                }
+                else  {
                     throw new Error('Network response was not ok');
                 }
-            }
-            console.log(response);
-            return response.json();
+            
+           
         })
         .then(data => {
             // Handle success (e.g., show a success message or redirect)
             console.log('Success:', data);
+            localStorage.setItem('authToken', data.token); // Store token securely
             window.location.href = "/wedding/" + data.weddingID;
         })
         .catch(error => {

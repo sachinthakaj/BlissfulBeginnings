@@ -380,7 +380,7 @@ fetch('/notifications')
           .then((data) => {
             alert(data.message);
             window.location.href =
-              "http://planner.blissfulbeginnings.local/SignIn";
+              "http://planner.blissfulbeginnings.local/signin";
           })
           .catch((error) => console.error("Error logging out", error));
       }
