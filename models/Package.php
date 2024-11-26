@@ -239,4 +239,32 @@ class Package
             error_log($e);
         }
     }
+
+    public function deletePackage($packageID)
+    {
+        try {
+            $this->db->startTransaction();
+            $this->db->query("SELECT COUNT(*) AS weddingCount FROM packageassignments JOIN packages ON packageassignments.packageID = packages.packageID WHERE packages.packageID = UNHEX(:packageID);");
+            $this->db->bind(":packageID", $packageID, PDO::PARAM_LOB);
+            $this->db->execute();
+            $state = $this->db->fetch(PDO::FETCH_ASSOC);
+
+            if($state['weddingCount'] == 0 ) {
+                $this->db->query("DELETE FROM packages WHERE packageID=UNHEX(:packageID);");
+                $this->db->bind(":packageID", $packageID, PDO::PARAM_LOB);
+                $this->db->execute();
+
+                $this->db->commit();
+                return $this->db->rowCount();
+            }
+            else {
+                $this->db->commit();
+                return -1;
+            }
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
 }

@@ -1,4 +1,16 @@
 <?php
+require_once 'Config.php';
+
+loadEnv(__DIR__ . '/../.env');
+
+
+require '../../vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+
+
 
 function basePath($path)
 {
@@ -60,17 +72,49 @@ function dataGet($arr, $key) // $key = GET./wedding/fetchData/a6018d778b9f11ef98
     }
 }
 
+
+function createToken($userID, $role)
+{
+    $secretKey = "your_secret_key"; // Keep this secure and private
+    $issuedAt = time();
+    $expirationTime = $issuedAt + 3600; // Token valid for 1 hour
+    $payload = [
+        'userID' => $userID, // Add user-specific data
+        'role' => $role,
+        'iat' => $issuedAt,
+        'exp' => $expirationTime
+    ];
+
+    // Generate JWT
+    $jwt = JWT::encode($payload, $_ENV['SECRET_KEY'], 'HS256');
+    return $jwt;
+}
 function Authenticate($role, $ID)
 {
-    return True;
+    $headers = getallheaders();
+    $authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : null;
+
+    if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+        $jwt = $matches[1];
+        try {
+            $decoded = JWT::decode($jwt, new Key($_ENV['SECRET_KEY'], 'HS256'));
+            if($decoded->role == $role) {
+                return true;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 
-function generateUUID($dbh) {
-    
+function generateUUID($dbh)
+{
+
     $dbh->query('SELECT REPLACE(UUID(), "-", "")');
     $dbh->execute();
-    $weddingID = $dbh->fetchColumn(); 
+    $weddingID = $dbh->fetchColumn();
     return $weddingID;
-
 }

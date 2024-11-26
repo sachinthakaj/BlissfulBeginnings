@@ -2,25 +2,20 @@
     outline: 1px solid red;
   } */
 
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;  
-} */
-
-  #loading-screen {
+#loading-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    background: rgba(255, 255, 255, 0.9);
+    /* Semi-transparent white */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Ensures it's on top */
+    z-index: 9999;
+    /* Ensures it's on top */
 }
 
 .spinner {
@@ -33,9 +28,15 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
 body {
     min-width: 480px;
     font-family: 'Inter', sans-serif;
@@ -157,7 +158,7 @@ main {
 }
 
 .package {
-    position: relative; 
+    position: relative;
     height: 30vh;
     display: flex;
     justify-content: space-between;
@@ -173,31 +174,14 @@ main {
     overflow: hidden;
 }
 
-.delete-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease; /* Smooth transition */
-    cursor: pointer;
-    font-size: 20px; /* Adjust icon size */
-    color: rgb(255, 255, 255); /* Icon color */
-    transition: font-size 0.3s ease; /* Adjust duration and timing */
-}
 
-.package:hover .delete-icon {
-    opacity: 1; /* Show icon on hover */
-}
-
-.delete-icon:hover {
-    font-size: 24px;
-   
-}
 
 .package:hover {
-    transform: translateY(-10px); /* Moves the card up */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Darkens the shadow */
-  }
+    transform: translateY(-10px);
+    /* Moves the card up */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Darkens the shadow */
+}
 
 .package .details {
     width: 100%;
@@ -210,82 +194,37 @@ main {
     font-weight: bold;
     color: #b57f00;
     font-size: 1.25rem;
-}
-
-#plus {
-    width: 60%;
-    height: auto;
-}
-
-#modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
-}
-
-/* Modal content */
-#modal-content {
-    background-color: #fff;
-    margin: 15% auto; /* 15% from top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less depending on screen size */
-    max-width: 500px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    font-size: 1.1em;
-    margin-bottom: 5px;
-}
-
-
-/* Close button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover, .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-
-.submit-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #b69f61;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    cursor: pointer;
-}
-
-.submit-button:hover {
-    background-color: #a28c53;
-}
-
-
-.add-package {
+}.bottom-bar {
     display: flex;
-    padding-top: 20%;
     justify-content: center;
     align-items: center;
-}
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .accept-button, .reject-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+  
+  .accept-button {
+    background-color: #4CAF50;
+    color: #fff;
+  }
+  
+  .reject-button {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .accept-button:hover, .reject-button:hover {
+    opacity: 0.8;
+  }
 
 @media (max-width: 768px) {
     .main {
@@ -342,91 +281,5 @@ label {
     .about .profile-image img {
         margin-left: 2rem;
         margin-right: 1rem;
-    }
-}
-
-.delete-modal {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    animation: modalOpen 0.3s ease-out;
-}
-
-.delete-modal-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.delete-modal-container.show {
-    display: flex;
-}
-
-.delete-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.delete-modal-header h2 {
-    margin: 0;
-    color: #333;
-}
-
-.delete-modal-body {
-    margin-bottom: 20px;
-}
-
-.delete-modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.cancel-button, .delete-button {
-    padding: 8px 16px;
-    border-radius: 24px;
-    cursor: pointer;
-    border: none;
-    font-weight: 500;
-}
-
-.cancel-button {
-    background-color: #e0e0e0;
-    color: #333;
-}
-
-.delete-button {
-    background-color: #656233;
-    color: white;
-}
-
-.cancel-button:hover {
-    background-color: #d0d0d0;
-}
-
-.delete-button:hover {
-    background-color: #c1a42e;
-}
-
-@keyframes modalOpen {
-    from {
-        opacity: 0;
-        transform: translateY(-60px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }

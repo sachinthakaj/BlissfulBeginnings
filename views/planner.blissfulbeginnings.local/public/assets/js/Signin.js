@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.form');
     const passwordField = document.getElementById('password');
-    
+
     form.addEventListener('submit', (event) => {
         console.log("Submitting");
         event.preventDefault();  // Prevent the form from submitting the default way
@@ -16,35 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Send the data using Fetch API
-        fetch('/SignIn', {
+        fetch('/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         })
-        .then(response => {
-            console.log(response);
-            if (!response.ok) {
-                if (response.status == 409) {
-                    alert("Email is already registered");
+            .then(response => {
+                console.log(response);
+
+                if (response.status == 401) {
+                    alert("Wrong Credentials");
                     return;
-                } else {
-                    throw new Error('Network response was not ok');
+                } else if (response.status == 200) {
+                    return response.json();
                 }
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Handle success (e.g., show a success message or redirect)
-            alert('Login successful!');
-            console.log('Success:', data);
-            window.location.href = 'http://planner.blissfulbeginnings.local//plannerDashboard';
-        })
-        .catch(error => {
-            // Handle error (e.g., show an error message)
-            console.error('Error loging:', error);
-            alert('Login failed, please try again.');
-        });
+            })
+            .then(data => {
+                localStorage.setItem('authToken', data.token); // Store token securely
+                window.location.href = '/plannerDashboard'
+            })
+            .catch(error => {
+                // Handle error (e.g., show an error message)
+                console.error('Error loging:', error);
+                alert('Login failed, please try again.');
+            });
     });
 });

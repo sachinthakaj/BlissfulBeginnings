@@ -31,6 +31,21 @@ class Wedding
         }
     }
 
+    public function checkNoWedding($userID){
+        try {
+            $this->db->query("SELECT * from wedding WHERE userID = :userID");
+            $this->db->bind(":userID", hex2bin($userID), PDO::PARAM_STR);    
+            $this->db->execute();
+            if($this->db->rowCount() == 0){
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            error_log($e);  
+            throw $e;
+        }
+    }
+
     public function updateWedding($weddingID, $updatedColumns)
     {
         try {
@@ -111,16 +126,16 @@ class Wedding
         }
     }
 
-    public function createWedding($weddingDetails, $brideDetails, $groomDetails)
+    public function createWedding($weddingDetails, $brideDetails, $groomDetails, $userID)
     {
         try {
             $this->db->startTransaction();
             $weddingID =  generateUUID($this->db);
             error_log($weddingID);
             $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, budget, sepSalons, sepDressDesigners, weddingstate)
-             VALUES (UNHEX(:weddingID), :userID, :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressDesigners, 'new')");
+             VALUES (UNHEX(:weddingID), UNHEX(:userID), :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressDesigners, 'new')");
             $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
-            $this->db->bind(':userID', $_SESSION['userID']);
+            $this->db->bind(':userID', $userID);
             $this->db->bind(':date', $weddingDetails['date']);
             $this->db->bind(':dayNight', $weddingDetails['time']);
             $this->db->bind(':location', $weddingDetails['location']);
@@ -217,5 +232,33 @@ class Wedding
         $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
         $this->db->execute();
        
+    }
+
+    public function deleteWedding($weddingID)
+    {
+        try {
+            $this->db->startTransaction();
+            $this->db->query("SELECT weddingState FROM wedding WHERE weddingID=UNHEX(:weddingID)");
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+            $this->db->execute();
+            $state = $this->db->fetch(PDO::FETCH_ASSOC);
+
+            if($state['weddingState'] != "ongoing" ) {
+                $this->db->query("DELETE FROM wedding WHERE weddingID=UNHEX(:weddingID)");
+                $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+                $this->db->execute();
+
+                $this->db->commit();
+                return $this->db->rowCount();
+            }
+            else {
+                $this->db->commit();
+                return -1;
+            }
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log($e->getMessage());
+            throw $e;
+        }
     }
 }

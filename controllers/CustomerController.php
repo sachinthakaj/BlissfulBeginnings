@@ -11,17 +11,32 @@ class CustomerController
         require_once './public/resetPassword.html';
     }
 
+    public function validateUserID($parameters){
+        if(! Authenticate('customer', $parameters['userID'])){
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Registration failed']);
+        };
+        $customer = new Wedding();
+        $result = $customer->checkNoWedding($parameters['userID']);
+        if($result) {
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode(['message' => '']);
+        } else {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'User already has a wedding.']);
 
+        }
+    }
 
-    public function fetchData($weddingID)
+    public function fetchData($parameters)
     {
-        if (!Authenticate('customer', $weddingID)) {
+        if (!(Authenticate('planner', '123') ||Authenticate('customer', $parameters['weddingID']))) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Registration failed']);
         }
         try {
             $wedding = new Wedding();
-            $weddingDetails = $wedding->fetchDataCustomer($weddingID['weddingID']);
+            $weddingDetails = $wedding->fetchDataCustomer($parameters['weddingID']);
             error_log(json_encode($weddingDetails));
             if ($weddingDetails) {
                 header("Content-Type: application/json; charset=utf-8");
@@ -116,6 +131,30 @@ class CustomerController
 
 
         } catch(PDOException $e) {
+            error_log($e);
+        }
+    }
+
+
+    public function deleteWedding($parameters) {
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authentication failed']);
+        }
+        try {
+            $wedding = new Wedding();
+            $result = $wedding->deleteWedding($parameters['weddingID']);
+            if ($result > 0) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['message'=> "Wedding Deleted successfully"]);
+            } else if ($result == 0) {
+                header("HTTP/1.1 204 No Content");
+                echo json_encode(['error' => 'Wedding not found']);
+            } else {
+                header('HTTP/1.1 409 Conflict');
+                echo json_encode(['error' => 'Wedding is currently ongoing']);
+            }
+        } catch (Exception $e) {
             error_log($e);
         }
     }

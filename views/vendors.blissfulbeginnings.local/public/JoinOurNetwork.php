@@ -58,8 +58,8 @@
                 </div>
                 <!-- Social Media Links -->
                 <div class="form-group">
-                    <label for="social-links">Social Media Links</label>
-                    <textarea id="social-links" name="social" placeholder="Enter social media links" rows="3" required></textarea>
+                    <label for="websiteLink">Web Site Link</label>
+                    <textarea id="websiteLink" name="websiteLink" placeholder="Enter social media links" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>

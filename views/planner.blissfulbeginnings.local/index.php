@@ -30,7 +30,7 @@ $router = Router::getRouter();
   require  "./config/routes.php";
 
   $method = $_SERVER['REQUEST_METHOD'];
-  $uri = $_SERVER['REQUEST_URI'];
+  $uri = explode("?", $_SERVER['REQUEST_URI'])[0];
   $uri = str_replace('/BlissfulBeginnings', '', $uri);
   error_log($uri);
   $router->route($method, $uri);

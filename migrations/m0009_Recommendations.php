@@ -12,7 +12,7 @@ class m0009_Recommendations {
     `packageID` BINARY(16) NOT NULL,
     `typeID` ENUM('photographer', 'salon', 'bride-salon', 'groom-salon', 'florist', 'bride-dressd-dsigner', 'groom-dress-designer', 'dress-designer') NOT NULL,
     
-    PRIMARY KEY (`weddingID`, `packageID`),
+    PRIMARY KEY (`weddingID`, `packageID`, `typeID`),
 
     CONSTRAINT `fk_recc_refs_weddings` FOREIGN KEY (`weddingID`) REFERENCES `wedding`(`weddingID`),
     CONSTRAINT `fk_recc_refs_packages` FOREIGN KEY (`packageID`) REFERENCES `packages`(`packageID`)
