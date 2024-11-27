@@ -17,6 +17,7 @@ function render() {
     const submitButton = editModalContainer.querySelector('.submit-button');
     const modalPages = editModalContainer.querySelectorAll('.modal-page');
     const paginationDots = editModalContainer.querySelectorAll('.dot');
+    const navigateEditProfileButton = document.querySelector('.view-packages-button');
 
     // script.js
 
@@ -273,6 +274,13 @@ function render() {
         }
     }
 
+    function navigateEditProfile(vendorID) {
+        window.location.href = `/edit-profile/${vendorID}`;
+    }
+
+    navigateEditProfileButton.addEventListener('click', navigateEditProfile);
+
+    
     function createCard(cardData) {
         return `
             <div class="card">
