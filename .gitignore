@@ -1,2 +1,5 @@
 logs/php_errors.log
+vendor
 .env
+composer.json
+composer.lock

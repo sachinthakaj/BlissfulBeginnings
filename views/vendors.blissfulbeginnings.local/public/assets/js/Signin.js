@@ -23,26 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(formData)
         })
         .then(response => {
-            console.log(response);
-            if (!response.ok) {
-                if (response.status == 409) {
-                    alert("Email is already registered");
-                    return;
-                } else {
-                    throw new Error('Network response was not ok');
-                }
+            if(response.status == 500){
+                throw new Error('Internal server error');
             }
             return response.json();
         })
         .then(data => {
             // Handle success (e.g., show a success message or redirect)
             console.log('Success:', data);
-            window.location.href = '/dashboard'
+            localStorage.setItem('authToken', data.token); // Store token securely
+            window.location.href = '/vendor/' + data.vendorID;
         })
         .catch(error => {
             // Handle error (e.g., show an error message)
-            console.error('Error registering:', error);
-            alert('SignUpfailed, please try again.');
+            alert('Error registering:', error);
         });
     });
 });

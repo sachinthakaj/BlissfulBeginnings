@@ -37,7 +37,7 @@ class User
 
     public function getUserByEmail($email)
     {
-        $this->db->query('SELECT * FROM users WHERE email = :email');
+        $this->db->query('SELECT * FROM wedding RIGHT JOIN users on wedding.userID = users.userID WHERE email = :email');
         $this->db->bind(':email',$email);
         $this->db->execute();   
         $result = $this->db->fetch(PDO::FETCH_ASSOC);

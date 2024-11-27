@@ -15,6 +15,10 @@ class vendorController
 
     public function getVendorDetailsAndPackages($parameters)
     {
+        if(!Authenticate('vendor', $parameters['vendorID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $packageModel = new Vendor();
             error_log("Vendor ID: " . $parameters['vendorID']);

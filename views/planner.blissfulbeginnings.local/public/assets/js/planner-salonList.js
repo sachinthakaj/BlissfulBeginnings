@@ -3,6 +3,7 @@ function render() {
         fetch('/get-salonslist/', {
             method: 'GET',
             headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
         })

@@ -5,8 +5,6 @@ const vendorID = pathParts[pathParts.length - 1];
 
 const mainContainer = document.querySelector('.main-container');
 const newPackage = document.querySelector('.add-package');
-const deleteProfile = document.querySelector('.delete-icon');
-const modalContainer = document.querySelector('.modal-container');
 const cancelButton = document.querySelector('.cancel-button');
 const deleteButton = document.querySelector('.delete-button');
 
@@ -28,7 +26,28 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('description').textContent = vendorData.description;
         document.getElementById("profile-image").setAttribute("src", vendorData.image);
 
-
+        function showNotification(message, color) {
+            // Create notification element
+            const notification = document.createElement("div");
+            notification.textContent = message;
+            notification.style.position = "fixed";
+            notification.style.bottom = "20px";
+            notification.style.left = "20px";
+            notification.style.backgroundColor = color;
+            notification.style.color = "white";
+            notification.style.padding = "10px 20px";
+            notification.style.borderRadius = "5px";
+            notification.style.zIndex = 1000;
+            notification.style.fontSize = "16px";
+    
+            // Append to body
+            document.body.appendChild(notification);
+    
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
 
         const packagesContainer = document.getElementById('packages-container');
 
@@ -39,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             packageDiv.innerHTML = `
                 <div class="details">
                 <span class="delete-icon">🗑️</span>
-                        <div>${package.packageName}</div>
+                            <div>${package.packageName}</div>
                         <div>What's Included:</div>
                         <ul>
                             <li>${package.feature1}</li>
@@ -144,39 +163,72 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
 
+        const deleteProfile = document.querySelectorAll('.delete-icon');
+        const modalContainer = document.querySelector('.delete-modal-container');
+        
         // delete package confirmation modal
-        function openModal() {
+        function openModal(event) {
+            event.stopPropagation(); // prevents bubbling the parent element
             modalContainer.classList.add('show');
+            console.log("Delete button clicked");
         }
     
         function closeModal() {
             modalContainer.classList.remove('show');
-        }
+            console.log("Close button clicked");
+        }  
+        
 
         if (deleteProfile && modalContainer) {
-            deleteProfile.addEventListener('click', openModal);
+            deleteProfile.forEach(button => {
+                button.addEventListener('click', openModal);
+            })
 
             // Close modal when clicking cancel button
             cancelButton.addEventListener('click', closeModal);
 
-            // deleteButton.addEventListener('click', () => {
-            //     fetch('/delete-profile/vendor-details/' + vendorID, {
-            //         method: 'DELETE',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //     })
-            //     .then(response => {
-            //         return response.json();
-            //     }).then(vendorData => {
-                    
-            //     })
-                    
-            //     })
-            //     console.log("Profile deleted");
-            //     closeModal();
-            // })
+            deleteButton.addEventListener('click', (packageID) => {
+                fetch('/packages/delete/' + packageID, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => {
+
+                    if (response.status === 204) {
+                        showNotification(" There is no package for this packageID", "red");
+                    }
+                    if (!response.ok) {
+                        if (response.status === 409) {
+                            closeModal();
+                            showNotification(" This package is currently in use", "red");
+                            return
+                        }
+
+                    }
+                })
+
+                showNotification("Profile deleted", "red");
+                window.location.href = '/register';
+                closeModal();
+            })
+
+            // Close modal when clicking outside
+            modalContainer.addEventListener('click', (event) => {
+                if (event.target === modalContainer) {
+                    closeModal();
+                }
+            });
+        
+            // Close modal with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modalContainer.classList.contains('show')) {
+                    closeModal();
+                }
+            });
         }
+
 
         function openUpdateModal(packageID) { 
             console.log(packageID);

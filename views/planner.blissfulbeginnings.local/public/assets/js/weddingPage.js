@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("/fetch-wedding-data", {
     method: "GET",
     headers: {
+      "Authorization": `Bearer ${localStorage.getItem('authToken')}`,
       "Content-Type": "application/json",
     },
   })
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch(`/vendors-for-wedding?weddingID=${weddingID}`, {
     method: "GET",
     headers: {
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
       "Content-Type": "application/json",
     },
   })
@@ -91,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
           {
             method: "GET",
             headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
               "Content-Type": "application/json",
             },
           }
@@ -104,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`/fetch-all-tasks?assignmentID=${assignmentID}`, {
               method: "GET",
               headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 "Content-Type": "application/json",
               },
             })
@@ -157,16 +161,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     if(confirmed){
                     const taskID = event.target.dataset.taskID;
 
-                  
+
                     document.getElementById("taskForm").dataset.taskID = taskID;
                     console.log(taskID);
 
                     fetch("/delete-tasks", {
                       method: "DELETE",
                       headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                         "Content-Type": "application/json",
                       },
-                      body: JSON.stringify({taskID: taskID}),
+                      body: JSON.stringify({ taskID: taskID }),
                     })
                       .then((res) => res.json())
                       .then((data) => {
@@ -182,7 +187,9 @@ document.addEventListener("DOMContentLoaded", function () {
                       });
 
 
-                    }
+
+
+
                   });
                 });
               })

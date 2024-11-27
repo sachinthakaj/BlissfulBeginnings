@@ -10,16 +10,20 @@ class WeddingController
         $this->weddingModel = new Wedding();
     }
 
-    public function create()
+    public function create($parameters)
     {
         require_once './public/WeddingDetails.php';
     }
 
-    public function newWedding()
+    public function newWedding($parameters)
     {
         try {
-            $_SESSION['userID'] = 0;
-            Authenticate('user', $_SESSION['userID']);
+            if(Authenticate('user', $parameters['userID'])) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Registration failed']);
+            }
+            error_log("userID authentication successful");
+            
 
             $data = file_get_contents('php://input');
             // Decode the JSON into a PHP associative array
@@ -27,11 +31,15 @@ class WeddingController
             $weddingDetails = $parsed_data['weddingDetails'];
             $brideDetails = $parsed_data['brideDetails'];
             $groomDetails = $parsed_data['groomDetails'];
-            $weddingID = $this->weddingModel->createWedding($weddingDetails, $brideDetails, $groomDetails);
+            $weddingID = $this->weddingModel->createWedding($weddingDetails, $brideDetails, $groomDetails, $parameters['userID']);  
+            error_log("Inserted a Wedding successfuly. weddingID: $weddingID");
+            $token = createToken($weddingID, 'customer');
+            error_log("Created a token successfuly");
+            header('HTTP/1.1 201 Created');
             header('Content-Type: application/json; charset=utf-8');
-            error_log("Inserted a Wedding successfuly");
             echo json_encode([
                 'message' => 'Created wedding successfully',
+                'token' => $token,
                 'weddingID' => $weddingID,
             ]);
         } catch (Exception $error) {

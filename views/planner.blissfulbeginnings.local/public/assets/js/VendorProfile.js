@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('/vendor/vendor-details/' + vendorID, {
         method: 'GET',
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             'Content-Type': 'application/json'
         },
     }).then(response => {

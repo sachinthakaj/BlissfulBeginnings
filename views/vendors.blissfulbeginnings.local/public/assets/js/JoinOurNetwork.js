@@ -123,9 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const businessName = signupForm.name.value.trim();
     const contact = signupForm.contact.value.trim();
     const description = signupForm.description.value.trim();
-    const social = signupForm.social.value.trim();
+    const websiteLink = signupForm.websiteLink.value.trim();
 
-    if (!businessName || !contact || !description || !social) {
+    if (!businessName || !contact || !description || !websiteLink) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
       contact:contact,
       address:signupForm.address.value,
       description:signupForm.description.value,
+      websiteLink:websiteLink
     }
     fetch('/register', {
       method: 'POST',

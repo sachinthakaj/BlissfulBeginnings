@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="./public/assets/css/WeddingDetails.css">
+    <link rel="stylesheet" href="/public/assets/css/WeddingDetails.css">
     <link href="https://fonts.googleapis.com/css?family=Gwendolyn&display=swap" rel="stylesheet">
 
 </head>
@@ -13,7 +13,7 @@
 <body>
     <header>
         <div class="nav-bar-logo-container">
-            <img src="./public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
         <div class="wedding-title-container">
             <h1 class="wedding-title">Create an account</h1>
@@ -34,7 +34,10 @@
                 </div>
                 <div class="input-group">
                     <label for="daynight">Day/Night</label>
-                    <input type="text" id="daynight" name="daynight" required>
+                    <select id="daynight" name="daynight" required>
+                        <option value="Day">Day</option>
+                        <option value="Night">Night</option>
+                    </select>
                 </div>
                 <div class="input-group">
                     <label for="location">Location</label>
