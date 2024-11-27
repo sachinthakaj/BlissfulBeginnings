@@ -1,4 +1,26 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  function updateProgressBar(totalTasks, completedTasks) {
+    const progressBar = document.getElementById("progressBar");
+    const percentage = (completedTasks / totalTasks) * 100;
+  
+    progressBar.style.width = `${percentage}%`;
+  
+    
+    if (percentage === 100) {
+      progressBar.style.backgroundColor = "#4caf50"; 
+    } else if (percentage > 50) {
+      progressBar.style.backgroundColor = "#ffc107"; 
+    } else {
+      progressBar.style.backgroundColor = "#f44336"; 
+    }
+  }
+  
+  
+  const totalTasks = 10; 
+  const completedTasks = 6; 
+  updateProgressBar(totalTasks, completedTasks);
+  
   const weddingTitleElement = document.querySelector(
     ".wedding-dashboard-title"
   );
@@ -45,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
       vendors.forEach((vendor) => {
         const card = document.createElement("div");
         card.classList.add("vendor-card");
-        card.innerHTML = `<p>${vendor.businessName}</br></br>${vendor.typeID}</p>`;
+        card.innerHTML = `<div class="businessName">${vendor.businessName}</div><div class="vendorType">${vendor.typeID}</div>`;
 
         const taskArea = document.createElement("div");
         taskArea.classList.add("taskArea");
@@ -92,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   const taskDetailsArea = document.createElement("div");
                   taskDetailsArea.classList.add("taskDetailsArea");
                   taskDetailsArea.innerHTML = `
-                    <p>${task.description} - ${task.dateToFinish}</p>
+                    <div class="taskCSS">${task.description} before ${task.dateToFinish}</div>
                   `;
 
                   const taskActionArea = document.createElement("div");
@@ -131,6 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                   taskDeleteButton.addEventListener("click", function (event) {
+                    const confirmed = confirm("Are you sure you want to delete?");
+                    if(confirmed){
                     const taskID = event.target.dataset.taskID;
 
                   
@@ -158,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       });
 
 
-                    
+                    }
                   });
                 });
               })
@@ -190,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   closeModalButton.addEventListener("click", function () {
+    taskForm.reset();
     modal.classList.remove("show");
   });
 
