@@ -19,11 +19,11 @@ class Package
 
     public function createDressDesignerPackage($packageID, $packageDetails)
     {
-        $this->db->query("INSERT INTO dressDesignerPackages (packageID, variableCost, theme, demographic) VALUES (UNHEX(:packageID), :variableCost, :demographic, :theme);");
+        $this->db->query("INSERT INTO dressDesignerPackages (packageID, variableCost, theme, demographic) VALUES (UNHEX(:packageID), :variableCost, :theme, :demographic);");
         $this->db->bind(':packageID', $packageID);
         $this->db->bind(':variableCost', $packageDetails['variableCost']);
         $this->db->bind(':demographic', $packageDetails['demographic']);
-        $this->db->bind('theme', $packageDetails['theme']);
+        $this->db->bind(':theme', $packageDetails['theme']);
         $this->db->execute();
     }
 

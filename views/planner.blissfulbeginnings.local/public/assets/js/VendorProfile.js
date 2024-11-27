@@ -15,9 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   })
     .then((response) => {
-      return response.json();
+      if(response.status == 401) {
+        window.location.href = "/signin";
+      } else if(response.status == 200) {
+        return response.json();
+      } else {
+        throw new Error("Network response was not ok");
+      }
     })
     .then((vendorData) => {
+      document.getElementById("business-name").textContent = vendorData.businessName;
       if (vendorData.vendorstate === "new") {
         const bar = document.createElement("div");
         bar.classList.add("bottom-bar");
@@ -48,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   throw error;
                 } else if(response.status == 200) {
                   alert("Vendor accepted successfully");
-                
+                  bar.remove();
                 }
               })          
               .catch((error) => {
@@ -83,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       console.log(vendorData);
       // update title and description
-      document.getElementById("name").textContent = vendorData.name;
       document.getElementById("description").textContent =
         vendorData.description;
       document

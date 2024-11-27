@@ -21,6 +21,10 @@ class Planner
         $this->db->query('SELECT * FROM newvendornotifications UNION SELECT * FROM newpackagenotifications;');
         $this->db->execute();
         $results = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        foreach($results as $key => $notification) {
+            $results[$key]['reference'] = bin2hex($notification['reference']);
+            $results[$key]['notificationID'] = bin2hex($notification['notificationID']);
+        }
         return $results;
     }
 

@@ -21,6 +21,10 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 </head>
 
 <body>
+<div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
   <div class="dashboard">
     <header>
       <div class="nav-bar-logo-container">
