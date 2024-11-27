@@ -252,7 +252,8 @@ function render() {
 
             });
             if(response.status==401) {
-                window.location.href = "/signin"
+                alert("Unauthorized Access");
+                //window.location.href = "/signin"
             }
 
             const textData = await response.text();
@@ -295,7 +296,7 @@ function render() {
                     </div>
                 </div>
                 <div class="card-content">
-                    <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
+                    <h2 class="name">${cardData.weddingTitle}'s Wedding</h2>
                     <div class="content">
                         <h4 class="description">Date: ${cardData.date}</h4>
                         <h4 class="description">Time: ${cardData.dayNight}</h4>

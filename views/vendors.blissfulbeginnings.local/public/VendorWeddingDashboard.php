@@ -18,7 +18,7 @@
             <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
         <div class="wedding-title-container">
-            <h1 class="wedding-title">Samantha and Keerthis Wedding</h1>
+            <h1 class="wedding-title"></h1>
         </div>
     </header>
 
