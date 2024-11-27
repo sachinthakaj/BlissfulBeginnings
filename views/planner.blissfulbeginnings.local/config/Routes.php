@@ -33,7 +33,8 @@ $router->get("/florists", "PlannerController@floristsList");
 
 
 
-
+$router->get("/vendor/{vendorID}/accept", "PlannerController@acceptVendor");
+$router->get("/vendor/{vendorID}/reject", "PlannerController@rejectVendor");
 
 
 $router->get("/get-salonslist","PlannerController@getSalonsList");

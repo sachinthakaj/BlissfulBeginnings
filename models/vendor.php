@@ -65,25 +65,25 @@ class Vendor
     }
     public function getSalons()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Salon"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="Salon" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getPhotographers()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="photographer"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="photographer" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getDdesigners()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Dress Designer"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="Dress Designer" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getFlorists()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Florist"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="Florist" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }

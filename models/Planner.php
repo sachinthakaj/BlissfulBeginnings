@@ -17,7 +17,48 @@ class Planner
         return $this->db->fetchColumn() > 0;
     }
 
-    
+    public function getNotifications() {
+        $this->db->query('SELECT * FROM newvendornotifications UNION SELECT * FROM newpackagenotifications;');
+        $this->db->execute();
+        $results = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    public function acceptVendor($vendorID) {
+        try {
+            $this->db->startTransaction();
+            $this->db->query('UPDATE planner SET status = "Accepted" WHERE vendorID = UNHEX(:vendorID);');
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            $this->db->query("DELETE FROM newvendornotifications WHERE reference = UNHEX(:vendorID);");
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            $this->db->commit();
+            return $this->db->rowCount();
+        } catch (Exception $e) {
+            $this->db->rollback();
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
+        }
+    }
+
+    public function rejectVendor($vendorID) {
+        try {
+            $this->db->startTransaction();
+            $this->db->query('UPDATE planner SET status = "Rejected" WHERE vendorID = UNHEX(:vendorID);');
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            $this->db->query("DELETE FROM newvendornotifications WHERE reference = UNHEX(:vendorID);");
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $this->db->execute();
+            $this->db->commit();
+            return $this->db->rowCount();
+        } catch (Exception $e) {
+            $this->db->rollback();
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);
+        }
+    }
 
     public function getPlannerByEmail($email)
     {

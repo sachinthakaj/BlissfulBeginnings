@@ -251,7 +251,7 @@ function render() {
                 },
 
             });
-            if(response.status==201) {
+            if(response.status==401) {
                 window.location.href = "/signin"
             }
 
