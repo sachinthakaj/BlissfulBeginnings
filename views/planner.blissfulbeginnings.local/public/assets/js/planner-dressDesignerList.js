@@ -45,6 +45,7 @@ function render() {
                       <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
                 `;
                 card.innerHTML = cardHTML;
+                card.id=data.vendorID;
                 // Add delete functionality
                 const deleteIcon = card.querySelector('.delete-icon');
                 deleteIcon.addEventListener('click', () => {

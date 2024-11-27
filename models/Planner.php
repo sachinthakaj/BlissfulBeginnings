@@ -27,7 +27,7 @@ class Planner
     public function acceptVendor($vendorID) {
         try {
             $this->db->startTransaction();
-            $this->db->query('UPDATE planner SET status = "Accepted" WHERE vendorID = UNHEX(:vendorID);');
+            $this->db->query('UPDATE vendors SET vendorstate = "Accepted" WHERE vendorID = UNHEX(:vendorID);');
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
             $this->db->execute();
             $this->db->query("DELETE FROM newvendornotifications WHERE reference = UNHEX(:vendorID);");
@@ -36,7 +36,7 @@ class Planner
             $this->db->commit();
             return $this->db->rowCount();
         } catch (Exception $e) {
-            $this->db->rollback();
+            $this->db->rollbackTransaction();
             error_log($e);
             throw new Exception("Error Processing Request", 1);
         }
@@ -45,7 +45,7 @@ class Planner
     public function rejectVendor($vendorID) {
         try {
             $this->db->startTransaction();
-            $this->db->query('UPDATE planner SET status = "Rejected" WHERE vendorID = UNHEX(:vendorID);');
+            $this->db->query('DELETE FROM vendors WHERE vendorID = UNHEX(:vendorID);');
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
             $this->db->execute();
             $this->db->query("DELETE FROM newvendornotifications WHERE reference = UNHEX(:vendorID);");
@@ -54,7 +54,7 @@ class Planner
             $this->db->commit();
             return $this->db->rowCount();
         } catch (Exception $e) {
-            $this->db->rollback();
+            $this->db->rollbackTransaction();
             error_log($e);
             throw new Exception("Error Processing Request", 1);
         }
