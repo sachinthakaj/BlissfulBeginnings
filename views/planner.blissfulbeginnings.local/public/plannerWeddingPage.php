@@ -28,30 +28,52 @@
     </header>
     <div class="content-wrapper">
       <main>
+        <div class="progress-bar-vendor-search-and-cards">
+          <div class="weddingProgressText">Wedding Progress</div>
 
-        <div class="vendor-search-and-cards">
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+          </div>
 
-          
-          <div class="vendor-cards"></div>
-          <div id="taskFormModal"  class="modal">
-            <div class="modal-content">
-              <span id="closeModal" class="close">&times;</span>
-              <h2>Add Task</h2>
-              <form id="taskForm">
-                <input id="assignmentID"type="hidden" name="assignmentID" value="">
-                <lable for="taskDescription">Description:</lable>
-                <textarea id="taskDescription" name="taskDescription" required></textarea>
-                <label for="dateToFinish">Finish Before:</label>
-                <input id="dateToFinish" name="dateToFinish" type="date" required>
-                <button type="submit">Submit</button>
+          <div class="vendor-search-and-cards">
 
-              </form>
+
+            <div class="vendor-cards"></div>
+            <div id="taskFormModal" class="modal">
+              <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2>Add Task</h2>
+                <form id="taskForm">
+                  <input id="assignmentID" type="hidden" name="assignmentID" value="">
+                  <lable for="taskDescription" class="taskDescription">Description:</lable>
+                  <textarea id="taskDescription" name="taskDescription" required></textarea>
+                  <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
+                  <input id="dateToFinish" name="dateToFinish" type="date" required>
+                  <button type="submit" class="submitButton">Submit</button>
+
+                </form>
+              </div>
+
             </div>
-
           </div>
         </div>
       </main>
-      <aside class="calendar-container"></aside>
+      <aside class="chat-container">
+        <div class="chat-all-area">
+          <div class="chat-show-area">
+
+
+          </div>
+
+          <div class="chat-action-area">
+            <div class="Message-type-area"></div>
+            <button class="Message-send-button-area">SEND</button>
+
+
+          </div>
+
+        </div>
+      </aside>
     </div>
   </div>
   <script src="./public/assets/js/weddingPage.js"></script>
