@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
           acceptButton.classList.add("acceptButton");
           acceptButton.textContent = "Accept";
           acceptButton.addEventListener('click', () => {
-            window.location.href = `/`
+            window.location.href = `/selectPackages/${wedding.weddingID}`
           })
           card.appendChild(acceptButton);
 
@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
           selectPackagesButton.textContent = "Select Packages";
           selectPackagesButton.addEventListener("click", (e) => {
             e.stopPropagation();
-            window.location.href = "/selectPackages";
+            window.location.href = "/wedding/";
           });
           card.appendChild(selectPackagesButton);
         }

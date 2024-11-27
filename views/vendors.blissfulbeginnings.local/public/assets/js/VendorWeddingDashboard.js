@@ -60,7 +60,13 @@ function render() {
         // cards into groups of 3
         function loadCards(cards) {
             let cardWrappersHTML = '';
-
+            if (cards.length == 0) {
+                scrollContainer.innerHTML = `
+                <div class="no-tasks">
+                     <h2>No given tasks<h2>
+                </div>`;
+                return
+            }
             // 3 cards in card-wrapper and appending the rest
             for (let i = 0; i < cards.length; i += 3) {
                 const cardsInGroup = cards.slice(i, i + 3).map(card => createCard(card)).join('');
@@ -69,7 +75,7 @@ function render() {
 
             // inserting into slide-content
             scrollContainer.innerHTML = cardWrappersHTML;
-            document.querySelector('.card-button').addEventListener('click', () => {
+            scrollContainer.querySelector('.card-button').addEventListener('click', () => {
                 fetch(`/vendor/${vendorID}/assignment/${assignmentID}/complete-task/${cardID}`, {
                     method: "POST",
                     headers: {
@@ -84,13 +90,14 @@ function render() {
         loadCards(details.tasks);
         const weddingTitle = document.querySelector('.wedding-title');
         weddingTitle.innerHTML = details.weddingDetails.weddingTitle;
+        console.log(weddingTitle);
 
         const targetDate = new Date(details.weddingDetails.date);
         const today = new Date();
         const differenceInTime = targetDate - today;
         const remainingDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
         document.getElementById("days-left").innerHTML = remainingDays > 0 ? `${remainingDays} days left` : "Happy wedded life!";
-    
+
 
         const weddingProgress = document.getElementById('wedding-progress-bar');
         const budgetProgress = document.getElementById('budget-progress-bar');

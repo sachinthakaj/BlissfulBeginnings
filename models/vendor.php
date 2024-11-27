@@ -97,7 +97,12 @@ class Vendor
                             ON packages.vendorID=vendors.vendorID WHERE vendors.vendorID=UNHEX(:vendorID)');
             $this->db->bind(':vendorID', $vendorID);
             $this->db->execute();
-            return $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $customer = new Wedding();
+            foreach ($result as $index => $value) {
+               $result[$index]['weddingTitle'] = $customer->getWeddingName(bin2hex($value['weddingID']));
+            }
+            return $result;
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;

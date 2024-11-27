@@ -87,7 +87,7 @@ class Task
             $this->db->execute();
             $result = $this->db->fetch(PDO::FETCH_ASSOC);
             $wedding = new Wedding();
-            $results["weddingDetails"]["weddingTitle"]  = $wedding->getWeddingName(bin2hex($result["weddingID"])); 
+            $result["weddingTitle"]  = $wedding->getWeddingName(bin2hex($result["weddingID"])); 
             unset($result['userID']);
             $result['weddingID'] = bin2hex($result["weddingID"]);
             $results = ["weddingDetails" => $result];
