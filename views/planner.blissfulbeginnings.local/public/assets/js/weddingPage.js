@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((weddings) => {
+      weddingTitleElement.textContent = weddings.weddingTitle;
       let wedding = weddings.find((wedding) => wedding.weddingID === weddingID);
       if (wedding) {
         weddingTitleElement.textContent = `${wedding.brideName} & ${wedding.groomName} s' Wedding`;

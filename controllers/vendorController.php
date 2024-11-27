@@ -159,6 +159,7 @@ class vendorController
         if (!Authenticate('vendor', $parameters['vendorID'])) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
         }
         try {
             $vendorModel = new Vendor();
@@ -235,14 +236,13 @@ class vendorController
         }
         try{
             $task = new Task();
-            $tasks = $task->getAllTasks($parameters['vendorID'], $parameters['assignmentID']);
+            $tasks = $task->getAllTasks($parameters['assignmentID']);
             if($tasks) {
                 header("HTTP/1.1 200 Okay");
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($tasks);
             } else {
                 header('HTTP/1.1 204 No Content');
-                echo json_encode(['error' => 'No Tasks Found']);
             }
         } catch(Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');

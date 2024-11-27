@@ -3,23 +3,8 @@ const pathParts = path.split('/');
 const vendorID = pathParts[pathParts.length - 3];
 const assignmentID = pathParts[pathParts.length - 1];
 
-function getNames() {
-    Names = {
-        brideName: "Samantha",
-        groomName: "Keerthi",
-    }
-    return (Names.brideName + "'s & " + Names.groomName + "'s Wedding");
-}
 
 
-const getTimeRemaining = () => {
-    time = {
-        days: 2,
-    }
-    return (
-        `<h2>${time.days} days left...</h2>`
-    );
-}
 
 const getProgress = (wedding, budget) => {
     progress = {
@@ -48,12 +33,11 @@ function render() {
         }
     }).then(response => {
         if (response.status == 401) {
-            alert("Not registered");
-            //.location.href = '/signin';
+            window.location.href = '/signin';
         } else {
             return response.json()
         }
-    }).then(tasks => {
+    }).then(details => {
         // function to create a card
         function createCard(cardData) {
             return `
@@ -97,7 +81,21 @@ function render() {
         }
 
         // load all cards
-        loadCards(tasks);
+        loadCards(details.tasks);
+        const weddingTitle = document.querySelector('.wedding-title');
+        weddingTitle.innerHTML = details.weddingDetails.weddingTitle;
+
+        const targetDate = new Date(details.weddingDetails.date);
+        const today = new Date();
+        const differenceInTime = targetDate - today;
+        const remainingDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+        document.getElementById("days-left").innerHTML = remainingDays > 0 ? `${remainingDays} days left` : "Happy wedded life!";
+    
+
+        const weddingProgress = document.getElementById('wedding-progress-bar');
+        const budgetProgress = document.getElementById('budget-progress-bar');
+        getProgress(weddingProgress, budgetProgress);
+
     })
 
 
@@ -120,15 +118,6 @@ function render() {
         scrollContainer.style.scrollBehavior = 'auto';
     });
 
-    const weddingTitle = document.querySelector('.wedding-title');
-    weddingTitle.innerHTML = getNames();
-
-    const timeRemaining = document.getElementById('days-left');
-    timeRemaining.innerHTML = getTimeRemaining();
-
-    const weddingProgress = document.getElementById('wedding-progress-bar');
-    const budgetProgress = document.getElementById('budget-progress-bar');
-    getProgress(weddingProgress, budgetProgress);
 
     // const slideContent = document.querySelector('.slide-content');
     // cardsData.forEach(cardData => {

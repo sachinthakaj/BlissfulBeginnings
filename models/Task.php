@@ -82,6 +82,15 @@ class Task
     {
 
         try {
+            $this->db->query("SELECT wedding.* FROM wedding JOIN packageAssignment ON wedding.weddingID=packageAssignment.weddingID WHERE packageAssignment.assignmentID=UNHEX(:assignmentID);");
+            $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
+            $this->db->execute();
+            $result = $this->db->fetch(PDO::FETCH_ASSOC);
+            $wedding = new Wedding();
+            $results["weddingDetails"]["weddingTitle"]  = $wedding->getWeddingName(bin2hex($result["weddingID"])); 
+            unset($result['userID']);
+            $result['weddingID'] = bin2hex($result["weddingID"]);
+            $results = ["weddingDetails" => $result];
             $this->db->query("SELECT taskID,description,dateToFinish FROM task WHERE assignmentID=UNHEX(:assignmentID) ORDER BY dateToFinish ASC;");
             $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
             $this->db->execute();
@@ -89,7 +98,8 @@ class Task
             for ($i = 0; $i < count($result); $i++) {
                 $result[$i]["taskID"] = bin2hex($result[$i]["taskID"]);
             }
-            return $result;
+            $results["tasks"] = $result;
+            return $results;
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
