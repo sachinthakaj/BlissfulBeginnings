@@ -371,6 +371,7 @@ class PlannerController
             if(!Authenticate('planner', 123)) {
                 header('HTTP/1.1 401 Unauthorized');
                 echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+                return;
             };
             $plannerModel = new Planner();
             if($plannerModel->acceptVendor($parameters['vendorID'])) {
