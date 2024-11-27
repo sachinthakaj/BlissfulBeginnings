@@ -185,8 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       .catch((error) => {
                         console.error("Error Creating Task:", error);
                       });
-
-
+                    }
 
 
 
