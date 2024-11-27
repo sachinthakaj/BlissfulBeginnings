@@ -1,6 +1,6 @@
 <?php
 
-class plannerController
+class PlannerController
 {
     
     public function salonsList() {
@@ -215,7 +215,10 @@ class plannerController
 
     public function getSalonsList()
     {
-
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $list1Model = new Planner();
             $salonList = $list1Model->getSalonsList();
@@ -237,6 +240,10 @@ class plannerController
     }
     public function getFloristsList()
     {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $list2Model = new Planner();
             $floristList = $list2Model->getFloristsList();
@@ -258,7 +265,10 @@ class plannerController
     }
     public function getPhotographersList()
     {
-
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $list3Model = new Planner();
             $photographerList = $list3Model->getPhotographersList();
@@ -280,7 +290,10 @@ class plannerController
     }
     public function getDressDesignersList()
     {
-
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
         try {
             $list4Model = new Planner();
             $dressDesignerList = $list4Model->getDressDesignersList();
@@ -303,45 +316,25 @@ class plannerController
 
     public function notifications()
     {
-        $notifications = [
-            [
-                'id' => 1,
-                'title' => 'New Vendor Added',
-                'message' => 'A new vendor has been added to the system.',
-                'typeID' => 'new-vendor',
-                'reference' => 'vendor-123',
-            ],
-            [
-                'id' => 2,
-                'title' => 'New Package Added',
-                'message' => 'A new package has been added to the system.',
-                'typeID' => 'new-package',
-                'reference' => 'package-456',
-            ],
-            [
-                'id' => 3,
-                'title' => 'Vendor Updated',
-                'message' => 'A vendor has been updated in the system.',
-                'typeID' => 'new-vendor',
-                'reference' => 'vendor-789',
-            ],
-            [
-                'id' => 4,
-                'title' => 'Package Updated',
-                'message' => 'A package has been updated in the system.',
-                'typeID' => 'new-package',
-                'reference' => 'package-012',
-            ],
-            [
-                'id' => 5,
-                'title' => 'New Vendor Added',
-                'message' => 'Another new vendor has been added to the system.',
-                'typeID' => 'new-vendor',
-                'reference' => 'vendor-345',
-            ],
-        ];
-        header('Content-Type:application/json');
-        echo json_encode($notifications);
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
+        try {
+            $planerModel = new Planner();
+            $notifications = $planerModel->getNotifications();
+            if ($notifications) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($notifications);
+            } else {
+                header('HTTP/1.1 404 Unauthorized');
+                echo json_encode(['error' => 'No Notifications Found']);            
+            }
+        }catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
     }
     public function vendorProfilePage($parameters)
     {
@@ -369,6 +362,51 @@ class plannerController
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Vendor Profile and Packages']);
+        }
+    }
+
+    public function acceptVendor($parameters)
+    {
+        try {
+            if(!Authenticate('planner', 123)) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            };
+            $plannerModel = new Planner();
+            if($plannerModel->acceptVendor($parameters['vendorID'])) {
+                
+                header('HTTP/1.1 200 OK');
+                echo json_encode(['success' => 'Vendor Accepted Successfully']);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Error accepting Vendor']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error accepting Vendor']);
+        }
+    }
+
+    public function rejectVendor($parameters)
+    {
+        try {
+            if(!Authenticate('planner', 123)) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            };
+            $plannerModel = new Planner();
+            if($plannerModel->rejectVendor($parameters['vendorID'])) {
+                header('HTTP/1.1 200 OK');
+                echo json_encode(['success' => 'Vendor Rejected Successfully']);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Error rejecting Vendor']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error rejecting Vendor']);
         }
     }
 }

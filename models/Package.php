@@ -224,16 +224,23 @@ class Package
     {
         try {
             $this->db->startTransaction();
-            $this->db->query('INSERT INTO packageAssignment (assignmentID,weddingID, packageID, typeID, state) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, "Unagreed", 0);');
-            $this->db->bind(':weddingID', $weddingID);
             foreach ($packages as $typeID => $packageID) {
                 $assignmentID = generateUUID($this->db);
-                $this->db->bind(':assignmentID', $assignmentID);
-                $this->db->bind(':packageID', $packageID);
-                $this->db->bind(':typeID', $typeID);
+                $this->db->query('INSERT INTO packageAssignment (assignmentID, weddingID, packageID, typeID, assignmentState, progress) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, :assignmentState, :progress);');
+                error_log($typeID." ".$packageID." ".$weddingID." ".$assignmentID); 
+                $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_LOB);
+                $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
+                $this->db->bind(':packageID', $packageID, PDO::PARAM_LOB);
+                $this->db->bind(':typeID', $typeID, PDO::PARAM_STR);
+                $this->db->bind(':assignmentState', 'Unagreed', PDO::PARAM_STR);
+                $this->db->bind(':progress', '0', PDO::PARAM_INT);
                 $this->db->execute();
             }
+            $this->db->query('UPDATE wedding SET weddingstate = "ongoing" WHERE weddingID = UNHEX(:weddingID);');
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
             $this->db->commit();
+            return true;
         } catch (Exception $e) {
             $this->db->rollbackTransaction();
             error_log($e);

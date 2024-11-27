@@ -65,38 +65,44 @@ class Vendor
     }
     public function getSalons()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Salon"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="Salon" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getPhotographers()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="photographer"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="photographer" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getDdesigners()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Dress Designer"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="Dress Designer" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getFlorists()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Florist"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, rating FROM vendors WHERE typeID="Florist" AND vendorstate="accepted"');
         $this->db->execute();
         return $this->db->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getWeddings($vendorID)
     {
-        $this->db->query('SELECT wedding.* FROM wedding INNER JOIN packageassignment 
-                        ON wedding.weddingID=packageassignment.weddingID INNER JOIN packages 
-                        ON packageassignment.packageID=packages.packageID INNER JOIN vendors 
-                        ON packages.vendorID=vendors.vendorID WHERE vendors.vendorID=UNHEX(:vendorID)');
-        $this->db->bind(':vendorID', $vendorID);
-        $this->db->execute();
-        return $this->db->fetchAll(PDO::FETCH_ASSOC);
+        try{
+            $this->db->query('SELECT wedding.*, packageassignment.assignmentID as assignmentID FROM wedding INNER JOIN packageassignment 
+                            ON wedding.weddingID=packageassignment.weddingID INNER JOIN packages 
+                            ON packageassignment.packageID=packages.packageID INNER JOIN vendors 
+                            ON packages.vendorID=vendors.vendorID WHERE vendors.vendorID=UNHEX(:vendorID)');
+            $this->db->bind(':vendorID', $vendorID);
+            $this->db->execute();
+            return $this->db->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+            
     }
 
     public function getAllVendorsForWedding($weddingID)

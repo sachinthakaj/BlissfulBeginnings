@@ -11,6 +11,8 @@ function render() {
                 if (!response.ok) {
                     if (response.status === 403) {
                         console.log("No salons Found");
+                    } else if (response.status === 401) {
+                        window.location.href = '/signin';
                     } else {
                         throw new Error('Network response was not ok');
                     }
@@ -56,6 +58,11 @@ function render() {
     }
             // Render all cards
             data.forEach(createCard);
+            document.querySelectorAll('.container').forEach(card => {
+                card.addEventListener('click', () => {
+                    window.location.href = `/vendor/${card.id}`;
+                })
+            })
         })
     } catch (error) {
 

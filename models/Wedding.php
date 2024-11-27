@@ -25,6 +25,7 @@ class Wedding
             $weddingData = $this->db->fetch(PDO::FETCH_ASSOC);
             $weddingData['weddingID'] = bin2hex($weddingData['weddingID']);
             $weddingData['userID'] = bin2hex($weddingData['userID']);
+            $weddingData['weddingTitle'] = $this->getWeddingName($weddingID);
             return $weddingData;
         } catch (PDOException $e) {
             return false;
@@ -40,6 +41,22 @@ class Wedding
                 return true;
             }
             return false;
+        } catch (PDOException $e) {
+            error_log($e);  
+            throw $e;
+        }
+    }
+
+    public function getWeddingName($weddingID) {
+        try {
+            $this->db->query("SELECT bridegrooms.* FROM bridegrooms
+            JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
+            WHERE weddingbridegrooms.weddingID = UNHEX(:weddingID)");
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_STR);
+            $this->db->execute();
+            $person1 = $this->db->fetch(PDO::FETCH_ASSOC);
+            $person2 = $this->db->fetch(PDO::FETCH_ASSOC);
+            return $person1['name'] . " & " . $person2['name'];
         } catch (PDOException $e) {
             error_log($e);  
             throw $e;

@@ -8,7 +8,6 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
-alert("Now in the customer Dashboard");
 
 function showNotification(message, color) {
     // Create notification element
@@ -71,7 +70,7 @@ function newWedding(data) {
             fetch('/wedding/couple-details/' + weddingID, {
                 method: 'GET',
                 headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                     'Content-Type': 'application/json'
                 },
             }).then(response => {
@@ -239,9 +238,10 @@ function newWedding(data) {
                     // Send `changedFields` to the backend
                     fetch("/update-wedding/" + weddingID, {
                         method: "PUT",
-                        headers: { 
+                        headers: {
                             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                            "Content-Type": "application/json" },
+                            "Content-Type": "application/json"
+                        },
                         body: JSON.stringify({ changedWeddingFields, changedBrideFields, changedGroomFields }),
                     }).then(response => {
                         currentStep = 0;
@@ -563,7 +563,7 @@ const unassigned = (data) => {
                 })
             })
             vendorGrid.querySelector('.submit-button').addEventListener('click', (event) => {
-                if (Object.keys(selectedPackages).length === currentStepCounter) {
+                if (Object.keys(selectedPackages).length === currentStepCounter + 1) {
                     const packages = Object.values(selectedPackages);
                     fetch('/assign-packages/' + weddingID, {
                         method: "POST",
@@ -584,6 +584,9 @@ const unassigned = (data) => {
                             location.reload();
                         }
                     })
+                } else {
+                    console.log(currentStepCounter)
+                    alert("Please select a package for all vendor types");
                 }
             })
 
@@ -673,6 +676,12 @@ function render() {
             }
             return response.json();
         }).then(data => {
+            weddingTitle.innerHTML = data.weddingTitle;
+            const targetDate = new Date(data.date);
+            const today = new Date();
+            const differenceInTime = targetDate - today;
+            const remainingDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+            document.getElementById("days-left").innerHTML = remainingDays > 0 ? `${remainingDays} days left` : "Happy wedded life!";
             if (data.weddingState === "new") {
                 newWedding(data);
             } else if (data.weddingState === "ongoing") {
@@ -680,6 +689,7 @@ function render() {
             } else if (data.weddingState === "unassigned") {
                 unassigned(data)
             }
+
             loadingScreen.style.display = "none";
             mainContent.style.display = "block";
         })

@@ -175,6 +175,7 @@ aside {
 } 
 
 .card {
+    cursor: pointer;
     width: 280px;
     border-radius: 25px;
     background-color: #fff;

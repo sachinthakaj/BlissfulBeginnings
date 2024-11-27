@@ -69,7 +69,7 @@
 
                 </div>
             </main>
-a
+
             <aside style="flex: 1;">
                 <div class="chat-container"></div>
                 <div class="text-field">
