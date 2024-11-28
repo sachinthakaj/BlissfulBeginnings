@@ -261,10 +261,10 @@ document.addEventListener("DOMContentLoaded", function () {
       body: JSON.stringify(taskDetails),
     })
       .then((res) => {
-        if(res.status == 401) {
+        if(res.status === 401) {
           window.location.href = '/signin';
-        } if (res.status == 200) {
-          res.json();
+        } if (res.status === 200) {
+          return res.json();
         }
       })
       .then((data) => {
@@ -318,7 +318,5 @@ document.addEventListener("DOMContentLoaded", function () {
     taskForm.reset();
   }
 
-  // taskForm.addEventListener("click", function (e) {
-
-  // });
+  
 });
