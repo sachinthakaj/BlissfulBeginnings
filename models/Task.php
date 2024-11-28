@@ -105,4 +105,22 @@ class Task
             return false;
         }
     }
+
+    public function tasksForAssignment($assignmentID)
+    {
+        try {
+            $this->db->query("SELECT * FROM task WHERE assignmentID=UNHEX(:assignmentID) ORDER BY dateToFinish ASC;");
+            $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
+            $this->db->execute();
+            $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]["taskID"] = bin2hex($result[$i]["taskID"]);
+                $result[$i]["assignmentID"] = bin2hex($result[$i]["assignmentID"]);
+            }
+            return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }

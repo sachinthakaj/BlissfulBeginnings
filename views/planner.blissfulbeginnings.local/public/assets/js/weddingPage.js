@@ -3,6 +3,7 @@ const path = window.location.pathname;
 const pathParts = path.split('/');
 const weddingID = pathParts[pathParts.length - 1];
 
+
 document.addEventListener("DOMContentLoaded", function () {
 
   function updateProgressBar(totalTasks, completedTasks) {
@@ -87,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
               const taskArea = document.createElement("div");
               taskArea.classList.add("taskArea");
               taskArea.textContent = "Tasks:";
+              taskArea.id = vendor.assignmentID;
 
               const addButton = document.createElement("button");
               addButton.classList.add("addButton");
@@ -102,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               // Fetch assignment ID for the vendor
               fetch(
-                `/task-vendors-for-wedding?weddingID=${weddingID}&vendorID=${vendor.vendorID}`,
+                `/tasks-for-assignments/${vendor.assignmentID}`,
                 {
                   method: "GET",
                   headers: {
@@ -111,104 +113,94 @@ document.addEventListener("DOMContentLoaded", function () {
                   },
                 }
               )
-                .then((res) => res.json())
-                .then((data) => {
-                  const assignmentID = data.assignmentID;
-                  addButton.dataset.assignmentID = assignmentID;
+                .then((res) => {
+                  if (res.status == 401) {
+                    window.location.href = '/signin';
+                  } else if (res.status == 200) {
+                    return res.json();
+                  } else {
+                    throw new Error("Network response was not ok");
+                  }
+                })
+                .then((tasks) => {
 
-                  // Fetch tasks for the assignmentID
-                  fetch(`/fetch-all-tasks?assignmentID=${assignmentID}`, {
-                    method: "GET",
-                    headers: {
-                      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                      "Content-Type": "application/json",
-                    },
-                  })
-                    .then((res) => res.json())
-                    .then((tasks) => {
-                      console.log(tasks);
-                      tasks.forEach((task) => {
-                        const taskDetailsArea = document.createElement("div");
-                        taskDetailsArea.classList.add("taskDetailsArea");
-                        taskDetailsArea.innerHTML = `
+                  console.log(tasks);
+                  tasks.forEach((task) => {
+                    const taskDetailsArea = document.createElement("div");
+                    taskDetailsArea.classList.add("taskDetailsArea");
+                    taskDetailsArea.innerHTML = `
                     <div class="taskCSS">${task.description} before ${task.dateToFinish}</div>
                   `;
 
-                        const taskActionArea = document.createElement("div");
-                        taskActionArea.classList.add("taskActionArea");
+                    const taskActionArea = document.createElement("div");
+                    taskActionArea.classList.add("taskActionArea");
 
-                        const taskEditButton = document.createElement("button");
-                        taskEditButton.classList.add("taskEditButton");
-                        taskEditButton.innerHTML = "&#9998";
-                        taskActionArea.appendChild(taskEditButton);
+                    const taskEditButton = document.createElement("button");
+                    taskEditButton.classList.add("taskEditButton");
+                    taskEditButton.innerHTML = "&#9998";
+                    taskActionArea.appendChild(taskEditButton);
 
-                        const taskDeleteButton = document.createElement("button");
-                        taskDeleteButton.classList.add("taskDeleteButton");
-                        taskDeleteButton.innerHTML = "&#128465";
-                        taskActionArea.appendChild(taskDeleteButton);
+                    const taskDeleteButton = document.createElement("button");
+                    taskDeleteButton.classList.add("taskDeleteButton");
+                    taskDeleteButton.innerHTML = "&#128465";
+                    taskActionArea.appendChild(taskDeleteButton);
 
-                        taskDetailsArea.appendChild(taskActionArea);
+                    taskDetailsArea.appendChild(taskActionArea);
 
-                        taskShowArea.appendChild(taskDetailsArea);
+                    taskShowArea.appendChild(taskDetailsArea);
 
-                        taskEditButton.dataset.taskID = task.taskID;
-                        taskDeleteButton.dataset.taskID = task.taskID;
+                    taskEditButton.dataset.taskID = task.taskID;
+                    taskDeleteButton.dataset.taskID = task.taskID;
 
-                        taskEditButton.addEventListener("click", function (event) {
-                          const taskID = event.target.dataset.taskID;
+                    taskEditButton.addEventListener("click", function (event) {
+                      const taskID = event.target.dataset.taskID;
 
-                          modal.classList.add("show");
+                      modal.classList.add("show");
 
-                          document.getElementById("taskDescription").value =
-                            task.description;
-                          document.getElementById("dateToFinish").value =
-                            task.dateToFinish;
-                          document.getElementById("taskForm").dataset.taskID = taskID;
-                          document.getElementById("taskForm").onsubmit =
-                            updateFunction;
-                        });
-
-
-                        taskDeleteButton.addEventListener("click", function (event) {
-                          const confirmed = confirm("Are you sure you want to delete?");
-                          if (confirmed) {
-                            const taskID = event.target.dataset.taskID;
-
-
-                            document.getElementById("taskForm").dataset.taskID = taskID;
-                            console.log(taskID);
-
-                            fetch("/delete-tasks", {
-                              method: "DELETE",
-                              headers: {
-                                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                                "Content-Type": "application/json",
-                              },
-                              body: JSON.stringify({ taskID: taskID }),
-                            })
-                              .then((res) => res.json())
-                              .then((data) => {
-                                if (data.status === "success") {
-                                  alert(data.message);
-                                  window.location.reload();
-                                } else {
-                                  alert("Error: " + data.message);
-                                }
-                              })
-                              .catch((error) => {
-                                console.error("Error Creating Task:", error);
-                              });
-                          }
-
-
-
-                        });
-                      });
-                    })
-                    .catch((error) => {
-                      console.error("Error fetching tasks:", error);
+                      document.getElementById("taskDescription").value =
+                        task.description;
+                      document.getElementById("dateToFinish").value =
+                        task.dateToFinish;
+                      document.getElementById("taskForm").dataset.taskID = taskID;
+                      document.getElementById("taskForm").onsubmit =
+                        updateFunction;
                     });
+
+
+                    taskDeleteButton.addEventListener("click", function (event) {
+                      const confirmed = confirm("Are you sure you want to delete?");
+                      if (confirmed) {
+                        const taskID = event.target.dataset.taskID;
+
+
+                        document.getElementById("taskForm").dataset.taskID = taskID;
+                        console.log(taskID);
+
+                        fetch(`/delete-tasks/${taskID}`, {
+                          method: "DELETE",
+                          headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                            "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify({ taskID: taskID }),
+                        })
+                          .then((res) => res.json())
+                          .then((data) => {
+                            if (data.status === "success") {
+                              alert(data.message);
+                              window.location.reload();
+                            } else {
+                              alert("Error: " + data.message);
+                            }
+                          })
+                          .catch((error) => {
+                            console.error("Error Creating Task:", error);
+                          });
+                      }
+                    });
+                  });
                 })
+
                 .catch((error) => {
                   console.error("Error fetching assignmentID:", error);
                 });
@@ -235,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("addButton")) {
-      const assignmentID = event.target.dataset.assignmentID;
+      const assignmentID = event.target.parentNode.id;
       taskForm.querySelector("input[name='assignmentID']").value = assignmentID;
       modal.classList.add("show");
       document.getElementById("taskForm").onsubmit = createFunction;
@@ -251,24 +243,30 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const taskDescription = document.getElementById("taskDescription").value;
     const dateToFinish = document.getElementById("dateToFinish").value;
-    const assignmentID = taskForm.querySelector(
-      "input[name='assignmentID']"
-    ).value;
-
+    const assignmentID = taskForm.querySelector("input[name='assignmentID']").value;
+    console.log(assignmentID);
     const taskDetails = {
       description: taskDescription,
       dateToFinish: dateToFinish,
       assignmentID,
     };
 
-    fetch("/tasks-create-for-vendors", {
+    fetch("/tasks-create-for-vendors/" + assignmentID, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+
       },
       body: JSON.stringify(taskDetails),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if(res.status == 401) {
+          window.location.href = '/signin';
+        } if (res.status == 200) {
+          res.json();
+        }
+      })
       .then((data) => {
         if (data.status === "success") {
           alert(data.message);
@@ -296,9 +294,10 @@ document.addEventListener("DOMContentLoaded", function () {
       taskID,
     };
 
-    fetch("/update-tasks", {
+    fetch(`/update-tasks/${taskID}`, {
       method: "POST",
       headers: {
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(taskDetails),

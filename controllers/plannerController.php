@@ -100,12 +100,18 @@ class PlannerController
     {
         if (Authenticate('planner', 123)) {
             try {
-                if (isset($weddingID)) {
+                error_log('Here');
+                
                     $vendorModel = new Vendor();
-                    $vendors = $vendorModel->getAssignedVendors($weddingID);
-                    header('Content-Type:application/json');
-                    echo json_encode($vendors);
-                }
+                    $vendors = $vendorModel->getAssignedVendors($parameters["weddingID"]);
+                    if($vendors) {
+                        header('Content-Type:application/json');
+                        echo json_encode($vendors);
+                    } else {
+                        header('HTTP/1.1 204 No Content');
+                        echo json_encode(['error' => 'No Vendors Found']);
+                    }
+                
             } catch (Exception $e) {
                 header('HTTP/1.1 500 Internal Server Error');
                 echo json_encode(['error' => 'Error fetching Data']);
@@ -116,27 +122,26 @@ class PlannerController
         }
     }
 
-    public function linkTaskForVendors()
+    public function getTasksForAssignments($parameters)
     {
         if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
-        $vendorID = $_GET["vendorID"];
-        $weddingID = $_GET["weddingID"];
-        if (isset($weddingID)) {
+        
             $taskModel = new Task();
-            $assignmentID = $taskModel->getAssignmentIDfroAVendorofAWedding($weddingID, $vendorID);
+            $assignmentID = $taskModel->tasksForAssignment($parameters['assignmentID']);
             header('Content-Type:application/json');
             echo json_encode($assignmentID);
-        }
+        
     }
 
-    public function createTasksForVendors()
+    public function createTasksForVendors($parameters)
     {
         if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
         }
         $taskDetails = json_decode(file_get_contents("php://input"), true);
         $taskModel = new Task();
@@ -145,7 +150,7 @@ class PlannerController
         echo json_encode(["status" => "success", "message" => "Task Successfully Created"]);
     }
 
-    public function updateOfTasks()
+    public function updateOfTasks($parameters)
     {
         if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
@@ -158,7 +163,7 @@ class PlannerController
         echo json_encode(["status" => "success", "message" => "Task Successfully updated"]);
     }
 
-    public function deleteOfTasks()
+    public function deleteOfTasks($parameters)
     {
         if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');

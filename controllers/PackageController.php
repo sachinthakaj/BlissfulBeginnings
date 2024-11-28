@@ -32,7 +32,7 @@ class PackageController
                 ]);
             }
         } catch (Exception $e) {
-            var_dump($e);
+            
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Package Creation failed']);
         }
@@ -55,7 +55,7 @@ class PackageController
                 ]);
             }
         } catch (Exception $e) {
-            var_dump($e);
+            error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Package Creation failed']);
         }

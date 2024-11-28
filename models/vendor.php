@@ -22,7 +22,7 @@ class Vendor
     public function createVendor($email, $password, $businessName, $type, $contact, $address, $description, $websiteLink)
     {
         try {
-            $imageLink = '/public/assets/images/img'.rand(1, 15).'.jpg';
+            $imageLink = '/public/assets/images/img' . rand(1, 15) . '.jpg';
             error_log($imageLink);
             $this->db->startTransaction();
             $UUID = generateUUID($this->db);
@@ -119,22 +119,25 @@ class Vendor
     }
 
     public function getAssignedVendors($weddingID)
-    {
+    {   
         try {
-            $this->db->query("SELECT v.vendorID,v.businessName,pa.typeID
+            $this->db->query("SELECT v.vendorID,v.businessName,pa.typeID, pa.assignmentID
         FROM vendors v
         JOIN packages p ON v.vendorID=p.vendorID
         JOIN packageAssignment pa ON p.packageID=pa.packageID
         WHERE pa.weddingID=UNHEX(:weddingID)");
 
-            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_STR);
+            error_log("There");
             $this->db->execute();
             $vendors = [];
+            error_log($this->db->rowCount());
             while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
                 $row["vendorID"] = bin2hex($row["vendorID"]);
+                $row["assignmentID"] = bin2hex($row["assignmentID"]);
                 $vendors[] = $row;
             }
-
+        
             return $vendors;
         } catch (PDOException $e) {
             error_log($e->getMessage());
