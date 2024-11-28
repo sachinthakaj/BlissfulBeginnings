@@ -96,16 +96,19 @@ class PlannerController
         }
     }
 
-    public function showAllVendorsForWedding()
+    public function showAllVendorsForWedding($parameters)
     {
         if (Authenticate('planner', 123)) {
-
-            $weddingID = $_GET["weddingID"];
-            if (isset($weddingID)) {
-                $vendorModel = new Vendor();
-                $vendors = $vendorModel->getAllVendorsForWedding($weddingID);
-                header('Content-Type:application/json');
-                echo json_encode($vendors);
+            try {
+                if (isset($weddingID)) {
+                    $vendorModel = new Vendor();
+                    $vendors = $vendorModel->getAssignedVendors($weddingID);
+                    header('Content-Type:application/json');
+                    echo json_encode($vendors);
+                }
+            } catch (Exception $e) {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Error fetching Data']);
             }
         } else {
             header('HTTP/1.1 401 Unauthorized');
@@ -306,6 +309,29 @@ class PlannerController
                 echo json_encode($dressDesignerList);
             } else {
                 header('HTTP/1.1 404 Unauthorized');
+                echo json_encode(['error' => 'No Vendors Found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+    public function fetchWedding($parameters)
+    {
+        try {
+            if (!Authenticate('planner', 123)) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            }
+            $plannerModel = new Planner();
+            $wedding = $plannerModel->fetchWedding($parameters['weddingID']);
+            if ($wedding) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($wedding);
+            } else {
+                header('HTTP/1.1 204 No Content');
                 echo json_encode(['error' => 'No Vendors Found']);
             }
         } catch (Exception $e) {

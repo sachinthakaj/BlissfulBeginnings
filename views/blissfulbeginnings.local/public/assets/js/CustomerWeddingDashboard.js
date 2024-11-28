@@ -106,7 +106,10 @@ function newWedding(data) {
                                     </div>
                                     <div class="input-group">
                                         <label for="daynight">Day/Night</label>
-                                        <input type="text" id="daynight" name="daynight" value=${data.dayNight} required>
+                                        <select id="daynight" name="daynight" required>
+                                            <option value="Day">Day</option>
+                                            <option value="Night">Night</option>
+                                        </select>
                                     </div>
                                     <div class="input-group">
                                         <label for="location">Location</label>
@@ -303,12 +306,42 @@ function newWedding(data) {
                 function validateStep(stepIndex) {
                     const inputs = steps[stepIndex].querySelectorAll('input');
                     let valid = true;
+
                     inputs.forEach(input => {
+                        if (input.id === 'date') {
+                            // Date validation
+                            const today = new Date();
+                            const selectedDate = new Date(input.value);
+                            if (selectedDate < today.setHours(0, 0, 0, 0)) {
+                                alert('Date cannot be in the past.');
+                                valid = false;
+                            }
+                        }
+
+                        if (input.id === 'bride_age' || input.id === 'groom_age') {
+                            // Age validation
+                            const age = parseInt(input.value, 10);
+                            if (age < 18 || age > 120) {
+                                alert('Age must be between 18 and 120.');
+                                valid = false;
+                            }
+                        }
+
+                        if (input.id === 'bride_contact' || input.id === 'groom_contact') {
+                            // Contact number validation
+                            const contact = input.value.trim();
+                            if (!/^\d{10}$/.test(contact)) {
+                                alert('Contact number must be exactly 10 digits.');
+                                valid = false;
+                            }
+                        }
+
                         if (!input.checkValidity()) {
                             input.reportValidity();
                             valid = false;
                         }
                     });
+
                     return valid;
                 }
 
@@ -344,7 +377,8 @@ const ongoing = (data) => {
         fetch('/assigned-packages/' + weddingID, {
             method: "GET",
             headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
             }
         }).then(response => {
             if (!response.ok) {
@@ -358,7 +392,7 @@ const ongoing = (data) => {
             return response.json();
         }).then(packageData => {
 
-            packageData.forEach(package => {
+            packageData.forEach(cardData => {
 
                 const packageCard = document.createElement('div');
                 packageCard.classList.add('package-card');
@@ -371,11 +405,8 @@ const ongoing = (data) => {
                         </div>
                     </div>
                     <div class="card-content">
-                        <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
+                        <h2 class="name">${cardData.businessName}</h2>
                         <div class="content">
-                            <h4 class="description">Date: ${cardData.date}</h4>
-                            <h4 class="description">Time: ${cardData.dayNight}</h4>
-                            <h4 class="description">Location: ${cardData.location}</h4>
                             <h4 class="description">Wedding Progress: </h4> 
                             <div class="progress-bar-container">
                                 <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
@@ -427,8 +458,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="bride-salon"></div>
                         <div class=step-buttons>
-                            <button class="next-button">Next</button>
-                            <button class="prev-button">Previous</button>
+                        <button class="prev-button">Previous</button>
+                        <button class="next-button">Next</button>
                         </div>
                     </div>
                 </div>
@@ -440,8 +471,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="groom-salon"></div>
                         <div class=step-buttons>
-                            <button class="next-button">Next</button>
-                            <button class="prev-button">Previous</button>
+                        <button class="prev-button">Previous</button>
+                        <button class="next-button">Next</button>
                         </div>
                     </div>
                 </div>
@@ -456,8 +487,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="salon"></div>
                         <div class=step-buttons>
-                            <button class="next-button">Next</button>
-                            <button class="prev-button">Previous</button>
+                        <button class="prev-button">Previous</button>
+                        <button class="next-button">Next</button>
                         </div>
                     </div>
                 </div>
@@ -472,8 +503,8 @@ const unassigned = (data) => {
                     </div>
                     <div class="reccomendation-grid" id="photographer"></div>
                     <div class=step-buttons>
-                        <button class="next-button">Next</button>
-                        <button class="prev-button">Previous</button>
+                    <button class="prev-button">Previous</button>
+                    <button class="next-button">Next</button>
                     </div>
                 </div>
             </div>
@@ -488,8 +519,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="bride-dress-designer"></div>
                             <div class=step-buttons>
-                                <button class="next-button">Next</button>
-                                <button class="prev-button">Previous</button>
+                            <button class="prev-button">Previous</button>
+                            <button class="next-button">Next</button>
                             </div>
                         </div>
                     </div>
@@ -501,8 +532,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="groom-dress-designer"></div>
                             <div class=step-buttons>
-                                <button class="next-button">Next</button>
-                                <button class="prev-button">Previous</button>
+                            <button class="prev-button">Previous</button>
+                            <button class="next-button">Next</button>
                             </div>
                         </div>
                     </div>
@@ -517,8 +548,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="dress-designer"></div>
                             <div class=step-buttons>
-                                <button class="next-button">Next</button>
-                                <button class="prev-button">Previous</button>
+                            <button class="prev-button">Previous</button>
+                            <button class="next-button">Next</button>
                             </div>
                         </div>
                     </div>
@@ -601,11 +632,13 @@ const unassigned = (data) => {
                     <div class="package-details">
                         <div>${package.packageName}</div>
                         <div>What's Included:</div>
+                        <div class="features">
                         <ul>
                             <li>${package.feature1}</li>
                             ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
                             ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
                         </ul>
+                        </div>
                         <div class="price">${package.fixedCost}</div>
                         <btn class="visit">Visit Vendor</btn>
                     </div>
@@ -614,18 +647,20 @@ const unassigned = (data) => {
                         window.location.href = '/vendor/' + package.vendorID;
                     })
                     packageDiv.addEventListener('click', (event) => {
-                        console.log(packageDiv.parentElement.id);
                         if (packageDiv.classList.contains('active')) {
+                            packageDiv.classList.remove('active');
                             delete selectedPackages[packageDiv.parentElement.id];
                         } else {
                             if (selectedPackages[packageDiv.parentElement.id]) {
-                                console.log(packageDiv.parentElement)
-                                packageDiv.parentElement.querySelector('#' + selectedPackages[packageDiv.parentElement.id]).classList.toggle('active');
+                                console.log(selectedPackages);
+                                packageDiv.parentElement.querySelector('.active').classList.remove('active');
+                                selectedPackages[packageDiv.parentElement.id] = package.packageID;
+                                packageDiv.classList.add('active');
+                                return;
                             }
                             selectedPackages[packageDiv.parentElement.id] = package.packageID;
+                            packageDiv.classList.add('active');
                         }
-                        packageDiv.classList.toggle('active');
-                        console.log(selectedPackages);
                     });
                     recGrid.appendChild(packageDiv);
                 }

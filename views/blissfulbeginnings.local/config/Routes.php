@@ -37,6 +37,7 @@ $router->get("/wedding/couple-details/{weddingID}", "CustomerController@fetchPer
 $router->put("/update-wedding/{weddingID}","WeddingController@update");
 
 $router->post("/assign-packages/{weddingID}", "CustomerController@setPackages");    
+$router->get("/assigned-packages/{weddingID}", "CustomerController@getAssignedPackages");    
 $router->get("/reccomendations/{weddingID}", "CustomerController@getReccomendations");
 
 $router->get("/resetpassword", "CustomerController@resetPassword");

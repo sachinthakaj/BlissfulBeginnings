@@ -27,6 +27,21 @@ class Planner
         }
         return $results;
     }
+    public function fetchWedding($weddingID) {
+        try {
+            $this->db->query('SELECT * FROM wedding WHERE weddingID = UNHEX(:weddingID);');
+            $this->db->bind(':weddingID', $weddingID, PDO::PARAM_STR);
+            $this->db->execute();
+            $result = $this->db->fetch(PDO::FETCH_ASSOC);
+            $result['weddingID'] = bin2hex($result['weddingID']);
+            $weddingModel = new Wedding();
+            $result['weddingTitle'] = $weddingModel->getWeddingName($result['weddingID']);
+            unset($result['userID']);
+            return $result;
+        } catch (Exception $e) {
+            error_log($e);
+        }
+    }
 
     public function acceptVendor($vendorID) {
         try {

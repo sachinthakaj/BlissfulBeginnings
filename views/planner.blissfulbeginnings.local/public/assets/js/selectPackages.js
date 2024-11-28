@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return response.json();
   }).then(data => {
+    document.querySelector('.wedding-title').textContent = data.weddingTitle + "'s Wedding";
     const cardContainer = document.getElementById('card-container');
     if (data.sepSalons) {
       cardContainer.innerHTML += `<div class="card" id="bride-salon ">

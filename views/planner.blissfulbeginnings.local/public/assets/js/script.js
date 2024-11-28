@@ -394,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
        `;
           card.classList.add("ongoing");
           card.addEventListener("click", () => {
-            window.location.href = `/plannerWedding?id=${wedding.weddingID}`;
+            window.location.href = `/wedding/${wedding.weddingID}`;
           });
         }
 
