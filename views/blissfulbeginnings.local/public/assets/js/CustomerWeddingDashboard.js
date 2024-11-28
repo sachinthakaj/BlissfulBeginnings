@@ -56,8 +56,8 @@ function createVendorCard(vendor) {
 
 function newWedding(data) {
     vendorGrid.innerHTML = `
-                <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF">
-                <p>The wedding planner will assign vendors to you shortly</p>
+                <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF" class="hourglass-gif">
+                <h4>The wedding planner will assign vendors to you shortly</h4>
                 <p>We'll send an email once it is done</p>
                 <a class="open-modal-btn"><p>Click here to change the wedding details</p></a>`;
 
