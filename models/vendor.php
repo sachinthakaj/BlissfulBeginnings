@@ -3,6 +3,7 @@
 class Vendor
 {
     private $db;
+    private $images = ["Photographer" => '/public/assets/images/photographer.png', "Salon" => '/public/assets/images/salon.png', "Florist" => '/public/assets/images/florist.png', "Dress Designer" => '/public/assets/images/dressDesigner.png'];
 
     public function __construct()
     {
@@ -21,9 +22,11 @@ class Vendor
     public function createVendor($email, $password, $businessName, $type, $contact, $address, $description, $websiteLink)
     {
         try {
+            $imageLink = '/public/assets/images/img'.rand(1, 15).'.jpg';
+            error_log($imageLink);
             $this->db->startTransaction();
             $UUID = generateUUID($this->db);
-            $this->db->query("INSERT INTO vendors (vendorID,email,password,businessName,typeID,contact,address, description, vendorstate, websiteLink) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:description, :vendorstate, :websiteLink);");
+            $this->db->query("INSERT INTO vendors (vendorID,email,password,businessName,typeID,contact,address, description, vendorstate,imgSrc, websiteLink) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:description, :vendorstate,:imgSrc, :websiteLink);");
             $this->db->bind(':uuid', $UUID, PDO::PARAM_LOB);
             $this->db->bind(':email', $email, PDO::PARAM_STR);
             $this->db->bind(':password', $password, PDO::PARAM_STR);
@@ -33,6 +36,7 @@ class Vendor
             $this->db->bind(':address', $address, PDO::PARAM_STR);
             $this->db->bind(':description', $description, PDO::PARAM_STR);
             $this->db->bind(':websiteLink', $websiteLink, PDO::PARAM_STR);
+            $this->db->bind(':imgSrc', $imageLink, PDO::PARAM_STR);
             $this->db->bind(':vendorstate', 'new', PDO::PARAM_STR);
             $numRows = $this->db->execute();
             $notificationID = generateUUID($this->db);
@@ -90,7 +94,7 @@ class Vendor
 
     public function getWeddings($vendorID)
     {
-        try{
+        try {
             $this->db->query('SELECT wedding.*, packageassignment.assignmentID as assignmentID FROM wedding INNER JOIN packageassignment 
                             ON wedding.weddingID=packageassignment.weddingID INNER JOIN packages 
                             ON packageassignment.packageID=packages.packageID INNER JOIN vendors 
@@ -100,14 +104,18 @@ class Vendor
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             $customer = new Wedding();
             foreach ($result as $index => $value) {
-               $result[$index]['weddingTitle'] = $customer->getWeddingName(bin2hex($value['weddingID']));
+                $result[$index]['weddingTitle'] = $customer->getWeddingName(bin2hex($value['weddingID']));
             }
-            return $result;
+            $this->db->query("SELECT businessName, vendorState from vendors WHERE vendorID=UNHEX(:vendorID)");
+            $this->db->bind(':vendorID', $vendorID);
+            $this->db->execute();
+            $vendor = $this->db->fetch(PDO::FETCH_ASSOC);
+            $vendor["weddings"] = $result;
+            return $vendor;
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
         }
-            
     }
 
     public function getAssignedVendors($weddingID)
@@ -136,7 +144,7 @@ class Vendor
 
     public function getVendorDetailsAndPackages($vendorID)
     {
-        
+
         $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
         $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
         $this->db->execute();
@@ -153,7 +161,7 @@ class Vendor
     }
     public function getProfileDetails($vendorID)
     {
-        
+
         try {
             $this->db->query("SELECT * FROM vendors where vendorID = UNHEX(:vendorID);");
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);

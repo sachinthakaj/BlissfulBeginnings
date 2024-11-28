@@ -90,28 +90,28 @@ class Planner
 
     public function getSalonsList()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Salon"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, imgSrc, vendorState FROM vendors WHERE typeID="Salon"');
         $this->db->execute();
         $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     public function getPhotographersList()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="photographer"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, imgSrc, vendorState FROM vendors WHERE typeID="photographer"');
         $this->db->execute();
         $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     public function getDressDesignersList()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Dress Designer"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, imgSrc, vendorState FROM vendors WHERE typeID="Dress Designer"');
         $this->db->execute();
         $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     public function getFloristsList()
     {
-        $this->db->query('SELECT vendorID,description,typeID,businessName FROM vendors WHERE typeID="Florist"');
+        $this->db->query('SELECT vendorID,description,typeID,businessName, imgSrc, vendorState FROM vendors WHERE typeID="Florist"');
         $this->db->execute();
         $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
         return $result;

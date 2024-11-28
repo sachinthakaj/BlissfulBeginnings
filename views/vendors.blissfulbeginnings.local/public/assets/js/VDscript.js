@@ -252,15 +252,10 @@ function render() {
                 },
 
             });
-            if(response.status==401) {
-                alert("Unauthorized Access");
-                //window.location.href = "/signin"
+            if (response.status == 401) {
+                window.location.href = "/signin"
             }
-
-            const textData = await response.text();
-            const data = textData ? JSON.parse(textData) : [];
-
-            return data;
+            return response.json();
         } catch (error) {
             console.error('Error fetching cards:', error);
             showNotification("Could not fetch weddings", "red");
@@ -271,29 +266,38 @@ function render() {
 
     // initialize cards
     async function initializeCards() {
-        const cardsData = await fetchCards();
-
-        if (Array.isArray(cardsData) && cardsData.length > 0) {
-            loadCards(cardsData);
-            document.querySelectorAll('.card').forEach(card => {
-                console.log('Adding event listener')
-                card.addEventListener('click', () => {
-                    console.log("Here")
-                    window.location.href=`/vendor/${vendorID}/assignment/${card.id}`
-                })
-            })
+        const vendorData = await fetchCards();
+        if (vendorData.vendorState ==   'new') {
+            messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.innerHTML = '<h2>Awaiting Planner Approval</h2>';
+            scrollContainer.appendChild(messageDiv);
+            navigateEditProfile.disabled = true;
         } else {
-            showNotification("No wedding data available", "red");
+            navigateEditProfileButton.addEventListener('click', navigateEditProfile);
+            const cardsData = vendorData.weddings;
+            if (Array.isArray(cardsData) && cardsData.length > 0) {
+                loadCards(cardsData);
+                document.querySelectorAll('.card').forEach(card => {
+                    console.log('Adding event listener')
+                    card.addEventListener('click', () => {
+                        console.log("Here")
+                        window.location.href = `/vendor/${vendorID}/assignment/${card.id}`
+                    })
+                })
+            } else {
+                showNotification("No weddings assigned", "red");
+            }
         }
+       
     }
 
-    function navigateEditProfile(vendorID) {
-        window.location.href = `/edit-profile/${vendorID}`;
+    function navigateEditProfile() {
+        window.location.href = `/packages/${vendorID}`;
     }
 
-    navigateEditProfileButton.addEventListener('click', navigateEditProfile);
 
-    
+
     function createCard(cardData) {
         return `
             <div class="card" id=${cardData.assignmentID}>
@@ -334,7 +338,7 @@ function render() {
                 .join("");
             cardWrappersHTML += `<div class="card-wrapper">${cardsInGroup}</div>`;
         }
-        
+
         // inserting into slide-content
         scrollContainer.innerHTML = cardWrappersHTML;
 
@@ -344,7 +348,7 @@ function render() {
 
     initializeCards();
 
-    
+
 
     // modal for delete profile
     function openModal() {

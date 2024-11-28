@@ -165,10 +165,10 @@ class vendorController
             $vendorModel = new Vendor();
             $results = $vendorModel->getWeddings($parameters['vendorID']);
             if ($results) {
-                for ($i = 0; $i < count($results); $i++) {
-                    $results[$i]['weddingID'] = bin2hex($results[$i]['weddingID']);
-                    $results[$i]['assignmentID'] = bin2hex($results[$i]['assignmentID']);
-                    unset($results[$i]['userID']);
+                for ($i = 0; $i < count($results['weddings']); $i++) {
+                    $results['weddings'][$i]['weddingID'] = bin2hex($results['weddings'][$i]['weddingID']);
+                    $results['weddings'][$i]['assignmentID'] = bin2hex($results['weddings'][$i]['assignmentID']);
+                    unset($results['weddings'][$i]['userID']);
 
                 }
                 header("HTTP/1.1 200 Okay");
