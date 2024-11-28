@@ -10,7 +10,7 @@ $router->get("/vendor/{vendorID}/get-weddings","vendorController@getWeddings");
 $router->get("/resetpassword", "vendorHomeController@resetPassword");
 
 
-$router->get("/edit-profile/{vendorID}", "vendorController@editProfilePage");
+$router->get("/packages/{vendorID}", "vendorController@editProfilePage");
 $router->get("/edit-profile/vendor-details/{vendorID}", "vendorController@getVendorDetailsAndPackages");
 $router->delete("/packages/delete/{packageID}", "PackageController@deletePackage");
 
