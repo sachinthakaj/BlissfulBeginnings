@@ -12,7 +12,9 @@ class Recommendations
 
     public function getBrideSalonRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , salonPackages.* FROM salonPackages JOIN Packages ON salonPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName  FROM salonPackages 
+            JOIN Packages ON salonPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic != 'Groom';");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();
@@ -25,7 +27,9 @@ class Recommendations
 
     public function getGroomSalonRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , salonPackages.* FROM salonPackages JOIN Packages ON salonPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName  FROM salonPackages 
+            JOIN Packages ON salonPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic != 'Bride';");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();
@@ -38,7 +42,9 @@ class Recommendations
 
     public function getSalonRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , salonPackages.* FROM salonPackages JOIN Packages ON salonPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName  FROM salonPackages 
+            JOIN Packages ON salonPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic = 'Both';");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();
@@ -51,7 +57,9 @@ class Recommendations
 
     public function getPhotographerRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , photographyPackages.* FROM photographyPackages JOIN Packages ON photographyPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , photographyPackages.*, vendors.businessName  FROM photographyPackages 
+            JOIN Packages ON photographyPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();
@@ -64,7 +72,9 @@ class Recommendations
 
     public function getBrideDressDesignerRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , dressDesignerPackages.* FROM dressDesignerPackages JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName  FROM dressDesignerPackages 
+            JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic != 'Groom';");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();
@@ -77,7 +87,9 @@ class Recommendations
 
     public function getGroomDressDesignerRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , dressDesignerPackages.* FROM dressDesignerPackages JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName  FROM dressDesignerPackages 
+            JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic != 'Bride';");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();
@@ -90,7 +102,9 @@ class Recommendations
 
     public function getDressDesignerRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , dressDesignerPackages.* FROM dressDesignerPackages JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName  FROM dressDesignerPackages 
+            JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic = 'Both';");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();
@@ -103,7 +117,9 @@ class Recommendations
 
     public function getFloristRecommendations($allocatedBudget) {
         try {
-            $this->db->query("SELECT packages.* , floristPackages.* FROM floristPackages JOIN Packages ON floristPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , floristPackages.*, vendors.businessName FROM floristPackages 
+            JOIN Packages ON floristPackages.packageID = Packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packages.fixedCost <= :allocatedBudget ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
             $this->db->execute();

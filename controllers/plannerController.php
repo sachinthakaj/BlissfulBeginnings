@@ -2,20 +2,24 @@
 
 class PlannerController
 {
-    
-    public function salonsList() {
+
+    public function salonsList()
+    {
         require_once '.\public\planner-salonList.html';
     }
 
-    public function dressDesignersList() {
+    public function dressDesignersList()
+    {
         require_once '.\public\planner-dressDesignerList.html';
     }
 
-    public function photographersList() {
+    public function photographersList()
+    {
         require_once '.\public\planner-photographerList.html';
     }
 
-    public function floristsList() {
+    public function floristsList()
+    {
         require_once '.\public\planner-floristList.html';
     }
 
@@ -27,19 +31,20 @@ class PlannerController
     }
 
     public function fetchWeddingData()
-    {   try {
-        if(!Authenticate('planner', 123)) {
-            header('HTTP/1.1 401 Unauthorized');
-            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+    {
+        try {
+            if (!Authenticate('planner', 123)) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            }
+            $weddingModel = new Wedding();
+            $weddings = $weddingModel->getEveryWeddingData();
+            header('Content-Type:application/json');
+            echo json_encode($weddings);
+        } catch (Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
         }
-        $weddingModel = new Wedding();
-        $weddings = $weddingModel->getEveryWeddingData();
-        header('Content-Type:application/json');
-        echo json_encode($weddings);
-    }catch (Exception $e) {
-        header('HTTP/1.1 500 Internal Server Error');
-        echo json_encode(['error' => 'Error fetching Data']);
-    }
     }
 
     public function resetPassword()
@@ -52,7 +57,7 @@ class PlannerController
     {
 
 
-        if (Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode([
                 "status" => "error",
@@ -72,11 +77,7 @@ class PlannerController
     }
     public function deleteWeddingData()
     {
-
-        session_start();
-
-
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode([
                 "status" => "error",
@@ -95,16 +96,19 @@ class PlannerController
         }
     }
 
-    public function showAllVendorsForWedding()
+    public function showAllVendorsForWedding($parameters)
     {
         if (Authenticate('planner', 123)) {
-            
-            $weddingID = $_GET["weddingID"];
-            if (isset($weddingID)) {
-                $vendorModel = new Vendor();
-                $vendors = $vendorModel->getAllVendorsForWedding($weddingID);
-                header('Content-Type:application/json');
-                echo json_encode($vendors);
+            try {
+                if (isset($weddingID)) {
+                    $vendorModel = new Vendor();
+                    $vendors = $vendorModel->getAssignedVendors($weddingID);
+                    header('Content-Type:application/json');
+                    echo json_encode($vendors);
+                }
+            } catch (Exception $e) {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Error fetching Data']);
             }
         } else {
             header('HTTP/1.1 401 Unauthorized');
@@ -114,7 +118,7 @@ class PlannerController
 
     public function linkTaskForVendors()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -130,7 +134,7 @@ class PlannerController
 
     public function createTasksForVendors()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -143,7 +147,7 @@ class PlannerController
 
     public function updateOfTasks()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -156,11 +160,11 @@ class PlannerController
 
     public function deleteOfTasks()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
-        
+
         $input = json_decode(file_get_contents("php://input"), true);
         $taskID = $input["taskID"];
         $taskModel = new Task();
@@ -173,7 +177,7 @@ class PlannerController
 
     public function getAllTasksForVendor()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -215,7 +219,7 @@ class PlannerController
 
     public function getSalonsList()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -240,7 +244,7 @@ class PlannerController
     }
     public function getFloristsList()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -265,7 +269,7 @@ class PlannerController
     }
     public function getPhotographersList()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -290,7 +294,7 @@ class PlannerController
     }
     public function getDressDesignersList()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -314,9 +318,32 @@ class PlannerController
         }
     }
 
+    public function fetchWedding($parameters)
+    {
+        try {
+            if (!Authenticate('planner', 123)) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            }
+            $plannerModel = new Planner();
+            $wedding = $plannerModel->fetchWedding($parameters['weddingID']);
+            if ($wedding) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($wedding);
+            } else {
+                header('HTTP/1.1 204 No Content');
+                echo json_encode(['error' => 'No Vendors Found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
     public function notifications()
     {
-        if(!Authenticate('planner', 123)) {
+        if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -327,10 +354,10 @@ class PlannerController
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($notifications);
             } else {
-                header('HTTP/1.1 404 Unauthorized');
-                echo json_encode(['error' => 'No Notifications Found']);            
+                header('HTTP/1.1 204 No Content');
+                return;
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
@@ -344,13 +371,13 @@ class PlannerController
     public function vendorProfile($parameters)
     {
         try {
-            if(!Authenticate('planner', 123)) {
+            if (!Authenticate('planner', 123)) {
                 header('HTTP/1.1 401 Unauthorized');
                 echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
             };
-            $packageModel = new Vendor();
+            $vendorModel = new Vendor();
             error_log("Vendor ID: " . $parameters['vendorID']);
-            $vendorPackages = $packageModel->getVendorDetailsAndPackages($parameters['vendorID']);
+            $vendorPackages = $vendorModel->getVendorDetailsAndPackages($parameters['vendorID']);
             if ($vendorPackages) {
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($vendorPackages);
@@ -368,14 +395,14 @@ class PlannerController
     public function acceptVendor($parameters)
     {
         try {
-            if(!Authenticate('planner', 123)) {
+            if (!Authenticate('planner', 123)) {
                 header('HTTP/1.1 401 Unauthorized');
                 echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
                 return;
             };
             $plannerModel = new Planner();
-            if($plannerModel->acceptVendor($parameters['vendorID'])) {
-                
+            if ($plannerModel->acceptVendor($parameters['vendorID'])) {
+
                 header('HTTP/1.1 200 OK');
                 echo json_encode(['success' => 'Vendor Accepted Successfully']);
             } else {
@@ -392,12 +419,12 @@ class PlannerController
     public function rejectVendor($parameters)
     {
         try {
-            if(!Authenticate('planner', 123)) {
+            if (!Authenticate('planner', 123)) {
                 header('HTTP/1.1 401 Unauthorized');
                 echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
             };
             $plannerModel = new Planner();
-            if($plannerModel->rejectVendor($parameters['vendorID'])) {
+            if ($plannerModel->rejectVendor($parameters['vendorID'])) {
                 header('HTTP/1.1 200 OK');
                 echo json_encode(['success' => 'Vendor Rejected Successfully']);
             } else {

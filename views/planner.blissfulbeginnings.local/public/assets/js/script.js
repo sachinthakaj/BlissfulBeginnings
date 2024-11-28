@@ -1,4 +1,29 @@
+function showNotification(message, color) {
+  // Create notification element
+  const notification = document.createElement("div");
+  notification.textContent = message;
+  notification.style.position = "fixed";
+  notification.style.bottom = "20px";
+  notification.style.left = "20px";
+  notification.style.backgroundColor = color;
+  notification.style.color = "white";
+  notification.style.padding = "10px 20px";
+  notification.style.borderRadius = "5px";
+  notification.style.zIndex = 1000;
+  notification.style.fontSize = "16px";
+
+  // Append to body
+  document.body.appendChild(notification);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+  const loadingScreen = document.getElementById("loading-screen");
+  const mainContent = document.querySelector(".dashboard");
   // script.js
 
   // Define an array to store events
@@ -206,30 +231,44 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(response => {
       if (response.status === 401) {
         window.location.href = '/signin';
+      } else if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 500) {
+        throw new Error('Internal Server Error');  
+      } else if(response.status === 204) {
+        throw new Error('No Notifications Found');
       }
-      return response.json()
     })
     .then(notifications => {
+      if (notifications.length === 0)
+        return;
       notifications.forEach(notification => {
         const notificationDiv = document.createElement('div');
         notificationDiv.id = notification.id;
-        notificationDiv.classList.add('notification', `type-${notification.typeID}`);
+        notificationDiv.classList.add('notification');
         notificationDiv.innerHTML = `
           <h4>${notification.title}</h4>
           <p>${notification.message}</p>
         `;
         notificationContainer.appendChild(notificationDiv);
-
-        if (notification.typeID === 'new-vendor') {
+        console.log(notification)
+        if (notification.title === 'New Vendor') {
+          notificationDiv.classList.add('type-new-vendor');
           notificationDiv.addEventListener('click', () => {
-            window.location.href = `/new-vendor/${notification.reference}`;
+            window.location.href = `/vendor/${notification.reference}`;
           });
-        } else if (notification.typeID === 'new-package') {
+        } else if (notification.title === 'New Package') {
+          notificationDiv.classList.add('type-new-package');
           notificationDiv.addEventListener('click', () => {
             window.location.href = `/new-package/${notification.reference}`;
           });
         }
       });
+    }).catch(error => {
+      if(error.message === 'No Notifications Found') {
+        return;
+      }
+      console.error(error);
     });
 
   // Get the notification container
@@ -301,6 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",
+                  'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 },
                 body: JSON.stringify({
                   weddingID: wedding.weddingID,
@@ -308,17 +348,10 @@ document.addEventListener("DOMContentLoaded", function () {
               })
                 .then((res) => {
                   if (res.status === 401) {
-                    window.location.href = '/signin';
+                    alert("You are not logged in");
+                    //                    window.location.href = '/signin';
                   }
                   res.json();
-                })
-                .then((data) => {
-                  if (data.status === "success") {
-                    alert(data.message);
-                    window.location.reload();
-                  } else {
-                    alert("Error" + data.message);
-                  }
                 })
                 .catch((error) => {
                   console.error("Error deleting wedding:", error);
@@ -361,12 +394,14 @@ document.addEventListener("DOMContentLoaded", function () {
        `;
           card.classList.add("ongoing");
           card.addEventListener("click", () => {
-            window.location.href = `/plannerWedding?id=${wedding.weddingID}`;
+            window.location.href = `/wedding/${wedding.weddingID}`;
           });
         }
 
         weddingCardsContainer.appendChild(card);
       });
+      loadingScreen.style.display = "none";
+      mainContent.style.display = "flex";
     })
     .catch((error) => console.error("Error fetching wedding data:", error));
 

@@ -34,6 +34,10 @@
           <div class="progress-container">
             <div class="progress-bar" id="progressBar" style="width: 0%"></div>
           </div>
+          <div class="weddingProgressText">Budget Progress</div>
+          <div class="progress-container">
+            <div class="progress-bar" id="budgetBar" style="width: 0%"></div>
+          </div>
 
           <div class="vendor-search-and-cards">
 

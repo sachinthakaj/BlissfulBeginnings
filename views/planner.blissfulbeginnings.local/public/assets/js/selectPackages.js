@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return response.json();
   }).then(data => {
+    document.querySelector('.wedding-title').textContent = data.weddingTitle + "'s Wedding";
     const cardContainer = document.getElementById('card-container');
     if (data.sepSalons) {
       cardContainer.innerHTML += `<div class="card" id="bride-salon ">
@@ -202,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
             packageCard.id = package.packageID;
             packageCard.innerHTML = `
               <h3>${package.packageName}</h3>
-              <h2>${package.vendorName}</h2>
+              <h2>${package.businessName}</h2>
               <p>${package.feature1}</p>
               <p>${package.feature2}</p>
               <p>${package.feature3}</p>

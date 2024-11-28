@@ -32,7 +32,6 @@ $router = Router::getRouter();
   $method = $_SERVER['REQUEST_METHOD'];
   $uri = $_SERVER['REQUEST_URI'];
   $uri = str_replace('/BlissfulBeginnings', '', $uri);
-  error_log($uri);
   $router->route($method, $uri);
 
 
