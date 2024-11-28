@@ -615,6 +615,7 @@ ul li:hover ul.dropdown {
 .edit-modal {
     background-color: #fff;
     padding: 20px;
+    padding-right: 40px;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
@@ -747,4 +748,14 @@ ul li:hover ul.dropdown {
 
 .prev-button:not(:disabled):hover {
     background-color: #ddd;
+}
+
+.box-container {
+    display: flex;
+    gap: 2rem;
+    /* margin-bottom: 1.5rem; */
+}
+
+.left, .right {
+  flex: 1;
 }
