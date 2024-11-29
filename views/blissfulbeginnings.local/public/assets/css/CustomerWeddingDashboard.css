@@ -951,7 +951,6 @@ ul li:hover ul.dropdown {
     align-items: center;
     /* Changed to flex-start to avoid centering issues */
     /* padding: 2rem; */
-    width: 100%;
     max-width: 1200px;
     margin: 0px;
 }
@@ -979,6 +978,7 @@ ul li:hover ul.dropdown {
 /* Package Step Styles */
 .package-step {
     width: 100%;
+
     margin-bottom: 2rem;
     display: none;
     /* Hidden by default */

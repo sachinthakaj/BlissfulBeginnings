@@ -41,7 +41,7 @@ function render() {
                     </div>
                 `;
                 card.innerHTML = cardHTML;
-                card.addEventListener("click", ()=> {
+                card.querySelector(".heading").addEventListener("click", ()=> {
                     window.location.href = `/vendor/${card.id}`
                 })
                 // Append card to the container

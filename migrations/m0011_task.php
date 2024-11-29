@@ -9,6 +9,7 @@ class m0011_task {
     public function up() {
       $SQL = "CREATE TABLE `task` (
     `taskID` BINARY(16) NOT NULL,
+    `topic` VARCHAR(255) NOT NULL,
     `assignmentID` BINARY(16) NOT NULL,
     `dateToFinish` DATE NOT NULL,
     `description` VARCHAR(255) NOT NULL,

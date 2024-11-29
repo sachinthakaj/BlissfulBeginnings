@@ -13,26 +13,26 @@ const vendorGrid = document.querySelector('.vendor-grid');
 const messages = [
     { 
         id: 1, 
-        sender: 'bot', 
-        text: 'Hello! Welcome to our support chat.', 
+        sender: 'Customer', 
+        text: 'When is the pre shoot', 
         timestamp: '2024-01-15T10:30:00Z' 
     },
     { 
         id: 2, 
-        sender: 'user', 
-        text: 'Hi, I need help with my account.', 
+        sender: 'Photographer', 
+        text: 'It\'s on Thursday', 
         timestamp: '2024-01-15T10:31:15Z' 
     },
     { 
         id: 3, 
-        sender: 'bot', 
-        text: 'I\'d be happy to assist you. Could you provide more details?', 
+        sender: 'Planner', 
+        text: 'Is the preparations done?', 
         timestamp: '2024-01-15T10:31:30Z' 
     },
     { 
         id: 4, 
-        sender: 'user', 
-        text: 'I can\'t log into my account.', 
+        sender: 'Photographer', 
+        text: 'Yes they are', 
         timestamp: '2024-01-15T10:32:00Z' 
     },
     { 
@@ -57,10 +57,9 @@ function renderMessages() {
         
         // Add classes based on sender
         messageElement.classList.add('message');
-        messageElement.classList.add(message.sender);
         
         // Set message text
-        messageElement.textContent = message.text;
+        messageElement.textContent = message.sender + ": " + message.text;
         
         // Optional: Add timestamp as a data attribute
         messageElement.dataset.timestamp = message.timestamp;
@@ -515,8 +514,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="bride-salon"></div>
                         <div class=step-buttons>
+                        <button class="prev-button">Previous</button>
                             <button class="next-button">Next</button>
-                            <button class="prev-button">Previous</button>
                         </div>
                     </div>
                 </div>
@@ -528,8 +527,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="groom-salon"></div>
                         <div class=step-buttons>
+                        <button class="prev-button">Previous</button>
                             <button class="next-button">Next</button>
-                            <button class="prev-button">Previous</button>
                         </div>
                     </div>
                 </div>
@@ -544,8 +543,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="salon"></div>
                         <div class=step-buttons>
+                        <button class="prev-button">Previous</button>
                             <button class="next-button">Next</button>
-                            <button class="prev-button">Previous</button>
                         </div>
                     </div>
                 </div>
@@ -556,12 +555,12 @@ const unassigned = (data) => {
                 <div class="package-selector" id="photographer-package-selector">
                     <div class="package-selector-information">
                     <img src="/public/assets/images/camera_1361782 1.png" alt="picture of a Camera">
-                    <p>Choose a  Package</p>
+                    <p>Choose a photography Package</p>
                     </div>
                     <div class="reccomendation-grid" id="photographer"></div>
                     <div class=step-buttons>
+                    <button class="prev-button">Previous</button>
                         <button class="next-button">Next</button>
-                        <button class="prev-button">Previous</button>
                     </div>
                 </div>
             </div>
@@ -576,8 +575,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="bride-dress-designer"></div>
                             <div class=step-buttons>
+                            <button class="prev-button">Previous</button>
                                 <button class="next-button">Next</button>
-                                <button class="prev-button">Previous</button>
                             </div>
                         </div>
                     </div>
@@ -589,8 +588,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="groom-dress-designer"></div>
                             <div class=step-buttons>
+                            <button class="prev-button">Previous</button>
                                 <button class="next-button">Next</button>
-                                <button class="prev-button">Previous</button>
                             </div>
                         </div>
                     </div>
@@ -605,8 +604,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="dress-designer"></div>
                             <div class=step-buttons>
+                            <button class="prev-button">Previous</button>
                                 <button class="next-button">Next</button>
-                                <button class="prev-button">Previous</button>
                             </div>
                         </div>
                     </div>
@@ -621,8 +620,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="florist"></div>
                         <div class=step-buttons>
-                            <button class="prev-button">Previous</button>
-                            <button class="submit-button">Submit</button>
+                        <button class="prev-button">Previous</button>
+                        <button class="submit-button">Submit</button>
                         </div>
                     </div>
                 </div>`
@@ -701,9 +700,6 @@ const unassigned = (data) => {
                     packageDiv.innerHTML += `
                         <div class="image-content">
                             <span class="overlay"></span>
-                            <div class="card-image">
-                                <img src="/public/assets/images/CustomerWeddingDashboard/img1.png" alt="image here" class="card-img">
-                            </div>
                         </div>
                         <div class="card-content">
                             <h2 class="name">${package.packageName}</h2>
@@ -715,7 +711,7 @@ const unassigned = (data) => {
                                     ${package.feature3 ? `<li class="description">${package.feature3}</li>` : ''}
                                 </ul>
                                 <h4 class="description price">Charge: ${package.fixedCost}</h4>
-                                <a class="visit">Request to Visit</a>
+                                <a class="visit">View Vendor Profile</a>
                             </div>
                         </div>
                     `
