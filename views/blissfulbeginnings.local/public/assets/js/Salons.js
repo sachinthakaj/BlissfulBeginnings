@@ -45,6 +45,9 @@
                     
                     // Append card to the container
                     scrollContainer.appendChild(card);
+                    card.addEventListener("click", ()=> {
+                        window.location.href = `/vendor/${card.id}`
+                    })
                 }
                  // Render all cards
                 data.forEach(createCard);

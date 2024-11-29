@@ -8,12 +8,14 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    background: rgba(255, 255, 255, 0.9);
+    /* Semi-transparent white */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Ensures it's on top */
+    z-index: 9999;
+    /* Ensures it's on top */
 }
 
 .spinner {
@@ -26,9 +28,15 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -119,7 +127,8 @@ main {
     width: 0%;
 }
 
-.budget-progress-bar, .wedding-progress-bar {
+.budget-progress-bar,
+.wedding-progress-bar {
     margin-top: 40px;
 }
 
@@ -161,7 +170,7 @@ main {
     margin: 8px 8px 60px 8px;
 }
 
-.package-selector-information{
+.package-selector-information {
     margin-bottom: 20px;
     align-items: center;
     justify-items: center;
@@ -208,8 +217,17 @@ main {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
 }
 
+.assignment-grid {
+    margin-right: 2rem;
+    display: grid;
+    grid-template-rows: auto;
+    gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
 
-.package:hover, .package.active {
+
+.package:hover,
+.package.active {
     /* transform: translateY(-10px); 
     background-color: #f1c40f;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);  */
@@ -218,7 +236,7 @@ main {
     transform: scale(1.025);
     transition: 0.5s ease-in-out;
     transform: translateY(-5%);
-  }
+}
 
 
 
@@ -258,7 +276,7 @@ aside {
     top: 0;
     padding: 0px 10px;
     background-color: #ddd;
-   
+
 }
 
 .chat-container {
@@ -266,43 +284,49 @@ aside {
     height: 90%;
     background-color: #fff;
     border-radius: 10px;
-
-}
-
-.text-field {
+    padding: 15px;
     display: flex;
-    margin: 8px 0px;
-    width: 100%;
-    height: 5%;
-    border-radius: 10px;
-}
-.chat-type-field {
-    height: 100%;
-    width: 90%;
-    margin: 0px 8px 0px 0px;
-    border: none;
-    border-radius: 10px;
+    flex-direction: column;
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
 }
 
-.chat-send-button {
-    border: none;
-    border-radius: 10px;
-    background-color: white;
+.message {
+    display: block;
+    margin-bottom: 10px;
 }
 
-.chat-send-button:hover {
-    background-color: salmon;
+.message.bot {
+    color: #333;
+}
+
+.message.user {
+    color: #007bff;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.message-text {
+    display: inline;
 }
 /* Modal content */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black with opacity */
     justify-content: center;
     align-items: center;
 }
@@ -310,10 +334,12 @@ aside {
 /* Modal content */
 .modal-content {
     background-color: #fff;
-    margin: 15% auto; /* 15% from top and centered */
+    margin: 15% auto;
+    /* 15% from top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less depending on screen size */
+    width: 80%;
+    /* Could be more or less depending on screen size */
     max-width: 500px;
 }
 
@@ -325,7 +351,8 @@ aside {
     font-weight: bold;
 }
 
-.close:hover, .close:focus {
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -390,29 +417,30 @@ a:hover {
 .submit-btn:hover {
     background-color: #a28c53;
 }
+
 /* Hide all steps except the first one */
 .step {
     display: none;
-  }
-  
-  .step.active {
+}
+
+.step.active {
     display: block;
-  }
-  
-  /* Add some style for buttons */
-  button {
+}
+
+/* Add some style for buttons */
+button {
     margin-top: 10px;
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-  }
-  
-  button#prevBtn {
+}
+
+button#prevBtn {
     background-color: #bbb;
-  }
-  
+}
+
 /* scroll bars */
 .vendor-grid::-webkit-scrollbar {
     width: 7px;
@@ -464,7 +492,7 @@ ul li a {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     border-radius: 6px;
-    transition: background-color 0.3s ease;   
+    transition: background-color 0.3s ease;
 }
 
 /* Dropdown Menu */
@@ -553,6 +581,7 @@ ul li:hover ul.dropdown {
         opacity: 0;
         transform: translateY(-60px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -581,7 +610,8 @@ ul li:hover ul.dropdown {
     gap: 10px;
 }
 
-.cancel-button, .delete-button {
+.cancel-button,
+.delete-button {
     padding: 8px 16px;
     border-radius: 24px;
     cursor: pointer;
@@ -769,8 +799,9 @@ ul li:hover ul.dropdown {
     /* margin-bottom: 1.5rem; */
 }
 
-.left, .right {
-  flex: 1;
+.left,
+.right {
+    flex: 1;
 }
 
 /* cards */
@@ -797,7 +828,8 @@ ul li:hover ul.dropdown {
     padding: 15px 0;
 }
 
-.image-content, .card-content {
+.image-content,
+.card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -820,7 +852,8 @@ ul li:hover ul.dropdown {
     border-radius: 25px 25px 0 25px;
 }
 
-.overlay::before, .overlay::after {
+.overlay::before,
+.overlay::after {
     content: '';
     right: 0;
     bottom: -40px;
@@ -894,16 +927,16 @@ ul li:hover ul.dropdown {
 }
 
 .card-content .content ul {
-    display: flex; 
-    flex-direction: column; 
-    padding: 0; 
+    display: flex;
+    flex-direction: column;
+    padding: 0;
     margin: 0;
 }
 
 .card-content .content li {
     margin: 0.5rem 0;
-    font-size: 1rem; 
-    color: #333; 
+    font-size: 1rem;
+    color: #333;
 }
 
 
@@ -916,7 +949,7 @@ ul li:hover ul.dropdown {
     display: flex;
     flex-direction: column;
     align-items: center;
-     /* Changed to flex-start to avoid centering issues */
+    /* Changed to flex-start to avoid centering issues */
     /* padding: 2rem; */
     width: 100%;
     max-width: 1200px;
@@ -947,7 +980,8 @@ ul li:hover ul.dropdown {
 .package-step {
     width: 100%;
     margin-bottom: 2rem;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
@@ -1074,6 +1108,7 @@ ul li:hover ul.dropdown {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

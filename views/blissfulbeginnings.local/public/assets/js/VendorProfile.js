@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }).then(vendorData => {
         console.log(vendorData)
         // update title and description
-        document.getElementById('name').textContent = vendorData.name;
+        document.getElementById('name').textContent = vendorData.businessName;
         document.getElementById('description').textContent = vendorData.description;
-        document.getElementById("profile-image").setAttribute("src", vendorData.image);
+        document.getElementById("profile-image").setAttribute("src", vendorData.img);
 
        
 
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 : ""
                             }
                     </ul>
-                    <div class="price">${package.fixedCost}</div>
+                    <div class="price">${package.fixedCost} LKR</div>
                 </div>
                 `;
             packagesContainer.appendChild(packageDiv);

@@ -9,6 +9,73 @@ const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
 
+// Sample messages data structure
+const messages = [
+    { 
+        id: 1, 
+        sender: 'bot', 
+        text: 'Hello! Welcome to our support chat.', 
+        timestamp: '2024-01-15T10:30:00Z' 
+    },
+    { 
+        id: 2, 
+        sender: 'user', 
+        text: 'Hi, I need help with my account.', 
+        timestamp: '2024-01-15T10:31:15Z' 
+    },
+    { 
+        id: 3, 
+        sender: 'bot', 
+        text: 'I\'d be happy to assist you. Could you provide more details?', 
+        timestamp: '2024-01-15T10:31:30Z' 
+    },
+    { 
+        id: 4, 
+        sender: 'user', 
+        text: 'I can\'t log into my account.', 
+        timestamp: '2024-01-15T10:32:00Z' 
+    },
+    { 
+        id: 5, 
+        sender: 'bot', 
+        text: 'I understand. Let\'s troubleshoot your login issue.', 
+        timestamp: '2024-01-15T10:32:15Z' 
+    }
+];
+
+// Function to render messages to the chat container
+function renderMessages() {
+    const chatContainer = document.querySelector('.chat-container');
+    
+    // Clear existing messages
+    chatContainer.innerHTML = '';
+    
+    // Iterate through messages and create message elements
+    messages.forEach(message => {
+        // Create message element
+        const messageElement = document.createElement('div');
+        
+        // Add classes based on sender
+        messageElement.classList.add('message');
+        messageElement.classList.add(message.sender);
+        
+        // Set message text
+        messageElement.textContent = message.text;
+        
+        // Optional: Add timestamp as a data attribute
+        messageElement.dataset.timestamp = message.timestamp;
+        
+        // Append message to container
+        chatContainer.appendChild(messageElement);
+    });
+    
+    // Scroll to bottom of container
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+// Call render function when DOM is loaded
+document.addEventListener('DOMContentLoaded', renderMessages);
+
 function showNotification(message, color) {
     // Create notification element
     const notification = document.createElement("div");
@@ -55,6 +122,7 @@ function createVendorCard(vendor) {
 
 
 function newWedding(data) {
+    document.getElementById('edit-profile').remove();
     vendorGrid.innerHTML = `
                 <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF" class="hourglass-gif">
                 <p>The wedding planner will assign vendors to you shortly</p>
@@ -357,9 +425,11 @@ function newWedding(data) {
 
 const ongoing = (data) => {
     try {
+        document.getElementById('delete-profile').remove()
         fetch('/assigned-packages/' + weddingID, {
             method: "GET",
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 "Content-type": "application/json"
             }
         }).then(response => {
@@ -373,7 +443,8 @@ const ongoing = (data) => {
             }
             return response.json();
         }).then(packageData => {
-
+            assignmentGrid = document.createElement('div');
+            assignmentGrid.classList.add("assignment-grid");
             packageData.forEach(package => {
 
                 const packageCard = document.createElement('div');
@@ -383,28 +454,29 @@ const ongoing = (data) => {
                     <div class="image-content">
                         <span class="overlay"></span>
                         <div class="card-image">
-                            <img src="${cardData.imgSrc}" alt="" class="card-img">
+                            <img src="${package.imgSrc}" alt="" class="card-img">
                         </div>
                     </div>
                     <div class="card-content">
-                        <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
+                        <h2 class="name">${package.businessName}</h2>
                         <div class="content">
-                            <h4 class="description">Date: ${cardData.date}</h4>
-                            <h4 class="description">Time: ${cardData.dayNight}</h4>
-                            <h4 class="description">Location: ${cardData.location}</h4>
+                            <h4 class="description">${package.typeID}</h4>
+                            <h4 class="description">${package.packageName}</h4>
+                            <h4 class="description">${package.fixedCost}</h4>
                             <h4 class="description">Wedding Progress: </h4> 
                             <div class="progress-bar-container">
-                                <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
+                                <div class="progress-bar wedding-progress-bar" style="width: ${package.progress}%"></div>
                             </div>
                             <h4 class="description">Wedding Budget: </h4> 
                             <div class="progress-bar-container">
-                                <div class="progress-bar budget-progress-bar" style="width: ${cardData.budget}%"></div>
+                                <div class="progress-bar budget-progress-bar" style="width: ${package.budget}%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
         `;;
-                vendorGrid.appendChild(packageCard);
+                assignmentGrid.appendChild(packageCard);
+                vendorGrid.appendChild(assignmentGrid);
             })
         })
     } catch (e) {
@@ -617,7 +689,7 @@ const unassigned = (data) => {
                     function getRandomImage() {
                         const randomIndex = Math.floor(Math.random() * totalImages) + 1;
                     
-                        const imagePath = `/public/images/CustomerWeddingDashboard/img${randomIndex}.png`;
+                        const imagePath = `/public/images/CustomerWeddingDashboard/img${randomIndex}.jpg`;
                     
                         const imageElement = document.querySelector('.card-img');
                         imageElement.src = imagePath;
@@ -728,7 +800,40 @@ const finished = (data) => {
                         </div>
                     </div>
                 </div>
-        `;;
+        `;
+        const stars = packageCard.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                const siblings = Array.from(star.parentElement.children);
+                const index = siblings.indexOf(star);
+                siblings.forEach(sibling => {
+                    if (sibling.dataset.value <= index + 1) {
+                        sibling.classList.add('selected');
+                    } else {
+                        sibling.classList.remove('selected');
+                    }
+                });
+            });
+            star.addEventListener('click', () => {
+                const value = Number(star.dataset.value);
+                fetch('/api/ratings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    },
+                    body: JSON.stringify({
+                        vendorID: cardData.vendorID,
+                        rating: value,
+                    }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        alert('Error submitting rating');
+                    }
+                });
+            });
+        });
                 vendorGrid.appendChild(packageCard);
             })
         })
@@ -812,8 +917,6 @@ function render() {
                 'Content-Type': 'application/json'
             },
         }).then(response => {
-            return response.json();
-        }).then(data => {
             if (response.status == 409) {
                 showNotification("The wedding is still ongoing can't delete", "red");
                 closeEditModal();
@@ -825,6 +928,9 @@ function render() {
 
             console.log(data);
             window.location.href = '/register';
+            return response.json();
+        }).then(data => {
+            
         }).catch(error => {
             console.error(error);
         });

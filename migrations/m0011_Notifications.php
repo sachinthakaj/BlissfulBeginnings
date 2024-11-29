@@ -20,7 +20,7 @@ CREATE TABLE newPackageNotifications (
   title VARCHAR(255) NOT NULL,
   message TEXT NOT NULL,
   reference BINARY(16) NOT NULL,
-  FOREIGN KEY (reference) REFERENCES packages(packageID)
+  FOREIGN KEY (reference) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 ";
       $this->dbh->exec($SQL);

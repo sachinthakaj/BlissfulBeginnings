@@ -16,14 +16,14 @@ class m0007_packages {
         `feature3` varchar(120),
         `fixedCost` int(10) NOT NULL,
 
-  CONSTRAINT Package_fk FOREIGN KEY (vendorID) REFERENCES vendors(vendorID)
+  CONSTRAINT Package_fk FOREIGN KEY (vendorID) REFERENCES vendors(vendorID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
       CREATE TABLE `photographyPackages` (
         `packageID` BINARY(16)  PRIMARY KEY,
         `cameraCoverage` int(10) NOT NULL,
 
-  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID)
+  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID)ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
       CREATE TABLE `dressDesignerPackages` (
@@ -33,7 +33,7 @@ class m0007_packages {
         `demographic` ENUM('Bride', 'Groom', 'Both') NOT NULL,
 
 
-  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID)
+  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
       CREATE TABLE `salonPackages` (
@@ -41,7 +41,7 @@ class m0007_packages {
         `variableCost` int(10) NOT NULL,
         `demographic` ENUM('Bride', 'Groom', 'Both') NOT NULL,
 
-  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID)
+  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
       CREATE TABLE `floristPackages` (
@@ -49,7 +49,7 @@ class m0007_packages {
         `variableCost` int(10) NOT NULL,
         `flowerType` ENUM('Fresh', 'Artificial') NOT NULL,
 
-  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID)
+  CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ";
       $this->dbh->exec($SQL);

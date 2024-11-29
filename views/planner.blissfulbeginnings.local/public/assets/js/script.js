@@ -375,18 +375,13 @@ document.addEventListener("DOMContentLoaded", function () {
             <p><b>Day/Night</b>:${wedding.dayNight}</p>
             <p><b>Location:</b>${wedding.location}</p>
             <p><b>Theme:</b>${wedding.theme}</p>
-            
-        
         `;
+        card.id = wedding.weddingID;
           card.classList.add("Unassigned");
-          const selectPackagesButton = document.createElement("button");
-          selectPackagesButton.classList.add("selectPackagesButton");
-          selectPackagesButton.textContent = "Select Packages";
-          selectPackagesButton.addEventListener("click", (e) => {
+          card.addEventListener("click", (e) => {
             e.stopPropagation();
-            window.location.href = "/wedding/";
+            window.location.href = "/wedding/" + card.id;
           });
-          card.appendChild(selectPackagesButton);
         }
 
         if (wedding.weddingState == "ongoing") {
@@ -400,8 +395,8 @@ document.addEventListener("DOMContentLoaded", function () {
        
        `;
           card.classList.add("ongoing");
-          card.addEventListener("click", () => {
-            window.location.href = `/wedding/${wedding.weddingID}`;
+          card.addEventListener("click", (event) => {
+             window.location.href = `/wedding/${wedding.weddingID}`;
           });
         }
 

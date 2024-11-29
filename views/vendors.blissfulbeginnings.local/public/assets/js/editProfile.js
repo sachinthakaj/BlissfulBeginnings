@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
                             ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
                         </ul>
-                        <div class="price">${package.fixedCost}</div>
+                        <div class="price">${package.fixedCost} LKR</div>
                     </div>
                 `;
             packageDiv.addEventListener('click', (event) => openUpdateModal(event.currentTarget.id));

@@ -69,23 +69,12 @@
           </div>
         </div>
       </main>
-      </div>
-      
-      <aside class="chat-container">
-        <div class="chat-all-area">
-          <div class="chat-show-area">
-
-
-          </div>
-
-          <div class="chat-action-area">
-            <div class="Message-type-area"></div>
-            <button class="Message-send-button-area">SEND</button>
-
-
-          </div>
-
-        </div>
+      <aside>
+      <div class="chat-container"></div>
+                <div class="text-field">
+                    <input class="chat-type-field">
+                    <button class="chat-send-button">Send</button>
+                </div>  
       </aside>
     </div>
   </div>
