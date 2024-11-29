@@ -41,11 +41,11 @@ const messages = [
 
 // Function to render messages to the chat container
 function renderMessages() {
-  const chatContainer = document.querySelector('.chat-container');
+  const chatContainer = document.querySelector('.chat-show-area');
   
   // Clear existing messages
   chatContainer.innerHTML = '';
-  
+  console.log(chatContainer);
   // Iterate through messages and create message elements
   messages.forEach(message => {
       // Create message element
@@ -68,6 +68,7 @@ function renderMessages() {
   // Scroll to bottom of container
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+document.addEventListener('DOMContentLoaded', renderMessages);
 
 document.addEventListener("DOMContentLoaded", function () {
 

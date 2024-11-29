@@ -35,12 +35,7 @@ const messages = [
         text: 'Yes they are', 
         timestamp: '2024-01-15T10:32:00Z' 
     },
-    { 
-        id: 5, 
-        sender: 'bot', 
-        text: 'I understand. Let\'s troubleshoot your login issue.', 
-        timestamp: '2024-01-15T10:32:15Z' 
-    }
+
 ];
 
 // Function to render messages to the chat container
