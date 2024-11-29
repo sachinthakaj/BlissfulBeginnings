@@ -15,7 +15,7 @@
 <body>
     <header>
         <div class="nav-bar-logo-container">
-            <img src="/public/assets/images/Salons/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
         <div class="wedding-title-container">
             <h1 class="wedding-title">Salons</h1>
@@ -25,7 +25,7 @@
     <div class="main-container">
         <div class="left">
             <div class="back-button">
-                <a href="/services" class="go-back"><img src="/public/assets/images/Salons/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Services</span></a>
+                <a href="/services" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Services</span></a>
                 <div class="search-container">
                     <input type="text" placeholder="Search" class="search-input" />
                 </div>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="right">
-            <img src="/public/assets/images/Salons/Best Makeup for your Wedding Day.jpg" alt="Best Makeup for your Wedding Day Image" class="right-image" />
+            <img src="/public/assets/images/Best Makeup for your Wedding Day.jpg" alt="Best Makeup for your Wedding Day Image" class="right-image" />
             <div class="right-content">
                 <h1 class="right-title">Salons</h1>
                 <p class="right-description">We recommend the best salons for your special day.</p>

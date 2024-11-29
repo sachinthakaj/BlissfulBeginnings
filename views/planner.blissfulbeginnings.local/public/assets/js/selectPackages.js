@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector('.wedding-title').textContent = data.weddingTitle + "'s Wedding";
     const cardContainer = document.getElementById('card-container');
     if (data.sepSalons) {
-      cardContainer.innerHTML += `<div class="card" id="bride-salon ">
+      cardContainer.innerHTML += `<div class="card" id="bride-salon">
                                   <h1>Bride's Salon</h1>
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                                   <div class="budget-info">
