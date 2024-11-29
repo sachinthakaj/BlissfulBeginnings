@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 : ""
                             }
                     </ul>
-                    <div class="price">${package.fixedCost}</div>
+                    <div class="price">${package.fixedCost} LKR</div>
                 </div>
                 `;
             packagesContainer.appendChild(packageDiv);
