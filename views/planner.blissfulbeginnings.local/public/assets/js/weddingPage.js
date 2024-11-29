@@ -4,6 +4,71 @@ const pathParts = path.split('/');
 const weddingID = pathParts[pathParts.length - 1];
 
 
+
+// Sample messages data structure
+const messages = [
+  { 
+      id: 1, 
+      sender: 'bot', 
+      text: 'Hello! Welcome to our support chat.', 
+      timestamp: '2024-01-15T10:30:00Z' 
+  },
+  { 
+      id: 2, 
+      sender: 'user', 
+      text: 'Hi, I need help with my account.', 
+      timestamp: '2024-01-15T10:31:15Z' 
+  },
+  { 
+      id: 3, 
+      sender: 'bot', 
+      text: 'I\'d be happy to assist you. Could you provide more details?', 
+      timestamp: '2024-01-15T10:31:30Z' 
+  },
+  { 
+      id: 4, 
+      sender: 'user', 
+      text: 'I can\'t log into my account.', 
+      timestamp: '2024-01-15T10:32:00Z' 
+  },
+  { 
+      id: 5, 
+      sender: 'bot', 
+      text: 'I understand. Let\'s troubleshoot your login issue.', 
+      timestamp: '2024-01-15T10:32:15Z' 
+  }
+];
+
+// Function to render messages to the chat container
+function renderMessages() {
+  const chatContainer = document.querySelector('.chat-container');
+  
+  // Clear existing messages
+  chatContainer.innerHTML = '';
+  
+  // Iterate through messages and create message elements
+  messages.forEach(message => {
+      // Create message element
+      const messageElement = document.createElement('div');
+      
+      // Add classes based on sender
+      messageElement.classList.add('message');
+      messageElement.classList.add(message.sender);
+      
+      // Set message text
+      messageElement.textContent = message.text;
+      
+      // Optional: Add timestamp as a data attribute
+      messageElement.dataset.timestamp = message.timestamp;
+      
+      // Append message to container
+      chatContainer.appendChild(messageElement);
+  });
+  
+  // Scroll to bottom of container
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
   function updateProgressBar(totalTasks, completedTasks) {

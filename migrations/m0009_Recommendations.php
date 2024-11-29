@@ -14,8 +14,8 @@ class m0009_Recommendations {
     
     PRIMARY KEY (`weddingID`, `packageID`, `typeID`),
 
-    CONSTRAINT `fk_recc_refs_weddings` FOREIGN KEY (`weddingID`) REFERENCES `wedding`(`weddingID`),
-    CONSTRAINT `fk_recc_refs_packages` FOREIGN KEY (`packageID`) REFERENCES `packages`(`packageID`)
+    CONSTRAINT `fk_recc_refs_weddings` FOREIGN KEY (`weddingID`) REFERENCES `wedding`(`weddingID`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_recc_refs_packages` FOREIGN KEY (`packageID`) REFERENCES `packages`(`packageID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;   
 ";
       $this->dbh->exec($SQL);

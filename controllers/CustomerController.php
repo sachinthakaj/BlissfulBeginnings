@@ -175,6 +175,7 @@ class CustomerController
             $wedding = new Wedding();
             $result = $wedding->deleteWedding($parameters['weddingID']);
             if ($result > 0) {
+                header('HTTP/1.1 200 okay');
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode(['message'=> "Wedding Deleted successfully"]);
             } else if ($result == 0) {

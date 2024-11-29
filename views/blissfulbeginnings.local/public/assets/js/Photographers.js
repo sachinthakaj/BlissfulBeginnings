@@ -41,7 +41,9 @@ function render() {
                     </div>
                 `;
                 card.innerHTML = cardHTML;
-        
+                card.addEventListener("click", ()=> {
+                    window.location.href = `/vendor/${card.id}`
+                })
                 // Append card to the container
                 scrollContainer.appendChild(card);
                             }

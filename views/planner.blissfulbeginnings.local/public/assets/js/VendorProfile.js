@@ -107,20 +107,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="details">
                     <div>${package.packageName}</div>
                     <div>What's Included:</div>
-                    <ul>
-                         <li>${package.feature1}</li>
-                            ${
-                              package.feature2
-                                ? `<li>${package.feature2}</li>`
-                                : ""
-                            }
-                            ${
-                              package.feature3
-                                ? `<li>${package.feature3}</li>`
-                                : ""
-                            }
-                    </ul>
-                    <div class="price">${package.fixedCost}</div>
+                      <ul>
+                          <li>${package.feature1}</li>
+                              ${
+                                package.feature2
+                                  ? `<li>${package.feature2}</li>`
+                                  : ""
+                              }
+                              ${
+                                package.feature3
+                                  ? `<li>${package.feature3}</li>`
+                                  : ""
+                              }
+                      </ul>
+                    <div class="price">${package.fixedCost} LKR</div>
                 </div>
                 `;
         packagesContainer.appendChild(packageDiv);
