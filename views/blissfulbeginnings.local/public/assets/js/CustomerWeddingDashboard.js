@@ -675,6 +675,66 @@ const unassigned = (data) => {
     }
 }
 
+const finished = (data) => {
+    try {
+        fetch('/assigned-packages/' + weddingID, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
+            }
+        }).then(response => {
+            if (!response.ok) {
+                alert(response);
+                if (response.status === 401) {
+                    window.location.href = '/signin';
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            }
+            return response.json();
+        }).then(packageData => {
+
+            packageData.forEach(cardData => {
+
+                const packageCard = document.createElement('div');
+                packageCard.classList.add('package-card');
+                packageCard.innerHTML = `
+                    <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="${cardData.imgSrc}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="name">${cardData.businessName}</h2>
+                        <div class="content">
+                            <h4 class="description">Wedding Progress: </h4> 
+                            <div class="progress-bar-container">
+                                <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
+                            </div>
+                            <h4 class="description">Wedding Budget: </h4> 
+                            <div class="progress-bar-container">
+                                <div class="progress-bar budget-progress-bar" style="width: ${cardData.budget}%"></div>
+                            </div>
+                            <div class="stars">
+                            ${Array(5).fill(0).map((_, i) => `
+                                <span class="star" data-value="${i + 1}">&#9734;</span>
+                            `).join('')}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        `;;
+                vendorGrid.appendChild(packageCard);
+            })
+        })
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 
 
 function render() {
@@ -693,7 +753,12 @@ function render() {
     const paginationDots = editModalContainer.querySelectorAll('.dot');
     const cancelButton = document.querySelector('.cancel-button');
     const deleteButton = document.querySelector('.delete-button');
+    const logoutbutton = document.getElementById('log-out');
 
+    logoutbutton.addEventListener('click', ()=>{
+        localStorage.removeItem('authToken');
+        window.location.href = "/signin";
+    })
     try {
         fetch('/wedding/data/' + weddingID, {
             method: 'GET',

@@ -61,8 +61,11 @@ class AuthController
         }
     }
 
-    public function login()
-    {
+    public function changePasswordPage() {
+        require_once './public/resetPassword.html';
+    }
+
+    public function changePassword() {
         $data = file_get_contents('php://input');
         $parsed_data = json_decode($data, true);
         $email = $parsed_data['email'];
@@ -104,5 +107,50 @@ class AuthController
             'token' => $token,
             'weddingID' => $weddingID
         ]);
+    }
+
+    public function login()
+    {
+            $data = file_get_contents('php://input');
+            $parsed_data = json_decode($data, true);
+            $email = $parsed_data['email'];
+            $password = $parsed_data['password'];
+
+            if (empty($email) || empty($password)) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Email and password are required']);
+                return;
+            }
+
+            $user = $this->userModel->getUserByEmail($email);
+            if (!$user) {
+                header('HTTP/1.1 401 Not Found');
+                return;
+            }
+
+            if (!password_verify($password, $user['password'])) {
+                header('HTTP/1.1 401 Unathorized');
+                echo json_encode(['error' => 'Invalid credentials']);
+                return;
+            }
+            if ($user['weddingID'] == null) {
+                $userID = bin2hex($user['userID']);
+                $token = createToken($userID, 'customer');
+                header('HTTP/1.1 403 Forbidden');
+                header('Content-Type:application/json; charset=utf-8');
+                echo json_encode([
+                    'token' => $token,
+                ]);
+                return;
+            }
+            $weddingID = bin2hex($user['weddingID']);
+            $token = createToken($weddingID, 'customer');
+
+            header('Content-Type:application/json; charset=utf-8');
+            echo json_encode([
+                'message' => 'Login Successful',
+                'token' => $token,
+                'weddingID' => $weddingID
+            ]);
     }
 }

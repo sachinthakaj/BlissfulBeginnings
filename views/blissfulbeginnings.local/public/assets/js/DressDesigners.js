@@ -25,6 +25,7 @@ function render() {
             function createCard(data) {
                 const card = document.createElement('div');
                 card.classList.add('container');
+                card.id = data.vendorID;
         
                 const cardHTML = `
                     <div class="image-container">
@@ -41,6 +42,9 @@ function render() {
                     </div>
                 `;
                 card.innerHTML = cardHTML;
+                card.addEventListener("click", ()=> {
+                    window.location.href = `/vendor/${card.id}`
+                })
         
                 // Append card to the container
                 scrollContainer.appendChild(card);

@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
         packageDiv.setAttribute("id", packageID);
         packageDiv.innerHTML = `
                 <div class="details">
-                    <div>${package.name}</div>
+                    <div>${package.packageName}</div>
                     <div>What's Included:</div>
                     <ul>
                          <li>${package.feature1}</li>

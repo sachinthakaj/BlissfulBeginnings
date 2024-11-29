@@ -34,10 +34,20 @@ document.addEventListener("DOMContentLoaded", () => {
             packageDiv.setAttribute("id", packageID);
             packageDiv.innerHTML = `
                 <div class="details">
-                    <div>${package.name}</div>
+                    <div>${package.packageName}</div>
                     <div>What's Included:</div>
                     <ul>
-                        ${package.features.map(feature => `<li>${feature}</li>`).join('')}
+                         <li>${package.feature1}</li>
+                            ${
+                              package.feature2
+                                ? `<li>${package.feature2}</li>`
+                                : ""
+                            }
+                            ${
+                              package.feature3
+                                ? `<li>${package.feature3}</li>`
+                                : ""
+                            }
                     </ul>
                     <div class="price">${package.fixedCost}</div>
                 </div>

@@ -20,6 +20,9 @@ $router->get("/get-florists","vendorController@getFlorists");
 $router->get("/register", "HomeController@Register");
 $router->post("/register", "AuthController@register");
 
+$router->get('change-password', "AuthController@changePasswordPage");
+$router->post('change-password', "AuthController@changePassword");
+
 $router->get("/wedding-details/{userID}", "WeddingController@create");
 $router->post("/validate-userID/{userID}", "CustomerController@validateUserID");
 $router->post("/wedding-details/{userID}", "WeddingController@newWedding");
