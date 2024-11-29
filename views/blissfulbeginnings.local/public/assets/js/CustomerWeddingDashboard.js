@@ -100,82 +100,98 @@ function newWedding(data) {
                                 </div>
                                 <section class="step active" id="wedding-details">
                                     <h2>Wedding Details</h2>
-                                    <div class="input-group">
-                                        <label for="date">Date</label>
-                                        <input type="date" id="date" name="date" value=${data.date} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="daynight">Day/Night</label>
-                                        <input type="text" id="daynight" name="daynight" value=${data.dayNight} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="location">Location</label>
-                                        <input type="text" id="location" name="location" value=${data.location} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="theme">Theme</label>
-                                        <input type="text" id="theme" name="theme" value=${data.theme} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="budget">Expected Budget</label>
-                                        <input type="number" id="budget" name="budget" value=${data.budget} required>
+                                    <div class="box-container">
+                                        <div class="left">
+                                            <div class="input-group">
+                                                <label for="date">Date</label>
+                                                <input type="date" id="date" name="date" value=${data.date} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="daynight">Day/Night</label>
+                                                <input type="text" id="daynight" name="daynight" value=${data.dayNight} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="location">Location</label>
+                                                <input type="text" id="location" name="location" value=${data.location} required>
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="input-group">
+                                                <label for="theme">Theme</label>
+                                                <input type="text" id="theme" name="theme" value=${data.theme} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="budget">Expected Budget</label>
+                                                <input type="number" id="budget" name="budget" value=${data.budget} required>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="checkbox-group">
                                         <label><input type="checkbox" name="salon" id="sepSalons" ${data.sepSalons ? 'checked' : ''}     > Get the service of separate Salons for bride and groom</label>
                                         <label><input type="checkbox" name="dressdesigner" id="sepDressDesigners" value=${data.sepDressDesigners} > Get the service of separate Dress Makers for bride and groom</label>
                                     </div>
-                                    <br>
                                     <button type="button" id="nextBtn">Next</button>
                                 </section>
     
                                 <div class="step" id="bride-details">
                                     <h2>Bride Details</h2>
-                                    <div class="input-group">
-                                        <label for="bride_name">Name</label>
-                                        <input type="text" id="bride_name" name="name" value=${brideData.name} required>
+                                    <div class="box-container">
+                                        <div class="left">
+                                            <div class="input-group">
+                                                <label for="bride_name">Name</label>
+                                                <input type="text" id="bride_name" name="name" value=${brideData.name} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="bride_email">Email</label>
+                                                <input type="email" id="bride_email" name="email" value=${brideData.email} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="bride_contact">Contact</label>
+                                                <input type="tel" id="bride_contact" name="contact" value=${brideData.contact} required>
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="input-group">
+                                                <label for="bride_address">Address</label>
+                                                <input type="text" id="bride_address" name="address"  value=${brideData.address} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="bride_age">Age</label>
+                                                <input type="number" id="bride_age" name="age"  value=${brideData.age} required>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="input-group">
-                                        <label for="bride_email">Email</label>
-                                        <input type="email" id="bride_email" name="email" value=${brideData.email} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="bride_contact">Contact</label>
-                                        <input type="tel" id="bride_contact" name="contact" value=${brideData.contact} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="bride_address">Address</label>
-                                        <input type="text" id="bride_address" name="address"  value=${brideData.address} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="bride_age">Age</label>
-                                        <input type="number" id="bride_age" name="age"  value=${brideData.age} required>
-                                    </div>
-                                    <br>
                                     <button type="button" id="prevBtn">Previous</button>
                                     <button type="button" id="nextBtn">Next</button>
                                 </div>
     
                                 <div class="step" id="groom-details">
                                     <h2>Groom Details</h2>
-                                    <div class="input-group">
-                                        <label for="groom_name">Name</label>
-                                        <input type="text" id="groom_name" name="name" value=${groomData.name} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="groom_email">Email</label>
-                                        <input type="email" id="groom_email" name="email" value=${groomData.email} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="groom_contact">Contact</label>
-                                        <input type="tel" id="groom_contact" name="contact" value=${groomData.contact} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="groom_address">Address</label>
-                                        <input type="text" id="groom_address" name="address" value=${groomData.address} required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="groom_age">Age</label>
-                                        <input type="number" id="groom_age" name="age" value=${groomData.age} required>
+                                    <div class="box-container">
+                                        <div class="left">
+                                            <div class="input-group">
+                                                <label for="groom_name">Name</label>
+                                                <input type="text" id="groom_name" name="name" value=${groomData.name} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="groom_email">Email</label>
+                                                <input type="email" id="groom_email" name="email" value=${groomData.email} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="groom_contact">Contact</label>
+                                                <input type="tel" id="groom_contact" name="contact" value=${groomData.contact} required>
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="input-group">
+                                                <label for="groom_address">Address</label>
+                                                <input type="text" id="groom_address" name="address" value=${groomData.address} required>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="groom_age">Age</label>
+                                                <input type="number" id="groom_age" name="age" value=${groomData.age} required>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="submit-button">
                                         <button type="submit">Submit</button>
