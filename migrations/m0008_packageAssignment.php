@@ -16,8 +16,8 @@ class m0008_packageAssignment {
         `progress` decimal(5, 1) NOT NULL,
 
 
-  CONSTRAINT WeddingID_fk FOREIGN KEY (weddingID) REFERENCES wedding(weddingID),
-  CONSTRAINT PackageID_fk FOREIGN KEY (packageID) REFERENCES packages(packageID)
+  CONSTRAINT WeddingID_fk FOREIGN KEY (weddingID) REFERENCES wedding(weddingID) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT PackageID_fk FOREIGN KEY (packageID) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;     
 ";
       $this->dbh->exec($SQL);

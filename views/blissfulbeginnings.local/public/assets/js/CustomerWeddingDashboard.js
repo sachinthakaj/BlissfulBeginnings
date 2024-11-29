@@ -55,6 +55,7 @@ function createVendorCard(vendor) {
 
 
 function newWedding(data) {
+    document.getElementById('edit-profile').remove();
     vendorGrid.innerHTML = `
                 <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF" class="hourglass-gif">
                 <p>The wedding planner will assign vendors to you shortly</p>
@@ -341,9 +342,11 @@ function newWedding(data) {
 
 const ongoing = (data) => {
     try {
+        document.getElementById('delete-profile').remove()
         fetch('/assigned-packages/' + weddingID, {
             method: "GET",
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 "Content-type": "application/json"
             }
         }).then(response => {
@@ -367,22 +370,22 @@ const ongoing = (data) => {
                     <div class="image-content">
                         <span class="overlay"></span>
                         <div class="card-image">
-                            <img src="${cardData.imgSrc}" alt="" class="card-img">
+                            <img src="${package.imgSrc}" alt="" class="card-img">
                         </div>
                     </div>
                     <div class="card-content">
-                        <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
+                        <h2 class="name">${package.bride} & ${package.groom}'s Wedding</h2>
                         <div class="content">
-                            <h4 class="description">Date: ${cardData.date}</h4>
-                            <h4 class="description">Time: ${cardData.dayNight}</h4>
-                            <h4 class="description">Location: ${cardData.location}</h4>
+                            <h4 class="description">Date: ${package.date}</h4>
+                            <h4 class="description">Time: ${package.dayNight}</h4>
+                            <h4 class="description">Location: ${package.location}</h4>
                             <h4 class="description">Wedding Progress: </h4> 
                             <div class="progress-bar-container">
-                                <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
+                                <div class="progress-bar wedding-progress-bar" style="width: ${package.progress}%"></div>
                             </div>
                             <h4 class="description">Wedding Budget: </h4> 
                             <div class="progress-bar-container">
-                                <div class="progress-bar budget-progress-bar" style="width: ${cardData.budget}%"></div>
+                                <div class="progress-bar budget-progress-bar" style="width: ${package.budget}%"></div>
                             </div>
                         </div>
                     </div>
@@ -712,7 +715,40 @@ const finished = (data) => {
                         </div>
                     </div>
                 </div>
-        `;;
+        `;
+        const stars = packageCard.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                const siblings = Array.from(star.parentElement.children);
+                const index = siblings.indexOf(star);
+                siblings.forEach(sibling => {
+                    if (sibling.dataset.value <= index + 1) {
+                        sibling.classList.add('selected');
+                    } else {
+                        sibling.classList.remove('selected');
+                    }
+                });
+            });
+            star.addEventListener('click', () => {
+                const value = Number(star.dataset.value);
+                fetch('/api/ratings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    },
+                    body: JSON.stringify({
+                        vendorID: cardData.vendorID,
+                        rating: value,
+                    }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        alert('Error submitting rating');
+                    }
+                });
+            });
+        });
                 vendorGrid.appendChild(packageCard);
             })
         })
@@ -796,8 +832,6 @@ function render() {
                 'Content-Type': 'application/json'
             },
         }).then(response => {
-            return response.json();
-        }).then(data => {
             if (response.status == 409) {
                 showNotification("The wedding is still ongoing can't delete", "red");
                 closeEditModal();
@@ -809,6 +843,9 @@ function render() {
 
             console.log(data);
             window.location.href = '/register';
+            return response.json();
+        }).then(data => {
+            
         }).catch(error => {
             console.error(error);
         });

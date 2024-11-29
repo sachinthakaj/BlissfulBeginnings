@@ -4,7 +4,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
+.heading {
+    cursor: pointer;
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;

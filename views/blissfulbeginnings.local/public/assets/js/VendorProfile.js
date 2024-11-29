@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }).then(vendorData => {
         console.log(vendorData)
         // update title and description
-        document.getElementById('name').textContent = vendorData.name;
+        document.getElementById('name').textContent = vendorData.businessName;
         document.getElementById('description').textContent = vendorData.description;
-        document.getElementById("profile-image").setAttribute("src", vendorData.image);
+        document.getElementById("profile-image").setAttribute("src", vendorData.img);
 
        
 
