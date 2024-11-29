@@ -27,7 +27,14 @@
 
     </header>
     <div class="content-wrapper">
-      <main>
+    <div class="left">
+            <div class="back-button">
+                <a href="/plannerDashboard" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Dashboard</span></a>
+            </div>
+            <!-- <div class="more-about-salons">
+            </div> -->
+
+            <main>
         <div class="progress-bar-vendor-search-and-cards">
           <div class="weddingProgressText">Wedding Progress</div>
 
