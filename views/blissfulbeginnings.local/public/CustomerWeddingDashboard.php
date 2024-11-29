@@ -32,7 +32,7 @@
                         <ul class="dropdown">
                             <li><a href="#" class="edit-profile" id="edit-profile">Edit Profile</a></li>
                             <li><a href="#" class="delete-profile" id="delete-profile">Delete Profile</a></li>
-                            <li><a class="logout-button top-right-item" onclick="window.location.href='/signin'">Log Out</a></li>
+                            <li><a class="logout-button top-right-item" id="log-out">Log Out</a></li>
                         </ul>
                     </li>
                     <li>

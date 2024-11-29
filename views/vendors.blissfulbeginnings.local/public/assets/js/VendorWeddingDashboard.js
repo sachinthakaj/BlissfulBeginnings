@@ -50,7 +50,7 @@ function render() {
                 </div>
                 <div class="card-content">
                     <h2 class="name">${cardData.title}</h2>
-                    <h5 class="sub-name">Deadline: ${cardData.deadline}</h5>
+                    <h5 class="sub-name">Deadline: ${cardData.dateToFinish}</h5>
                     <p class="description">${cardData.description}</p>
                     <button class="card-button">Complete</button>
                 </div>
