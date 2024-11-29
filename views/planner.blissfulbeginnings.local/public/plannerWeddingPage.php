@@ -14,10 +14,6 @@
 </head>
 
 <body>
-   <div class="main-container">
-        <div class="left">
-            <div class="back-button">
-                <a href="/plannerDashboard" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back</span></a>
   <div class="dashboard">
     <header>
       <div class="nav-bar-logo-container">
@@ -31,7 +27,14 @@
 
     </header>
     <div class="content-wrapper">
-      <main>
+    <div class="left">
+            <div class="back-button">
+                <a href="/plannerDashboard" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Dashboard</span></a>
+            </div>
+            <!-- <div class="more-about-salons">
+            </div> -->
+
+            <main>
         <div class="progress-bar-vendor-search-and-cards">
           <div class="weddingProgressText">Wedding Progress</div>
 
@@ -66,6 +69,8 @@
           </div>
         </div>
       </main>
+      </div>
+      
       <aside class="chat-container">
         <div class="chat-all-area">
           <div class="chat-show-area">
