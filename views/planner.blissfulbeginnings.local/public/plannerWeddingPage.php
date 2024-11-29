@@ -14,6 +14,10 @@
 </head>
 
 <body>
+   <div class="main-container">
+        <div class="left">
+            <div class="back-button">
+                <a href="/plannerDashboard" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back</span></a>
   <div class="dashboard">
     <header>
       <div class="nav-bar-logo-container">
@@ -28,7 +32,7 @@
     </header>
     <div class="content-wrapper">
       <main>
-
+  
         <div class="vendor-search-and-cards">
 
           

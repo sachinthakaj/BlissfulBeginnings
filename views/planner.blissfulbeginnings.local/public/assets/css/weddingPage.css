@@ -49,6 +49,35 @@ main {
 .main-container {
   display: flex;
 }
+
+
+
+
+
+.left {
+  flex: 1;
+  padding: 20px;
+}
+
+.go-back {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #c1a42e;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.go-back:hover {
+  color: #656233;
+  transition: ease-in 0.3s;
+}
+
+.go-back-arrow {
+  width: 15px;
+  margin-right: 8px;
+  transform: scale(-1);
+}
 .vendor-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
