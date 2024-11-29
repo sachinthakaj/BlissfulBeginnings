@@ -107,6 +107,11 @@ main {
   max-width: 280px;
 }
 
+.back-button {
+  display: flex;
+  flex-direction: row;
+}
+
 .vendor-card:hover {
   transform: translateY(-5px) scale(1.05); /* Subtle lift and scale effect */
   box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.2),
