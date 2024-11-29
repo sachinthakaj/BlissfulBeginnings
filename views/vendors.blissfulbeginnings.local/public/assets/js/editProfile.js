@@ -80,7 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="close">&times;</span>
                 <h2>Create new Package</h2>
                 <form id="createForm" >
-                    <div class="input-group">
+                    <div class="left">
+                        <div class="input-group">
                         <label for="packageName">Package Name</label>
                         <input type="text" id="packageName" name="packageName" required>
                     </div>
@@ -100,10 +101,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         <label for="fixedCost">Fixed Cost</label>
                         <input type="text" id="fixedCost" name="fixedCost"  required>
                     </div>
+                    </div>
+
                     <div class="submit-button">
                         <button type="submit" class="submit-button">Submit</button>
                     </div>
-                </form>`;
+                `;
             vendorCreatePackageFunctions[vendorData.typeID](modalContent);
 
 
@@ -349,16 +352,20 @@ document.addEventListener("DOMContentLoaded", () => {
 const createPhotographerPackage = (modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `
+        <div class="right">
         <div class="input-group spcific">
             <label for="cameraCoverage">Camera Coverage</label>
             <input type="text" id="cameraCoverage" name="cameraCoverage"  required>
-        </div>`
+        </div>
+        </div>
+        </form > `;
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 };
 
 const createDressDesignerPackage = (modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `
+        <div class="right">    
                 <div class="input-group specific">
             <label for="theme">Theme</label>
             <input type="text" id="theme" name="theme"  required>
@@ -375,6 +382,7 @@ const createDressDesignerPackage = (modalContent) => {
                 <option value="Both">Both</option>
             </select>
         </div>
+        </div>
         </form > `;
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
@@ -383,6 +391,7 @@ const createDressDesignerPackage = (modalContent) => {
 const createSalonPackage = (modalContent) => {
     const div = document.createElement("div");
     div.innerHTML = `
+        <div class="right">
                 <div class="input-group specific">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" required>
@@ -395,6 +404,7 @@ const createSalonPackage = (modalContent) => {
                                     <option value="Both">Both</option>
                                 </select>
                             </div>
+                            </div>
                             </form > `;
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
 
@@ -403,6 +413,7 @@ const createSalonPackage = (modalContent) => {
 const createFloristPackage = (modalContent) => {
     const div = document.createElement("div");
     div.innerHTML += `
+        <div class="right">
                 <div class="input-group specific">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" required>
@@ -413,6 +424,7 @@ const createFloristPackage = (modalContent) => {
                                     <option value="Artificial">Artificial</option>
                                     <option value="Fresh">Fresh</option>
                                 </select>
+                            </div>
                             </div>
                             </form > `;
     modalContent.querySelector(".submit-button").insertAdjacentElement("beforebegin", div);
