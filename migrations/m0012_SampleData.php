@@ -76,7 +76,7 @@ INSERT INTO `packages` (`packageID`, `vendorID`, `packageName`, `feature1`, `fea
 (0x3be1e9ecad5f11ef849640c2ba135079, 0x51452f32ad4f11ef849640c2ba135079, \'Signature Style Package\', \'Up to four fitting sessions\', \'Final gown delivery with preservation box\', \'\', 175000),
 (0x46add449ad6011ef849640c2ba135079, 0x913f8695ad4f11ef849640c2ba135079, \'Signature Style Package\', \'Comprehensive design consultation for the bridal gown\', \'Up to four fitting sessions\', \'\', 1750000),
 (0x481c85d7ad6711efa5ba0a0027000004, 0x5ab6919cad4f11efa5ba0a0027000004, \'Premium Wedding Package\', \' Full-day coverage with pre-wedding shoot\', \'300+ edited high-resolution photos and 20 printed photos\', \' Customized wedding album (20 pages)\', 20000),
-(0x4eabbe7ead6911efa5ba0a0027000004, 0xa4b1c725ad4e11efa5ba0a0027000004, \' Bridal Essentials\', \'Bridal makeup and hairstyling\', \'Complimentary trial session\', \'Long-lasting, waterproof makeup products\',3000 0),
+(0x4eabbe7ead6911efa5ba0a0027000004, 0xa4b1c725ad4e11efa5ba0a0027000004, \' Bridal Essentials\', \'Bridal makeup and hairstyling\', \'Complimentary trial session\', \'Long-lasting, waterproof makeup products\',30000),
 (0x4fa7d5d6aa3f11ef8612cc153136262a, 0x51452f32ad4f11ef849640c2ba135079, \'Bronze\', \'Saree\', \'\', \'\', 50000),
 (0x5c44de6cad5d11ef849640c2ba135079, 0x911de4cbad4e11ef849640c2ba135079, \'Essential Elegance Package\', \'One custom bridal gown design consultation\', \'Fabric selection and sourcing\', \'\', 150000),
 (0x6014cc41ad5f11ef849640c2ba135079, 0x51452f32ad4f11ef849640c2ba135079, \'Couture Bridal Experience Package\', \'Hand-selected, luxury fabrics and materials\', \'Unlimited fitting sessions to ensure a perfect fit\', \'\', 200000),
