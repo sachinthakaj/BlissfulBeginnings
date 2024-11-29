@@ -296,16 +296,14 @@ document.addEventListener("DOMContentLoaded", function () {
       weddings.forEach((wedding) => {
         const card = document.createElement("div");
         card.classList.add("wedding-card");
+        card.id=wedding.weddingID;
 
         card.innerHTML = `
            <h4>${wedding.brideName} & ${wedding.groomName} </h4>
             <p>${wedding.date}</p>
             <p>${wedding.dayNight}</p>
             <p>${wedding.location}</p>
-            <p>${wedding.theme}</p>
-           
-
-            
+            <p>${wedding.theme}</p>            
         `;
 
         if (wedding.weddingState == "new") {
@@ -349,9 +347,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((res) => {
                   if (res.status === 401) {
                     alert("You are not logged in");
-                    //                    window.location.href = '/signin';
+                    window.location.href = '/signin';
+                  } else if (res.status === 200) {
+                    return res.json();
+                  } else {
+                    throw new Error("Network response was not ok");
                   }
-                  res.json();
+                  
+                }).then((data) => {
+                  console.log("in here");
+                  console.log(wedding.weddingID);
+                  console.log(document.getElementById(wedding.weddingID));
+                  document.getElementById(wedding.weddingID).remove();
                 })
                 .catch((error) => {
                   console.error("Error deleting wedding:", error);
