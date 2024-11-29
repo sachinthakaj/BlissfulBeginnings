@@ -42,17 +42,23 @@ body {
 }
 
 header {
+  font-family: "Gwendolyn";
   background-color: #ddd;
   height: 10vh;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   border-radius: 8px;
 }
 
 .nav-bar-logo-container {
   height: 100%;
+  margin-right: auto;
+
+}
+.wedding-title-container{
+  margin-right: auto;
 
 }
 

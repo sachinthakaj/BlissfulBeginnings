@@ -105,18 +105,13 @@
             <!-- Page 1 -->
             <div class="modal-page" data-page="1">
                 <div class="modal-body">
-                    <h3>Basic Information</h3>
-                    <div class="form-group">
-                        <label for="name">Full Name:</label>
-                        <input type="text" id="name" name="name">
-                    </div>
+                    <h3>Login Information</h3>
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email">
+                        <input type="email" id="email" name="email" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" name="phone">
+                        <a href="">Forgot Password</a>
                     </div>
                 </div>
             </div>
@@ -124,24 +119,35 @@
             <!-- Page 2 -->
             <div class="modal-page" data-page="2">
                 <div class="modal-body">
-                    <h3>Business Information</h3>
-                    <div class="form-group">
-                        <label for="businessName">Business Name:</label>
-                        <input type="text" id="businessName" name="businessName">
-                    </div>
-                    <div class="form-group">
-                        <label for="businessType">Business Type:</label>
-                        <select id="businessType" name="businessType">
-                            <option value="">Select type</option>
-                            <option value="photography">Photography</option>
-                            <option value="catering">Catering</option>
-                            <option value="decoration">Decoration</option>
-                            <option value="venue">Venue</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location:</label>
-                        <input type="text" id="location" name="location">
+                    <h3>Wedding Details</h3>
+                    <div class="box-container">
+                        <div class="left">
+                            <div class="form-group">
+                                <label for="wedding-date">Date:</label>
+                                <input type="date" id="wedding-date" name="wedding-date" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="day-night">Day/Night:</label>
+                                <select id="day-night" name="day-night">
+                                    <option value="Day">Day</option>
+                                    <option value="Night">Night</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="form-group">
+                                <label for="wedding-location">Location:</label>
+                                <input type="text" id="wedding-location" name="wedding-location">
+                            </div>
+                            <div class="form-group">
+                                <label for="wedding-theme">Theme:</label>
+                                <input type="text" id="wedding-theme" name="wedding-theme">
+                            </div>
+                            <div class="form-group">
+                                <label for="wedding-budget">Expected Budget:</label>
+                                <input type="number" id="wedding-budget" name="wedding-budget" disabled>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,18 +155,65 @@
             <!-- Page 3 -->
             <div class="modal-page" data-page="3">
                 <div class="modal-body">
-                    <h3>Additional Information</h3>
-                    <div class="form-group">
-                        <label for="description">Business Description:</label>
-                        <textarea id="description" name="description" rows="4"></textarea>
+                    <h3>Bride Details</h3>
+                    <div class="box-container">
+                        <div class="left">
+                            <div class="form-group">
+                                <label for="bride-name">Bride Name:</label>
+                                <input type="text" id="bride-name" name="bride-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="bride-email">Email:</label>
+                                <input type="email" id="bride-email" name="bride-email" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="bride-contact">Contact:</label>
+                                <input type="text" id="bride-contact" name="bride-contact">
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="form-group">
+                                <label for="bride-address">Address:</label>
+                                <input type="text" id="bride-address" name="bride-address">
+                            </div>
+                            <div class="form-group">
+                                <label for="bride-age">Age:</label>
+                                <input type="number" id="bride-age" name="bride-age" disabled>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="experience">Years of Experience:</label>
-                        <input type="number" id="experience" name="experience">
-                    </div>
-                    <div class="form-group">
-                        <label for="website">Website:</label>
-                        <input type="url" id="website" name="website">
+                </div>
+            </div>
+
+            <!-- Page 4 -->
+            <div class="modal-page" data-page="4">
+                <div class="modal-body">
+                    <h3>Groom Details</h3>
+                    <div class="box-container">
+                        <div class="left">
+                            <div class="form-group">
+                                <label for="groom-name">Groom Name:</label>
+                                <input type="text" id="groom-name" name="groom-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="groom-email">Email:</label>
+                                <input type="email" id="groom-email" name="groom-email" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="groom-contact">Contact:</label>
+                                <input type="text" id="groom-contact" name="groom-contact">
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="form-group">
+                                <label for="groom-address">Address:</label>
+                                <input type="text" id="groom-address" name="groom-address">
+                            </div>
+                            <div class="form-group">
+                                <label for="groom-age">Age:</label>
+                                <input type="number" id="groom-age" name="groom-age" disabled>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -170,6 +223,7 @@
                     <span class="dot active" data-page="1"></span>
                     <span class="dot" data-page="2"></span>
                     <span class="dot" data-page="3"></span>
+                    <span class="dot" data-page="4"></span>
                 </div>
                 <div class="button-group">
                     <button class="prev-button" disabled>Previous</button>

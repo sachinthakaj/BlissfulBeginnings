@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
         notificationDiv.id = notification.id;
         notificationDiv.classList.add('notification');
         notificationDiv.innerHTML = `
-          <h4>${notification.title}</h4>
+          <h3>${notification.title}</h3>
           <p>${notification.message}</p>
         `;
         notificationContainer.appendChild(notificationDiv);
@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", function () {
         card.id=wedding.weddingID;
 
         card.innerHTML = `
-           <h4>${wedding.brideName} & ${wedding.groomName} </h4>
+           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
             <p>${wedding.date}</p>
             <p>${wedding.dayNight}</p>
             <p>${wedding.location}</p>
@@ -308,11 +308,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (wedding.weddingState == "new") {
           card.innerHTML = `
-           <h4>${wedding.brideName} & ${wedding.groomName} </h4>
-            <p>${wedding.date}</p>
-            <p>${wedding.dayNight}</p>
-            <p>${wedding.location}</p>
-            <p>${wedding.theme}</p>
+           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+            <p><b>Date:</b>${wedding.date}</p>
+            <p><b>Day/Night</b>:${wedding.dayNight}</p>
+            <p><b>Location:</b>${wedding.location}</p>
+            <p><b>Theme:</b>${wedding.theme}</p>
             
         
         `;
@@ -370,11 +370,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (wedding.weddingState == "unassigned") {
           card.innerHTML = `
-           <h4>${wedding.brideName} & ${wedding.groomName} </h4>
-            <p>${wedding.date}</p>
-            <p>${wedding.dayNight}</p>
-            <p>${wedding.location}</p>
-            <p>${wedding.theme}</p>
+           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+            <p><b>Date:</b>${wedding.date}</p>
+            <p><b>Day/Night</b>:${wedding.dayNight}</p>
+            <p><b>Location:</b>${wedding.location}</p>
+            <p><b>Theme:</b>${wedding.theme}</p>
             
         
         `;
@@ -391,11 +391,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (wedding.weddingState == "ongoing") {
           card.innerHTML = `
-          <h4>${wedding.brideName} & ${wedding.groomName} </h4>
-           <p>${wedding.date}</p>
-           <p>${wedding.dayNight}</p>
-           <p>${wedding.location}</p>
-           <p>${wedding.theme}</p>
+          <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+            <p><b>Date:</b>${wedding.date}</p>
+            <p><b>Day/Night</b>:${wedding.dayNight}</p>
+            <p><b>Location:</b>${wedding.location}</p>
+            <p><b>Theme:</b>${wedding.theme}</p>
            
        
        `;
