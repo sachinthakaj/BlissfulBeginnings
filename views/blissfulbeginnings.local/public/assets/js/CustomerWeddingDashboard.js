@@ -57,7 +57,7 @@ function createVendorCard(vendor) {
 function newWedding(data) {
     vendorGrid.innerHTML = `
                 <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF" class="hourglass-gif">
-                <h4>The wedding planner will assign vendors to you shortly</h4>
+                <p>The wedding planner will assign vendors to you shortly</p>
                 <p>We'll send an email once it is done</p>
                 <a class="open-modal-btn"><p>Click here to change the wedding details</p></a>`;
 
@@ -106,10 +106,7 @@ function newWedding(data) {
                                     </div>
                                     <div class="input-group">
                                         <label for="daynight">Day/Night</label>
-                                        <select id="daynight" name="daynight" required>
-                                            <option value="Day">Day</option>
-                                            <option value="Night">Night</option>
-                                        </select>
+                                        <input type="text" id="daynight" name="daynight" value=${data.dayNight} required>
                                     </div>
                                     <div class="input-group">
                                         <label for="location">Location</label>
@@ -306,42 +303,12 @@ function newWedding(data) {
                 function validateStep(stepIndex) {
                     const inputs = steps[stepIndex].querySelectorAll('input');
                     let valid = true;
-
                     inputs.forEach(input => {
-                        if (input.id === 'date') {
-                            // Date validation
-                            const today = new Date();
-                            const selectedDate = new Date(input.value);
-                            if (selectedDate < today.setHours(0, 0, 0, 0)) {
-                                alert('Date cannot be in the past.');
-                                valid = false;
-                            }
-                        }
-
-                        if (input.id === 'bride_age' || input.id === 'groom_age') {
-                            // Age validation
-                            const age = parseInt(input.value, 10);
-                            if (age < 18 || age > 120) {
-                                alert('Age must be between 18 and 120.');
-                                valid = false;
-                            }
-                        }
-
-                        if (input.id === 'bride_contact' || input.id === 'groom_contact') {
-                            // Contact number validation
-                            const contact = input.value.trim();
-                            if (!/^\d{10}$/.test(contact)) {
-                                alert('Contact number must be exactly 10 digits.');
-                                valid = false;
-                            }
-                        }
-
                         if (!input.checkValidity()) {
                             input.reportValidity();
                             valid = false;
                         }
                     });
-
                     return valid;
                 }
 
@@ -377,8 +344,7 @@ const ongoing = (data) => {
         fetch('/assigned-packages/' + weddingID, {
             method: "GET",
             headers: {
-                "Content-type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
+                "Content-type": "application/json"
             }
         }).then(response => {
             if (!response.ok) {
@@ -392,7 +358,7 @@ const ongoing = (data) => {
             return response.json();
         }).then(packageData => {
 
-            packageData.forEach(cardData => {
+            packageData.forEach(package => {
 
                 const packageCard = document.createElement('div');
                 packageCard.classList.add('package-card');
@@ -405,8 +371,11 @@ const ongoing = (data) => {
                         </div>
                     </div>
                     <div class="card-content">
-                        <h2 class="name">${cardData.businessName}</h2>
+                        <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
                         <div class="content">
+                            <h4 class="description">Date: ${cardData.date}</h4>
+                            <h4 class="description">Time: ${cardData.dayNight}</h4>
+                            <h4 class="description">Location: ${cardData.location}</h4>
                             <h4 class="description">Wedding Progress: </h4> 
                             <div class="progress-bar-container">
                                 <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
@@ -458,8 +427,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="bride-salon"></div>
                         <div class=step-buttons>
-                        <button class="prev-button">Previous</button>
-                        <button class="next-button">Next</button>
+                            <button class="next-button">Next</button>
+                            <button class="prev-button">Previous</button>
                         </div>
                     </div>
                 </div>
@@ -471,8 +440,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="groom-salon"></div>
                         <div class=step-buttons>
-                        <button class="prev-button">Previous</button>
-                        <button class="next-button">Next</button>
+                            <button class="next-button">Next</button>
+                            <button class="prev-button">Previous</button>
                         </div>
                     </div>
                 </div>
@@ -487,8 +456,8 @@ const unassigned = (data) => {
                         </div>
                         <div class="reccomendation-grid" id="salon"></div>
                         <div class=step-buttons>
-                        <button class="prev-button">Previous</button>
-                        <button class="next-button">Next</button>
+                            <button class="next-button">Next</button>
+                            <button class="prev-button">Previous</button>
                         </div>
                     </div>
                 </div>
@@ -503,8 +472,8 @@ const unassigned = (data) => {
                     </div>
                     <div class="reccomendation-grid" id="photographer"></div>
                     <div class=step-buttons>
-                    <button class="prev-button">Previous</button>
-                    <button class="next-button">Next</button>
+                        <button class="next-button">Next</button>
+                        <button class="prev-button">Previous</button>
                     </div>
                 </div>
             </div>
@@ -519,8 +488,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="bride-dress-designer"></div>
                             <div class=step-buttons>
-                            <button class="prev-button">Previous</button>
-                            <button class="next-button">Next</button>
+                                <button class="next-button">Next</button>
+                                <button class="prev-button">Previous</button>
                             </div>
                         </div>
                     </div>
@@ -532,8 +501,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="groom-dress-designer"></div>
                             <div class=step-buttons>
-                            <button class="prev-button">Previous</button>
-                            <button class="next-button">Next</button>
+                                <button class="next-button">Next</button>
+                                <button class="prev-button">Previous</button>
                             </div>
                         </div>
                     </div>
@@ -548,8 +517,8 @@ const unassigned = (data) => {
                             </div>
                             <div class="reccomendation-grid" id="dress-designer"></div>
                             <div class=step-buttons>
-                            <button class="prev-button">Previous</button>
-                            <button class="next-button">Next</button>
+                                <button class="next-button">Next</button>
+                                <button class="prev-button">Previous</button>
                             </div>
                         </div>
                     </div>
@@ -626,41 +595,58 @@ const unassigned = (data) => {
                 console.log(recGrid.id)
                 response[recGrid.id].forEach(package => {
                     const packageDiv = document.createElement('div');
+
+                    const totalImages = 15; 
+
+                    function getRandomImage() {
+                        const randomIndex = Math.floor(Math.random() * totalImages) + 1;
+                    
+                        const imagePath = `/public/images/CustomerWeddingDashboard/img${randomIndex}.png`;
+                    
+                        const imageElement = document.querySelector('.card-img');
+                        imageElement.src = imagePath;
+                    }
+
+
                     packageDiv.classList.add('package');
                     packageDiv.setAttribute("id", package.packageID);
                     packageDiv.innerHTML += `
-                    <div class="package-details">
-                        <div>${package.packageName}</div>
-                        <div>What's Included:</div>
-                        <div class="features">
-                        <ul>
-                            <li>${package.feature1}</li>
-                            ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
-                            ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
-                        </ul>
+                        <div class="image-content">
+                            <span class="overlay"></span>
+                            <div class="card-image">
+                                <img src="/public/assets/images/CustomerWeddingDashboard/img1.png" alt="image here" class="card-img">
+                            </div>
                         </div>
-                        <div class="price">${package.fixedCost}</div>
-                        <btn class="visit">Visit Vendor</btn>
-                    </div>
+                        <div class="card-content">
+                            <h2 class="name">${package.packageName}</h2>
+                            <div class="content">
+                                <h3 class="description">What is included:</h2>
+                                <ul>
+                                    <li class="description">${package.feature1}</li>
+                                    ${package.feature2 ? `<li class="description">${package.feature2}</li>` : ''}
+                                    ${package.feature3 ? `<li class="description">${package.feature3}</li>` : ''}
+                                </ul>
+                                <h4 class="description price">Charge: ${package.fixedCost}</h4>
+                                <a class="visit">Request to Visit</a>
+                            </div>
+                        </div>
                     `
                     packageDiv.querySelector('.visit').addEventListener('click', (event) => {
                         window.location.href = '/vendor/' + package.vendorID;
                     })
                     packageDiv.addEventListener('click', (event) => {
+                        console.log(packageDiv.parentElement.id);
                         if (packageDiv.classList.contains('active')) {
-                            packageDiv.classList.remove('active');
                             delete selectedPackages[packageDiv.parentElement.id];
                         } else {
                             if (selectedPackages[packageDiv.parentElement.id]) {
-                                console.log(selectedPackages);
-                                packageDiv.parentElement.querySelector('.active').classList.remove('active');
-                                selectedPackages[packageDiv.parentElement.id] = package.packageID;
-                                packageDiv.classList.add('active');
-                                return;
+                                console.log(packageDiv.parentElement)
+                                packageDiv.parentElement.querySelector('#' + selectedPackages[packageDiv.parentElement.id]).classList.toggle('active');
                             }
                             selectedPackages[packageDiv.parentElement.id] = package.packageID;
-                            packageDiv.classList.add('active');
                         }
+                        packageDiv.classList.toggle('active');
+                        console.log(selectedPackages);
                     });
                     recGrid.appendChild(packageDiv);
                 }

@@ -168,7 +168,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="bride-contact">Contact:</label>
-                                <input type="number" id="bride-contact" name="bride-contact">
+                                <input type="text" id="bride-contact" name="bride-contact">
                             </div>
                         </div>
                         <div class="right">
@@ -201,7 +201,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="groom-contact">Contact:</label>
-                                <input type="number" id="groom-contact" name="groom-contact">
+                                <input type="text" id="groom-contact" name="groom-contact">
                             </div>
                         </div>
                         <div class="right">
