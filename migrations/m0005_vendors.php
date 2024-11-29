@@ -16,7 +16,7 @@ class m0005_vendors {
   typeID varchar(20) NOT NULL,
   contact varchar(255) NOT NULL,
   address varchar(255) NOT NULL,
-  description varchar(255) NOT NULL,
+  description varchar(1024) NOT NULL,
   rating float default 0,
   imgSrc varchar(512),
   websiteLink varchar(512),

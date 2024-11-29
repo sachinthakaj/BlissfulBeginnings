@@ -1,3 +1,7 @@
+* {
+    font-family: "Poppins", sans-serif
+}
+
 #loading-screen {
     position: fixed;
     top: 0;
@@ -63,9 +67,14 @@ header {
     background-color: #4a5d23;
     color: white;
     border: none;
-    border-radius: 16px;
+    border-radius: 24px;
     padding: 10px 20px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pay-now:hover {
+    background-color: #c1a42e;
 }
 
 .main-container {
@@ -82,15 +91,11 @@ main {
     color: #4a5d23;
 }
 
-.progress-bars {
-    margin-bottom: 20px;
-}
-
 .progress-bar-container {
     position: relative;
     height: 20px;
     width: 100%;
-    margin-bottom: 10px;
+    margin: 50px auto;
 }
 
 .bar {
@@ -114,23 +119,30 @@ main {
     width: 0%;
 }
 
+.budget-progress-bar, .wedding-progress-bar {
+    margin-top: 40px;
+}
+
 .vendor-bar {
     background-color: white;
     width: 100%;
 }
 
 
-.vendor-grid {
+/* .vendor-grid {
     position: grid;
     overflow: auto;
-    height: 70vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
-}
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+} */
 
 .package-step {
-    top: 50%;
-    left: 50%;
+    top: 100%;
+    left: 38%;
     transform: translate(-50%, -50%);
     position: absolute;
     display: none;
@@ -162,18 +174,18 @@ main {
 }
 
 .reccomendation-grid {
-    margin-left: 2rem;
+    /* margin-left: 2rem; */
     margin-right: 2rem;
     display: grid;
+    grid-template-rows: auto;
+    gap: 30px;
     grid-template-columns: 1fr 1fr 1fr;
     /* Two equal columns */
-    grid-template-rows: auto;
     /* Automatically sized rows */
-    gap: 30px;
 }
 
 .package {
-    position: relative; 
+    /* position: relative; 
     height: 40vh;
     display: flex;
     justify-content: space-between;
@@ -187,14 +199,25 @@ main {
     font-size: 1.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
-    overflow: hidden;
+    overflow: hidden; */
+
+    cursor: pointer;
+    width: 280px;
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
 }
 
 
 .package:hover, .package.active {
-    transform: translateY(-10px); /* Moves the card up */
+    /* transform: translateY(-10px); 
     background-color: #f1c40f;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Darkens the shadow */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);  */
+
+    box-shadow: 0 5px 10px #656233;
+    transform: scale(1.025);
+    transition: 0.5s ease-in-out;
+    transform: translateY(-5%);
   }
 
 
@@ -310,16 +333,16 @@ aside {
 
 /* Open button */
 .open-modal-btn {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
+    /* padding: 10px 20px; */
+    color: #c1a42e;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
+    text-decoration: underline;
 }
 
 .open-modal-btn:hover {
-    background-color: #0056b3;
+    color: #656233;
 }
 
 /* Multi Step Form */
@@ -327,19 +350,11 @@ aside {
     margin-bottom: 15px;
 }
 
-label {
+.progress-bar-container label {
     display: block;
     font-size: 1.1em;
-    margin-bottom: 5px;
-}
-
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 1.1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-bottom: 20px;
+    line-height: 70px;
 }
 
 .checkbox-group {
@@ -436,6 +451,10 @@ ul li {
     display: inline-block;
 }
 
+ul li a:hover {
+    text-decoration: none;
+}
+
 ul li a {
     display: block;
     padding: 10px 20px;
@@ -483,6 +502,12 @@ ul li ul.dropdown li a:hover {
 
 ul li:hover ul.dropdown {
     display: block;
+}
+
+.hourglass-gif {
+    width: 25%;
+    height: 50%;
+    margin-top: 0px;
 }
 
 /* Extra Responsiveness */
@@ -603,6 +628,7 @@ ul li:hover ul.dropdown {
 .edit-modal {
     background-color: #fff;
     padding: 20px;
+    padding-right: 40px;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
@@ -735,4 +761,325 @@ ul li:hover ul.dropdown {
 
 .prev-button:not(:disabled):hover {
     background-color: #ddd;
+}
+
+.box-container {
+    display: flex;
+    gap: 2rem;
+    /* margin-bottom: 1.5rem; */
+}
+
+.left, .right {
+  flex: 1;
+}
+
+/* cards */
+.card {
+    cursor: pointer;
+    width: 280px;
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover {
+    box-shadow: 0 5px 10px #656233;
+    transform: scale(1.025);
+    transition: 0.5s ease-in-out;
+    transform: translateY(-5%);
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 40px;
+    padding: 15px 0;
+}
+
+.image-content, .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.image-content {
+    row-gap: 5px;
+    position: relative;
+    padding: 25px 0;
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #c1a42e;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before, .overlay::after {
+    content: '';
+    right: 0;
+    bottom: -40px;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background-color: #c1a42e;
+}
+
+.overlay::after {
+    border-radius: 0 25px 0 0;
+    background-color: #fff;
+
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #c1a42e;
+}
+
+.name {
+    font-size: 40px;
+    font-weight: 900;
+    color: #656233;
+    font-family: "Gwendolyn", sans-serif;
+    text-align: center;
+}
+
+.description {
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+    line-height: 15px;
+}
+
+
+
+.time-remaining-container {
+    margin-bottom: 0px;
+}
+
+.visit {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    background-color: #c1a42e;
+    color: white;
+    font-weight: 500;
+    border-radius: 24px;
+    transition: background-color 0.3s ease;
+}
+
+.visit:hover {
+    background-color: #656233;
+    color: white;
+    text-decoration: none;
+
+}
+
+.card-content .content ul {
+    display: flex; 
+    flex-direction: column; 
+    padding: 0; 
+    margin: 0;
+}
+
+.card-content .content li {
+    margin: 0.5rem 0;
+    font-size: 1rem; 
+    color: #333; 
+}
+
+
+/* new */
+/* Vendor Grid Base Styles - Enhanced */
+.vendor-grid {
+    position: relative;
+    overflow: auto;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     /* Changed to flex-start to avoid centering issues */
+    /* padding: 2rem; */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0px;
+}
+
+/* Scrollbar Styles */
+.vendor-grid::-webkit-scrollbar {
+    width: 7px;
+}
+
+.vendor-grid::-webkit-scrollbar-track {
+    background-color: #e0dcdc;
+    border-radius: 10px;
+}
+
+.vendor-grid::-webkit-scrollbar-thumb {
+    background-color: #c1a42e;
+    border-radius: 10px;
+}
+
+.vendor-grid::-webkit-scrollbar-thumb:hover {
+    background-color: #656233;
+    transition: ease-in 1s;
+}
+
+/* Package Step Styles */
+.package-step {
+    width: 100%;
+    margin-bottom: 2rem;
+    display: none; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.package-step.current {
+    display: block;
+    opacity: 1;
+}
+
+/* Package Selector Styles */
+/* .package-selector {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+} */
+
+.package-selector-information {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e0dcdc;
+}
+
+.package-selector-information img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.package-selector-information p {
+    font-size: 1.25rem;
+    color: #2d3748;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Recommendation Grid Styles */
+.reccomendation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Step Buttons Container */
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0dcdc;
+}
+
+/* Button Styles */
+.next-button,
+.prev-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.next-button {
+    background-color: #c1a42e;
+    color: white;
+}
+
+.prev-button {
+    background-color: #e0dcdc;
+    color: #4a5568;
+}
+
+.next-button:hover {
+    background-color: #656233;
+}
+
+.prev-button:hover {
+    background-color: #cbd5e0;
+}
+
+/* Responsive Adjustments */
+/* @media (max-width: 768px) {
+    .vendor-grid {
+        padding: 1rem;
+        height: 60vh;
+    }
+
+    .package-selector {
+        padding: 1rem;
+    }
+
+    .package-selector-information {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .reccomendation-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .step-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .next-button,
+    .prev-button {
+        width: 100%;
+    }
+} */
+
+/* Animation for Step Transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.package-step.current {
+    animation: fadeIn 0.5s ease-out forwards;
 }

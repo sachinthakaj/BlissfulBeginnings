@@ -19,11 +19,11 @@ class Package
 
     public function createDressDesignerPackage($packageID, $packageDetails)
     {
-        $this->db->query("INSERT INTO dressDesignerPackages (packageID, variableCost, theme, demographic) VALUES (UNHEX(:packageID), :variableCost, :demographic, :theme);");
+        $this->db->query("INSERT INTO dressDesignerPackages (packageID, variableCost, theme, demographic) VALUES (UNHEX(:packageID), :variableCost, :theme, :demographic);");
         $this->db->bind(':packageID', $packageID);
         $this->db->bind(':variableCost', $packageDetails['variableCost']);
         $this->db->bind(':demographic', $packageDetails['demographic']);
-        $this->db->bind('theme', $packageDetails['theme']);
+        $this->db->bind(':theme', $packageDetails['theme']);
         $this->db->execute();
     }
 
@@ -224,19 +224,50 @@ class Package
     {
         try {
             $this->db->startTransaction();
-            $this->db->query('INSERT INTO packageAssignment (assignmentID,weddingID, packageID, typeID, state) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, "Unagreed", 0);');
-            $this->db->bind(':weddingID', $weddingID);
             foreach ($packages as $typeID => $packageID) {
                 $assignmentID = generateUUID($this->db);
-                $this->db->bind(':assignmentID', $assignmentID);
-                $this->db->bind(':packageID', $packageID);
-                $this->db->bind(':typeID', $typeID);
+                $this->db->query('INSERT INTO packageAssignment (assignmentID, weddingID, packageID, typeID, assignmentState, progress) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, :assignmentState, :progress);');
+                error_log($typeID." ".$packageID." ".$weddingID." ".$assignmentID); 
+                $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_LOB);
+                $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
+                $this->db->bind(':packageID', $packageID, PDO::PARAM_LOB);
+                $this->db->bind(':typeID', $typeID, PDO::PARAM_STR);
+                $this->db->bind(':assignmentState', 'Unagreed', PDO::PARAM_STR);
+                $this->db->bind(':progress', '0', PDO::PARAM_INT);
                 $this->db->execute();
             }
+            $this->db->query('UPDATE wedding SET weddingstate = "ongoing" WHERE weddingID = UNHEX(:weddingID);');
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
+            $this->db->query('DELETE FROM recommendations WHERE weddingID = UNHEX(:weddingID);');
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
             $this->db->commit();
+            return true;
         } catch (Exception $e) {
             $this->db->rollbackTransaction();
             error_log($e);
+        }
+    }
+
+    public function getAssignedPackages($weddingID){
+        try {
+            $this->db->query('SELECT packageAssignment.*, packages.packageName, packages.fixedCost, vendors.businessName, vendors.imgSrc FROM packageAssignment 
+            JOIN packages ON packageAssignment.packageID = packages.packageID 
+            JOIN vendors ON packages.vendorID = vendors.vendorID
+            WHERE packageAssignment.weddingID = UNHEX(:weddingID);');
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
+            $results = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            foreach($results as $key => $value) {
+                $results[$key]['assignmentID'] = bin2hex($value['assignmentID']);
+                $results[$key]['packageID'] = bin2hex($value['packageID']);
+                unset($results[$key]['weddingID']);
+            }
+            return $results;
+        } catch (PDOException $e) {
+            error_log($e);
+            throw new Exception("Error Processing Request", 1);      
         }
     }
 

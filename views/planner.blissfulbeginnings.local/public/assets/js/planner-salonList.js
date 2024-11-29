@@ -11,6 +11,8 @@ function render() {
                 if (!response.ok) {
                     if (response.status === 403) {
                         console.log("No salons Found");
+                    } else if (response.status === 401) {
+                        window.location.href = '/signin';
                     } else {
                         throw new Error('Network response was not ok');
                     }
@@ -44,7 +46,7 @@ function render() {
                       <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
                 `;
                 card.innerHTML = cardHTML;
-                
+                card.id=data.vendorID;
                    // Add delete functionality
         const deleteIcon = card.querySelector('.delete-icon');
         deleteIcon.addEventListener('click', () => {
@@ -56,6 +58,11 @@ function render() {
     }
             // Render all cards
             data.forEach(createCard);
+            document.querySelectorAll('.container').forEach(card => {
+                card.addEventListener('click', () => {
+                    window.location.href = `/vendor/${card.id}`;
+                })
+            })
         })
     } catch (error) {
 

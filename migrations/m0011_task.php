@@ -24,7 +24,7 @@ class m0011_task {
     }
 
     public function down() {
-      $SQL = "DROP TABLE recommendations";
+      $SQL = "DROP TABLE task";
       $this->dbh->exec($SQL);
     }
 }

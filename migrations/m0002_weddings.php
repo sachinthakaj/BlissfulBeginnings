@@ -23,7 +23,7 @@ class m0002_weddings {
         sepDressDesigners BOOLEAN,
         weddingState ENUM('new', 'unassigned', 'ongoing', 'finished') NOT NULL,
 
-        CONSTRAINT fk_weds_ref_users FOREIGN KEY (userID) REFERENCES users(userID)
+        CONSTRAINT fk_weds_ref_users FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE ON UPDATE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
               $this->dbh->exec($SQL);
     }

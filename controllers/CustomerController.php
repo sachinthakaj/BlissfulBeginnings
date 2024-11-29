@@ -39,6 +39,7 @@ class CustomerController
             $weddingDetails = $wedding->fetchDataCustomer($parameters['weddingID']);
             error_log(json_encode($weddingDetails));
             if ($weddingDetails) {
+                unset($weddingDetails['userID']);
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($weddingDetails);
             } else {
@@ -127,11 +128,40 @@ class CustomerController
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);
             $package = new Package();
-            $package->setPackages($parameters['weddingID'], $parsed_data);
+            if($package->setPackages($parameters['weddingID'], $parsed_data)){
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['message' => 'Packages set successfully']);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Error setting packages']);
+            }
 
 
         } catch(PDOException $e) {
             error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error setting packages']);
+        }
+    }
+
+    public function getAssignedPackages($parameters) {
+        if(!Authenticate('customer', $parameters['weddingID'])){
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'You need to be logged in']);
+            return;
+        } 
+        try {
+            $package = new Package();
+            $assignedPackages = $package->getAssignedPackages($parameters['weddingID']);
+            if($assignedPackages) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($assignedPackages);
+            }
+
+        }catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error getting assigned packages']);
         }
     }
 

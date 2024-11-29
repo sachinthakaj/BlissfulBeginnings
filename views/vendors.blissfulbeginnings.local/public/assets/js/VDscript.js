@@ -1,5 +1,4 @@
 const path = window.location.pathname;
-console.log(path)
 const pathParts = path.split('/');
 const vendorID = pathParts[pathParts.length - 1];
 
@@ -17,6 +16,7 @@ function render() {
     const submitButton = editModalContainer.querySelector('.submit-button');
     const modalPages = editModalContainer.querySelectorAll('.modal-page');
     const paginationDots = editModalContainer.querySelectorAll('.dot');
+    const navigateEditProfileButton = document.querySelector('.view-packages-button');
 
     // script.js
 
@@ -244,16 +244,18 @@ function render() {
     async function fetchCards() {
         try {
             console.log(vendorID);
-            const response = await fetch(`/vendor/${vendorID}/get-weddings`);
+            const response = await fetch(`/vendor/${vendorID}/get-weddings`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                },
 
-            if (!response.ok) {
-                throw new Error(`HTTP error: ${response.status}`);
+            });
+            if (response.status == 401) {
+                window.location.href = "/signin"
             }
-
-            const textData = await response.text();
-            const data = textData ? JSON.parse(textData) : [];
-
-            return data;
+            return response.json();
         } catch (error) {
             console.error('Error fetching cards:', error);
             showNotification("Could not fetch weddings", "red");
@@ -264,18 +266,41 @@ function render() {
 
     // initialize cards
     async function initializeCards() {
-        const cardsData = await fetchCards();
-
-        if (Array.isArray(cardsData) && cardsData.length > 0) {
-            loadCards(cardsData);
+        const vendorData = await fetchCards();
+        if (vendorData.vendorState ==   'new') {
+            messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.innerHTML = '<h2>Awaiting Planner Approval</h2>';
+            scrollContainer.appendChild(messageDiv);
+            navigateEditProfile.disabled = true;
         } else {
-            showNotification("No wedding data available", "red");
+            navigateEditProfileButton.addEventListener('click', navigateEditProfile);
+            const cardsData = vendorData.weddings;
+            if (Array.isArray(cardsData) && cardsData.length > 0) {
+                loadCards(cardsData);
+                document.querySelectorAll('.card').forEach(card => {
+                    console.log('Adding event listener')
+                    card.addEventListener('click', () => {
+                        console.log("Here")
+                        window.location.href = `/vendor/${vendorID}/assignment/${card.id}`
+                    })
+                })
+            } else {
+                showNotification("No weddings assigned", "red");
+            }
         }
+       
     }
+
+    function navigateEditProfile() {
+        window.location.href = `/packages/${vendorID}`;
+    }
+
+
 
     function createCard(cardData) {
         return `
-            <div class="card">
+            <div class="card" id=${cardData.assignmentID}>
                 <div class="image-content">
                     <span class="overlay"></span>
                     <div class="card-image">
@@ -283,7 +308,7 @@ function render() {
                     </div>
                 </div>
                 <div class="card-content">
-                    <h2 class="name">${cardData.bride} & ${cardData.groom}'s Wedding</h2>
+                    <h2 class="name">${cardData.weddingTitle}'s Wedding</h2>
                     <div class="content">
                         <h4 class="description">Date: ${cardData.date}</h4>
                         <h4 class="description">Time: ${cardData.dayNight}</h4>
@@ -316,11 +341,14 @@ function render() {
 
         // inserting into slide-content
         scrollContainer.innerHTML = cardWrappersHTML;
+
     }
 
     // loadCards(cardsData);
 
     initializeCards();
+
+
 
     // modal for delete profile
     function openModal() {
@@ -343,7 +371,8 @@ function render() {
             fetch('/delete-profile/vendor-details/' + vendorID, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
             })
                 .then(response => {
@@ -421,7 +450,9 @@ function render() {
 
         fetch('/get-profile-details/vendor-details/' + vendorID, {
             method: 'GET',
-            headers: {
+            headers:
+            {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => {
@@ -441,6 +472,7 @@ function render() {
                     fetch('/update-profile/vendor-details/' + vendorID, {
                         method: 'POST',
                         headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(changedFields)
@@ -456,10 +488,6 @@ function render() {
                     });
                 }
             })
-
-            
-
-
         })
     }
 

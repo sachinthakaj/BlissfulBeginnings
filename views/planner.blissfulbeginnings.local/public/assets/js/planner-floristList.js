@@ -3,30 +3,32 @@ function render() {
         fetch('/get-floristlist/', {
             method: 'GET',
             headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => {
             if (!response.ok) {
                 if (response.status === 403) {
                     console.log("No florists Found");
+                } else if (response.status === 401) {
+                    window.location.href = '/signin';
                 } else {
                     throw new Error('Network response was not ok');
                 }
             }
             return response.json();
-            
+
         }).then(data => {
             const scrollContainer = document.querySelector('.more-about-florists');
-        
+
             // Clear the container first
-           scrollContainer.innerHTML = '';
-        
+            scrollContainer.innerHTML = '';
+
             // Function to create and append a card
             function createCard(data) {
                 const card = document.createElement('div');
                 card.classList.add('container');
-        
+
                 const cardHTML = `
                     <div class="image-container">
                         <img src="${data.imgSrc}" alt="Image here" class="image">
@@ -43,23 +45,29 @@ function render() {
                       <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
                 `;
                 card.innerHTML = cardHTML;
-                
-                   // Add delete functionality
-        const deleteIcon = card.querySelector('.delete-icon');
-        deleteIcon.addEventListener('click', () => {
-            card.remove();
-        });
+                card.id=data.vendorID;
 
-        // Append card to the container
-        scrollContainer.appendChild(card);
-    }
+                // Add delete functionality
+                const deleteIcon = card.querySelector('.delete-icon');
+                deleteIcon.addEventListener('click', () => {
+                    card.remove();
+                });
+
+                // Append card to the container
+                scrollContainer.appendChild(card);
+            }
             // Render all cards
             data.forEach(createCard);
+            document.querySelectorAll('.container').forEach(card => {
+                card.addEventListener('click', () => {
+                    window.location.href = `/vendor/${card.id}`;
+                })
+            })
         })
     } catch (error) {
 
     }
-    
+
 }
 
 

@@ -2,14 +2,16 @@
 
 $router->get("/plannerDashboard", "PlannerController@dashboard");
 $router->get("/fetch-wedding-data", "PlannerController@fetchWeddingData");
+$router->get("/fetch-wedding/{weddingID}", "PlannerController@fetchWedding");
+$router->get("/fetch-assigned-vendors/{weddingID}", "PlannerController@showAllVendorsForWedding");
+
 $router->post("/update-wedding-state","PlannerController@updateWeddingData");
 $router->delete("/delete-wedding","PlannerController@deleteWeddingData");
-$router->get("/vendors-for-wedding", "PlannerController@showAllVendorsForWedding");
-$router->get("/task-vendors-for-wedding", "PlannerController@linkTaskForVendors");
-$router->post("/tasks-create-for-vendors", "PlannerController@createTasksForVendors");
+$router->get("/tasks-for-assignments/{assignmentID}", "PlannerController@getTasksForAssignments");
+$router->post("/tasks-create-for-vendors/{assignmentID}", "PlannerController@createTasksForVendors");
 $router->get("/fetch-all-tasks", "PlannerController@getAllTasksForVendor");
-$router->post("/update-tasks", "PlannerController@updateOfTasks");
-$router->delete("/delete-tasks","PlannerController@deleteOfTasks");
+$router->post("/update-tasks/{taskID}", "PlannerController@updateOfTasks");
+$router->delete("/delete-tasks/{taskID}","PlannerController@deleteOfTasks");
 
 
 
@@ -26,6 +28,7 @@ $router->get("/selectPackages/{weddingID}","PlannerController@selectPackages");
 
 $router->get("/wedding/data/{weddingID}", "customerController@fetchData");
 
+
 $router->get("/salons", "PlannerController@salonsList");
 $router->get("/dress-designers", "PlannerController@dressDesignersList");
 $router->get("/photographers", "PlannerController@photographersList");
@@ -33,7 +36,8 @@ $router->get("/florists", "PlannerController@floristsList");
 
 
 
-
+$router->get("/vendor/{vendorID}/accept", "PlannerController@acceptVendor");
+$router->get("/vendor/{vendorID}/reject", "PlannerController@rejectVendor");
 
 
 $router->get("/get-salonslist","PlannerController@getSalonsList");

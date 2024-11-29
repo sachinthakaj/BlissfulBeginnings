@@ -14,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('/edit-profile/vendor-details/' + vendorID, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+
         },
     }).then(response => {
 
@@ -39,10 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
             notification.style.borderRadius = "5px";
             notification.style.zIndex = 1000;
             notification.style.fontSize = "16px";
-    
+
             // Append to body
             document.body.appendChild(notification);
-    
+
             // Remove after 3 seconds
             setTimeout(() => {
                 notification.remove();
@@ -112,7 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 package["typeID"] = vendorData.typeID;
                 fetch('/vendor/' + vendorID + '/create-package', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    },
                     body: JSON.stringify(package),
                 }).then(response => {
                     if (!response.ok) {
@@ -165,19 +170,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const deleteProfile = document.querySelectorAll('.delete-icon');
         const modalContainer = document.querySelector('.delete-modal-container');
-        
+
         // delete package confirmation modal
         function openModal(event) {
             event.stopPropagation(); // prevents bubbling the parent element
             modalContainer.classList.add('show');
             console.log("Delete button clicked");
         }
-    
+
         function closeModal() {
             modalContainer.classList.remove('show');
             console.log("Close button clicked");
-        }  
-        
+        }
+
 
         if (deleteProfile && modalContainer) {
             deleteProfile.forEach(button => {
@@ -191,23 +196,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetch('/packages/delete/' + packageID, {
                     method: 'DELETE',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                     },
                 })
-                .then(response => {
+                    .then(response => {
 
-                    if (response.status === 204) {
-                        showNotification(" There is no package for this packageID", "red");
-                    }
-                    if (!response.ok) {
-                        if (response.status === 409) {
-                            closeModal();
-                            showNotification(" This package is currently in use", "red");
-                            return
+                        if (response.status === 204) {
+                            showNotification(" There is no package for this packageID", "red");
                         }
+                        if (!response.ok) {
+                            if (response.status === 409) {
+                                closeModal();
+                                showNotification(" This package is currently in use", "red");
+                                return
+                            }
 
-                    }
-                })
+                        }
+                    })
 
                 showNotification("Profile deleted", "red");
                 window.location.href = '/register';
@@ -220,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     closeModal();
                 }
             });
-        
+
             // Close modal with Escape key
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape' && modalContainer.classList.contains('show')) {
@@ -230,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        function openUpdateModal(packageID) { 
+        function openUpdateModal(packageID) {
             console.log(packageID);
             const package = vendorData.packages[packageID];
             console.log(package);
@@ -295,7 +301,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 fetch('/vendor/' + vendorID + '/update-package/' + packageID, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    },
                     body: JSON.stringify(updateFields),
                 }).then(response => {
                     if (!response.ok) {

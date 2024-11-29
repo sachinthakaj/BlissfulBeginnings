@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             // Handle error (e.g., show an error message)
             console.error('Error registering:', error);
-            alert('Registration failed, please try again.');
         });
     });
 });

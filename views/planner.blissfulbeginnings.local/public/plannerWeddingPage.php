@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wedding Page</title>
-  <link rel="stylesheet" href="./public/assets/css/weddingPage.css" />
+  <link rel="stylesheet" href="/public/assets/css/weddingPage.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -22,7 +22,7 @@
     <header>
       <div class="nav-bar-logo-container">
         <img
-          src="./public/assets/images/Logo.png"
+          src="/public/assets/images/Logo.png"
           alt="Blissful Beginnings Logo"
           class="nav-bar-logo" />
       </div>
@@ -32,33 +32,59 @@
     </header>
     <div class="content-wrapper">
       <main>
-  
-        <div class="vendor-search-and-cards">
+        <div class="progress-bar-vendor-search-and-cards">
+          <div class="weddingProgressText">Wedding Progress</div>
 
-          
-          <div class="vendor-cards"></div>
-          <div id="taskFormModal"  class="modal">
-            <div class="modal-content">
-              <span id="closeModal" class="close">&times;</span>
-              <h2>Add Task</h2>
-              <form id="taskForm">
-                <input id="assignmentID"type="hidden" name="assignmentID" value="">
-                <lable for="taskDescription">Description:</lable>
-                <textarea id="taskDescription" name="taskDescription" required></textarea>
-                <label for="dateToFinish">Finish Before:</label>
-                <input id="dateToFinish" name="dateToFinish" type="date" required>
-                <button type="submit">Submit</button>
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+          </div>
+          <div class="weddingProgressText">Budget Progress</div>
+          <div class="progress-container">
+            <div class="progress-bar" id="budgetBar" style="width: 0%"></div>
+          </div>
 
-              </form>
+          <div class="vendor-search-and-cards">
+
+
+            <div class="vendor-cards"></div>
+            <div id="taskFormModal" class="modal">
+              <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2>Add Task</h2>
+                <form id="taskForm">
+                  <input id="assignmentID" type="hidden" name="assignmentID" value="">
+                  <lable for="taskDescription" class="taskDescription">Description:</lable>
+                  <textarea id="taskDescription" name="taskDescription" required></textarea>
+                  <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
+                  <input id="dateToFinish" name="dateToFinish" type="date" required>
+                  <button type="submit" class="submitButton">Submit</button>
+
+                </form>
+              </div>
+
             </div>
-
           </div>
         </div>
       </main>
-      <aside class="calendar-container"></aside>
+      <aside class="chat-container">
+        <div class="chat-all-area">
+          <div class="chat-show-area">
+
+
+          </div>
+
+          <div class="chat-action-area">
+            <div class="Message-type-area"></div>
+            <button class="Message-send-button-area">SEND</button>
+
+
+          </div>
+
+        </div>
+      </aside>
     </div>
   </div>
-  <script src="./public/assets/js/weddingPage.js"></script>
+  <script src="/public/assets/js/weddingPage.js"></script>
 </body>
 
 </html>

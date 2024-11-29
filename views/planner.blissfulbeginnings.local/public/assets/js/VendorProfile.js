@@ -1,118 +1,150 @@
 const path = window.location.pathname;
-const pathParts = path.split('/');
+const pathParts = path.split("/");
 const vendorID = pathParts[pathParts.length - 1];
 
-
-const mainContainer = document.querySelector('.main-container');
+const mainContainer = document.querySelector(".main-container");
 
 document.addEventListener("DOMContentLoaded", () => {
-    const loadingScreen = document.getElementById("loading-screen");
-    const mainContent = document.getElementById("main-content");
-    fetch('/vendor/vendor-details/' + vendorID, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-            'Content-Type': 'application/json'
-        },
-    }).then(response => {
-
+  const loadingScreen = document.getElementById("loading-screen");
+  const mainContent = document.getElementById("main-content");
+  fetch("/vendor/vendor-details/" + vendorID, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if(response.status == 401) {
+        window.location.href = "/signin";
+      } else if(response.status == 200) {
         return response.json();
-    }).then(vendorData => {
-        if (vendorData.vendorstate === 'new') {
-            const bar = document.createElement('div');
-            bar.classList.add('bottom-bar');
-            bar.style.position = 'fixed';
-            bar.style.bottom = '0';
-            bar.style.width = '100%';
-            bar.style.background = 'white';
-            bar.innerHTML = `
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    })
+    .then((vendorData) => {
+      document.getElementById("business-name").textContent = vendorData.businessName;
+      if (vendorData.vendorstate === "new") {
+        const bar = document.createElement("div");
+        bar.classList.add("bottom-bar");
+        bar.style.position = "fixed";
+        bar.style.bottom = "0";
+        bar.style.width = "100%";
+        bar.style.background = "white";
+        bar.innerHTML = `
+                <p>Do you want to accept or reject this vendor?</p>
                 <button class="accept-button">Accept</button>
                 <button class="reject-button">Reject</button>
             `;
-            document.body.appendChild(bar);
-            document.querySelector('.accept-button').addEventListener('click', () => {
-                fetch('/vendor/' + vendorID + '/accept', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                }).then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                }).then(() => {
-                    alert('Vendor accepted successfully');
-                }).catch(error => {
-                    console.error('Error accepting vendor:', error)
-                    alert('Error accepting vendor');
-                });
+        
+        document.body.appendChild(bar);
+        document
+          .querySelector(".accept-button")
+          .addEventListener("click", () => {
+            fetch("/vendor/" + vendorID + "/accept", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem("authToken")}`,
+              },
             })
-            document.querySelector('.reject-button').addEventListener('click', () => {
-                fetch('/vendor/' + vendorID + '/reject', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                }).then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                }).then(() => {
-                    alert('Vendor rejected successfully');
-                }).catch(error => {
-                    console.error('Error rejecting vendor:', error)
-                    alert('Error rejecting vendor');
-                });
+              .then((response) => {
+                if (response.status == 401) {
+                  window.location.href = "/signin";
+                  throw error;
+                } else if(response.status == 200) {
+                  alert("Vendor accepted successfully");
+                  bar.remove();
+                }
+              })          
+              .catch((error) => {
+                console.error("Error accepting vendor:", error);
+                alert("Error accepting vendor");
+              });
+          });
+        document
+          .querySelector(".reject-button")
+          .addEventListener("click", () => {
+            fetch("/vendor/" + vendorID + "/reject", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem("authToken")}`,
+              },
             })
-        }
-        console.log(vendorData)
-        // update title and description
-        document.getElementById('name').textContent = vendorData.name;
-        document.getElementById('description').textContent = vendorData.description;
-        document.getElementById("profile-image").setAttribute("src", vendorData.image);
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+              })
+              .then(() => {
+                alert("Vendor rejected successfully");
+                window.location.href = "/plannerDashboard/";
+              })
+              .catch((error) => {
+                console.error("Error rejecting vendor:", error);
+                alert("Error rejecting vendor");
+              });
+          });
+      }
+      console.log(vendorData);
+      // update title and description
+      document.getElementById("description").textContent =
+        vendorData.description;
+      document
+        .getElementById("profile-image")
+        .setAttribute("src", vendorData.image);
 
-       
+      console.log(vendorData.packages);
+      const packagesContainer = document.getElementById("packages-container");
 
-        console.log(vendorData.packages);
-        const packagesContainer = document.getElementById('packages-container');
-
-        Object.entries(vendorData.packages).forEach(([packageID, package]) => {
-            const packageDiv = document.createElement('div');
-            packageDiv.classList.add('package');
-            packageDiv.setAttribute("id", packageID);
-            packageDiv.innerHTML = `
+      Object.entries(vendorData.packages).forEach(([packageID, package]) => {
+        const packageDiv = document.createElement("div");
+        packageDiv.classList.add("package");
+        packageDiv.setAttribute("id", packageID);
+        packageDiv.innerHTML = `
                 <div class="details">
-                    <div>${package.name}</div>
+                    <div>${package.packageName}</div>
                     <div>What's Included:</div>
                     <ul>
                          <li>${package.feature1}</li>
-                            ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
-                            ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
+                            ${
+                              package.feature2
+                                ? `<li>${package.feature2}</li>`
+                                : ""
+                            }
+                            ${
+                              package.feature3
+                                ? `<li>${package.feature3}</li>`
+                                : ""
+                            }
                     </ul>
                     <div class="price">${package.fixedCost}</div>
                 </div>
                 `;
-            packagesContainer.appendChild(packageDiv);
-        });
+        packagesContainer.appendChild(packageDiv);
+      });
 
-
-       
-
-        loadingScreen.style.display = "none";
-        mainContent.style.display = "block";
-    }).catch(error => {
-        console.error('Error fetching data early:', error)
-        loadingScreen.innerHTML = "<p>Error loading data. Please try again later.</p>";
+      loadingScreen.style.display = "none";
+      mainContent.style.display = "block";
+    })
+    .catch((error) => {
+      console.error("Error fetching data early:", error);
+      loadingScreen.innerHTML =
+        "<p>Error loading data. Please try again later.</p>";
     });
-
 });
 
-
 const displayPhotographerPackage = (packageDetails, modalContent) => {
-    modalContent.innerHTML += `<div class="input-group">
+  modalContent.innerHTML += `<div class="input-group">
                                 <label for="cameraCoverage">Camera Coverage</label>
                                 <input type="text" id="cameraCoverage" name="cameraCoverage" value=${packageDetails.cameraCoverage} required>
                             </div>
                             </form>`;
-}
+};
 const displayDressDesignerPackage = (packageDetails, divElement) => {
-    modalContent.innerHTML += `<div class="input-group">
+  modalContent.innerHTML += `<div class="input-group">
                                 <label for="theme">Theme</label>
                                 <input type="text" id="theme" name="theme" value=${packageDetails.theme} required>
                             </div>
@@ -129,9 +161,9 @@ const displayDressDesignerPackage = (packageDetails, divElement) => {
                                 </select>
                             </div>
                             </form>`;
-}
+};
 const displaySalonPackage = (packageDetails, divElement) => {
-    modalContent.innerHTML += `
+  modalContent.innerHTML += `
                             <div class="input-group">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
@@ -145,9 +177,9 @@ const displaySalonPackage = (packageDetails, divElement) => {
                                 </select>
                             </div>
                             </form>`;
-}
+};
 const displayFloristPackage = (packageDetails, divElement) => {
-    modalContent.innerHTML += `
+  modalContent.innerHTML += `
                             <div class="input-group">
                                 <label for="variableCost">Cost per Group Member</label>
                                 <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
@@ -160,15 +192,11 @@ const displayFloristPackage = (packageDetails, divElement) => {
                                 </select>
                             </div>
                             </form>`;
-}
+};
 
 const vendorDisplayFunctions = {
-    'Photographer': displayPhotographerPackage,
-    'Dress Designer': displayDressDesignerPackage,
-    'Salon': displaySalonPackage,
-    'Florist': displayFloristPackage
-}
-
-
-
-
+  Photographer: displayPhotographerPackage,
+  "Dress Designer": displayDressDesignerPackage,
+  Salon: displaySalonPackage,
+  Florist: displayFloristPackage,
+};

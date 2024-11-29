@@ -8,7 +8,6 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
-alert("Now in the customer Dashboard");
 
 function showNotification(message, color) {
     // Create notification element
@@ -57,7 +56,7 @@ function createVendorCard(vendor) {
 
 function newWedding(data) {
     vendorGrid.innerHTML = `
-                <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF">
+                <img src="/public/assets/images/hourglass.gif" alt="hourglass GIF" class="hourglass-gif">
                 <p>The wedding planner will assign vendors to you shortly</p>
                 <p>We'll send an email once it is done</p>
                 <a class="open-modal-btn"><p>Click here to change the wedding details</p></a>`;
@@ -71,7 +70,7 @@ function newWedding(data) {
             fetch('/wedding/couple-details/' + weddingID, {
                 method: 'GET',
                 headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                     'Content-Type': 'application/json'
                 },
             }).then(response => {
@@ -239,9 +238,10 @@ function newWedding(data) {
                     // Send `changedFields` to the backend
                     fetch("/update-wedding/" + weddingID, {
                         method: "PUT",
-                        headers: { 
+                        headers: {
                             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                            "Content-Type": "application/json" },
+                            "Content-Type": "application/json"
+                        },
                         body: JSON.stringify({ changedWeddingFields, changedBrideFields, changedGroomFields }),
                     }).then(response => {
                         currentStep = 0;
@@ -563,7 +563,7 @@ const unassigned = (data) => {
                 })
             })
             vendorGrid.querySelector('.submit-button').addEventListener('click', (event) => {
-                if (Object.keys(selectedPackages).length === currentStepCounter) {
+                if (Object.keys(selectedPackages).length === currentStepCounter + 1) {
                     const packages = Object.values(selectedPackages);
                     fetch('/assign-packages/' + weddingID, {
                         method: "POST",
@@ -584,6 +584,9 @@ const unassigned = (data) => {
                             location.reload();
                         }
                     })
+                } else {
+                    console.log(currentStepCounter)
+                    alert("Please select a package for all vendor types");
                 }
             })
 
@@ -592,20 +595,41 @@ const unassigned = (data) => {
                 console.log(recGrid.id)
                 response[recGrid.id].forEach(package => {
                     const packageDiv = document.createElement('div');
+
+                    const totalImages = 15; 
+
+                    function getRandomImage() {
+                        const randomIndex = Math.floor(Math.random() * totalImages) + 1;
+                    
+                        const imagePath = `/public/images/CustomerWeddingDashboard/img${randomIndex}.png`;
+                    
+                        const imageElement = document.querySelector('.card-img');
+                        imageElement.src = imagePath;
+                    }
+
+
                     packageDiv.classList.add('package');
                     packageDiv.setAttribute("id", package.packageID);
                     packageDiv.innerHTML += `
-                    <div class="package-details">
-                        <div>${package.packageName}</div>
-                        <div>What's Included:</div>
-                        <ul>
-                            <li>${package.feature1}</li>
-                            ${package.feature2 ? `<li>${package.feature2}</li>` : ''}
-                            ${package.feature3 ? `<li>${package.feature3}</li>` : ''}
-                        </ul>
-                        <div class="price">${package.fixedCost}</div>
-                        <btn class="visit">Visit Vendor</btn>
-                    </div>
+                        <div class="image-content">
+                            <span class="overlay"></span>
+                            <div class="card-image">
+                                <img src="/public/assets/images/CustomerWeddingDashboard/img1.png" alt="image here" class="card-img">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h2 class="name">${package.packageName}</h2>
+                            <div class="content">
+                                <h3 class="description">What is included:</h2>
+                                <ul>
+                                    <li class="description">${package.feature1}</li>
+                                    ${package.feature2 ? `<li class="description">${package.feature2}</li>` : ''}
+                                    ${package.feature3 ? `<li class="description">${package.feature3}</li>` : ''}
+                                </ul>
+                                <h4 class="description price">Charge: ${package.fixedCost}</h4>
+                                <a class="visit">Request to Visit</a>
+                            </div>
+                        </div>
                     `
                     packageDiv.querySelector('.visit').addEventListener('click', (event) => {
                         window.location.href = '/vendor/' + package.vendorID;
@@ -637,6 +661,66 @@ const unassigned = (data) => {
     }
 }
 
+const finished = (data) => {
+    try {
+        fetch('/assigned-packages/' + weddingID, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
+            }
+        }).then(response => {
+            if (!response.ok) {
+                alert(response);
+                if (response.status === 401) {
+                    window.location.href = '/signin';
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            }
+            return response.json();
+        }).then(packageData => {
+
+            packageData.forEach(cardData => {
+
+                const packageCard = document.createElement('div');
+                packageCard.classList.add('package-card');
+                packageCard.innerHTML = `
+                    <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="${cardData.imgSrc}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="name">${cardData.businessName}</h2>
+                        <div class="content">
+                            <h4 class="description">Wedding Progress: </h4> 
+                            <div class="progress-bar-container">
+                                <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
+                            </div>
+                            <h4 class="description">Wedding Budget: </h4> 
+                            <div class="progress-bar-container">
+                                <div class="progress-bar budget-progress-bar" style="width: ${cardData.budget}%"></div>
+                            </div>
+                            <div class="stars">
+                            ${Array(5).fill(0).map((_, i) => `
+                                <span class="star" data-value="${i + 1}">&#9734;</span>
+                            `).join('')}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        `;;
+                vendorGrid.appendChild(packageCard);
+            })
+        })
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 
 
 function render() {
@@ -655,7 +739,12 @@ function render() {
     const paginationDots = editModalContainer.querySelectorAll('.dot');
     const cancelButton = document.querySelector('.cancel-button');
     const deleteButton = document.querySelector('.delete-button');
+    const logoutbutton = document.getElementById('log-out');
 
+    logoutbutton.addEventListener('click', ()=>{
+        localStorage.removeItem('authToken');
+        window.location.href = "/signin";
+    })
     try {
         fetch('/wedding/data/' + weddingID, {
             method: 'GET',
@@ -673,6 +762,12 @@ function render() {
             }
             return response.json();
         }).then(data => {
+            weddingTitle.innerHTML = data.weddingTitle;
+            const targetDate = new Date(data.date);
+            const today = new Date();
+            const differenceInTime = targetDate - today;
+            const remainingDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+            document.getElementById("days-left").innerHTML = remainingDays > 0 ? `${remainingDays} days left` : "Happy wedded life!";
             if (data.weddingState === "new") {
                 newWedding(data);
             } else if (data.weddingState === "ongoing") {
@@ -680,6 +775,7 @@ function render() {
             } else if (data.weddingState === "unassigned") {
                 unassigned(data)
             }
+
             loadingScreen.style.display = "none";
             mainContent.style.display = "block";
         })
