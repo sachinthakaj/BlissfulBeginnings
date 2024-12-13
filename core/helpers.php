@@ -3,15 +3,6 @@ require_once 'Config.php';
 
 loadEnv(__DIR__ . '/../.env');
 
-
-require '../../vendor/autoload.php';
-
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
-
-
-
 function basePath($path)
 {
 
@@ -75,7 +66,6 @@ function dataGet($arr, $key) // $key = GET./wedding/fetchData/a6018d778b9f11ef98
 
 function createToken($userID, $role)
 {
-    $secretKey = "your_secret_key"; // Keep this secure and private
     $issuedAt = time();
     $expirationTime = $issuedAt + 3600; // Token valid for 1 hour
     $payload = [
@@ -84,11 +74,47 @@ function createToken($userID, $role)
         'iat' => $issuedAt,
         'exp' => $expirationTime
     ];
+    // Step 1: Define header and payload
+    $header = json_encode(['alg' => 'HS256', 'typ' => 'JWT']);
 
-    // Generate JWT
-    $jwt = JWT::encode($payload, $_ENV['SECRET_KEY'], 'HS256');
+    // Step 2: Base64 encode the header and payload
+    $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+    $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($payload)));
+
+    // Step 3: Create signature
+    $signature = hash_hmac('sha256', "$base64UrlHeader.$base64UrlPayload", $_ENV['SECRET_KEY'], true);
+    $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+
+    // Step 4: Concatenate to form the token
+    $jwt = "$base64UrlHeader.$base64UrlPayload.$base64UrlSignature";
+
     return $jwt;
 }
+
+function validateToken($token) {
+    // Step 1: Split the token into its parts
+    $parts = explode('.', $token);
+    if (count($parts) !== 3) {
+        return false; // Invalid token structure
+    }
+
+    [$base64UrlHeader, $base64UrlPayload, $base64UrlSignature] = $parts;
+
+    // Step 2: Recreate the signature
+    $signature = hash_hmac('sha256', "$base64UrlHeader.$base64UrlPayload", $_ENV['SECRET_KEY'], true);
+    $validSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+
+    if (!hash_equals($validSignature, $base64UrlSignature)) {
+        return false; // Invalid signature
+    }
+
+    // Step 3: Decode the payload and check expiry
+    $payload = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $base64UrlPayload)), true);
+    
+
+    return $payload; // Valid token, return decoded payload
+}
+
 function Authenticate($role, $ID)
 {
     $headers = getallheaders();
@@ -97,8 +123,11 @@ function Authenticate($role, $ID)
     if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
         $jwt = $matches[1];
         try {
-            $decoded = JWT::decode($jwt, new Key($_ENV['SECRET_KEY'], 'HS256'));
-            if($decoded->role == $role) {
+            $decoded = validateToken($jwt);
+            if ($decoded['exp'] < time()) {
+                return false; // Token expired
+            }
+            if($decoded['role'] == $role) {
                 return true;
             }
         } catch (Exception $e) {
