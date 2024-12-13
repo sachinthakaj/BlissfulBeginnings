@@ -4,68 +4,54 @@ const pathParts = path.split('/');
 const weddingID = pathParts[pathParts.length - 1];
 
 
-
-// Sample messages data structure
-const messages = [
-  { 
-      id: 1, 
-      sender: 'bot', 
-      text: 'Hello! Welcome to our support chat.', 
-      timestamp: '2024-01-15T10:30:00Z' 
-  },
-  { 
-      id: 2, 
-      sender: 'user', 
-      text: 'Hi, I need help with my account.', 
-      timestamp: '2024-01-15T10:31:15Z' 
-  },
-  { 
-      id: 3, 
-      sender: 'bot', 
-      text: 'I\'d be happy to assist you. Could you provide more details?', 
-      timestamp: '2024-01-15T10:31:30Z' 
-  },
-  { 
-      id: 4, 
-      sender: 'user', 
-      text: 'I can\'t log into my account.', 
-      timestamp: '2024-01-15T10:32:00Z' 
-  },
-  { 
-      id: 5, 
-      sender: 'bot', 
-      text: 'I understand. Let\'s troubleshoot your login issue.', 
-      timestamp: '2024-01-15T10:32:15Z' 
-  }
-];
-
 // Function to render messages to the chat container
 function renderMessages() {
   const chatContainer = document.querySelector('.chat-show-area');
-  
-  // Clear existing messages
   chatContainer.innerHTML = '';
-  console.log(chatContainer);
-  // Iterate through messages and create message elements
-  messages.forEach(message => {
-      // Create message element
-      const messageElement = document.createElement('div');
-      
-      // Add classes based on sender
-      messageElement.classList.add('message');
-      messageElement.classList.add(message.sender);
-      
-      // Set message text
-      messageElement.textContent = message.text;
-      
-      // Optional: Add timestamp as a data attribute
-      messageElement.dataset.timestamp = message.timestamp;
-      
-      // Append message to container
-      chatContainer.appendChild(messageElement);
-  });
   
-  // Scroll to bottom of container
+  const wsUrl = 'ws://localhost:8080/';
+
+  const socket = new WebSocket(wsUrl);
+  const messageInput = document.getElementById('message-type');
+  const sendBtn = document.getElementById('send-button');
+
+
+  socket.onopen = () => {
+    socket.send(weddingID);
+  };
+
+  socket.onmessage = (event) => {
+    const message = event.data;
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', message.sender);
+    messageElement.textContent = message.text;
+    messageElement.dataset.timestamp = message.timestamp;
+    chatContainer.appendChild(messageElement);
+    chatContainer.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
+  };
+
+  socket.onerror = (error) => {
+    console.error('WebSocket error:', error);
+  };
+
+  socket.onclose = () => {
+    console.log('WebSocket connection closed.');
+  };
+
+  sendBtn.addEventListener('click', () => {
+    const message = messageInput.value.trim();
+    if (message) {
+      socket.send(message); 
+      messageInput.value = ''; 
+    }
+  });
+
+  messageInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      sendBtn.click();
+    }
+  });
+
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 document.addEventListener('DOMContentLoaded', renderMessages);
@@ -189,8 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
                 })
                 .then((tasks) => {
-
-                  console.log(tasks);
                   tasks.forEach((task) => {
                     const taskDetailsArea = document.createElement("div");
                     taskDetailsArea.classList.add("taskDetailsArea");
@@ -327,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
       body: JSON.stringify(taskDetails),
     })
       .then((res) => {
-        if(res.status === 401) {
+        if (res.status === 401) {
           window.location.href = '/signin';
         } if (res.status === 200) {
           return res.json();
@@ -384,5 +368,5 @@ document.addEventListener("DOMContentLoaded", function () {
     taskForm.reset();
   }
 
-  
+
 });

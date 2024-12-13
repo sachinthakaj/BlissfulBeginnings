@@ -79,8 +79,10 @@
           </div>
 
           <div class="chat-action-area">
-            <div class="Message-type-area"></div>
-            <button class="Message-send-button-area">SEND</button>
+            <div class="Message-type-area" >
+              <input type="text" id="message-type" placeholder="Type your message here...">
+            </div>
+            <button class="Message-send-button-area" id="send-button">SEND</button>
 
 
           </div>
