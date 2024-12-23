@@ -30,6 +30,11 @@ class PlannerController
         require_once './public/plannerDashboard.php';
     }
 
+    public function makePayments()
+    {
+        require_once './public/plannerWeddingPayment.php';
+    }
+
     public function fetchWeddingData()
     {
         try {
@@ -101,17 +106,16 @@ class PlannerController
         if (Authenticate('planner', 123)) {
             try {
                 error_log('Here');
-                
-                    $vendorModel = new Vendor();
-                    $vendors = $vendorModel->getAssignedVendors($parameters["weddingID"]);
-                    if($vendors) {
-                        header('Content-Type:application/json');
-                        echo json_encode($vendors);
-                    } else {
-                        header('HTTP/1.1 204 No Content');
-                        echo json_encode(['error' => 'No Vendors Found']);
-                    }
-                
+
+                $vendorModel = new Vendor();
+                $vendors = $vendorModel->getAssignedVendors($parameters["weddingID"]);
+                if ($vendors) {
+                    header('Content-Type:application/json');
+                    echo json_encode($vendors);
+                } else {
+                    header('HTTP/1.1 204 No Content');
+                    echo json_encode(['error' => 'No Vendors Found']);
+                }
             } catch (Exception $e) {
                 header('HTTP/1.1 500 Internal Server Error');
                 echo json_encode(['error' => 'Error fetching Data']);
@@ -128,12 +132,11 @@ class PlannerController
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
-        
-            $taskModel = new Task();
-            $assignmentID = $taskModel->tasksForAssignment($parameters['assignmentID']);
-            header('Content-Type:application/json');
-            echo json_encode($assignmentID);
-        
+
+        $taskModel = new Task();
+        $assignmentID = $taskModel->tasksForAssignment($parameters['assignmentID']);
+        header('Content-Type:application/json');
+        echo json_encode($assignmentID);
     }
 
     public function createTasksForVendors($parameters)
@@ -337,7 +340,7 @@ class PlannerController
                 echo json_encode($wedding);
             } else {
                 header('HTTP/1.1 204 No Content');
-                echo json_encode(['error' => 'No Vendors Found']);
+                echo json_encode(['error' => 'No Wedding Found']);
             }
         } catch (Exception $e) {
             error_log($e);
@@ -440,6 +443,34 @@ class PlannerController
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error rejecting Vendor']);
+        }
+    }
+
+    public function getDataToPay($parameters)
+    {
+
+
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        };
+        try {
+            $package = new Package();
+            $result = $package->getPackageDataForPayments($parameters['assignmentID']);
+            
+
+            if ($result) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($result[0]);
+            } else {
+                header('HTTP/1.1 204 No Content');
+                echo json_encode(['error' => 'No package Found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
         }
     }
 }

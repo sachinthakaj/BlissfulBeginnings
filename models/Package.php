@@ -298,4 +298,26 @@ class Package
             throw $e;
         }
     }
+
+    public function getPackageDataForPayments($assignmentID){
+        try {
+            $this->db->query("SELECT p.packageName,p.feature1,p.feature2,p.feature3,p.fixedCost
+            FROM packageassignment pa 
+            JOIN packages p ON pa.packageID=p.packageID
+            WHERE pa.assignmentID=UNHEX(:assignmentID)");
+            $this->db->bind(':assignmentID', $assignmentID);
+            $this->db->execute();
+            $packageDetailsforPayments = [];
+
+            while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+                $packageDetailsforPayments[] = $row;
+            }
+
+            return $packageDetailsforPayments;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+    }
 }
