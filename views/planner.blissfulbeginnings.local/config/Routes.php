@@ -14,6 +14,10 @@ $router->post("/update-tasks/{taskID}", "PlannerController@updateOfTasks");
 $router->delete("/delete-tasks/{taskID}","PlannerController@deleteOfTasks");
 
 
+$router->get("/wedding/{weddingID}/{assignmentID}","PlannerController@makePayments");
+$router->get("/fetch-pakageData-to-pay/{assignmentID}","PlannerController@getDataToPay");
+
+
 
 
 $router->get("/signin", "PlannerAuthController@signIn");

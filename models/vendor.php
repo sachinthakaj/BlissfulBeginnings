@@ -124,7 +124,7 @@ class Vendor
             $this->db->query("SELECT v.vendorID,v.businessName,pa.typeID, pa.assignmentID
         FROM vendors v
         JOIN packages p ON v.vendorID=p.vendorID
-        JOIN packageAssignment pa ON p.packageID=pa.packageID
+        JOIN packageassignment pa ON p.packageID=pa.packageID
         WHERE pa.weddingID=UNHEX(:weddingID)");
 
             $this->db->bind(":weddingID", $weddingID, PDO::PARAM_STR);

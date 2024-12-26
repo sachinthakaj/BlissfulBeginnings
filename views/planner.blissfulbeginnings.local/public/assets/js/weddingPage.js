@@ -1,6 +1,5 @@
-
 const path = window.location.pathname;
-const pathParts = path.split('/');
+const pathParts = path.split("/");
 const weddingID = pathParts[pathParts.length - 1];
 
 
@@ -54,10 +53,9 @@ function renderMessages() {
 
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
-document.addEventListener('DOMContentLoaded', renderMessages);
+document.addEventListener("DOMContentLoaded", renderMessages);
 
 document.addEventListener("DOMContentLoaded", function () {
-
   function updateProgressBar(totalTasks, completedTasks) {
     const progressBar = document.getElementById("progressBar");
     const percentage = (completedTasks / totalTasks) * 100;
@@ -86,29 +84,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-
   const totalTasks = 10;
   const completedTasks = 6;
   updateProgressBar(totalTasks, completedTasks);
   updateBudgetBar(totalTasks, completedTasks);
 
-  const weddingTitleElement = document.querySelector(".wedding-dashboard-title");
+  const weddingTitleElement = document.querySelector(
+    ".wedding-dashboard-title"
+  );
   const vendorCardContainer = document.querySelector(".vendor-cards");
-
 
   // Fetch wedding data and set the title
   fetch(`/fetch-wedding/${weddingID}`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem('authToken')}`,
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       "Content-Type": "application/json",
     },
   })
     .then((response) => {
       if (response.status == 401) {
-        window.location.href = '/signin';
+        window.location.href = "/signin";
       } else if (response.status == 500) {
-        throw new Error('Internal Server Error');
+        throw new Error("Internal Server Error");
       }
       return response.json();
     })
@@ -116,17 +114,17 @@ document.addEventListener("DOMContentLoaded", function () {
       weddingTitleElement.textContent = `${wedding.weddingTitle} s' Wedding`;
       if (wedding.weddingState == "new") {
         window.href = `/select-packages/${weddingID}`;
-      }
-      else if (wedding.weddingState == "unassigned") {
-        messageDiv = document.createElement('div');
-        messageDiv.classList.add('message');
-        messageDiv.innerHTML = "<h1>Waiting for the Customer to choose a package</h1>";
+      } else if (wedding.weddingState == "unassigned") {
+        messageDiv = document.createElement("div");
+        messageDiv.classList.add("message");
+        messageDiv.innerHTML =
+          "<h1>Waiting for the Customer to choose a package</h1>";
         vendorCardContainer.appendChild(messageDiv);
       } else if (wedding.weddingState == "ongoing") {
         fetch(`/fetch-assigned-vendors/${weddingID}`, {
           method: "GET",
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             "Content-Type": "application/json",
           },
         })
@@ -154,20 +152,26 @@ document.addEventListener("DOMContentLoaded", function () {
               card.appendChild(taskArea);
               vendorCardContainer.appendChild(card);
 
+              const payButton = document.createElement("button");
+              payButton.classList.add("payButton");
+              payButton.innerHTML = "Pay";
+              card.appendChild(payButton);
+
+              payButton.addEventListener("click", function (event) {
+                window.location.href = `/wedding/${weddingID}/${vendor.assignmentID}`;
+              });
+
               // Fetch assignment ID for the vendor
-              fetch(
-                `/tasks-for-assignments/${vendor.assignmentID}`,
-                {
-                  method: "GET",
-                  headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                    "Content-Type": "application/json",
-                  },
-                }
-              )
+              fetch(`/tasks-for-assignments/${vendor.assignmentID}`, {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                  "Content-Type": "application/json",
+                },
+              })
                 .then((res) => {
                   if (res.status == 401) {
-                    window.location.href = '/signin';
+                    window.location.href = "/signin";
                   } else if (res.status == 200) {
                     return res.json();
                   } else {
@@ -211,43 +215,50 @@ document.addEventListener("DOMContentLoaded", function () {
                         task.description;
                       document.getElementById("dateToFinish").value =
                         task.dateToFinish;
-                      document.getElementById("taskForm").dataset.taskID = taskID;
+                      document.getElementById("taskForm").dataset.taskID =
+                        taskID;
                       document.getElementById("taskForm").onsubmit =
                         updateFunction;
                     });
 
+                    taskDeleteButton.addEventListener(
+                      "click",
+                      function (event) {
+                        const confirmed = confirm(
+                          "Are you sure you want to delete?"
+                        );
+                        if (confirmed) {
+                          const taskID = event.target.dataset.taskID;
 
-                    taskDeleteButton.addEventListener("click", function (event) {
-                      const confirmed = confirm("Are you sure you want to delete?");
-                      if (confirmed) {
-                        const taskID = event.target.dataset.taskID;
+                          document.getElementById("taskForm").dataset.taskID =
+                            taskID;
+                          console.log(taskID);
 
-
-                        document.getElementById("taskForm").dataset.taskID = taskID;
-                        console.log(taskID);
-
-                        fetch(`/delete-tasks/${taskID}`, {
-                          method: "DELETE",
-                          headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                            "Content-Type": "application/json",
-                          },
-                          body: JSON.stringify({ taskID: taskID }),
-                        })
-                          .then((res) => res.json())
-                          .then((data) => {
-                            if (data.status === "success") {
-                              alert(data.message);
-                              window.location.reload();
-                            } else {
-                              alert("Error: " + data.message);
-                            }
+                          fetch(`/delete-tasks/${taskID}`, {
+                            method: "DELETE",
+                            headers: {
+                              Authorization: `Bearer ${localStorage.getItem(
+                                "authToken"
+                              )}`,
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ taskID: taskID }),
                           })
-                          .catch((error) => {
-                            console.error("Error Creating Task:", error);
-                          });
+                            .then((res) => res.json())
+                            .then((data) => {
+                              if (data.status === "success") {
+                                alert(data.message);
+                                window.location.reload();
+                              } else {
+                                alert("Error: " + data.message);
+                              }
+                            })
+                            .catch((error) => {
+                              console.error("Error Creating Task:", error);
+                            });
+                        }
                       }
-                    });
+                    );
                   });
                 })
 
@@ -260,7 +271,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error fetching vendors:", error);
           });
       }
-
     })
     .catch((error) => {
       console.error("Error fetching wedding title:", error);
@@ -268,7 +278,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // Fetch vendors and render vendor cards
-
 
   // Modal and task form logic
   const modal = document.getElementById("taskFormModal");
@@ -293,7 +302,9 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const taskDescription = document.getElementById("taskDescription").value;
     const dateToFinish = document.getElementById("dateToFinish").value;
-    const assignmentID = taskForm.querySelector("input[name='assignmentID']").value;
+    const assignmentID = taskForm.querySelector(
+      "input[name='assignmentID']"
+    ).value;
     console.log(assignmentID);
     const taskDetails = {
       description: taskDescription,
@@ -305,8 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       },
       body: JSON.stringify(taskDetails),
     })
@@ -347,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(`/update-tasks/${taskID}`, {
       method: "POST",
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(taskDetails),
@@ -367,6 +377,4 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.classList.remove("show");
     taskForm.reset();
   }
-
-
 });
