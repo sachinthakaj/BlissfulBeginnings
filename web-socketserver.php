@@ -16,18 +16,30 @@ echo "WebSocket server started at ws://$host:$port\n";
 // Array to store clients grouped by wedding ID
 $wedding_clients = [];
 
+function close_connection($client) {
+    // WebSocket close frame
+    $close_frame = chr(0x88) . chr(0x00); // 0x88 indicates a Close frame with no payload
+
+    // Send the Close frame to the client
+    socket_write($client, $close_frame, strlen($close_frame));
+
+    // Close the socket connection
+    socket_close($client);
+
+    echo "Connection closed with the client.\n";
+}
+
 // Function to handle initial wedding ID registration
 function registerClient($client, &$wedding_clients) {
     // Read the first message (wedding ID)
-    
-    $wedding_id = trim(unmask(socket_read($client, 1024, PHP_BINARY_READ)));
-    
+    $wedding_id = unmask(socket_read($client, 1024, PHP_BINARY_READ));
     // Validate wedding ID (basic check)
-    if (empty($wedding_id)) {
+    if (empty($wedding_id->weddingID)) {
         socket_close($client);
         echo "Invalid wedding ID. Client disconnected.\n";
         return false;
     }
+    $wedding_id = $wedding_id->weddingID;
     
     // Add client to the specific wedding group
     if (!isset($wedding_clients[$wedding_id])) {
@@ -73,10 +85,12 @@ function unmask($payload) {
     for ($i = 0; $i < strlen($data); ++$i) {
         $text .= $data[$i] ^ $masks[$i % 4];    // XOR gate
     }
-    return $text;
+    return json_decode($text);
 }
 
 function send_message($client, $message) {
+    $message = json_encode($message);
+    echo $message; 
     $header = chr(0x81); // 0x81 indicates a text frame
     $length = strlen($message);
 
@@ -121,11 +135,11 @@ while (true) {
         foreach ($clients as $key => $client) {
             if (in_array($client, $modified_sockets)) {
                 $data = socket_read($client, 1024, PHP_BINARY_READ);
-                $data = trim(unmask($data));    
+                $data = unmask($data);    
                 // Handle disconnect
                 if ($data === false || $data === '') {
                     echo "Client disconnected from Wedding ID: $wedding_id\n";
-                    socket_close($client);
+                    close_connection($client);
                     unset($clients[$key]);
                     continue;
                 }
@@ -137,7 +151,7 @@ while (true) {
                     }
                 }
 
-                echo "Message received for Wedding ID $wedding_id: $data" . "\n\n";
+                echo "Message received for Wedding ID $wedding_id" . "\n\n";
             }
         }
 

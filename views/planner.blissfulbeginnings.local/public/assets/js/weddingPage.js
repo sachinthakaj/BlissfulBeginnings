@@ -16,17 +16,20 @@ function renderMessages() {
 
 
   socket.onopen = () => {
-    socket.send(weddingID);
+    socket.send(JSON.stringify({
+      weddingID: weddingID,
+    }));
   };
 
   socket.onmessage = (event) => {
-    const message = event.data;
+    console.log(event);
+    const message = JSON.parse(event.data);
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', message.sender);
     messageElement.textContent = message.text;
     messageElement.dataset.timestamp = message.timestamp;
     chatContainer.appendChild(messageElement);
-    chatContainer.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
+    // chatContainer.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
   };
 
   socket.onerror = (error) => {
@@ -40,8 +43,12 @@ function renderMessages() {
   sendBtn.addEventListener('click', () => {
     const message = messageInput.value.trim();
     if (message) {
-      console.log(message);
-      socket.send(message); 
+      chatMessage = {
+        sender: 'planner',
+        text: message,
+        timestamp: Date.now()
+      };
+      socket.send(JSON.stringify(chatMessage)); 
       messageInput.value = ''; 
     }
   });

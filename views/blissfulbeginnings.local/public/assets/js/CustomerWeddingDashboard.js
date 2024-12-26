@@ -21,15 +21,17 @@ function renderMessages() {
   
   
     socket.onopen = () => {
-      socket.send(weddingID);
+      socket.send(JSON.stringify({
+        weddingID: weddingID,
+      }));
     };
   
     socket.onmessage = (event) => {
         console.log(event);
-      const message = event.data;
+      const message = JSON.parse(event.data);
       const messageElement = document.createElement('div');
       messageElement.classList.add('message', message.sender);
-      messageElement.textContent = message;
+      messageElement.textContent = message.text;
       messageElement.dataset.timestamp = message.timestamp;
       chatContainer.appendChild(messageElement);
     };
@@ -45,9 +47,14 @@ function renderMessages() {
     sendBtn.addEventListener('click', () => {
       const message = messageInput.value.trim();
       if (message) {
-        console.log(message);
-        socket.send(message); 
-        messageInput.value = ''; 
+        
+        chatMessage = {
+            sender: 'planner',
+            text: message,
+            timestamp: Date.now()
+          };
+          socket.send(JSON.stringify(chatMessage)); 
+          messageInput.value = ''; 
       }
     });
   
