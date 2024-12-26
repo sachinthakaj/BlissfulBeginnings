@@ -7,7 +7,7 @@ const weddingID = pathParts[pathParts.length - 1];
 function renderMessages() {
   const chatContainer = document.querySelector('.chat-show-area');
   chatContainer.innerHTML = '';
-  
+
   const wsUrl = 'ws://localhost:8080/';
 
   const socket = new WebSocket(wsUrl);
@@ -48,8 +48,13 @@ function renderMessages() {
         text: message,
         timestamp: Date.now()
       };
-      socket.send(JSON.stringify(chatMessage)); 
-      messageInput.value = ''; 
+      socket.send(JSON.stringify(chatMessage));
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', 'me');
+      messageElement.textContent = chatMessage.text;
+      messageElement.dataset.timestamp = chatMessage.timestamp;
+      chatContainer.appendChild(messageElement);
+      messageInput.value = '';
     }
   });
 

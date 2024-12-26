@@ -1,4 +1,12 @@
 <?php
+
+require_once 'models/Chat.php';
+require "core/helpers.php";
+require "core/Database.php";
+
+
+const BASE_PATH = __DIR__;
+
 // Wedding Group Chat WebSocket Server
 
 $host = "0.0.0.0"; // Listen on all available network interfaces
@@ -16,7 +24,8 @@ echo "WebSocket server started at ws://$host:$port\n";
 // Array to store clients grouped by wedding ID
 $wedding_clients = [];
 
-function close_connection($client) {
+function close_connection($client)
+{
     // WebSocket close frame
     $close_frame = chr(0x88) . chr(0x00); // 0x88 indicates a Close frame with no payload
 
@@ -30,7 +39,8 @@ function close_connection($client) {
 }
 
 // Function to handle initial wedding ID registration
-function registerClient($client, &$wedding_clients) {
+function registerClient($client, &$wedding_clients)
+{
     // Read the first message (wedding ID)
     $wedding_id = unmask(socket_read($client, 1024, PHP_BINARY_READ));
     // Validate wedding ID (basic check)
@@ -40,18 +50,19 @@ function registerClient($client, &$wedding_clients) {
         return false;
     }
     $wedding_id = $wedding_id->weddingID;
-    
+
     // Add client to the specific wedding group
     if (!isset($wedding_clients[$wedding_id])) {
         $wedding_clients[$wedding_id] = [];
     }
     $wedding_clients[$wedding_id][] = $client;
-    
+
     echo "Client registered for Wedding ID: $wedding_id\n";
     return $wedding_id;
 }
 
-function perform_handshake($client) {
+function perform_handshake($client)
+{
     $request = socket_read($client, 1024);
 
     // Extract the Sec-WebSocket-Key from the headers
@@ -67,7 +78,8 @@ function perform_handshake($client) {
     }
 }
 
-function unmask($payload) {
+function unmask($payload)
+{
     $length = ord($payload[1]) & 127;
     echo "Length: $length\n";
     if ($length == 126) {
@@ -88,9 +100,10 @@ function unmask($payload) {
     return json_decode($text);
 }
 
-function send_message($client, $message) {
+function send_message($client, $message)
+{
     $message = json_encode($message);
-    echo $message; 
+    echo $message;
     $header = chr(0x81); // 0x81 indicates a text frame
     $length = strlen($message);
 
@@ -104,6 +117,30 @@ function send_message($client, $message) {
 
     $frame = $header . $message;
     socket_write($client, $frame, strlen($frame));
+}
+
+function saveMessage($weddingID, $data)
+{
+    try {
+        $chat = new Chat();
+        $timestampSeconds = $data->timestamp / 1000;
+
+        $timestamp = new DateTime("@$timestampSeconds");
+        $chat->saveMessage($weddingID, $data->sender, $timestamp->format('Y-m-d H:i:s'), $data->text);
+        return true;
+    } catch (Exception $e) {
+        error_log($e);
+    }
+}
+
+function getAllMessages($weddingID)
+{
+    try {
+        $chat = new Chat();
+        return $chat->getMessages($weddingID);
+    } catch (Exception $e) {
+        error_log($e);
+    }
 }
 
 
@@ -128,6 +165,8 @@ while (true) {
         echo "Handshake Done";
         // Register the client with a wedding ID
         $wedding_id = registerClient($client, $wedding_clients);
+        $messageList = getAllMessages($wedding_id);
+        send_message($client, $messageList);
     }
 
     // Handle messages and disconnections for each wedding group
@@ -135,7 +174,7 @@ while (true) {
         foreach ($clients as $key => $client) {
             if (in_array($client, $modified_sockets)) {
                 $data = socket_read($client, 1024, PHP_BINARY_READ);
-                $data = unmask($data);    
+                $data = unmask($data);
                 // Handle disconnect
                 if ($data === false || $data === '') {
                     echo "Client disconnected from Wedding ID: $wedding_id\n";
@@ -143,7 +182,7 @@ while (true) {
                     unset($clients[$key]);
                     continue;
                 }
-
+                saveMessage($wedding_id, $data);
                 // Broadcast message to all clients in the same wedding group
                 foreach ($clients as $recipient) {
                     if ($recipient !== $client) {
@@ -161,4 +200,3 @@ while (true) {
         }
     }
 }
-?>

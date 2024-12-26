@@ -12,61 +12,66 @@ const vendorGrid = document.querySelector('.vendor-grid');
 function renderMessages() {
     const chatContainer = document.querySelector('.chat-container');
     chatContainer.innerHTML = '';
-    
+
     const wsUrl = 'ws://localhost:8080/';
-  
+
     const socket = new WebSocket(wsUrl);
     const messageInput = document.querySelector('.chat-type-field');
     const sendBtn = document.querySelector('.chat-send-button');
-  
-  
+
+
     socket.onopen = () => {
-      socket.send(JSON.stringify({
-        weddingID: weddingID,
-      }));
+        socket.send(JSON.stringify({
+            weddingID: weddingID,
+        }));
     };
-  
+
     socket.onmessage = (event) => {
         console.log(event);
-      const message = JSON.parse(event.data);
-      const messageElement = document.createElement('div');
-      messageElement.classList.add('message', message.sender);
-      messageElement.textContent = message.text;
-      messageElement.dataset.timestamp = message.timestamp;
-      chatContainer.appendChild(messageElement);
+        const message = JSON.parse(event.data);
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', message.sender);
+        messageElement.textContent = message.text;
+        messageElement.dataset.timestamp = message.timestamp;
+        chatContainer.appendChild(messageElement);
     };
-  
+
     socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
+        console.error('WebSocket error:', error);
     };
-  
+
     socket.onclose = () => {
-      console.log('WebSocket connection closed.');
+        console.log('WebSocket connection closed.');
     };
-  
+
     sendBtn.addEventListener('click', () => {
-      const message = messageInput.value.trim();
-      if (message) {
-        
-        chatMessage = {
-            sender: 'planner',
-            text: message,
-            timestamp: Date.now()
-          };
-          socket.send(JSON.stringify(chatMessage)); 
-          messageInput.value = ''; 
-      }
+        const message = messageInput.value.trim();
+        if (message) {
+
+            chatMessage = {
+                sender: 'customer',
+                text: message,
+                timestamp: Date.now()
+            };
+            socket.send(JSON.stringify(chatMessage));
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'me');
+            messageElement.textContent = chatMessage.text;
+            messageElement.dataset.timestamp = chatMessage.timestamp;
+            chatContainer.appendChild(messageElement);
+            messageInput.value = '';
+        }
     });
-  
+
     messageInput.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') {
-        sendBtn.click();
-      }
+        if (event.key === 'Enter') {
+            sendBtn.click();
+        }
     });
-  
+
     chatContainer.scrollTop = chatContainer.scrollHeight;
-  }
-  document.addEventListener("DOMContentLoaded", renderMessages);
+}
+document.addEventListener("DOMContentLoaded", renderMessages);
 
 
 function showNotification(message, color) {
@@ -677,13 +682,13 @@ const unassigned = (data) => {
                 response[recGrid.id].forEach(package => {
                     const packageDiv = document.createElement('div');
 
-                    const totalImages = 15; 
+                    const totalImages = 15;
 
                     function getRandomImage() {
                         const randomIndex = Math.floor(Math.random() * totalImages) + 1;
-                    
+
                         const imagePath = `/public/images/CustomerWeddingDashboard/img${randomIndex}.jpg`;
-                    
+
                         const imageElement = document.querySelector('.card-img');
                         imageElement.src = imagePath;
                     }
@@ -745,7 +750,7 @@ const finished = (data) => {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             }
         }).then(response => {
             if (!response.ok) {
@@ -791,39 +796,39 @@ const finished = (data) => {
                     </div>
                 </div>
         `;
-        const stars = packageCard.querySelectorAll('.star');
-        stars.forEach(star => {
-            star.addEventListener('mouseover', () => {
-                const siblings = Array.from(star.parentElement.children);
-                const index = siblings.indexOf(star);
-                siblings.forEach(sibling => {
-                    if (sibling.dataset.value <= index + 1) {
-                        sibling.classList.add('selected');
-                    } else {
-                        sibling.classList.remove('selected');
-                    }
+                const stars = packageCard.querySelectorAll('.star');
+                stars.forEach(star => {
+                    star.addEventListener('mouseover', () => {
+                        const siblings = Array.from(star.parentElement.children);
+                        const index = siblings.indexOf(star);
+                        siblings.forEach(sibling => {
+                            if (sibling.dataset.value <= index + 1) {
+                                sibling.classList.add('selected');
+                            } else {
+                                sibling.classList.remove('selected');
+                            }
+                        });
+                    });
+                    star.addEventListener('click', () => {
+                        const value = Number(star.dataset.value);
+                        fetch('/api/ratings', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                            },
+                            body: JSON.stringify({
+                                vendorID: cardData.vendorID,
+                                rating: value,
+                            }),
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    alert('Error submitting rating');
+                                }
+                            });
+                    });
                 });
-            });
-            star.addEventListener('click', () => {
-                const value = Number(star.dataset.value);
-                fetch('/api/ratings', {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                    },
-                    body: JSON.stringify({
-                        vendorID: cardData.vendorID,
-                        rating: value,
-                    }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        alert('Error submitting rating');
-                    }
-                });
-            });
-        });
                 vendorGrid.appendChild(packageCard);
             })
         })
@@ -852,7 +857,7 @@ function render() {
     const deleteButton = document.querySelector('.delete-button');
     const logoutbutton = document.getElementById('log-out');
 
-    logoutbutton.addEventListener('click', ()=>{
+    logoutbutton.addEventListener('click', () => {
         localStorage.removeItem('authToken');
         window.location.href = "/signin";
     })
@@ -920,7 +925,7 @@ function render() {
             window.location.href = '/register';
             return response.json();
         }).then(data => {
-            
+
         }).catch(error => {
             console.error(error);
         });
