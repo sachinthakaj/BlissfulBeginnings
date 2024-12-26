@@ -28,12 +28,15 @@ function renderMessages() {
 
     socket.onmessage = (event) => {
         console.log(event);
-        const message = JSON.parse(event.data);
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', message.sender);
-        messageElement.textContent = message.text;
-        messageElement.dataset.timestamp = message.timestamp;
-        chatContainer.appendChild(messageElement);
+        const messages = JSON.parse(event.data);
+        messages.forEach(message => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', message.role);
+            messageElement.textContent = message.message;
+            messageElement.dataset.timestamp = message.timestamp;
+            chatContainer.appendChild(messageElement);
+        });
+
     };
 
     socket.onerror = (error) => {

@@ -114,7 +114,6 @@ function send_message($client, $message)
     } else {
         $header .= chr(127) . pack('J', $length); // 64-bit length for very large payloads
     }
-
     $frame = $header . $message;
     socket_write($client, $frame, strlen($frame));
 }
