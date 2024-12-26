@@ -11,7 +11,7 @@ function renderMessages() {
   const wsUrl = 'ws://localhost:8080/';
 
   const socket = new WebSocket(wsUrl);
-  const messageInput = document.getElementById('message-type');
+  const messageInput = document.getElementById('chat-type-field');
   const sendBtn = document.getElementById('send-button');
 
 
@@ -40,6 +40,7 @@ function renderMessages() {
   sendBtn.addEventListener('click', () => {
     const message = messageInput.value.trim();
     if (message) {
+      console.log(message);
       socket.send(message); 
       messageInput.value = ''; 
     }

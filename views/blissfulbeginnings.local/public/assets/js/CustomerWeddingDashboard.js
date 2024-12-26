@@ -8,67 +8,59 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
-
-// Sample messages data structure
-const messages = [
-    { 
-        id: 1, 
-        sender: 'Customer', 
-        text: 'When is the pre shoot', 
-        timestamp: '2024-01-15T10:30:00Z' 
-    },
-    { 
-        id: 2, 
-        sender: 'Photographer', 
-        text: 'It\'s on Thursday', 
-        timestamp: '2024-01-15T10:31:15Z' 
-    },
-    { 
-        id: 3, 
-        sender: 'Planner', 
-        text: 'Is the preparations done?', 
-        timestamp: '2024-01-15T10:31:30Z' 
-    },
-    { 
-        id: 4, 
-        sender: 'Photographer', 
-        text: 'Yes they are', 
-        timestamp: '2024-01-15T10:32:00Z' 
-    },
-
-];
-
 // Function to render messages to the chat container
 function renderMessages() {
     const chatContainer = document.querySelector('.chat-container');
-    
-    // Clear existing messages
     chatContainer.innerHTML = '';
     
-    // Iterate through messages and create message elements
-    messages.forEach(message => {
-        // Create message element
-        const messageElement = document.createElement('div');
-        
-        // Add classes based on sender
-        messageElement.classList.add('message');
-        
-        // Set message text
-        messageElement.textContent = message.sender + ": " + message.text;
-        
-        // Optional: Add timestamp as a data attribute
-        messageElement.dataset.timestamp = message.timestamp;
-        
-        // Append message to container
-        chatContainer.appendChild(messageElement);
+    const wsUrl = 'ws://localhost:8080/';
+  
+    const socket = new WebSocket(wsUrl);
+    const messageInput = document.querySelector('.chat-type-field');
+    const sendBtn = document.querySelector('.chat-send-button');
+  
+  
+    socket.onopen = () => {
+      socket.send(weddingID);
+    };
+  
+    socket.onmessage = (event) => {
+        console.log(event);
+      const message = event.data;
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', message.sender);
+      messageElement.textContent = message;
+      messageElement.dataset.timestamp = message.timestamp;
+      chatContainer.appendChild(messageElement);
+    };
+  
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+  
+    socket.onclose = () => {
+      console.log('WebSocket connection closed.');
+    };
+  
+    sendBtn.addEventListener('click', () => {
+      const message = messageInput.value.trim();
+      if (message) {
+        console.log(message);
+        socket.send(message); 
+        messageInput.value = ''; 
+      }
     });
-    
-    // Scroll to bottom of container
+  
+    messageInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
+  
     chatContainer.scrollTop = chatContainer.scrollHeight;
-}
+  }
+  document.addEventListener("DOMContentLoaded", renderMessages);
 
-// Call render function when DOM is loaded
-document.addEventListener('DOMContentLoaded', renderMessages);
 
 function showNotification(message, color) {
     // Create notification element

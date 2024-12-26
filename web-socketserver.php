@@ -20,7 +20,7 @@ $wedding_clients = [];
 function registerClient($client, &$wedding_clients) {
     // Read the first message (wedding ID)
     
-    $wedding_id = trim(socket_read($client, 1024, PHP_BINARY_READ));
+    $wedding_id = trim(unmask(socket_read($client, 1024, PHP_BINARY_READ)));
     
     // Validate wedding ID (basic check)
     if (empty($wedding_id)) {
@@ -39,6 +39,60 @@ function registerClient($client, &$wedding_clients) {
     return $wedding_id;
 }
 
+function perform_handshake($client) {
+    $request = socket_read($client, 1024);
+
+    // Extract the Sec-WebSocket-Key from the headers
+    if (preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $request, $matches)) {
+        $key = trim($matches[1]);
+        $acceptKey = base64_encode(pack('H*', sha1($key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
+        $upgradeHeader = "HTTP/1.1 101 Switching Protocols\r\n" .
+            "Upgrade: websocket\r\n" .
+            "Connection: Upgrade\r\n" .
+            "Sec-WebSocket-Accept: $acceptKey\r\n\r\n";
+
+        socket_write($client, $upgradeHeader, strlen($upgradeHeader));
+    }
+}
+
+function unmask($payload) {
+    $length = ord($payload[1]) & 127;
+    echo "Length: $length\n";
+    if ($length == 126) {
+        $masks = substr($payload, 4, 4);
+        $data = substr($payload, 8);
+    } elseif ($length == 127) {
+        $masks = substr($payload, 10, 4);
+        $data = substr($payload, 14);
+    } else {
+        $masks = substr($payload, 2, 4);
+        $data = substr($payload, 6);
+    }
+
+    $text = '';
+    for ($i = 0; $i < strlen($data); ++$i) {
+        $text .= $data[$i] ^ $masks[$i % 4];    // XOR gate
+    }
+    return $text;
+}
+
+function send_message($client, $message) {
+    $header = chr(0x81); // 0x81 indicates a text frame
+    $length = strlen($message);
+
+    if ($length <= 125) {
+        $header .= chr($length);
+    } elseif ($length <= 65535) {
+        $header .= chr(126) . pack('n', $length);
+    } else {
+        $header .= chr(127) . pack('J', $length); // 64-bit length for very large payloads
+    }
+
+    $frame = $header . $message;
+    socket_write($client, $frame, strlen($frame));
+}
+
+
 // Main server loop
 while (true) {
     // Prepare an array of all connected sockets
@@ -56,7 +110,8 @@ while (true) {
     if (in_array($server, $modified_sockets)) {
         $client = socket_accept($server);
         echo "New client attempting to connect...\n";
-        
+        perform_handshake($client);
+        echo "Handshake Done";
         // Register the client with a wedding ID
         $wedding_id = registerClient($client, $wedding_clients);
     }
@@ -66,7 +121,7 @@ while (true) {
         foreach ($clients as $key => $client) {
             if (in_array($client, $modified_sockets)) {
                 $data = socket_read($client, 1024, PHP_BINARY_READ);
-
+                $data = trim(unmask($data));    
                 // Handle disconnect
                 if ($data === false || $data === '') {
                     echo "Client disconnected from Wedding ID: $wedding_id\n";
@@ -78,11 +133,11 @@ while (true) {
                 // Broadcast message to all clients in the same wedding group
                 foreach ($clients as $recipient) {
                     if ($recipient !== $client) {
-                        socket_write($recipient, $data);
+                        send_message($recipient, $data);
                     }
                 }
 
-                echo "Message received for Wedding ID $wedding_id: " . "\n\n";
+                echo "Message received for Wedding ID $wedding_id: $data" . "\n\n";
             }
         }
 

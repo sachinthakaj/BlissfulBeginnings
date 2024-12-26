@@ -80,7 +80,7 @@
 
           <div class="chat-action-area">
             <div class="Message-type-area" >
-              <input type="text" id="message-type" placeholder="Type your message here...">
+              <input type="text" id="chat-type-field" placeholder="Type your message here...">
             </div>
             <button class="Message-send-button-area" id="send-button">SEND</button>
 
