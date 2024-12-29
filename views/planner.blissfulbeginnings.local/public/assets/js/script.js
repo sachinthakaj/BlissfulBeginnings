@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
   selectYear = document.getElementById("year");
   selectMonth = document.getElementById("month");
 
-  createYear = generate_year_range(1970, 2050);
+  createYear = generate_year_range(currentYear-1,currentYear+2);
 
   document.getElementById("year").innerHTML = createYear;
 
@@ -99,12 +99,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("monthAndYear");
   showCalendar(currentMonth, currentYear);
 
+  document.getElementById("next").addEventListener("click", next);
+  document.getElementById("previous").addEventListener("click", previous);
+    
+  
+
   // Function to navigate to the next month
   function next() {
     currentYear = currentMonth === 11 ?
       currentYear + 1 : currentYear;
     currentMonth = (currentMonth + 1) % 12;
     showCalendar(currentMonth, currentYear);
+   
   }
 
   // Function to navigate to the previous month
@@ -151,7 +157,9 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.setAttribute("data-month_name", months[month]);
           cell.className = "date-picker";
           cell.innerHTML = "<span>" + date + "</span";
-
+          cell.addEventListener("click", () => {
+            console.log("Hello")
+          })
           if (
             date === today.getDate() &&
             year === today.getFullYear() &&

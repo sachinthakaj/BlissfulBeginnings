@@ -86,8 +86,7 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
               onclick="previous()">
               ‹
             </button>
-            <button id="next"
-              onclick="next()">
+            <button id="next">
               ›
             </button>
           </div>
