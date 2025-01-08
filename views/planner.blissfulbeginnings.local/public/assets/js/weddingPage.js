@@ -166,12 +166,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const payButton = document.createElement("button");
               payButton.classList.add("payButton");
+              if(vendor.isPaid == 0){
               payButton.innerHTML = "Pay";
               card.appendChild(payButton);
 
               payButton.addEventListener("click", function (event) {
                 window.location.href = `/wedding/${weddingID}/${vendor.assignmentID}`;
               });
+            }
+            else{
+              payButton.innerHTML = "Paid";
+              card.appendChild(payButton);
+
+            }
 
               // Fetch assignment ID for the vendor
               fetch(`/tasks-for-assignments/${vendor.assignmentID}`, {
