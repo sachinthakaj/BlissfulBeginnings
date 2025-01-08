@@ -227,7 +227,7 @@ class Package
             foreach ($packages as $typeID => $packageID) {
                 $assignmentID = generateUUID($this->db);
                 $this->db->query('INSERT INTO packageAssignment (assignmentID, weddingID, packageID, typeID, assignmentState, progress) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, :assignmentState, :progress);');
-                error_log($typeID." ".$packageID." ".$weddingID." ".$assignmentID); 
+                error_log($typeID . " " . $packageID . " " . $weddingID . " " . $assignmentID);
                 $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_LOB);
                 $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
                 $this->db->bind(':packageID', $packageID, PDO::PARAM_LOB);
@@ -250,7 +250,8 @@ class Package
         }
     }
 
-    public function getAssignedPackages($weddingID){
+    public function getAssignedPackages($weddingID)
+    {
         try {
             $this->db->query('SELECT packageAssignment.*, packages.packageName, packages.fixedCost, vendors.businessName, vendors.imgSrc FROM packageAssignment 
             JOIN packages ON packageAssignment.packageID = packages.packageID 
@@ -259,7 +260,7 @@ class Package
             $this->db->bind(':weddingID', $weddingID);
             $this->db->execute();
             $results = $this->db->fetchAll(PDO::FETCH_ASSOC);
-            foreach($results as $key => $value) {
+            foreach ($results as $key => $value) {
                 $results[$key]['assignmentID'] = bin2hex($value['assignmentID']);
                 $results[$key]['packageID'] = bin2hex($value['packageID']);
                 unset($results[$key]['weddingID']);
@@ -267,7 +268,7 @@ class Package
             return $results;
         } catch (PDOException $e) {
             error_log($e);
-            throw new Exception("Error Processing Request", 1);      
+            throw new Exception("Error Processing Request", 1);
         }
     }
 
@@ -280,15 +281,14 @@ class Package
             $this->db->execute();
             $state = $this->db->fetch(PDO::FETCH_ASSOC);
 
-            if($state['weddingCount'] == 0 ) {
+            if ($state['weddingCount'] == 0) {
                 $this->db->query("DELETE FROM packages WHERE packageID=UNHEX(:packageID);");
                 $this->db->bind(":packageID", $packageID, PDO::PARAM_LOB);
                 $this->db->execute();
 
                 $this->db->commit();
                 return $this->db->rowCount();
-            }
-            else {
+            } else {
                 $this->db->commit();
                 return -1;
             }
@@ -299,7 +299,8 @@ class Package
         }
     }
 
-    public function getPackageDataForPayments($assignmentID){
+    public function getPackageDataForPayments($assignmentID)
+    {
         try {
             $this->db->query("SELECT p.packageName,p.feature1,p.feature2,p.feature3,p.fixedCost
             FROM packageassignment pa 
@@ -318,6 +319,11 @@ class Package
             error_log($e->getMessage());
             return false;
         }
+    }
 
+    public function createOrderIdForPaymentGateway()
+    {
+        $orderID =  generateUUID($this->db);
+        return  bin2hex($orderID);
     }
 }

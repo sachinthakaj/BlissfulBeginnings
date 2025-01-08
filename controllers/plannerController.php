@@ -35,6 +35,8 @@ class PlannerController
         require_once './public/plannerWeddingPayment.php';
     }
 
+
+
     public function fetchWeddingData()
     {
         try {
@@ -458,7 +460,9 @@ class PlannerController
         try {
             $package = new Package();
             $result = $package->getPackageDataForPayments($parameters['assignmentID']);
-            
+
+
+
 
             if ($result) {
                 header("Content-Type: application/json; charset=utf-8");
@@ -466,6 +470,105 @@ class PlannerController
             } else {
                 header('HTTP/1.1 204 No Content');
                 echo json_encode(['error' => 'No package Found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+
+    public function generateHashForPaymentGateway($parameters)
+    {
+
+
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        };
+        try {
+            $package = new Package();
+            $order_id = $package->createOrderIdForPaymentGateway();
+            $merchant_id = "1228991";
+            $merchant_secret = $_ENV['PAYHERE_SECRET'];
+            $currency = "LKR";
+            $packageData = $package->getPackageDataForPayments($parameters['assignmentID']);
+            $temp = $packageData[0];
+            $amount = $temp['fixedCost'];
+            //$amount = 200000;
+
+            $hash = strtoupper(
+                md5(
+                    $merchant_id .
+                        $order_id .
+                        number_format($amount, 2, '.', '') .
+                        $currency .
+                        strtoupper(md5($merchant_secret))
+                )
+
+
+            );
+
+
+
+            if ($hash) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['orderID' => $order_id, 'hash' => $hash]);
+            } else {
+                header('HTTP/1.1 204 No Content');
+                echo json_encode(['error' => 'Hash ccould not create']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+
+    public function getPaymentData()
+    {
+
+
+        try {
+            $merchant_id         = $_POST['merchant_id'];
+            $assignment_id       = $_POST['custom_1'];
+            $order_id            = $_POST['order_id'];
+            $payhere_amount      = $_POST['payhere_amount'];
+            $payhere_currency    = $_POST['payhere_currency'];
+            $status_code         = $_POST['status_code'];
+            $md5sig              = $_POST['md5sig'];
+
+            $merchant_secret = $_ENV['PAYHERE_SECRET']; // Replace with your Merchant Secret
+
+            $local_md5sig = strtoupper(
+                md5(
+                    $merchant_id .
+                        $order_id .
+                        $payhere_amount .
+                        $payhere_currency .
+                        $status_code .
+                        strtoupper(md5($merchant_secret))
+                )
+            );
+
+            if (($local_md5sig === $md5sig) and ($status_code === "2")) {
+                $payment = new Payment();
+                $result = $payment->addPayment($assignment_id, $order_id, $payhere_amount, $payhere_currency, $status_code);
+                if($result == true){
+                header('Content-Type:application/json');
+                echo json_encode(["status" => "success", "message" => "Payment Successfully Recorded"]);
+                }
+                else{
+                header('Content-Type:application/json');
+                echo json_encode(["status" => "failed", "message" => "Payment Failed to  Record"]);
+
+                }
+            } else {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Invalid Payment Details or Signature']);
             }
         } catch (Exception $e) {
             error_log($e);

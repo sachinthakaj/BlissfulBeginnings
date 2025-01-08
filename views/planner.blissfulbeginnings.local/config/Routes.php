@@ -16,6 +16,9 @@ $router->delete("/delete-tasks/{taskID}","PlannerController@deleteOfTasks");
 
 $router->get("/wedding/{weddingID}/{assignmentID}","PlannerController@makePayments");
 $router->get("/fetch-pakageData-to-pay/{assignmentID}","PlannerController@getDataToPay");
+$router->get("/fetch-hash-for-paymentGateway/{assignmentID}","PlannerController@generateHashForPaymentGateway");
+$router->post("/plannerPaymentData","PlannerController@getPaymentData");
+
 
 
 

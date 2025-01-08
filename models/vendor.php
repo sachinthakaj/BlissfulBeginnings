@@ -121,7 +121,7 @@ class Vendor
     public function getAssignedVendors($weddingID)
     {   
         try {
-            $this->db->query("SELECT v.vendorID,v.businessName,pa.typeID, pa.assignmentID
+            $this->db->query("SELECT v.vendorID,v.businessName,pa.typeID, pa.assignmentID ,pa.isPaid
         FROM vendors v
         JOIN packages p ON v.vendorID=p.vendorID
         JOIN packageassignment pa ON p.packageID=pa.packageID
