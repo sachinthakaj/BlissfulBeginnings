@@ -1,88 +1,18 @@
-* {
-    font-family: "Poppins", sans-serif
-}
-
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.9);
-    /* Semi-transparent white */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    /* Ensures it's on top */
-}
-
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
+@import url('/public/assets/css/common.css');
+@import url('/public/assets/css/components/Animations.css');
+@import url('/public/assets/css/components/Spinner.css');
+@import url('/public/assets/css/components/Scrollbar.css');
+@import url('/public/assets/css/components/HeaderButton.css');
+@import url('/public/assets/css/components/OverallProgressBars.css');
+@import url('/public/assets/css/components/GroupChat.css');
+@import url('/public/assets/css/components/CreateVendorCard.css');
+@import url('/public/assets/css/components/DeleteModal.css');
+@import url('/public/assets/css/components/EditModal.css');
+@import url('/public/assets/css/components/MainButtons.css');
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
     padding: 0;
-    background-color: #fff;
     overflow: hidden;
-}
-
-header {
-    background-color: #ddd;
-    height: 10vh;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 8px;
-}
-
-.nav-bar-logo-container {
-    height: 100%;
-
-}
-
-.nav-bar-logo {
-    max-height: 100%;
-    max-width: auto;
-}
-
-.wedding-title {
-    font-family: "Gwendolyn";
-    font-size: 40px;
-    color: #c1a42e;
-}
-
-.pay-now {
-    background-color: #4a5d23;
-    color: white;
-    border: none;
-    border-radius: 24px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.pay-now:hover {
-    background-color: #c1a42e;
 }
 
 .main-container {
@@ -98,56 +28,6 @@ main {
     text-align: center;
     color: #4a5d23;
 }
-
-.progress-bar-container {
-    position: relative;
-    height: 20px;
-    width: 100%;
-    margin: 50px auto;
-}
-
-.bar {
-    position: absolute;
-    /* Position the bars on top of each other */
-    top: 0;
-    left: 0;
-    height: 20px;
-    background-color: #ddd;
-    width: 100%;
-    border-radius: 10px;
-}
-
-.budget-progress-bar {
-    background-color: gold;
-    width: 0%;
-}
-
-.wedding-progress-bar {
-    background-color: #4a5d23;
-    width: 0%;
-}
-
-.budget-progress-bar,
-.wedding-progress-bar {
-    margin-top: 40px;
-}
-
-.vendor-bar {
-    background-color: white;
-    width: 100%;
-}
-
-
-/* .vendor-grid {
-    position: grid;
-    overflow: auto;
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0px;
-} */
 
 .package-step {
     top: 100%;
@@ -194,22 +74,6 @@ main {
 }
 
 .package {
-    /* position: relative; 
-    height: 40vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    background-color: #ddd;
-    padding: 1rem;
-    border-radius: 8px;
-    color: #333;
-    cursor: pointer;
-    font-family: 'Brush Script MT', cursive;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
-    overflow: hidden; */
-
     cursor: pointer;
     width: 280px;
     border-radius: 25px;
@@ -228,17 +92,11 @@ main {
 
 .package:hover,
 .package.active {
-    /* transform: translateY(-10px); 
-    background-color: #f1c40f;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);  */
-
     box-shadow: 0 5px 10px #656233;
     transform: scale(1.025);
     transition: 0.5s ease-in-out;
     transform: translateY(-5%);
 }
-
-
 
 .package .details {
     width: 100%;
@@ -253,44 +111,9 @@ main {
     font-size: 1.25rem;
 }
 
-.vendor-card {
-    height: 600px;
-    background-color: #e0e0e0;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
 
-.vendor-image {
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    border-radius: 50%;
-    margin: 0 auto 10px;
-}
 
-aside {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    top: 0;
-    padding: 0px 10px;
-    background-color: #ddd;
 
-}
-
-.chat-container {
-    width: 100%;
-    height: 90%;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
 
 .message {
     display: block;
@@ -316,17 +139,13 @@ aside {
 /* Modal content */
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Black with opacity */
     justify-content: center;
     align-items: center;
 }
@@ -335,28 +154,13 @@ aside {
 .modal-content {
     background-color: #fff;
     margin: 15% auto;
-    /* 15% from top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    /* Could be more or less depending on screen size */
     max-width: 500px;
 }
 
-/* Close button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 /* Open button */
 .open-modal-btn {
@@ -370,18 +174,6 @@ aside {
 
 .open-modal-btn:hover {
     color: #656233;
-}
-
-/* Multi Step Form */
-.form-group {
-    margin-bottom: 15px;
-}
-
-.progress-bar-container label {
-    display: block;
-    font-size: 1.1em;
-    margin-bottom: 20px;
-    line-height: 70px;
 }
 
 .checkbox-group {
@@ -418,117 +210,11 @@ a:hover {
     background-color: #a28c53;
 }
 
-/* Hide all steps except the first one */
 .step {
     display: none;
 }
 
 .step.active {
-    display: block;
-}
-
-/* Add some style for buttons */
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button#prevBtn {
-    background-color: #bbb;
-}
-
-/* scroll bars */
-.vendor-grid::-webkit-scrollbar {
-    width: 7px;
-}
-
-.vendor-grid::-webkit-scrollbar-track {
-    background-color: #e0dcdc;
-    border-radius: 10px;
-}
-
-.vendor-grid::-webkit-scrollbar-thumb {
-    background-color: #c1a42e;
-    border-radius: 10px
-}
-
-.vendor-grid::-webkit-scrollbar-thumb:hover {
-    background-color: #656233;
-    transition: ease-in 1s;
-}
-
-.top-right {
-    margin-right: 30px;
-}
-
-/* dropdown */
-/* Base Reset */
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-/* Parent Menu Items */
-ul li {
-    position: relative;
-    display: inline-block;
-}
-
-ul li a:hover {
-    text-decoration: none;
-}
-
-ul li a {
-    display: block;
-    padding: 10px 20px;
-    color: #656233;
-    text-decoration: none;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
-
-/* Dropdown Menu */
-ul li ul.dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    display: none;
-    z-index: 9999;
-    width: 150px;
-}
-
-ul li ul.dropdown li {
-    display: block;
-}
-
-ul li ul.dropdown li a {
-    padding: 10px 15px;
-    font-size: 14px;
-    color: #333;
-    background-color: #fff;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-ul li ul.dropdown li a:hover {
-    background-color: #c1a42e;
-    color: #fff;
-}
-
-ul li:hover ul.dropdown {
     display: block;
 }
 
@@ -538,181 +224,7 @@ ul li:hover ul.dropdown {
     margin-top: 0px;
 }
 
-/* Extra Responsiveness */
-@media (max-width: 768px) {
-    ul li {
-        display: block;
-    }
 
-    ul li ul.dropdown {
-        width: 100%;
-    }
-}
-
-.modal-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-container.show {
-    display: flex;
-}
-
-.modal-delete {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    animation: modalOpen 0.3s ease-out;
-}
-
-@keyframes modalOpen {
-    from {
-        opacity: 0;
-        transform: translateY(-60px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.modal-header h2 {
-    margin: 0;
-    color: #333;
-}
-
-.modal-body {
-    margin-bottom: 20px;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.cancel-button,
-.delete-button {
-    padding: 8px 16px;
-    border-radius: 24px;
-    cursor: pointer;
-    border: none;
-    font-weight: 500;
-}
-
-.cancel-button {
-    background-color: #e0e0e0;
-    color: #333;
-}
-
-.delete-button {
-    background-color: #656233;
-    color: white;
-}
-
-.cancel-button:hover {
-    background-color: #d0d0d0;
-}
-
-.delete-button:hover {
-    background-color: #c1a42e;
-}
-
-/* edit profile modal */
-.edit-modal-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.edit-modal-container.show {
-    display: flex;
-}
-
-.edit-modal {
-    background-color: #fff;
-    padding: 20px;
-    padding-right: 40px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    animation: modalOpen 0.3s ease-out;
-}
-
-.close-button {
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-}
-
-.close-button:hover {
-    color: #333;
-}
-
-.modal-page {
-    display: none;
-}
-
-.modal-page.active {
-    display: block;
-}
-
-.modal-body h3 {
-    margin-bottom: 15px;
-    color: #444;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #666;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-}
 
 .edit-modal-footer {
     display: flex;
@@ -756,42 +268,7 @@ ul li:hover ul.dropdown {
     justify-content: space-between;
 }
 
-.prev-button,
-.next-button,
-.submit {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 24px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
 
-.prev-button {
-    background-color: #eee;
-    color: #666;
-}
-
-.prev-button:disabled {
-    background-color: #ddd;
-    color: #999;
-    cursor: not-allowed;
-}
-
-.next-button,
-.submit {
-    background-color: #c1a42e;
-    color: white;
-}
-
-.next-button:hover,
-.submit:hover {
-    background-color: #656233;
-}
-
-.prev-button:not(:disabled):hover {
-    background-color: #ddd;
-}
 
 .box-container {
     display: flex;
@@ -955,25 +432,7 @@ ul li:hover ul.dropdown {
     margin: 0px;
 }
 
-/* Scrollbar Styles */
-.vendor-grid::-webkit-scrollbar {
-    width: 7px;
-}
 
-.vendor-grid::-webkit-scrollbar-track {
-    background-color: #e0dcdc;
-    border-radius: 10px;
-}
-
-.vendor-grid::-webkit-scrollbar-thumb {
-    background-color: #c1a42e;
-    border-radius: 10px;
-}
-
-.vendor-grid::-webkit-scrollbar-thumb:hover {
-    background-color: #656233;
-    transition: ease-in 1s;
-}
 
 /* Package Step Styles */
 .package-step {
@@ -990,15 +449,6 @@ ul li:hover ul.dropdown {
     display: block;
     opacity: 1;
 }
-
-/* Package Selector Styles */
-/* .package-selector {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-} */
 
 .package-selector-information {
     display: flex;
@@ -1041,79 +491,6 @@ ul li:hover ul.dropdown {
     border-top: 1px solid #e0dcdc;
 }
 
-/* Button Styles */
-.next-button,
-.prev-button {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.next-button {
-    background-color: #c1a42e;
-    color: white;
-}
-
-.prev-button {
-    background-color: #e0dcdc;
-    color: #4a5568;
-}
-
-.next-button:hover {
-    background-color: #656233;
-}
-
-.prev-button:hover {
-    background-color: #cbd5e0;
-}
-
-/* Responsive Adjustments */
-/* @media (max-width: 768px) {
-    .vendor-grid {
-        padding: 1rem;
-        height: 60vh;
-    }
-
-    .package-selector {
-        padding: 1rem;
-    }
-
-    .package-selector-information {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-
-    .reccomendation-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .step-buttons {
-        flex-direction: column-reverse;
-    }
-
-    .next-button,
-    .prev-button {
-        width: 100%;
-    }
-} */
-
-/* Animation for Step Transitions */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 .package-step.current {
     animation: fadeIn 0.5s ease-out forwards;
@@ -1131,19 +508,6 @@ ul li:hover ul.dropdown {
     position: relative;
 }
 
-/* Close button */
-.close {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-}
-
-.close:hover {
-    color: #333;
-}
 
 /* Progress bar */
 .form-progress-bar {
@@ -1187,91 +551,6 @@ ul li:hover ul.dropdown {
     display: block;
 }
 
-/* Form elements */
-.input-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #333;
-    font-weight: 500;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="date"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    border-color: #4CAF50;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
-}
-
-/* Checkbox styling */
-.checkbox-group {
-    margin: 20px 0;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-    cursor: pointer;
-}
-
-input[type="checkbox"] {
-    margin-right: 10px;
-    width: 18px;
-    height: 18px;
-}
-
-/* Button styling */
-button {
-    background-color: #c1a42e;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #ab963b;
-}
-
-#prevBtn {
-    background-color: #656233;
-}
-
-#prevBtn:hover {
-    background-color: #555;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 /* Responsive design */
 @media screen and (max-width: 480px) {

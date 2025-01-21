@@ -1,45 +1,18 @@
 @import url('/public/assets/css/Common.css');
+@import url('/public/assets/css/components/HeaderButton.css');
 
 /* Hero Section */
 .hero {
     background-image: url('/public/assets/images/groom-putting-ring-bride-s-finger 1.png'); /* Ensure the background image path is correct */
-    background-size: cover;
-    background-position: center;
-    text-align: center;
     padding: 120px 20px;
-    color: #fff;
 }
 
-.hero h2 {
-    font-size: 48px;
-    font-family: 'Georgia', serif;
-    color: white;
-    font-weight: 700;
-    margin: 0;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.hero h3 {
-    font-size: 36px;
-    font-family: 'Georgia', serif;
-    color: white;
-    font-weight: 400;
-    margin: 10px 0;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.hero p {
-    font-size: 18px;
-    font-family: Arial, sans-serif;
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-}
 
 /* Services Section */
 .services {
     text-align: center;
     padding: 60px 20px;
-    background-color: #f9f9f9;
+    background-color: var(--primary-white-color);
 }
 
 .services h2 {
@@ -57,7 +30,7 @@
 }
 
 .card {
-    background-color: #f0f0f0;
+    background-color: var(--primary-white-color);
     padding: 20px;
     border-radius: 10px;
     width: 180px;
@@ -80,7 +53,7 @@
 .card h3 {
     font-size: 20px;
     margin: 15px 0;
-    color: #333;
+    color: var(--tertiary-color);
     font-weight: bold;
 }
 
@@ -92,5 +65,5 @@
 }
 
 .card a:hover {
-    color: var(--button-hover-bg);
+    color: var(--secondary-color);
 }
