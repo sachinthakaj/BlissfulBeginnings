@@ -228,7 +228,7 @@
                 <div class="button-group">
                     <button class="prev-button" disabled>Previous</button>
                     <button class="next-button">Next</button>
-                    <button class="submit-button" style="display: none;">Save Changes</button>
+                    <button class="submit-button">Save Changes</button>
                 </div>
             </div>
         </div>

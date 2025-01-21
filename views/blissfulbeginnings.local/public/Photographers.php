@@ -30,7 +30,7 @@
                     <input type="text" placeholder="Search" class="search-input" />
                 </div>
             </div>
-            <div class="more-about-photographers">
+            <div class="more-about-photographers more-content">
                 <!-- Javascript is mentioned here -->
             </div>
         </div>

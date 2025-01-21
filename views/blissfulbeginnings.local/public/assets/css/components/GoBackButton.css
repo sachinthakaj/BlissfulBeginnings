@@ -1,0 +1,21 @@
+@import url('/public/assets/css/common.css');
+
+.go-back {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.go-back:hover {
+    color: var(--secondary-color);
+    transition: ease-in 0.3s;
+}
+
+.go-back-arrow {
+    width: 15px;
+    margin-right: 8px;
+    transform: scale(-1);
+}
