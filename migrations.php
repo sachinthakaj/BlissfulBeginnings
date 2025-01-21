@@ -52,6 +52,10 @@ class Migrations
             echo "Applying migration $migration" . PHP_EOL;
             try {
                 $instance->up();
+                if (method_exists($instance, 'alter')) {
+                    $instance->alter();
+                }
+
                 echo "Applied migration $migration" . PHP_EOL;
                 $this->saveMigration($migration, $instance);
             } catch (PDOException $th) {

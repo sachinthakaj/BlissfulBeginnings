@@ -55,7 +55,7 @@ function render() {
     selectYear = document.getElementById("year");
     selectMonth = document.getElementById("month");
 
-    createYear = generate_year_range(1970, 2050);
+    createYear = generate_year_range(currentYear-1, currentYear+2);
 
     document.getElementById("year").innerHTML = createYear;
 
@@ -93,6 +93,10 @@ function render() {
         document.getElementById("monthAndYear");
     showCalendar(currentMonth, currentYear);
 
+    document.getElementById("next").addEventListener("click", next);
+  document.getElementById("previous").addEventListener("click", previous);
+  document.getElementById("jump").addEventListener("click", jump);
+    
     // Function to navigate to the next month
     function next() {
         currentYear = currentMonth === 11 ?
