@@ -37,4 +37,16 @@ class Chat
             return false;
         }
     }
+
+    public function logImageUpload($weddingID, $relativePath, $metadata) {
+        try {
+            $this->db->query("INSERT INTO chatImages (weddingID) VALUES (:weddingID);");   
+            $this->db->bind(':weddingID', hex2bin($weddingID), PDO::PARAM_LOB);
+            $this->db->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log($e);
+            return false;
+    }
+}
 }

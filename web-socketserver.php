@@ -7,13 +7,11 @@ require "core/Database.php";
 
 const BASE_PATH = __DIR__;
 
-// Wedding Group Chat WebSocket Server
 
-$host = "0.0.0.0"; // Listen on all available network interfaces
-$port = 8080;      // Port for WebSocket
+$host = "0.0.0.0";
+$port = 8080;
 $null = NULL;
 
-// Create a socket
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
 socket_bind($server, $host, $port);
@@ -41,8 +39,9 @@ function close_connection($client)
 // Function to handle initial wedding ID registration
 function registerClient($client, &$wedding_clients)
 {
+    $opcode = 8;
     // Read the first message (wedding ID)
-    $wedding_id = unmask(socket_read($client, 1024, PHP_BINARY_READ));
+    $wedding_id = unmask(socket_read($client, 1024, PHP_BINARY_READ), $opcode);
     // Validate wedding ID (basic check)
     if (empty($wedding_id->weddingID)) {
         socket_close($client);
@@ -78,8 +77,10 @@ function perform_handshake($client)
     }
 }
 
-function unmask($payload)
+function unmask($payload, &$opcode)
 {
+    $firstByte = ord($payload[0]); // Get the numeric value of the first byte
+    $opcode = $firstByte & 0x0F;  // Extract the last 4 bits
     $length = ord($payload[1]) & 127;
     echo "Length: $length\n";
     if ($length == 126) {
@@ -125,7 +126,7 @@ function saveMessage($weddingID, $data)
         $timestampSeconds = $data->timestamp / 1000;
 
         $timestamp = new DateTime("@$timestampSeconds");
-        $chat->saveMessage($weddingID, $data->sender, $timestamp->format('Y-m-d H:i:s'), $data->text);
+        $chat->saveMessage($weddingID, $data->sender, $timestamp->format('Y-m-d H:i:s'), $data->message);
         return true;
     } catch (Exception $e) {
         error_log($e);
@@ -143,7 +144,6 @@ function getAllMessages($weddingID)
 }
 
 
-// Main server loop
 while (true) {
     // Prepare an array of all connected sockets
     $read = [];
@@ -167,16 +167,17 @@ while (true) {
         $messageList = getAllMessages($wedding_id);
         send_message($client, $messageList);
     }
+    $opcode = 8;
 
     // Handle messages and disconnections for each wedding group
     foreach ($wedding_clients as $wedding_id => &$clients) {
         foreach ($clients as $key => $client) {
             if (in_array($client, $modified_sockets)) {
                 $data = socket_read($client, 1024, PHP_BINARY_READ);
-                $data = unmask($data);
+                $data = unmask($data, $opcode);
                 // Handle disconnect
-                if ($data === false || $data === '') {
-                    echo "Client disconnected from Wedding ID: $wedding_id\n";
+                if($opcode == 8) {
+                    echo "closing Connection";
                     close_connection($client);
                     unset($clients[$key]);
                     continue;
@@ -185,7 +186,7 @@ while (true) {
                 // Broadcast message to all clients in the same wedding group
                 foreach ($clients as $recipient) {
                     if ($recipient !== $client) {
-                        send_message($recipient, $data);
+                        send_message($recipient, [$data]);
                     }
                 }
 

@@ -27,50 +27,50 @@
 
     </header>
     <div class="content-wrapper">
-    <div class="left">
-            <div class="back-button">
-                <a href="/plannerDashboard" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Dashboard</span></a>
-            </div>
-            <!-- <div class="more-about-salons">
+      <div class="left">
+        <div class="back-button">
+          <a href="/plannerDashboard" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Dashboard</span></a>
+        </div>
+        <!-- <div class="more-about-salons">
             </div> -->
 
-            <main>
-        <div class="progress-bar-vendor-search-and-cards">
-          <div class="weddingProgressText">Wedding Progress</div>
+        <main>
+          <div class="progress-bar-vendor-search-and-cards">
+            <div class="weddingProgressText">Wedding Progress</div>
 
-          <div class="progress-container">
-            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-          </div>
-          <div class="weddingProgressText">Budget Progress</div>
-          <div class="progress-container">
-            <div class="progress-bar" id="budgetBar" style="width: 0%"></div>
-          </div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div class="weddingProgressText">Budget Progress</div>
+            <div class="progress-container">
+              <div class="progress-bar" id="budgetBar" style="width: 0%"></div>
+            </div>
 
-          <div class="vendor-search-and-cards">
+            <div class="vendor-search-and-cards">
 
 
-            <div class="vendor-cards"></div>
-            <div id="taskFormModal" class="modal">
-              <div class="modal-content">
-                <span id="closeModal" class="close">&times;</span>
-                <h2>Add Task</h2>
-                <form id="taskForm">
-                  <input id="assignmentID" type="hidden" name="assignmentID" value="">
-                  <lable for="taskDescription" class="taskDescription">Description:</lable>
-                  <textarea id="taskDescription" name="taskDescription" required></textarea>
-                  <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
-                  <input id="dateToFinish" name="dateToFinish" type="date" required>
-                  <button type="submit" class="submitButton">Submit</button>
+              <div class="vendor-cards"></div>
+              <div id="taskFormModal" class="modal">
+                <div class="modal-content">
+                  <span id="closeModal" class="close">&times;</span>
+                  <h2>Add Task</h2>
+                  <form id="taskForm">
+                    <input id="assignmentID" type="hidden" name="assignmentID" value="">
+                    <lable for="taskDescription" class="taskDescription">Description:</lable>
+                    <textarea id="taskDescription" name="taskDescription" required></textarea>
+                    <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
+                    <input id="dateToFinish" name="dateToFinish" type="date" required>
+                    <button type="submit" class="submitButton">Submit</button>
 
-                </form>
+                  </form>
+                </div>
+
               </div>
-
             </div>
           </div>
-        </div>
-      </main>
+        </main>
       </div>
-      
+
       <aside class="chat-container">
         <div class="chat-all-area">
           <div class="chat-show-area">
@@ -79,7 +79,13 @@
           </div>
 
           <div class="chat-action-area">
-            <div class="Message-type-area" >
+            <div class="image-upload-container">
+              <label for="imageUpload" class="upload-icon">
+                <img src="upload-icon.png" alt="Upload Image" title="Upload an image">
+              </label>
+              <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            </div>
+            <div class="Message-type-area">
               <input type="text" id="chat-type-field" placeholder="Type your message here...">
             </div>
             <button class="Message-send-button-area" id="send-button">SEND</button>

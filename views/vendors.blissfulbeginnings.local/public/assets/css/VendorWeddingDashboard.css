@@ -26,7 +26,8 @@ header {
 
 .nav-bar-logo-container {
     height: 100%;
-    flex-shrink: 0; /* Prevent the logo from shrinking */
+    flex-shrink: 0;
+    /* Prevent the logo from shrinking */
 }
 
 .nav-bar-logo {
@@ -35,10 +36,13 @@ header {
 }
 
 .wedding-title-container {
-    flex-grow: 1; /* Allow the title to take up the middle space */
+    flex-grow: 1;
+    /* Allow the title to take up the middle space */
     display: flex;
-    justify-content: left; /* Center the text horizontally */
-    align-items: center; /* Center the text vertically */
+    justify-content: left;
+    /* Center the text horizontally */
+    align-items: center;
+    /* Center the text vertically */
 }
 
 .wedding-title {
@@ -153,47 +157,67 @@ main {
     margin: 0 auto 10px;
 }
 
-aside {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    top: 0;
-    padding: 0px 10px;
-    background-color: #ddd;
-   
+aside.chat-container {
+    flex-basis: 250px;
+    max-width: 300px;
+    flex: 1;
+    padding: 20px;
+    background-color: darkgrey;
+    border-left: 2px solid #e0e0e0;
+    min-width: 100px;
+    border-radius: 10px;
 }
 
-.chat-container {
-    width: 100%;
-    height: 90%;
+.chat-all-area {
+    background-color: #dddddd33;
+    padding-top: 5px;
+}
+
+.chat-show-area {
     background-color: #fff;
+    min-height: 500px;
+    margin-left: 5px;
+    margin-right: 5px;
     border-radius: 10px;
-
 }
 
-.text-field {
+.chat-action-area {
+    background-color: rgba(0, 0, 0, 0.251);
+    height: 60px;
     display: flex;
-    margin: 8px 0px;
-    width: 100%;
-    height: 5%;
-    border-radius: 10px;
+    align-items: end;
+    gap: 10px;
 }
-.chat-type-field {
-    height: 100%;
-    width: 90%;
-    margin: 0px 8px 0px 0px;
-    border: none;
+
+.Message-type-area {
+    background-color: #fff;
+    height: 50px;
+    min-width: 200px;
+    margin-bottom: 5px;
+    margin-left: 5px;
     border-radius: 10px;
 }
 
-.chat-send-button {
-    border: none;
+.Message-send-button-area {
+    background-color: #ddd;
+    height: 50px;
+    width: 80px;
+    margin-bottom: 5px;
+    margin-right: 5px;
     border-radius: 10px;
-    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: monospace;
 }
 
-.chat-send-button:hover {
-    background-color: salmon;
+.message-text {
+    display: inline;
+}
+
+.message {
+    display: block;
+    margin-bottom: 10px;
 }
 
 /* slider */
@@ -208,7 +232,7 @@ aside {
     display: flex;
     overflow-x: scroll;
     padding: 20px 0;
-} 
+}
 
 .slide-content::-webkit-scrollbar {
     display: none;
@@ -244,7 +268,8 @@ aside {
     gap: 10px;
 }
 
-.image-content, .card-content {
+.image-content,
+.card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -267,7 +292,8 @@ aside {
     border-radius: 25px 25px 0 25px;
 }
 
-.overlay::before, .overlay::after {
+.overlay::before,
+.overlay::after {
     content: '';
     right: 0;
     bottom: -40px;
@@ -315,7 +341,8 @@ aside {
 .description {
     font-size: 14px;
     color: #707070;
-    text-align: center;;
+    text-align: center;
+    ;
 }
 
 .card-button {
@@ -354,6 +381,6 @@ button:hover {
 }
 
 button img {
-    width: 50px; 
+    width: 50px;
     height: auto;
 }

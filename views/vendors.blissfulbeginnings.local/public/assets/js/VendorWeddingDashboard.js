@@ -132,4 +132,71 @@ function render() {
     // });
 }
 
+function renderMessages() {
+    const chatContainer = document.querySelector('.chat-container');
+    chatContainer.innerHTML = '';
+
+    const wsUrl = 'ws://localhost:8080/';
+
+    const socket = new WebSocket(wsUrl);
+    const messageInput = document.querySelector('.chat-type-field');
+    const sendBtn = document.querySelector('.chat-send-button');
+
+
+    socket.onopen = () => {
+        socket.send(JSON.stringify({
+            weddingID: weddingID,
+        }));
+    };
+
+    socket.onmessage = (event) => {
+        console.log(event);
+        const messages = JSON.parse(event.data);
+        messages.forEach(message => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', message.role);
+            messageElement.textContent = message.message;
+            messageElement.dataset.timestamp = message.timestamp;
+            chatContainer.appendChild(messageElement);
+        });
+
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+    };
+
+    socket.onclose = () => {
+        console.log('WebSocket connection closed.');
+    };
+
+    sendBtn.addEventListener('click', () => {
+        const message = messageInput.value.trim();
+        if (message) {
+
+            chatMessage = {
+                sender: 'customer',
+                text: message,
+                timestamp: Date.now()
+            };
+            socket.send(JSON.stringify(chatMessage));
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'me');
+            messageElement.textContent = chatMessage.text;
+            messageElement.dataset.timestamp = chatMessage.timestamp;
+            chatContainer.appendChild(messageElement);
+            messageInput.value = '';
+        }
+    });
+
+    messageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendBtn.click();
+        }
+    });
+
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+document.addEventListener("DOMContentLoaded", renderMessages);
+
 document.addEventListener('DOMContentLoaded', render);

@@ -27,8 +27,8 @@ function renderMessages() {
     };
 
     socket.onmessage = (event) => {
-        console.log(event);
         const messages = JSON.parse(event.data);
+        console.log(messages);
         messages.forEach(message => {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', message.role);
@@ -53,13 +53,13 @@ function renderMessages() {
 
             chatMessage = {
                 sender: 'customer',
-                text: message,
+                message: message,
                 timestamp: Date.now()
             };
             socket.send(JSON.stringify(chatMessage));
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', 'me');
-            messageElement.textContent = chatMessage.text;
+            messageElement.textContent = chatMessage.message;
             messageElement.dataset.timestamp = chatMessage.timestamp;
             chatContainer.appendChild(messageElement);
             messageInput.value = '';
