@@ -45,12 +45,14 @@ function renderMessages() {
   };
 
   sendBtn.addEventListener('click', () => {
+    timestamp = new Date().toISOString()
+    timestamp = timestamp.replace('T', ' ').split('.')[0];
     const message = messageInput.value.trim();
     if (message) {
       chatMessage = {
         sender: 'planner',
         message: message,
-        timestamp: Date.now()
+        timestamp: timestamp,
       };
       socket.send(JSON.stringify(chatMessage));
       console.log(chatMessage);
@@ -69,75 +71,80 @@ function renderMessages() {
     }
   });
 
+  document.getElementById('imageUpload').addEventListener('change', async function (event) {
+    const file = event.target.files[0]; // Get the selected file
+  
+    // Ensure a file was selected
+    if (!file) {
+        alert("No file selected.");
+        return;
+    }
+  
+    // Check file type (ensure it's an image)
+    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF).");
+        return;
+    }
+  
+    // Check file size (limit to 2 MB)
+    const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
+    if (file.size > maxSize) {
+        alert("File size must be less than 2 MB.");
+        return;
+    }
+  
+    // Prepare the metadata and image for upload
+    timestamp = new Date().toISOString()
+    timestamp = timestamp.replace('T', ' ').split('.')[0];
+    sender = "planner" // Replace with actual sender's ID or username
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("timestamp", JSON.stringify(timestamp));
+    formData.append("sender", JSON.stringify(sender));
+  
+    try {
+        // Send the image and metadata to the backend via POST
+        const response = await fetch("/chat/upload-image/" + weddingID, {
+            method: "POST",
+            body: formData,
+        });
+  
+        if (!response.ok) {
+            throw new Error(`Failed to upload image. Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+  
+        // Ensure the server returned a valid storage path
+        if (!data.storagePath) {
+            throw new Error("Invalid response from server. No storage path provided.");
+        }
+  
+        const imageReference = data.storagePath;
+  
+        // Send image reference and metadata to the WebSocket server
+        const metaWithImage = {
+            timestamp: JSON.stringify(timestamp),
+            sender: "planner",
+            imageReference: imageReference,
+            Image: "image_reference", // Distinguish the message type on the backend
+        };
+  
+        // Assume `socket` is a live WebSocket connection
+        socket.send(JSON.stringify(metaWithImage));
+        alert("Image sent successfully!");
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while uploading the image.");
+    }
+  });
+  
+
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 document.addEventListener("DOMContentLoaded", renderMessages);
 
-document.getElementById('imageUpload').addEventListener('change', async function (event) {
-  const file = event.target.files[0]; // Get the selected file
-
-  // Ensure a file was selected
-  if (!file) {
-      alert("No file selected.");
-      return;
-  }
-
-  // Check file type (ensure it's an image)
-  const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-  if (!validImageTypes.includes(file.type)) {
-      alert("Please upload a valid image file (JPEG, PNG, GIF).");
-      return;
-  }
-
-  // Check file size (limit to 2 MB)
-  const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
-  if (file.size > maxSize) {
-      alert("File size must be less than 2 MB.");
-      return;
-  }
-
-  // Prepare the metadata and image for upload
-  timestamp = new Date().toISOString()
-  sender = "User123" // Replace with actual sender's ID or username
-  const formData = new FormData();
-  formData.append("image", file);
-  formData.append("timestamp", JSON.stringify());
-
-  try {
-      // Send the image and metadata to the backend via POST
-      const response = await fetch("/chat/upload-image/" + weddingID, {
-          method: "POST",
-          body: formData,
-      });
-
-      if (!response.ok) {
-          throw new Error(`Failed to upload image. Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      // Ensure the server returned a valid storage path
-      if (!data.storagePath) {
-          throw new Error("Invalid response from server. No storage path provided.");
-      }
-
-      const imageReference = data.storagePath;
-
-      // Send image reference and metadata to the WebSocket server
-      const metaWithImage = {
-          ...metaData,
-          imageReference: imageReference,
-          type: "image_reference", // Distinguish the message type on the backend
-      };
-
-      // Assume `socket` is a live WebSocket connection
-      socket.send(JSON.stringify(metaWithImage));
-      alert("Image sent successfully!");
-  } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while uploading the image.");
-  }
-});
 
 
 document.addEventListener("DOMContentLoaded", function () {

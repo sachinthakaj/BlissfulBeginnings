@@ -21,7 +21,6 @@ class ChatController {
         }
 
         $file = $_FILES['image'];
-        $metaData = json_decode($_POST['metaData'] ?? '{}', true);
 
         // Validate the file type (only allow images)
         $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -50,11 +49,7 @@ class ChatController {
         }
 
         // Convert file path to a relative URL for the client
-        $relativePath = "/uploads/weddings/{$weddingID}/{$filename}";
-
-        // Interact with the ChatModel to log the upload (if needed)
-        $chatModel = new Chat();
-        $chatModel->logImageUpload($weddingID, $relativePath, $metaData);
+        $relativePath = "/storage/chat/{$weddingID}/{$filename}";
 
         // Send a JSON response with the file path
         echo json_encode(["storagePath" => $relativePath]);

@@ -1,6 +1,6 @@
 <?php
 
-class m00014_packageAssignment_Update {
+class m0014_packageAssignment_Update {
     private $dbh;
     public function __construct($dbh) {
         $this->dbh = $dbh;

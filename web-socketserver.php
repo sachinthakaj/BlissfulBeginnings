@@ -104,7 +104,6 @@ function unmask($payload, &$opcode)
 function send_message($client, $message)
 {
     $message = json_encode($message);
-    echo $message;
     $header = chr(0x81); // 0x81 indicates a text frame
     $length = strlen($message);
 
@@ -123,10 +122,7 @@ function saveMessage($weddingID, $data)
 {
     try {
         $chat = new Chat();
-        $timestampSeconds = $data->timestamp / 1000;
-
-        $timestamp = new DateTime("@$timestampSeconds");
-        $chat->saveMessage($weddingID, $data->sender, $timestamp->format('Y-m-d H:i:s'), $data->message);
+        $chat->saveMessage($weddingID, $data->sender, $data->timestamp, $data->message);
         return true;
     } catch (Exception $e) {
         error_log($e);
@@ -141,6 +137,12 @@ function getAllMessages($weddingID)
     } catch (Exception $e) {
         error_log($e);
     }
+}
+
+function saveImageMessage($weddingID, $relativePath, $timestamp, $sender)
+{
+    $chat = new Chat();
+    return $chat->saveImageMessage($weddingID, $relativePath, $timestamp, $sender);
 }
 
 
@@ -176,13 +178,17 @@ while (true) {
                 $data = socket_read($client, 1024, PHP_BINARY_READ);
                 $data = unmask($data, $opcode);
                 // Handle disconnect
-                if($opcode == 8) {
+                if ($opcode == 8) {
                     echo "closing Connection";
                     close_connection($client);
                     unset($clients[$key]);
                     continue;
                 }
-                saveMessage($wedding_id, $data);
+                if (isset($data->Image)) {
+                    saveImageMessage($wedding_id, $data->imageReference, $data->timestamp, $data->sender);
+                } else {
+                    saveMessage($wedding_id, $data);
+                }
                 // Broadcast message to all clients in the same wedding group
                 foreach ($clients as $recipient) {
                     if ($recipient !== $client) {
