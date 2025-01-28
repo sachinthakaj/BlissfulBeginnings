@@ -27,6 +27,9 @@ function renderMessages() {
     messages.forEach(message => {
 
       const messageElement = document.createElement('div');
+      if(message.imageReference) {
+        appendImageMessage(message.imageReference, message.timestamp);
+      }
       messageElement.classList.add('message', message.role);
       messageElement.textContent = message.message;
       messageElement.dataset.timestamp = message.timestamp;
@@ -93,7 +96,8 @@ function renderMessages() {
     imageElement.dataset.timestamp = timestamp;
 
     const img = document.createElement('img'); // Create the <img> element
-    img.src = imageReference; // Set the source of the image
+    console.log(imageReference);
+    img.src = "http://cdn.blissfulbeginnings.local/" + imageReference; // Set the source of the image
     img.alt = "Uploaded Image"; // Alt text for accessibility
     img.classList.add('chat-image'); // Optional class for styling the image
     img.style.maxWidth = '200px'; // Add a size limit if needed

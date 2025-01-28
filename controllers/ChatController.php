@@ -31,7 +31,7 @@ class ChatController {
         }
 
         // Create a folder for the weddingID if it doesn't exist
-        $uploadDir = dirname(__DIR__) . "/storage/chat/{$weddingID}";
+        $uploadDir = dirname(__DIR__) . "/cdn/chat/{$weddingID}";
         if (!is_dir($uploadDir) && !mkdir($uploadDir, 0777, true)) {
             http_response_code(500); // Internal Server Error
             echo json_encode(["error" => "Failed to create directory"]);
@@ -49,7 +49,7 @@ class ChatController {
         }
 
         // Convert file path to a relative URL for the client
-        $relativePath = "/storage/chat/{$weddingID}/{$filename}";
+        $relativePath = "/chat/{$weddingID}/{$filename}";
 
         // Send a JSON response with the file path
         echo json_encode(["storagePath" => $relativePath]);

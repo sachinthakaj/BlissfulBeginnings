@@ -11,7 +11,7 @@ class Chat
     public function getMessages($weddingID)
     {
         try {
-            $this->db->query("SELECT role, message, timestamp FROM chat WHERE weddingID = :weddingID ORDER BY timestamp ASC;");
+            $this->db->query("SELECT role, message, timestamp, imagereference FROM chat WHERE weddingID = :weddingID ORDER BY timestamp ASC;");
             $this->db->bind(':weddingID', hex2bin($weddingID), PDO::PARAM_LOB);
             $this->db->execute();
             $messages = $this->db->fetchAll(PDO::FETCH_ASSOC);
