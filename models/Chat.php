@@ -60,11 +60,14 @@ class Chat
             $this->db->bind(':messageID', hex2bin($messageID), PDO::PARAM_LOB);
             $this->db->bind(':weddingID', hex2bin($weddingID), PDO::PARAM_LOB);
             $this->db->bind(':role', $sender, PDO::PARAM_STR);
+            echo "timestamp: " . $timestamp;
             $this->db->bind(':timestamp', $timestamp, PDO::PARAM_STR);
             $this->db->bind(':relativePath', $relativePath, PDO::PARAM_STR);
             $this->db->execute();
+            echo "Successfully logged the image";
             return true;
         } catch (Exception $e) {
+            echo "There is an error";
             error_log($e);
         }
     }

@@ -14,6 +14,8 @@ class m0013_Chat {
         `role` ENUM('planner', 'customer') NOT NULL,
         `message` TEXT NOT NULL,
         `timestamp` TIMESTAMP,
+              `relativePath` VARCHAR(511) NOT NULL,      
+
 
         CONSTRAINT fk_chat_ref_wedding FOREIGN KEY (weddingID) REFERENCES wedding(weddingID) ON DELETE CASCADE ON UPDATE CASCADE
       )";

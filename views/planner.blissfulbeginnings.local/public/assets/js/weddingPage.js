@@ -43,6 +43,22 @@ function renderMessages() {
   socket.onclose = () => {
     console.log('WebSocket connection closed.');
   };
+  function appendImageMessage(imageReference, timestamp) {
+    const imageElement = document.createElement('div'); // Container for the image
+    imageElement.classList.add('message', 'me'); // Add the same class as normal messages
+    imageElement.dataset.timestamp = timestamp;
+
+    const img = document.createElement('img'); // Create the <img> element
+    img.src = imageReference; // Set the source of the image
+    img.alt = "Uploaded Image"; // Alt text for accessibility
+    img.classList.add('chat-image'); // Optional class for styling the image
+    img.style.maxWidth = '200px'; // Add a size limit if needed
+    img.style.borderRadius = '8px'; // Optional: style the image to match your design
+
+    imageElement.appendChild(img); // Append the image to the container
+    chatContainer.appendChild(imageElement); // Append the message container to the chat
+}
+
 
   sendBtn.addEventListener('click', () => {
     timestamp = new Date().toISOString()
@@ -71,6 +87,23 @@ function renderMessages() {
     }
   });
 
+  function appendImageMessage(imageReference, timestamp) {
+    const imageElement = document.createElement('div'); // Container for the image
+    imageElement.classList.add('message', 'me'); // Add the same class as normal messages
+    imageElement.dataset.timestamp = timestamp;
+
+    const img = document.createElement('img'); // Create the <img> element
+    img.src = imageReference; // Set the source of the image
+    img.alt = "Uploaded Image"; // Alt text for accessibility
+    img.classList.add('chat-image'); // Optional class for styling the image
+    img.style.maxWidth = '200px'; // Add a size limit if needed
+    img.style.borderRadius = '8px'; // Optional: style the image to match your design
+
+    imageElement.appendChild(img); // Append the image to the container
+    chatContainer.appendChild(imageElement); // Append the message container to the chat
+}
+
+
   document.getElementById('imageUpload').addEventListener('change', async function (event) {
     const file = event.target.files[0]; // Get the selected file
   
@@ -80,31 +113,30 @@ function renderMessages() {
         return;
     }
   
-    // Check file type (ensure it's an image)
+
     const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
     if (!validImageTypes.includes(file.type)) {
         alert("Please upload a valid image file (JPEG, PNG, GIF).");
         return;
     }
   
-    // Check file size (limit to 2 MB)
-    const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
+
+    const maxSize = 2 * 1024 * 1024; 
     if (file.size > maxSize) {
         alert("File size must be less than 2 MB.");
         return;
     }
   
-    // Prepare the metadata and image for upload
+    
     timestamp = new Date().toISOString()
     timestamp = timestamp.replace('T', ' ').split('.')[0];
-    sender = "planner" // Replace with actual sender's ID or username
+    sender = "planner" 
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("timestamp", JSON.stringify(timestamp));
+    formData.append("timestamp", timestamp);
     formData.append("sender", JSON.stringify(sender));
   
     try {
-        // Send the image and metadata to the backend via POST
         const response = await fetch("/chat/upload-image/" + weddingID, {
             method: "POST",
             body: formData,
@@ -116,23 +148,22 @@ function renderMessages() {
   
         const data = await response.json();
   
-        // Ensure the server returned a valid storage path
         if (!data.storagePath) {
             throw new Error("Invalid response from server. No storage path provided.");
         }
   
         const imageReference = data.storagePath;
-  
-        // Send image reference and metadata to the WebSocket server
+
         const metaWithImage = {
-            timestamp: JSON.stringify(timestamp),
+            timestamp: formData.timestamp,
             sender: "planner",
             imageReference: imageReference,
-            Image: "image_reference", // Distinguish the message type on the backend
+            Image: "image_reference", 
         };
   
-        // Assume `socket` is a live WebSocket connection
         socket.send(JSON.stringify(metaWithImage));
+  
+        appendImageMessage(imageReference, metaWithImage.timestamp);
         alert("Image sent successfully!");
     } catch (error) {
         console.error("Error:", error);

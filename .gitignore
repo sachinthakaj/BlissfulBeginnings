@@ -3,4 +3,4 @@ vendor
 .env
 composer.json
 composer.lock
-storage/
+storage/chat
