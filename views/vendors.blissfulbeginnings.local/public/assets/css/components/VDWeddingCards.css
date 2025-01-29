@@ -1,0 +1,139 @@
+.slide-container {
+    max-width: 1120px;
+    width: 100%;
+}
+
+.slide-content {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding: 8px 0;
+    justify-content: flex-start;
+    align-items: center;
+    height: 66vh;
+} 
+
+.card {
+    cursor: pointer;
+    width: 280px;
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover {
+    box-shadow: 0 5px 10px #656233;
+    transform: scale(1.025);
+    transition: 0.5s ease-in-out;
+    transform: translateY(-5%);
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 40px;
+    padding: 15px 0;
+}
+
+.image-content, .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.image-content {
+    row-gap: 5px;
+    position: relative;
+    padding: 25px 0;
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #c1a42e;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before, .overlay::after {
+    content: '';
+    right: 0;
+    bottom: -40px;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background-color: #c1a42e;
+}
+
+.overlay::after {
+    border-radius: 0 25px 0 0;
+    background-color: #fff;
+
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #c1a42e;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #656233;
+    text-align: center;
+}
+
+.description {
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+}
+
+.content {
+    padding-top: 20px;
+}
+
+.slide-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+/* progress bars */
+.progress-bar-container {
+    width: 100%; 
+    height: 10px;
+    background-color: #ddd; 
+    border-radius: 5px; 
+    overflow: hidden; 
+    margin-top: 5px;
+}
+
+.progress-bar {
+    height: 100%; 
+    background-color: #c1a42e; 
+    transition: width 0.5s ease-in-out; 
+}
+
+.wedding-progress-bar {
+    background-color: #4a5d23; 
+}
