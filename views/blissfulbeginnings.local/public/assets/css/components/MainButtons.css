@@ -1,0 +1,125 @@
+@import url('/public/assets/css/common.css');
+
+.cancel-button,
+.delete-button {
+    padding: 8px 16px;
+    border-radius: 24px;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+}
+
+.cancel-button {
+    background-color: var(--cancel-button-color);
+    color: var(--tertiary-color);
+}
+
+.delete-button {
+    background-color: var(--secondary-color);
+    color: var(--primary-white-color);
+}
+
+.cancel-button:hover {
+    background-color: var(--cancel-button-hover-color);
+}
+
+.delete-button:hover {
+    background-color: var(--primary-color);
+}
+
+/* #prevBtn {
+    background-color: var(--secondary-color);
+}
+
+#prevBtn:hover {
+    background-color: var(--secondary-dark-color);
+} */
+
+.prev-button,
+.next-button,
+.submit {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+}
+
+.prev-button {
+    background-color: var(--prev-background-color);
+    color: var(--prev-font-color);
+}
+
+.prev-button:disabled {
+    background-color: var(--header-background-color);
+    color: var(--prev-disabled-font-color);
+    cursor: not-allowed;
+}
+
+.prev-button:not(:disabled):hover {
+    background-color: var(--header-background-color);
+}
+
+.next-button, .submit {
+    color: var(--primary-white-color);
+}
+
+.next-button {
+    background-color: var(--secondary-color);
+}
+
+.submit {
+    background-color: var(--primary-color);
+}
+
+.next-button:hover {
+    background-color: var(--secondary-dark-color);
+}
+
+.submit:hover {
+    background-color: var(--primary-dark-color);
+}
+
+.close-button {
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+.close {
+    color: #666;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+}
+
+button[type="submit"]:hover {
+    background-color: var(--secondary-color);
+}
