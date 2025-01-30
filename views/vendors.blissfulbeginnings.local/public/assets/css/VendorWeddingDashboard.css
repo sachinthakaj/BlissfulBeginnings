@@ -52,6 +52,218 @@ main {
     margin: 0 auto 10px;
 }
 
+aside.chat-container {
+    flex-basis: 250px;
+    max-width: 300px;
+    flex: 1;
+    padding: 20px;
+    background-color: darkgrey;
+    border-left: 2px solid #e0e0e0;
+    min-width: 100px;
+    border-radius: 10px;
+}
+
+.chat-all-area {
+    background-color: #dddddd33;
+    padding-top: 5px;
+}
+
+.chat-show-area {
+    background-color: #fff;
+    min-height: 500px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+}
+
+.chat-action-area {
+    background-color: rgba(0, 0, 0, 0.251);
+    height: 60px;
+    display: flex;
+    align-items: end;
+    gap: 10px;
+}
+
+.Message-type-area {
+    background-color: #fff;
+    height: 50px;
+    min-width: 200px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    border-radius: 10px;
+}
+
+.Message-send-button-area {
+    background-color: #ddd;
+    height: 50px;
+    width: 80px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: monospace;
+}
+
+.message-text {
+    display: inline;
+}
+
+.message {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* slider */
+
+.slide-container {
+    max-width: 1120px;
+    width: 100%;
+}
+
+.slide-content {
+    width: 900px;
+    display: flex;
+    overflow-x: scroll;
+    padding: 20px 0;
+}
+
+.slide-content::-webkit-scrollbar {
+    display: none;
+}
+
+.slide-content .card-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+    padding: 10px;
+    flex: none;
+}
+
+.card {
+    width: 280px;
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover {
+    box-shadow: 0 5px 10px #656233;
+    transform: scale(1.025);
+    transition: 0.5s ease-in-out;
+    transform: translateY(-5%);
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+.image-content,
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px
+}
+
+.image-content {
+    row-gap: 5px;
+    position: relative;
+    padding: 25px 0;
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #c1a42e;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before,
+.overlay::after {
+    content: '';
+    right: 0;
+    bottom: -40px;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background-color: #c1a42e;
+}
+
+.overlay::after {
+    border-radius: 0 25px 0 0;
+    background-color: #fff;
+
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #c1a42e;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #656233;
+}
+
+.sub-name {
+    font-size: 12px;
+    font-weight: 800;
+    color: #c50404;
+}
+
+.description {
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+    ;
+}
+
+.card-button {
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    padding: 8px 16px;
+    background-color: #c1a42e;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-button:hover {
+    background-color: #656233;
+}
+
+.slide-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: -10px;
+}
+
 button {
     border: none;
     background-color: transparent;
@@ -64,6 +276,6 @@ button:hover {
 }
 
 button img {
-    width: 50px; 
+    width: 50px;
     height: auto;
 }

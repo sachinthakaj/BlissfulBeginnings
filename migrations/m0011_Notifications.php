@@ -12,7 +12,7 @@ class m0011_Notifications {
   title VARCHAR(255) NOT NULL,
   message TEXT NOT NULL,
   reference BINARY(16) NOT NULL,
-  FOREIGN KEY (reference) REFERENCES vendors(vendorID)
+  FOREIGN KEY (reference) REFERENCES vendors(vendorID)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE newPackageNotifications (

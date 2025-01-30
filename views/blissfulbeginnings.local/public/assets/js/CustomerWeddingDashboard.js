@@ -8,67 +8,74 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
-
-// Sample messages data structure
-const messages = [
-    { 
-        id: 1, 
-        sender: 'Customer', 
-        text: 'When is the pre shoot', 
-        timestamp: '2024-01-15T10:30:00Z' 
-    },
-    { 
-        id: 2, 
-        sender: 'Photographer', 
-        text: 'It\'s on Thursday', 
-        timestamp: '2024-01-15T10:31:15Z' 
-    },
-    { 
-        id: 3, 
-        sender: 'Planner', 
-        text: 'Is the preparations done?', 
-        timestamp: '2024-01-15T10:31:30Z' 
-    },
-    { 
-        id: 4, 
-        sender: 'Photographer', 
-        text: 'Yes they are', 
-        timestamp: '2024-01-15T10:32:00Z' 
-    },
-
-];
-
 // Function to render messages to the chat container
 function renderMessages() {
     const chatContainer = document.querySelector('.chat-container');
-    
-    // Clear existing messages
     chatContainer.innerHTML = '';
-    
-    // Iterate through messages and create message elements
-    messages.forEach(message => {
-        // Create message element
-        const messageElement = document.createElement('div');
-        
-        // Add classes based on sender
-        messageElement.classList.add('message');
-        
-        // Set message text
-        messageElement.textContent = message.sender + ": " + message.text;
-        
-        // Optional: Add timestamp as a data attribute
-        messageElement.dataset.timestamp = message.timestamp;
-        
-        // Append message to container
-        chatContainer.appendChild(messageElement);
+
+    const wsUrl = 'ws://localhost:8080/';
+
+    const socket = new WebSocket(wsUrl);
+    const messageInput = document.querySelector('.chat-type-field');
+    const sendBtn = document.querySelector('.chat-send-button');
+
+
+    socket.onopen = () => {
+        socket.send(JSON.stringify({
+            weddingID: weddingID,
+        }));
+    };
+
+    socket.onmessage = (event) => {
+        const messages = JSON.parse(event.data);
+        console.log(messages);
+        messages.forEach(message => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', message.role);
+            messageElement.textContent = message.message;
+            messageElement.dataset.timestamp = message.timestamp;
+            chatContainer.appendChild(messageElement);
+        });
+
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+    };
+
+    socket.onclose = () => {
+        console.log('WebSocket connection closed.');
+    };
+
+    sendBtn.addEventListener('click', () => {
+        const message = messageInput.value.trim();
+        if (message) {
+
+            chatMessage = {
+                sender: 'customer',
+                message: message,
+                timestamp: Date.now()
+            };
+            socket.send(JSON.stringify(chatMessage));
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'me');
+            messageElement.textContent = chatMessage.message;
+            messageElement.dataset.timestamp = chatMessage.timestamp;
+            chatContainer.appendChild(messageElement);
+            messageInput.value = '';
+        }
     });
-    
-    // Scroll to bottom of container
+
+    messageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendBtn.click();
+        }
+    });
+
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+document.addEventListener("DOMContentLoaded", renderMessages);
 
-// Call render function when DOM is loaded
-document.addEventListener('DOMContentLoaded', renderMessages);
 
 function showNotification(message, color) {
     // Create notification element
@@ -678,13 +685,13 @@ const unassigned = (data) => {
                 response[recGrid.id].forEach(package => {
                     const packageDiv = document.createElement('div');
 
-                    const totalImages = 15; 
+                    const totalImages = 15;
 
                     function getRandomImage() {
                         const randomIndex = Math.floor(Math.random() * totalImages) + 1;
-                    
+
                         const imagePath = `/public/images/CustomerWeddingDashboard/img${randomIndex}.jpg`;
-                    
+
                         const imageElement = document.querySelector('.card-img');
                         imageElement.src = imagePath;
                     }
@@ -746,7 +753,7 @@ const finished = (data) => {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             }
         }).then(response => {
             if (!response.ok) {
@@ -792,39 +799,39 @@ const finished = (data) => {
                     </div>
                 </div>
         `;
-        const stars = packageCard.querySelectorAll('.star');
-        stars.forEach(star => {
-            star.addEventListener('mouseover', () => {
-                const siblings = Array.from(star.parentElement.children);
-                const index = siblings.indexOf(star);
-                siblings.forEach(sibling => {
-                    if (sibling.dataset.value <= index + 1) {
-                        sibling.classList.add('selected');
-                    } else {
-                        sibling.classList.remove('selected');
-                    }
+                const stars = packageCard.querySelectorAll('.star');
+                stars.forEach(star => {
+                    star.addEventListener('mouseover', () => {
+                        const siblings = Array.from(star.parentElement.children);
+                        const index = siblings.indexOf(star);
+                        siblings.forEach(sibling => {
+                            if (sibling.dataset.value <= index + 1) {
+                                sibling.classList.add('selected');
+                            } else {
+                                sibling.classList.remove('selected');
+                            }
+                        });
+                    });
+                    star.addEventListener('click', () => {
+                        const value = Number(star.dataset.value);
+                        fetch('/api/ratings', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                            },
+                            body: JSON.stringify({
+                                vendorID: cardData.vendorID,
+                                rating: value,
+                            }),
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    alert('Error submitting rating');
+                                }
+                            });
+                    });
                 });
-            });
-            star.addEventListener('click', () => {
-                const value = Number(star.dataset.value);
-                fetch('/api/ratings', {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                    },
-                    body: JSON.stringify({
-                        vendorID: cardData.vendorID,
-                        rating: value,
-                    }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        alert('Error submitting rating');
-                    }
-                });
-            });
-        });
                 vendorGrid.appendChild(packageCard);
             })
         })
@@ -853,7 +860,7 @@ function render() {
     const deleteButton = document.querySelector('.delete-button');
     const logoutbutton = document.getElementById('log-out');
 
-    logoutbutton.addEventListener('click', ()=>{
+    logoutbutton.addEventListener('click', () => {
         localStorage.removeItem('authToken');
         window.location.href = "/signin";
     })
@@ -921,7 +928,7 @@ function render() {
             window.location.href = '/register';
             return response.json();
         }).then(data => {
-            
+
         }).catch(error => {
             console.error(error);
         });

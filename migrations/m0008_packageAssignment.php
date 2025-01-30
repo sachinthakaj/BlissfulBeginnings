@@ -22,8 +22,6 @@ class m0008_packageAssignment {
 ";
       $this->dbh->exec($SQL);
 
-      $sql="ALTER TABLE `packageAssignment` ADD `isPaid` BOOLEAN DEFAULT FALSE;";
-      $this->dbh->exec($sql);
     }
 
     public function down() {

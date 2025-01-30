@@ -95,7 +95,7 @@ function render() {
 
     document.getElementById("next").addEventListener("click", next);
   document.getElementById("previous").addEventListener("click", previous);
-  document.getElementById("jump").addEventListener("click", jump);
+  // document.getElementById("jump").addEventListener("click", jump);
     
     // Function to navigate to the next month
     function next() {

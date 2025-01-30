@@ -2,70 +2,185 @@ const path = window.location.pathname;
 const pathParts = path.split("/");
 const weddingID = pathParts[pathParts.length - 1];
 
-// Sample messages data structure
-const messages = [
-  {
-    id: 1,
-    sender: "bot",
-    text: "Hello! Welcome to our support chat.",
-    timestamp: "2024-01-15T10:30:00Z",
-  },
-  {
-    id: 2,
-    sender: "user",
-    text: "Hi, I need help with my account.",
-    timestamp: "2024-01-15T10:31:15Z",
-  },
-  {
-    id: 3,
-    sender: "bot",
-    text: "I'd be happy to assist you. Could you provide more details?",
-    timestamp: "2024-01-15T10:31:30Z",
-  },
-  {
-    id: 4,
-    sender: "user",
-    text: "I can't log into my account.",
-    timestamp: "2024-01-15T10:32:00Z",
-  },
-  {
-    id: 5,
-    sender: "bot",
-    text: "I understand. Let's troubleshoot your login issue.",
-    timestamp: "2024-01-15T10:32:15Z",
-  },
-];
 
 // Function to render messages to the chat container
 function renderMessages() {
-  const chatContainer = document.querySelector(".chat-show-area");
+  const chatContainer = document.querySelector('.chat-show-area');
+  chatContainer.innerHTML = '';
 
-  // Clear existing messages
-  chatContainer.innerHTML = "";
-  console.log(chatContainer);
-  // Iterate through messages and create message elements
-  messages.forEach((message) => {
-    // Create message element
-    const messageElement = document.createElement("div");
+  const wsUrl = 'ws://localhost:8080/';
 
-    // Add classes based on sender
-    messageElement.classList.add("message");
-    messageElement.classList.add(message.sender);
+  const socket = new WebSocket(wsUrl);
+  const messageInput = document.getElementById('chat-type-field');
+  const sendBtn = document.getElementById('send-button');
 
-    // Set message text
-    messageElement.textContent = message.text;
 
-    // Optional: Add timestamp as a data attribute
-    messageElement.dataset.timestamp = message.timestamp;
+  socket.onopen = () => {
+    socket.send(JSON.stringify({
+      weddingID: weddingID,
+    }));
+  };
 
-    // Append message to container
-    chatContainer.appendChild(messageElement);
+  socket.onmessage = (event) => {
+    const messages = JSON.parse(event.data);
+    console.log(messages);
+    messages.forEach(message => {
+
+      const messageElement = document.createElement('div');
+      if(message.imageReference) {
+        appendImageMessage(message.imageReference, message.timestamp);
+      }
+      messageElement.classList.add('message', message.role);
+      messageElement.textContent = message.message;
+      messageElement.dataset.timestamp = message.timestamp;
+      chatContainer.appendChild(messageElement);
+  });
+    // chatContainer.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
+  };
+
+  socket.onerror = (error) => {
+    console.error('WebSocket error:', error);
+    chatContainer.innerHTML = "<p>Unexpected error occured</p>"
+  };
+
+  socket.onclose = () => {
+    console.log('WebSocket connection closed.');
+  };
+  function appendImageMessage(imageReference, timestamp) {
+    const imageElement = document.createElement('div'); // Container for the image
+    imageElement.classList.add('message', 'me'); // Add the same class as normal messages
+    imageElement.dataset.timestamp = timestamp;
+
+    const img = document.createElement('img'); // Create the <img> element
+    img.src = imageReference; // Set the source of the image
+    img.alt = "Uploaded Image"; // Alt text for accessibility
+    img.classList.add('chat-image'); // Optional class for styling the image
+    img.style.maxWidth = '200px'; // Add a size limit if needed
+    img.style.borderRadius = '8px'; // Optional: style the image to match your design
+
+    imageElement.appendChild(img); // Append the image to the container
+    chatContainer.appendChild(imageElement); // Append the message container to the chat
+}
+
+
+  sendBtn.addEventListener('click', () => {
+    timestamp = new Date().toISOString()
+    timestamp = timestamp.replace('T', ' ').split('.')[0];
+    const message = messageInput.value.trim();
+    if (message) {
+      chatMessage = {
+        sender: 'planner',
+        message: message,
+        timestamp: timestamp,
+      };
+      socket.send(JSON.stringify(chatMessage));
+      console.log(chatMessage);
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', 'me');
+      messageElement.textContent = chatMessage.message;
+      messageElement.dataset.timestamp = chatMessage.timestamp;
+      chatContainer.appendChild(messageElement);
+      messageInput.value = '';
+    }
   });
 
-  // Scroll to bottom of container
+  messageInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      sendBtn.click();
+    }
+  });
+
+  function appendImageMessage(imageReference, timestamp) {
+    const imageElement = document.createElement('div'); // Container for the image
+    imageElement.classList.add('message', 'me'); // Add the same class as normal messages
+    imageElement.dataset.timestamp = timestamp;
+
+    const img = document.createElement('img'); // Create the <img> element
+    console.log(imageReference);
+    img.src = "http://cdn.blissfulbeginnings.local/" + imageReference; // Set the source of the image
+    img.alt = "Uploaded Image"; // Alt text for accessibility
+    img.classList.add('chat-image'); // Optional class for styling the image
+    img.style.maxWidth = '200px'; // Add a size limit if needed
+    img.style.borderRadius = '8px'; // Optional: style the image to match your design
+
+    imageElement.appendChild(img); // Append the image to the container
+    chatContainer.appendChild(imageElement); // Append the message container to the chat
+}
+
+
+  document.getElementById('imageUpload').addEventListener('change', async function (event) {
+    const file = event.target.files[0]; // Get the selected file
+  
+    // Ensure a file was selected
+    if (!file) {
+        alert("No file selected.");
+        return;
+    }
+  
+
+    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF).");
+        return;
+    }
+  
+
+    const maxSize = 2 * 1024 * 1024; 
+    if (file.size > maxSize) {
+        alert("File size must be less than 2 MB.");
+        return;
+    }
+  
+    
+    timestamp = new Date().toISOString()
+    timestamp = timestamp.replace('T', ' ').split('.')[0];
+    sender = "planner" 
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("timestamp", timestamp);
+    formData.append("sender", JSON.stringify(sender));
+  
+    try {
+        const response = await fetch("/chat/upload-image/" + weddingID, {
+            method: "POST",
+            body: formData,
+        });
+  
+        if (!response.ok) {
+            throw new Error(`Failed to upload image. Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+  
+        if (!data.storagePath) {
+            throw new Error("Invalid response from server. No storage path provided.");
+        }
+  
+        const imageReference = data.storagePath;
+
+        const metaWithImage = {
+            timestamp: formData.timestamp,
+            sender: "planner",
+            imageReference: imageReference,
+            Image: "image_reference", 
+        };
+  
+        socket.send(JSON.stringify(metaWithImage));
+  
+        appendImageMessage(imageReference, metaWithImage.timestamp);
+        alert("Image sent successfully!");
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while uploading the image.");
+    }
+  });
+  
+
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 document.addEventListener("DOMContentLoaded", renderMessages);
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   function updateProgressBar(totalTasks, completedTasks) {
@@ -198,7 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
                 })
                 .then((tasks) => {
-                  console.log(tasks);
                   tasks.forEach((task) => {
                     const taskDetailsArea = document.createElement("div");
                     taskDetailsArea.classList.add("taskDetailsArea");
@@ -342,9 +456,8 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((res) => {
         if (res.status === 401) {
-          window.location.href = "/signin";
-        }
-        if (res.status === 200) {
+          window.location.href = '/signin';
+        } if (res.status === 200) {
           return res.json();
         }
       })

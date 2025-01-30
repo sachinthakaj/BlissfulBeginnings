@@ -363,3 +363,29 @@ aside.chat-container {
   display: block;
   margin-bottom: 10px;
 }
+
+
+/* Image upload */
+.image-upload-container {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.upload-icon {
+  width: 50px; /* Adjust size as needed */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-icon img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.2s;
+}
+
+.upload-icon img:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
