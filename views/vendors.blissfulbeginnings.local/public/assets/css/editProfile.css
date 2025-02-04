@@ -1,84 +1,20 @@
-/* * {
-    outline: 1px solid red;
-  } */
+@import url('/public/assets/css/common.css');
+/* @import url('/public/assets/css/components/GoBackButton.css'); */
+@import url('/public/assets/css/components/Spinner.css');
+@import url('/public/assets/css/components/Buttons.css');
 
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;  
-} */
-
-  #loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Ensures it's on top */
+#loading-screen {
+    background: var(--semi-transparent-white-color); 
 }
 
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 body {
     min-width: 480px;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    color: #656233;
+    /* padding: 0; */ 
 }
 
 /* Header Styles */
 header {
-    background-color: #ddd;
-    height: 10vh;
-    padding: 10px;
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
-    border-radius: 8px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-bar-logo-container {
-    height: 100%;
-
-}
-
-.nav-bar-logo {
-    max-height: 100%;
-    max-width: auto;
-    margin-right: 30px;
-}
-
-.wedding-title {
-    font-family: "Gwendolyn", cursive;
-    font-size: 40px;
-    color: #c1a42e;
-    text-align: center;
-    margin-left: 40px;
 }
 
 .main-container {
@@ -98,7 +34,7 @@ main {
 }
 
 .box {
-    background-color: #ddd;
+    background-color: var(--header-background-color);
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -116,9 +52,8 @@ main {
 .about .profile-image img {
     width: 15%;
     height: 15%;
-    ;
     border-radius: 50%;
-    background-color: #ddd;
+    background-color: var(--header-background-color);
     margin-bottom: 1rem;
     margin-left: 5rem;
     margin-right: 2rem;
@@ -150,9 +85,7 @@ main {
     margin-right: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* Two equal columns */
     grid-template-rows: auto;
-    /* Automatically sized rows */
     gap: 15px;
 }
 
@@ -250,34 +183,7 @@ label {
 
 
 /* Close button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
 
-.close:hover, .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-
-.submit-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #b69f61;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    cursor: pointer;
-}
-
-.submit-button:hover {
-    background-color: #a28c53;
-}
 
 
 .add-package {
@@ -531,8 +437,7 @@ h2 {
 
 /* Submit button styling */
 button[type="submit"] {
-    /* background-color: #4CAF50; */
-    color: white;
+    color: var(--primary-white-color);
     padding: 14px 28px;
     border: none;
     border-radius: 6px;
@@ -543,7 +448,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #656233;
+    background-color: var(--secondary-color);
 }
 
 /* Responsive design */

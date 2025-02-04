@@ -1,25 +1,21 @@
 @import url('/public/assets/css/common.css');
+@import url('/public/assets/css/components/HeaderButton.css');
 
 /* Hero Section */
 .hero {
     background-image: url('/public/assets/images/about us.png'); /* Replace with the actual path of the background image */
-    background-size: cover;
-    background-position: center;
-    text-align: center;
     padding: 120px 20px;
-    color: #fff;
 }
 
 .hero h1 {
     font-size: 36px;
-    color: white;
-    font-family: 'Georgia', serif;
+    color: var(--primary-white-color);
     margin-bottom: 10px;
 }
 
 .hero p {
     font-size: 18px;
-    color: white;
+    color: var(--primary-white-color);
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
@@ -29,7 +25,7 @@
 .about-content {
     text-align: center;
     padding: 40px 20px;
-    background-color: #f9f9f9;
+    background-color: var(--primary-white-color);
 }
 
 .about-content h2 {
@@ -63,11 +59,11 @@
 .slide {
     width: 80%;
     max-width: 600px;
-    background-color: #f0f0f0;
+    background-color: var(--primary-white-color);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    color: #333;
+    color: var(--teritary-color);
     font-size: 16px;
     line-height: 1.6;
 }

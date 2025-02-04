@@ -8,67 +8,192 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
-
-// Sample messages data structure
-const messages = [
-    { 
-        id: 1, 
-        sender: 'Customer', 
-        text: 'When is the pre shoot', 
-        timestamp: '2024-01-15T10:30:00Z' 
-    },
-    { 
-        id: 2, 
-        sender: 'Photographer', 
-        text: 'It\'s on Thursday', 
-        timestamp: '2024-01-15T10:31:15Z' 
-    },
-    { 
-        id: 3, 
-        sender: 'Planner', 
-        text: 'Is the preparations done?', 
-        timestamp: '2024-01-15T10:31:30Z' 
-    },
-    { 
-        id: 4, 
-        sender: 'Photographer', 
-        text: 'Yes they are', 
-        timestamp: '2024-01-15T10:32:00Z' 
-    },
-
-];
-
 // Function to render messages to the chat container
 function renderMessages() {
-    const chatContainer = document.querySelector('.chat-container');
-    
-    // Clear existing messages
+    const chatContainer = document.querySelector('.chat-show-area');
     chatContainer.innerHTML = '';
-    
-    // Iterate through messages and create message elements
-    messages.forEach(message => {
-        // Create message element
-        const messageElement = document.createElement('div');
-        
-        // Add classes based on sender
-        messageElement.classList.add('message');
-        
-        // Set message text
-        messageElement.textContent = message.sender + ": " + message.text;
-        
-        // Optional: Add timestamp as a data attribute
-        messageElement.dataset.timestamp = message.timestamp;
-        
-        // Append message to container
-        chatContainer.appendChild(messageElement);
+  
+    const wsUrl = 'ws://localhost:8080/';
+  
+    const socket = new WebSocket(wsUrl);
+    const messageInput = document.getElementById('chat-type-field');
+    const sendBtn = document.getElementById('send-button');
+  
+  
+    socket.onopen = () => {
+      socket.send(JSON.stringify({
+        weddingID: weddingID,
+      }));
+    };
+  
+    socket.onmessage = (event) => {
+      const messages = JSON.parse(event.data);
+      console.log(messages);
+      messages.forEach(message => {
+        sender = (message.role === 'Customer') ? 'me' : 'other';
+        if (!message) {
+          return;
+        }
+        if (message.relativePath) {
+          appendImageMessage(message.relativePath, message.timestamp, sender);
+          return;
+        } else {
+          appendTextMessage(message.message, message.timestamp, sender);
+        }
+      });
+      chatContainer.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
+    };
+  
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+      chatContainer.innerHTML = "<p>Unexpected error occured</p>"
+    };
+  
+    socket.onclose = () => {
+      console.log('WebSocket connection closed.');
+    };
+  
+    function appendTextMessage(message, timestamp, sender) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+      messageElement.innerHTML = `<div class="sender ${sender}">` + sender + ': </div><p class=message-text>' + message + '</p>';
+      messageElement.dataset.timestamp = timestamp;
+      chatContainer.appendChild(messageElement);
+    }
+    function appendImageMessage(imageReference, timestamp, sender) {
+      const imageElement = document.createElement('div');
+      imageElement.classList.add('message', 'image');
+      imageElement.dataset.timestamp = timestamp;
+  
+      const senderElement = document.createElement('div');
+      senderElement.classList.add('sender', sender);
+      senderElement.innerHTML = '<h4">' + sender + '</h4>';
+      imageElement.appendChild(senderElement);
+      const img = document.createElement('img');
+      img.src = "http://cdn.blissfulbeginnings.local" + imageReference;
+      img.alt = "Uploaded Image";
+      img.classList.add('chat-image');
+      img.style.maxWidth = '200px';
+      img.style.borderRadius = '8px';
+  
+      imageElement.appendChild(img); // Append the image to the container
+      chatContainer.appendChild(imageElement); // Append the message container to the chat
+    }
+  
+  
+    sendBtn.addEventListener('click', () => {
+      timestamp = new Date().toISOString()
+      timestamp = timestamp.replace('T', ' ').split('.')[0];
+      const message = messageInput.value.trim();
+      if (message) {
+        chatMessage = {
+          sender: 'customer',
+          message: message,
+          timestamp: timestamp,
+        };
+        socket.send(JSON.stringify(chatMessage));
+        console.log(chatMessage);
+        appendTextMessage(message, timestamp, 'me');
+        messageInput.value = '';
+      }
     });
-    
-    // Scroll to bottom of container
+  
+    messageInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
+  
+    function appendImageMessage(imageReference, timestamp) {
+      const imageElement = document.createElement('div'); // Container for the image
+      imageElement.classList.add('message', 'me'); // Add the same class as normal messages
+      imageElement.dataset.timestamp = timestamp;
+  
+      const img = document.createElement('img'); // Create the <img> element
+      console.log(imageReference);
+      img.src = "http://cdn.blissfulbeginnings.local/" + imageReference; // Set the source of the image
+      img.alt = "Uploaded Image"; // Alt text for accessibility
+      img.classList.add('chat-image'); // Optional class for styling the image
+      img.style.maxWidth = '200px'; // Add a size limit if needed
+      img.style.borderRadius = '8px'; // Optional: style the image to match your design
+  
+      imageElement.appendChild(img); // Append the image to the container
+      chatContainer.appendChild(imageElement); // Append the message container to the chat
+    }
+  
+  
+    document.getElementById('imageUpload').addEventListener('change', async function (event) {
+      const file = event.target.files[0]; // Get the selected file
+  
+      // Ensure a file was selected
+      if (!file) {
+        alert("No file selected.");
+        return;
+      }
+  
+  
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF).");
+        return;
+      }
+  
+  
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert("File size must be less than 2 MB.");
+        return;
+      }
+  
+  
+      timestamp = new Date().toISOString()
+      timestamp = timestamp.replace('T', ' ').split('.')[0];
+      sender = "planner"
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("timestamp", timestamp);
+      formData.append("sender", JSON.stringify(sender));
+  
+      try {
+        const response = await fetch("/chat/upload-image/" + weddingID, {
+          method: "POST",
+          body: formData,
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Failed to upload image. Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+  
+        if (!data.storagePath) {
+          throw new Error("Invalid response from server. No storage path provided.");
+        }
+  
+        const imageReference = data.storagePath;
+  
+        const metaWithImage = {
+          timestamp: formData.timestamp,
+          sender: "Customer",
+          imageReference: imageReference,
+          Image: "image_reference",
+        };
+  
+        socket.send(JSON.stringify(metaWithImage));
+  
+        appendImageMessage(imageReference, metaWithImage.timestamp);
+        alert("Image sent successfully!");
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while uploading the image.");
+      }
+    });
+  
+  
     chatContainer.scrollTop = chatContainer.scrollHeight;
-}
+  }
+document.addEventListener("DOMContentLoaded", renderMessages);
 
-// Call render function when DOM is loaded
-document.addEventListener('DOMContentLoaded', renderMessages);
 
 function showNotification(message, color) {
     // Create notification element
@@ -678,13 +803,13 @@ const unassigned = (data) => {
                 response[recGrid.id].forEach(package => {
                     const packageDiv = document.createElement('div');
 
-                    const totalImages = 15; 
+                    const totalImages = 15;
 
                     function getRandomImage() {
                         const randomIndex = Math.floor(Math.random() * totalImages) + 1;
-                    
+
                         const imagePath = `/public/images/CustomerWeddingDashboard/img${randomIndex}.jpg`;
-                    
+
                         const imageElement = document.querySelector('.card-img');
                         imageElement.src = imagePath;
                     }
@@ -746,7 +871,7 @@ const finished = (data) => {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             }
         }).then(response => {
             if (!response.ok) {
@@ -792,39 +917,39 @@ const finished = (data) => {
                     </div>
                 </div>
         `;
-        const stars = packageCard.querySelectorAll('.star');
-        stars.forEach(star => {
-            star.addEventListener('mouseover', () => {
-                const siblings = Array.from(star.parentElement.children);
-                const index = siblings.indexOf(star);
-                siblings.forEach(sibling => {
-                    if (sibling.dataset.value <= index + 1) {
-                        sibling.classList.add('selected');
-                    } else {
-                        sibling.classList.remove('selected');
-                    }
+                const stars = packageCard.querySelectorAll('.star');
+                stars.forEach(star => {
+                    star.addEventListener('mouseover', () => {
+                        const siblings = Array.from(star.parentElement.children);
+                        const index = siblings.indexOf(star);
+                        siblings.forEach(sibling => {
+                            if (sibling.dataset.value <= index + 1) {
+                                sibling.classList.add('selected');
+                            } else {
+                                sibling.classList.remove('selected');
+                            }
+                        });
+                    });
+                    star.addEventListener('click', () => {
+                        const value = Number(star.dataset.value);
+                        fetch('/api/ratings', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                            },
+                            body: JSON.stringify({
+                                vendorID: cardData.vendorID,
+                                rating: value,
+                            }),
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    alert('Error submitting rating');
+                                }
+                            });
+                    });
                 });
-            });
-            star.addEventListener('click', () => {
-                const value = Number(star.dataset.value);
-                fetch('/api/ratings', {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                    },
-                    body: JSON.stringify({
-                        vendorID: cardData.vendorID,
-                        rating: value,
-                    }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        alert('Error submitting rating');
-                    }
-                });
-            });
-        });
                 vendorGrid.appendChild(packageCard);
             })
         })
@@ -853,7 +978,7 @@ function render() {
     const deleteButton = document.querySelector('.delete-button');
     const logoutbutton = document.getElementById('log-out');
 
-    logoutbutton.addEventListener('click', ()=>{
+    logoutbutton.addEventListener('click', () => {
         localStorage.removeItem('authToken');
         window.location.href = "/signin";
     })
@@ -921,7 +1046,7 @@ function render() {
             window.location.href = '/register';
             return response.json();
         }).then(data => {
-            
+
         }).catch(error => {
             console.error(error);
         });

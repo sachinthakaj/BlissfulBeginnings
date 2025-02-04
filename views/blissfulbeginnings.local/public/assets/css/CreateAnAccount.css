@@ -1,48 +1,19 @@
+@import url('/public/assets/css/common.css');
+
 body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  color: #656233;
+  font-family: var(--primary-font-family);
+  background-color: var(--primary-white-color);
+  color: var(--secondary-color);
 }
 
 /* Header Styles */
 header {
-  background-color: #ddd;
-  height: 10vh;
-  padding: 10px;
-  display: flex;
   justify-content: flex-start;
-  align-items: center;
-  border-radius: 8px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-bar-logo-container {
-  height: 100%;
-
-}
-
-.nav-bar-logo {
-  max-height: 100%;
-  max-width: auto;
-  margin-right: 30px;
-}
-
-.wedding-title {
-  font-family: "Gwendolyn";
-  font-size: 40px;
-  color: #c1a42e;
 }
 
 .box {
   width: 60%;
-  background-color: white;
+  background-color: var(--primary-white-color);
   border-radius: 10px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   margin: 20vh auto; 
@@ -54,7 +25,7 @@ header {
 }
 
 #submit {
-  background-color: #656233;
+  background-color: var(--secondary-color);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -62,7 +33,7 @@ header {
   margin-top: 10px;
   width: 350px;
   font-size: 22px;
-  color: #ffffff;
+  color: var(--primary-white-color);
   position: relative;
   transition: all 0.35s;
   outline: none;
@@ -70,23 +41,23 @@ header {
 
 
 #submit:hover {
-  background-color: #c1a42e;
+  background-color: var(--primary-color);
 }
 
 #label {
-  color: #656233;
+  color: var(--secondary-color);
   font-size: 20px;
   font-weight: bold;
 }
 
 .input {
   margin: 12px auto;
-  color: #656233;
+  color: var(--secondary-color);
   font-size: 20px;
   width: 350px;
   padding: 10px;
   border-radius: 5px;
-  border: 0.2px solid #656233;
+  border: 0.2px solid var(--secondary-color);
   display: flex;
 }
 

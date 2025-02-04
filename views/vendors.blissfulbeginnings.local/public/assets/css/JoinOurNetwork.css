@@ -1,43 +1,13 @@
+@import url('/public/assets/css/common.css');
+
 body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  color: #656233;
+  font-family: var(--primary-font-family);
+  color: var(--tertiary-color);
 }
 
 /* Header Styles */
 header {
-  background-color: #ddd;
-  height: 10vh;
-  padding: 10px;
-  display: flex;
   justify-content: flex-start;
-  align-items: center;
-  border-radius: 8px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-bar-logo-container {
-  height: 100%;
-
-}
-
-.nav-bar-logo {
-  max-height: 100%;
-  max-width: auto;
-  margin-right: 30px;
-}
-
-.wedding-title {
-  font-family: "Gwendolyn";
-  font-size: 40px;
-  color: #c1a42e;
 }
 
 form {
@@ -134,8 +104,8 @@ form {
   width: 100%;
   padding: 15px;
   font-size: 18px;
-  color: #FFFFFF;
-  background-color: #656233;
+  color: var(--primary-white-color);
+  background-color: var(--secondary-color);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -144,14 +114,14 @@ form {
 }
 
 .submit-button:hover {
-  background-color: #C1A42E;
+  background-color: var(--primary-color);
 }
 
 h2 {
   margin-top: 30px;
   margin-bottom: 25px;
   font-size: 24px;
-  color: #656233;
+  color: var(--secondary-color);
   font-weight: 600;
 }
 

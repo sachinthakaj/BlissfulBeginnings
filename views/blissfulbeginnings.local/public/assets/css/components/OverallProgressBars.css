@@ -1,0 +1,45 @@
+@import url('/public/assets/css/common.css');
+
+.progress-bar-container {
+    position: relative;
+    height: 20px;
+    width: 100%;
+    margin: 50px auto;
+}
+
+.progress-bar-container label {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    line-height: 70px;
+}
+
+.bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    background-color: var(--header-background-color);
+    width: 100%;
+    border-radius: 10px;
+}
+
+.vendor-bar {
+    background-color: var(--header-background-color);
+    width: 100%;
+}
+
+.budget-progress-bar {
+    background-color: #ffd700;
+    width: 0%;
+}
+
+.wedding-progress-bar {
+    background-color: #4a5d23;
+    width: 0%;
+}
+
+.budget-progress-bar,
+.wedding-progress-bar {
+    margin-top: 40px;
+}

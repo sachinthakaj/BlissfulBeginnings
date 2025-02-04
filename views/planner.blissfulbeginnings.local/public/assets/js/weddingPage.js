@@ -2,70 +2,179 @@ const path = window.location.pathname;
 const pathParts = path.split("/");
 const weddingID = pathParts[pathParts.length - 1];
 
-// Sample messages data structure
-const messages = [
-  {
-    id: 1,
-    sender: "bot",
-    text: "Hello! Welcome to our support chat.",
-    timestamp: "2024-01-15T10:30:00Z",
-  },
-  {
-    id: 2,
-    sender: "user",
-    text: "Hi, I need help with my account.",
-    timestamp: "2024-01-15T10:31:15Z",
-  },
-  {
-    id: 3,
-    sender: "bot",
-    text: "I'd be happy to assist you. Could you provide more details?",
-    timestamp: "2024-01-15T10:31:30Z",
-  },
-  {
-    id: 4,
-    sender: "user",
-    text: "I can't log into my account.",
-    timestamp: "2024-01-15T10:32:00Z",
-  },
-  {
-    id: 5,
-    sender: "bot",
-    text: "I understand. Let's troubleshoot your login issue.",
-    timestamp: "2024-01-15T10:32:15Z",
-  },
-];
 
 // Function to render messages to the chat container
 function renderMessages() {
-  const chatContainer = document.querySelector(".chat-show-area");
+  const chatContainer = document.querySelector('.chat-show-area');
+  chatContainer.innerHTML = '';
 
-  // Clear existing messages
-  chatContainer.innerHTML = "";
-  console.log(chatContainer);
-  // Iterate through messages and create message elements
-  messages.forEach((message) => {
-    // Create message element
-    const messageElement = document.createElement("div");
+  const wsUrl = 'ws://localhost:8080/';
 
-    // Add classes based on sender
-    messageElement.classList.add("message");
-    messageElement.classList.add(message.sender);
+  const socket = new WebSocket(wsUrl);
+  const messageInput = document.getElementById('chat-type-field');
+  const sendBtn = document.getElementById('send-button');
 
-    // Set message text
-    messageElement.textContent = message.text;
 
-    // Optional: Add timestamp as a data attribute
-    messageElement.dataset.timestamp = message.timestamp;
+  socket.onopen = () => {
+    socket.send(JSON.stringify({
+      weddingID: weddingID,
+    }));
+  };
 
-    // Append message to container
+  socket.onmessage = (event) => {
+    const messages = JSON.parse(event.data);
+    console.log(messages);
+    messages.forEach(message => {
+      sender = (message.role === 'planner') ? 'me' : message.role;
+      if (!message) {
+        return;
+      }
+      if (message.relativePath) {
+        appendImageMessage(message.relativePath, message.timestamp, sender);
+        return;
+      } else {
+        appendTextMessage(message.message, message.timestamp, sender);
+      }
+    });
+  };
+
+  socket.onerror = (error) => {
+    console.error('WebSocket error:', error);
+    chatContainer.innerHTML = "<p>Unexpected error occured</p>"
+  };
+
+  socket.onclose = () => {
+    console.log('WebSocket connection closed.');
+  };
+
+  function appendTextMessage(message, timestamp, sender) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    messageElement.innerHTML = `<div class="sender ${sender}">` + sender + ': </div><p class=message-text>' + message + '</p>';
+    messageElement.dataset.timestamp = timestamp;
     chatContainer.appendChild(messageElement);
+  }
+  function appendImageMessage(imageReference, timestamp, sender) {
+    const imageElement = document.createElement('div');
+    imageElement.classList.add('message', 'image');
+    imageElement.dataset.timestamp = timestamp;
+    imageElement.style.display = 'flex';
+    imageElement.style.flexDirection = 'column';  
+
+    const senderElement = document.createElement('div');
+    senderElement.classList.add('sender', sender);
+    senderElement.innerHTML = '<h4">' + sender + '</h4>';
+    imageElement.appendChild(senderElement);
+    const img = document.createElement('img');
+    img.src = "http://cdn.blissfulbeginnings.local" + imageReference;
+    img.alt = "Uploaded Image";
+    img.classList.add('chat-image');
+    img.style.maxWidth = '200px';
+    img.style.borderRadius = '8px';
+    img.style.margin = '5px 0 10px 10px';
+
+    imageElement.appendChild(img); 
+    chatContainer.appendChild(imageElement); 
+  }
+
+
+  sendBtn.addEventListener('click', () => {
+    timestamp = new Date().toISOString()
+    timestamp = timestamp.replace('T', ' ').split('.')[0];
+    const message = messageInput.value.trim();
+    if (message) {
+      chatMessage = {
+        sender: 'planner',
+        message: message,
+        timestamp: timestamp,
+      };
+      socket.send(JSON.stringify(chatMessage));
+      console.log(chatMessage);
+      appendTextMessage(message, timestamp, 'me');
+      messageInput.value = '';
+    }
   });
 
-  // Scroll to bottom of container
+  messageInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      sendBtn.click();
+    }
+  });
+
+
+  document.getElementById('imageUpload').addEventListener('change', async function (event) {
+    const file = event.target.files[0]; // Get the selected file
+
+    // Ensure a file was selected
+    if (!file) {
+      alert("No file selected.");
+      return;
+    }
+
+
+    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!validImageTypes.includes(file.type)) {
+      alert("Please upload a valid image file (JPEG, PNG, GIF).");
+      return;
+    }
+
+
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert("File size must be less than 2 MB.");
+      return;
+    }
+
+
+    timestamp = new Date().toISOString()
+    timestamp = timestamp.replace('T', ' ').split('.')[0];
+    sender = "planner"
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("timestamp", timestamp);
+    formData.append("sender", JSON.stringify(sender));
+
+    try {
+      const response = await fetch("/chat/upload-image/" + weddingID, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to upload image. Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.storagePath) {
+        throw new Error("Invalid response from server. No storage path provided.");
+      }
+
+      const imageReference = data.storagePath;
+
+      const metaWithImage = {
+        timestamp: formData.timestamp,
+        sender: "planner",
+        imageReference: imageReference,
+        Image: "image_reference",
+      };
+
+      socket.send(JSON.stringify(metaWithImage));
+
+      appendImageMessage(imageReference, metaWithImage.timestamp, metaWithImage.sender);
+      alert("Image sent successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while uploading the image.");
+    }
+  });
+
+
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 document.addEventListener("DOMContentLoaded", renderMessages);
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   function updateProgressBar(totalTasks, completedTasks) {
@@ -166,19 +275,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const payButton = document.createElement("button");
               payButton.classList.add("payButton");
-              if(vendor.isPaid == 0){
-              payButton.innerHTML = "Pay";
-              card.appendChild(payButton);
+              if (vendor.isPaid == 0) {
+                payButton.innerHTML = "Pay";
+                card.appendChild(payButton);
 
-              payButton.addEventListener("click", function (event) {
-                window.location.href = `/wedding/${weddingID}/${vendor.assignmentID}`;
-              });
-            }
-            else{
-              payButton.innerHTML = "Paid";
-              card.appendChild(payButton);
+                payButton.addEventListener("click", function (event) {
+                  window.location.href = `/wedding/${weddingID}/${vendor.assignmentID}`;
+                });
+              }
+              else {
+                payButton.innerHTML = "Paid";
+                card.appendChild(payButton);
 
-            }
+              }
 
               // Fetch assignment ID for the vendor
               fetch(`/tasks-for-assignments/${vendor.assignmentID}`, {
@@ -198,7 +307,6 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
                 })
                 .then((tasks) => {
-                  console.log(tasks);
                   tasks.forEach((task) => {
                     const taskDetailsArea = document.createElement("div");
                     taskDetailsArea.classList.add("taskDetailsArea");
@@ -342,9 +450,8 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((res) => {
         if (res.status === 401) {
-          window.location.href = "/signin";
-        }
-        if (res.status === 200) {
+          window.location.href = '/signin';
+        } if (res.status === 200) {
           return res.json();
         }
       })

@@ -75,3 +75,6 @@ $router->get("/notifications", "PlannerController@notifications");
 
 $router->get("/vendor/{vendorID}","PlannerController@vendorProfilePage");
 $router->get("/vendor/vendor-details/{vendorID}","PlannerController@vendorProfile");
+
+
+$router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");

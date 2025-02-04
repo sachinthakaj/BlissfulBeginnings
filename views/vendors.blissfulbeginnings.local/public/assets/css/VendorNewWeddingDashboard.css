@@ -1,42 +1,18 @@
+@import url('/public/assets/css/common.css');
+@import url('/public/assets/css/components/Buttons.css');
+@import url('/public/assets/css/components/GoBackButton.css');
+
 /* Global Styles */
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--primary-font-family);
     margin: 0;
     padding: 0;
-    background-color: #fff;
-    color: #656233;
+    color: var(--secondary-color);
 }
 
 /* Header Styles */
 header {
-    background-color: #ddd;
-    height: 10vh;
-    padding: 10px;
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
-    border-radius: 0 0 8px 8px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-bar-logo-container {
-    height: 100%;
-    cursor: pointer;
-}
-
-.nav-bar-logo {
-    max-height: 100%;
-    width: auto;
-    margin-right: 30px;
-}
-
-.wedding-title {
-    font-family: "Gwendolyn", cursive;
-    font-size: 40px;
-    color: #c1a42e;
 }
 
 /* Main Content Styles */
@@ -67,27 +43,6 @@ header {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Go Back Link */
-.go-back {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-    color: #c1a42e;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-.go-back:hover {
-    color: #656233;
-    transition: ease-in 0.3s;
-}
-
-.go-back-arrow {
-    width: 15px;
-    margin-right: 8px;
-    transform: scale(-1);
-}
-
 /* Details Sections */
 .bride-groom-details, .bottom-section {
     display: flex;
@@ -96,7 +51,7 @@ header {
 }
 
 .bride-groom-details {
-    border: 2px dashed #656233;
+    border: 2px dashed var(--secondary-color);
     border-radius: 10px;
     padding: 25px;
     margin-top: 40px;
@@ -113,8 +68,8 @@ header {
 }
 
 .wedding-details, .package-details {
-    box-shadow: 0 0 8px #c1a42e;
-    border: 2px solid #c1a42e;
+    box-shadow: 0 0 8px var(--primary-color);
+    border: 2px solid var(--primary-color);
     border-radius: 10px;
     padding: 30px;
 }
@@ -133,7 +88,7 @@ header {
 }
 
 .wedding-details:hover, .package-details:hover {
-    box-shadow: 0 0 15px #656233;
+    box-shadow: 0 0 15px var(--secondary-color);
     transition: ease-in 0.3s;
     transform: scale(1.02);
 }
@@ -143,41 +98,6 @@ header {
     margin-right: 8px;
 }
 
-.bottom-buttons {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    width: 100%;
-    /* margin-top: 1px; */
-    gap: 20px; 
-    animation: slideInBottom 1.2s ease-out;
-}
-
-.reject-button, .accept-button {
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 15px;
-    width: 30%;
-}
-
-.reject-button {
-    background-color: #c1a42e;
-}
-
-.reject-button:hover {
-    background-color: #332b0a;
-}
-
-.accept-button {
-    background-color: #656233;
-}
-
-.accept-button:hover {
-    background-color: #332b0a;
-}
 
 @keyframes slideInRight {
     0% {

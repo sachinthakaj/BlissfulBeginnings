@@ -3,3 +3,4 @@ vendor
 .env
 composer.json
 composer.lock
+cdn/chat

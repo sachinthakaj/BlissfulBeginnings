@@ -1,50 +1,19 @@
+@import url('/public/assets/css/common.css');
+@import url('/public/assets/css/components/GoBackButton.css');
+@import url('/public/assets/css/components/ProgressBars.css');
+@import url('/public/assets/css/components/Aside.css');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--secondary-font-family);
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
     padding: 0;
-    background-color: #fff;
     overflow: hidden;
     min-height: 100vh;
 }
 
-header {
-    background-color: #ddd;
-    height: 10vh;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom-left-radius: 10px;
-}
-
-.nav-bar-logo-container {
-    height: 100%;
-    flex-shrink: 0; /* Prevent the logo from shrinking */
-}
-
-.nav-bar-logo {
-    max-height: 100%;
-    max-width: auto;
-}
-
-.wedding-title-container {
-    flex-grow: 1; /* Allow the title to take up the middle space */
-    display: flex;
-    justify-content: left; /* Center the text horizontally */
-    align-items: center; /* Center the text vertically */
-}
-
 .wedding-title {
-    font-family: "Gwendolyn", cursive;
-    font-size: 40px;
-    color: #c1a42e;
     text-align: center;
     margin-left: 40px;
 }
@@ -59,76 +28,6 @@ main {
     padding: 20px;
 }
 
-/* Go Back Link */
-.go-back {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-    color: #c1a42e;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-.go-back:hover {
-    color: #656233;
-    transition: ease-in 0.3s;
-}
-
-.go-back-arrow {
-    width: 15px;
-    margin-right: 8px;
-    transform: scale(-1);
-}
-
-#days-left {
-    text-align: center;
-    color: #4a5d23;
-}
-
-.progress-bars {
-    margin-bottom: 20px;
-}
-
-.progress-bar-container {
-    position: relative;
-    height: 20px;
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: 30px;
-}
-
-.progress-bar-container label {
-    position: absolute;
-    margin-top: -25px;
-}
-
-.bar {
-    position: absolute;
-    /* Position the bars on top of each other */
-    top: 0;
-    left: 0;
-    height: 20px;
-    background-color: #ddd;
-    width: 100%;
-    border-radius: 10px;
-}
-
-.budget-progress-bar {
-    background-color: gold;
-    width: 0%;
-}
-
-.wedding-progress-bar {
-    background-color: #4a5d23;
-    width: 0%;
-}
-
-.vendor-bar {
-    background-color: white;
-    width: 100%;
-}
-
-
 .vendor-grid {
     overflow: auto;
     height: 80vh;
@@ -139,7 +38,7 @@ main {
 
 .vendor-card {
     height: 350px;
-    background-color: #e0e0e0;
+    background-color: var(--vendorcard-background-color);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -148,52 +47,72 @@ main {
 .vendor-image {
     width: 100px;
     height: 100px;
-    background-color: white;
+    background-color: var(--primary-white-color);
     border-radius: 50%;
     margin: 0 auto 10px;
 }
 
-aside {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    top: 0;
-    padding: 0px 10px;
-    background-color: #ddd;
-   
+aside.chat-container {
+    flex-basis: 250px;
+    max-width: 300px;
+    flex: 1;
+    padding: 20px;
+    background-color: darkgrey;
+    border-left: 2px solid #e0e0e0;
+    min-width: 100px;
+    border-radius: 10px;
 }
 
-.chat-container {
-    width: 100%;
-    height: 90%;
+.chat-all-area {
+    background-color: #dddddd33;
+    padding-top: 5px;
+}
+
+.chat-show-area {
     background-color: #fff;
+    min-height: 500px;
+    margin-left: 5px;
+    margin-right: 5px;
     border-radius: 10px;
-
 }
 
-.text-field {
+.chat-action-area {
+    background-color: rgba(0, 0, 0, 0.251);
+    height: 60px;
     display: flex;
-    margin: 8px 0px;
-    width: 100%;
-    height: 5%;
-    border-radius: 10px;
+    align-items: end;
+    gap: 10px;
 }
-.chat-type-field {
-    height: 100%;
-    width: 90%;
-    margin: 0px 8px 0px 0px;
-    border: none;
+
+.Message-type-area {
+    background-color: #fff;
+    height: 50px;
+    min-width: 200px;
+    margin-bottom: 5px;
+    margin-left: 5px;
     border-radius: 10px;
 }
 
-.chat-send-button {
-    border: none;
+.Message-send-button-area {
+    background-color: #ddd;
+    height: 50px;
+    width: 80px;
+    margin-bottom: 5px;
+    margin-right: 5px;
     border-radius: 10px;
-    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: monospace;
 }
 
-.chat-send-button:hover {
-    background-color: salmon;
+.message-text {
+    display: inline;
+}
+
+.message {
+    display: block;
+    margin-bottom: 10px;
 }
 
 /* slider */
@@ -208,7 +127,7 @@ aside {
     display: flex;
     overflow-x: scroll;
     padding: 20px 0;
-} 
+}
 
 .slide-content::-webkit-scrollbar {
     display: none;
@@ -244,7 +163,8 @@ aside {
     gap: 10px;
 }
 
-.image-content, .card-content {
+.image-content,
+.card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -267,7 +187,8 @@ aside {
     border-radius: 25px 25px 0 25px;
 }
 
-.overlay::before, .overlay::after {
+.overlay::before,
+.overlay::after {
     content: '';
     right: 0;
     bottom: -40px;
@@ -315,7 +236,8 @@ aside {
 .description {
     font-size: 14px;
     color: #707070;
-    text-align: center;;
+    text-align: center;
+    ;
 }
 
 .card-button {
@@ -354,6 +276,6 @@ button:hover {
 }
 
 button img {
-    width: 50px; 
+    width: 50px;
     height: auto;
 }
