@@ -497,7 +497,7 @@ class PlannerController
             $packageData = $package->getPackageDataForPayments($parameters['assignmentID']);
             $temp = $packageData[0];
             $amount = $temp['fixedCost'];
-            //$amount = 200000;
+            
 
             $hash = strtoupper(
                 md5(
