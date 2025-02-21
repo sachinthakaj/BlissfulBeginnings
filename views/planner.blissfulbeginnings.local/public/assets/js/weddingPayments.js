@@ -5,8 +5,8 @@ const weddingID = pathParts[pathParts.length - 2];
 
 document.addEventListener("DOMContentLoaded", function () {
   const Container = document.querySelector(".container");
+  const checkoutContainer = document.querySelector(".checkout_container");
 
-  // Fetch package data
   fetch(`/fetch-pakageData-to-pay/${assignmentID}`, {
     method: "GET",
     headers: {
@@ -28,21 +28,77 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const card = document.createElement("div");
       card.classList.add("package-card");
-      card.innerHTML = `
-        <h3>${package.packageName}</h3>
-        <p>${package.feature1}</p>
-        <p>${package.feature2}</p>
-        <p>${package.feature3}</p>
-        <p>Cost: ${package.fixedCost}</p>
-      `;
+
+      const cardTitle = document.createElement("div");
+      cardTitle.classList.add("card_title");
+      card.appendChild(cardTitle);
+      cardTitle.innerHTML = `<h3>${package.packageName}</h3>`;
+
+      const cardContent = document.createElement("div");
+      cardContent.classList.add("card_content");
+      card.appendChild(cardContent);
+
+      const contentImage = document.createElement("div");
+      contentImage.classList.add("content_image");
+      cardContent.appendChild(contentImage);
+      contentImage.innerHTML = `
+  <img 
+    src="https://thesposagroupbride.com.au/wp-content/uploads/2023/12/1093_0145-800x1000.jpg" 
+    alt="Wedding Package Image"
+    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+  >`;
+
+      const contentDescription = document.createElement("div");
+      contentDescription.classList.add("content_description");
+      cardContent.appendChild(contentDescription);
+
+      const contentDescriptionText = document.createElement("div");
+      contentDescriptionText.classList.add("content_description_text");
+      contentDescription.appendChild(contentDescriptionText);
+      contentDescriptionText.innerHTML = `
+  <ul style="list-style-type: none; padding: 0; margin: 0;">
+    ${Object.keys(package)
+      .filter(key => key.startsWith('feature') && package[key])
+      .map(feature => `
+        <li style="
+          padding: 8px 0;
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+        ">
+          <span style="
+            color: #6366f1;
+            font-size: 14px;
+            margin-top: 4px;
+          ">❖</span>
+          <span style="flex: 1;">${package[feature]}</span>
+        </li>
+      `).join('')}
+  </ul>
+`;
+
+      const checkoutCard = document.createElement("div");
+      checkoutCard.classList.add("checkout_card");
+
+      const checkoutCardDetails = document.createElement("div");
+      checkoutCardDetails.classList.add("checkout_card_details");
+      checkoutCardDetails.innerHTML = `<p><B>Total:LKR ${package.fixedCost}</B></p>`;
+      checkoutCard.appendChild(checkoutCardDetails);
+
+      const checkoutCardAction = document.createElement("div");
+      checkoutCardAction.classList.add("checkout_card_action");
+      checkoutCard.appendChild(checkoutCardAction);
 
       const checkoutButton = document.createElement("button");
       checkoutButton.classList.add("checkoutButton");
-      checkoutButton.innerHTML = "<p>Checkout</p>";
+
+      const checkoutButtonText = document.createElement("div");
+      checkoutButtonText.classList.add("checkoutButtonText");
+      checkoutButtonText.innerHTML = "<p>Checkout</p>";
+      checkoutButton.appendChild(checkoutButtonText);
 
       // PayHere callbacks
       payhere.onCompleted = function onCompleted(orderId) {
-        
         alert("Payment successful!");
         window.location.href = `/wedding/${weddingID}`;
       };
@@ -77,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
           })
           .then((Response) => {
             const hash = Response.hash;
-            
 
             // Correctly assign hash from response
 
@@ -101,40 +156,13 @@ document.addEventListener("DOMContentLoaded", function () {
               address: "Reid Avenue",
               city: "Colombo 07",
               country: "Sri Lanka",
-              custom_1: assignmentID
-              
+              custom_1: assignmentID,
             };
 
             // Start payment
             payhere.startPayment(payment);
 
-            fetch(`wedding/${weddingID}/${assignmentID}/paymentData`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-              body: JSON.stringify(payment),
-            })
-              .then((res) => {
-                if (res.status === 401) {
-                  window.location.href = "/signin";
-                }
-                if (res.status === 200) {
-                  return res.json();
-                }
-              })
-              .then((data) => {
-                if (data.status === "success") {
-                  alert(data.message);
-                  window.location.reload();
-                } else {
-                  alert("Error: " + data.message);
-                }
-              })
-              .catch((error) => {
-                console.error("Error recording payment data:", error);
-              });
+            
           })
           .catch((error) => {
             console.error("Error fetching hash:", error);
@@ -142,8 +170,9 @@ document.addEventListener("DOMContentLoaded", function () {
           });
       };
 
-      card.appendChild(checkoutButton);
       Container.appendChild(card);
+      checkoutContainer.appendChild(checkoutCard);
+      checkoutCardAction.appendChild(checkoutButton);
     })
     .catch((error) => {
       console.error("Error fetching package data:", error);

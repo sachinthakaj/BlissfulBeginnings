@@ -490,14 +490,15 @@ class PlannerController
         };
         try {
             $package = new Package();
-            $order_id = $package->createOrderIdForPaymentGateway();
+            $payment = new Payment();
+            $order_id = $payment->createOrderIdForPaymentGateway();
             $merchant_id = "1228991";
             $merchant_secret = $_ENV['PAYHERE_SECRET'];
             $currency = "LKR";
             $packageData = $package->getPackageDataForPayments($parameters['assignmentID']);
             $temp = $packageData[0];
             $amount = $temp['fixedCost'];
-            //$amount = 200000;
+            
 
             $hash = strtoupper(
                 md5(

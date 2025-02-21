@@ -204,7 +204,7 @@ aside.chat-container {
   flex-basis: 250px;
   max-width: 300px;
   flex: 1;
-  padding: 20px;
+  padding: 5px;
   background-color: darkgrey;
   border-left: 2px solid #e0e0e0;
   min-width: 100px;
@@ -356,12 +356,15 @@ aside.chat-container {
 }
 
 .message-text {
-  display: inline;
+  display: inline-block;
+  margin: 0 0 0 10px;
 }
 
 .message {
-  display: block;
+  display: flex;
+  flex-direction: row;
   margin-bottom: 10px;
+  width: auto;
 }
 
 

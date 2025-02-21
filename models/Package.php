@@ -321,9 +321,24 @@ class Package
         }
     }
 
-    public function createOrderIdForPaymentGateway()
-    {
-        $orderID =  generateUUID($this->db);
-        return  bin2hex($orderID);
+    
+
+    public function getAssignedPackagesForPayments($weddingID){
+        try{
+            $this->db->query("SELECT p.packageName,p.fixedCost FROM packages p
+            JOIN packageAssignment pa ON p.packageID = pa.packageID
+            WHERE pa.weddingID = UNHEX(:weddingID)");
+
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
+
+            $results = $this->db->resultSet();
+            return $results ? $results : [];
+
+
+        }catch(PDOException $e){
+            error_log($e->getMessage());
+            return false;
+        }
     }
 }
