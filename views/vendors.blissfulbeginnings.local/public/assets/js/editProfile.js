@@ -398,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cancelButton.addEventListener("click", closeGalleryModal);
 
       // Handle delete action
-      deleteButton.addEventListener("click", () => {
+      uploadButton.addEventListener("click", () => {
         fetch("/delete-profile/vendor-details/" + vendorID, {
           method: "DELETE",
           headers: {
@@ -433,9 +433,9 @@ document.addEventListener("DOMContentLoaded", () => {
       document.addEventListener("keydown", (event) => {
         if (
           event.key === "Escape" &&
-          modalContainer.classList.contains("show")
+          uploadModalContainer.classList.contains("show")
         ) {
-          closeModal();
+          closeGalleryModal();
         }
       });
     }
