@@ -1,7 +1,7 @@
 @import url('/public/assets/css/common.css');
 @import url('/public/assets/css/components/Buttons.css');
 
-.modal-container {
+.calendar-modal-container {
     display: none;
     position: fixed;
     top: 0;
@@ -14,11 +14,11 @@
     align-items: center;
 }
 
-.modal-container.show {
+.calendar-modal-container.show {
     display: flex;
 }
 
-.modal {
+.calendar-modal {
     background-color: var(--primary-white-color);
     padding: 20px;
     border-radius: 8px;
@@ -39,25 +39,24 @@
     }
 }
 
-.modal-header {
+.calendar-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.modal-header h2 {
+.calendar-modal-header h2 {
     margin: 0;
     color: var(--tertiary-color);
 }
 
-.modal-body {
+.calendar-modal-body {
     margin-bottom: 20px;
 }
 
-.modal-footer {
+.calendar-modal-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
-
