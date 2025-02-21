@@ -36,6 +36,10 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
       <h1 class="wedding-dashboard-title">Wedding Planners - Dashboard</h1>
 
     </header>
+    <div id="modal">
+                <div id="modal-content">
+                </div>
+            </div>
     <div class="content-wrapper">
       <main>
         <div class="image-links-container">
@@ -116,6 +120,8 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
             </select>
             <!-- Dropdown to select a specific year -->
             <select id="year" onchange="jump()"></select>
+            <button id="jump"
+              onclick="jump()">Jump</button>
           </div>
         </div>
         <div class="notification-container">

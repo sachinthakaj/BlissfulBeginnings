@@ -66,6 +66,7 @@
                                 onclick="next()">
                             ›
                         </button>
+                       
                     </div>
                     <table class="table-calendar"
                         id="calendar"
@@ -93,7 +94,11 @@
                         </select>
                         <!-- Dropdown to select a specific year -->
                         <select id="year" onchange="jump()"></select>
+                        <button id="jump"
+                        onclick="jump()">Jump</button>
+
                     </div>
+
                 </div>
     
             </div>
@@ -193,6 +198,21 @@
                     <button class="next-button">Next</button>
                     <button class="submit-button" style="display: none;">Save Changes</button>
                 </div>
+            </div>
+        </div>
+    </div>
+     <!--calendar modal -->
+     <div class="calendar-modal-container" id="calendar-modal-container">
+        <div class=" calendar-modal">
+            <div class="calendar-modal-header">
+                <h2>Check Vendor Availability</h2>
+            </div>
+            <div class="calendar-modal-body">
+                <p>Are you sure  that you are  not available on this day? </p>
+            </div>
+            <div class="calendar-modal-footer">
+                <button class="cancel-button">Cancel</button>
+                <button class="confirm-button">Confirm</button>
             </div>
         </div>
     </div>

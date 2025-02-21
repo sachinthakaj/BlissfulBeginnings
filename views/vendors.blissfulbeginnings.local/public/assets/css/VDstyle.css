@@ -5,6 +5,9 @@
 @import url('/public/assets/css/components/Scrollbar.css');
 @import url('/public/assets/css/components/VDWeddingCards.css');
 @import url('/public/assets/css/components/Modal.css');
+@import url('/public/assets/css/components/calendarModal.css');
+
+
 
 body {
     padding: 0;

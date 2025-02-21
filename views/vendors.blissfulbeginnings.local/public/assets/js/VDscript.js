@@ -10,6 +10,7 @@ function render() {
     const deleteButton = document.querySelector('.delete-button');
     const editProfile = document.querySelector('.edit-profile');
     const editModalContainer = document.querySelector('#edit-modal-container');
+    const confirmButton = document.querySelector('.confirm-button');
     const closeButton = editModalContainer.querySelector('.close-button');
     const prevButton = editModalContainer.querySelector('.prev-button');
     const nextButton = editModalContainer.querySelector('.next-button');
@@ -149,6 +150,7 @@ function render() {
                     cell.setAttribute("data-month_name", months[month]);
                     cell.className = "date-picker";
                     cell.innerHTML = "<span>" + date + "</span";
+                    cell.addEventListener("click", openCalendarModal);
 
                     if (
                         date === today.getDate() &&
@@ -352,6 +354,13 @@ function render() {
 
     initializeCards();
 
+
+    function openCalendarModal(event) {
+        //console.log(event.target.)
+        calendar-modal-container.classList.add('show');
+    }
+    const calendarModal = document.querySelector(".calendar-modal-container");
+console.log(calendarModal); // Check if this logs `null`
 
 
     // modal for delete profile
