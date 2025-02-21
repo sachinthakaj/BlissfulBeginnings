@@ -106,4 +106,8 @@ class Database {
     public function commit() {
         return $this->dbh->commit();
     }
+
+    public function getConnection() {
+        return $this->dbh;
+    }    
 }

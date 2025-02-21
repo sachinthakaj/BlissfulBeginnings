@@ -52,6 +52,38 @@
                             </div>
                         </div>
                     </section>
+
+                    <section class="gallery">
+                        <h2>Gallery</h2>
+                        <div id="gallery-container">
+                            <div class="gallery-item">
+                                <div class="details add-gallery-image">
+                                    <label for="imageUpload" class="upload-icon" id="open-modal-button">
+                                        <img src="/public/assets/images/Plus.png" id="plus" alt="Gallery Image">
+                                    </label>
+                                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="modal-container" id="modal-container">
+                        <div class="modal">
+                            <div class="modal-header">
+                                <h2>Upload Image</h2>
+                            </div>
+                            <div class="modal-body">
+                                <label for="image-upload">Choose an image to upload:</label>
+                                <input type="file" id="image-upload" accept="image/*">
+                                <label for="image-description">Description:</label>
+                                <input type="text" id="image-description">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="cancel-button">Cancel</button>
+                                <button class="upload-button">Upload</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
 

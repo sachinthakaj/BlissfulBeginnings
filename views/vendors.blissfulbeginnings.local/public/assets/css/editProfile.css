@@ -1,7 +1,7 @@
 @import url('/public/assets/css/common.css');
-/* @import url('/public/assets/css/components/GoBackButton.css'); */
 @import url('/public/assets/css/components/Spinner.css');
 @import url('/public/assets/css/components/Buttons.css');
+@import url('/public/assets/css/components/Modal.css');
 
 #loading-screen {
     background: var(--semi-transparent-white-color); 
@@ -68,11 +68,11 @@ main {
     margin-right: 5rem;
 }
 
-.packages {
+.packages, .gallery {
     padding-bottom: 2rem;
 }
 
-.packages h2 {
+.packages h2, .gallery h2 {
     font-family: 'Brush Script MT', cursive;
     font-size: 2rem;
     color: #a58f6f;
@@ -80,7 +80,7 @@ main {
     margin-bottom: 1rem;
 }
 
-#packages-container {
+#packages-container, #gallery-container {
     margin-left: 2rem;
     margin-right: 2rem;
     display: grid;
@@ -89,7 +89,7 @@ main {
     gap: 15px;
 }
 
-.package {
+.package, .gallery-item {
     position: relative; 
     height: 30vh;
     display: flex;
@@ -150,6 +150,26 @@ main {
     height: auto;
 }
 
+.upload-icon {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .upload-icon img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.2s;
+  }
+  
+  .upload-icon img:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+  }
+
+
+
 #modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -186,7 +206,7 @@ label {
 
 
 
-.add-package {
+.add-package, .add-gallery-image {
     display: flex;
     padding-top: 20%;
     justify-content: center;
