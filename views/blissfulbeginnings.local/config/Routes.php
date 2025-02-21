@@ -45,3 +45,11 @@ $router->get("/reccomendations/{weddingID}", "CustomerController@getReccomendati
 
 $router->get("/resetpassword", "CustomerController@resetPassword");
 
+$router->get("/wedding/payments/{weddingID}", "CustomerController@makePayments");
+$router->get("/get_amount_pay_customer/{weddingID}", "CustomerController@getAmountToPayCustomer");
+$router->get("/get_packagenames_for_payments/{weddingID}", "CustomerController@getAssignedPackagesForPayments");
+$router->post("/add_customer_payment_data/{weddingID}", "CustomerController@addCustomerPaymentDetails");
+$router->get("/get_ongoing_payments/{weddingID}", "CustomerController@getOngoingPayments");
+$router->post("/delete_ongoing_payments/{weddingID}", "CustomerController@deleteOngoingPayments");
+$router->get("/fetch-hash-for-paymentGateway/{weddingID}","CustomerController@generateHashForPaymentGateway");
+$router->post("/customerPaymentData", "CustomerController@getPaymentData");

@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       cardContent.appendChild(contentImage);
       contentImage.innerHTML = `
   <img 
-    src="https://tse2.mm.bing.net/th?id=OIP.Zz6GAfi3GnA83XDTG7aq1gHaHa&pid=Api&P=0&h=220" 
+    src="https://thesposagroupbride.com.au/wp-content/uploads/2023/12/1093_0145-800x1000.jpg" 
     alt="Wedding Package Image"
     style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
   >`;
@@ -51,25 +51,38 @@ document.addEventListener("DOMContentLoaded", function () {
       const contentDescription = document.createElement("div");
       contentDescription.classList.add("content_description");
       cardContent.appendChild(contentDescription);
-      
 
       const contentDescriptionText = document.createElement("div");
       contentDescriptionText.classList.add("content_description_text");
       contentDescription.appendChild(contentDescriptionText);
       contentDescriptionText.innerHTML = `
-        
-        <p>${package.feature1}</p>
-        <p>${package.feature2}</p>
-        <p>${package.feature3}</p>
-        
-      `;
+  <ul style="list-style-type: none; padding: 0; margin: 0;">
+    ${Object.keys(package)
+      .filter(key => key.startsWith('feature') && package[key])
+      .map(feature => `
+        <li style="
+          padding: 8px 0;
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+        ">
+          <span style="
+            color: #6366f1;
+            font-size: 14px;
+            margin-top: 4px;
+          ">❖</span>
+          <span style="flex: 1;">${package[feature]}</span>
+        </li>
+      `).join('')}
+  </ul>
+`;
 
       const checkoutCard = document.createElement("div");
       checkoutCard.classList.add("checkout_card");
 
       const checkoutCardDetails = document.createElement("div");
       checkoutCardDetails.classList.add("checkout_card_details");
-      checkoutCardDetails.innerHTML = `<p><B>Total:${package.fixedCost}</B></p>`;
+      checkoutCardDetails.innerHTML = `<p><B>Total:LKR ${package.fixedCost}</B></p>`;
       checkoutCard.appendChild(checkoutCardDetails);
 
       const checkoutCardAction = document.createElement("div");
@@ -149,33 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Start payment
             payhere.startPayment(payment);
 
-            fetch(`wedding/${weddingID}/${assignmentID}/paymentData`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-              body: JSON.stringify(payment),
-            })
-              .then((res) => {
-                if (res.status === 401) {
-                  window.location.href = "/signin";
-                }
-                if (res.status === 200) {
-                  return res.json();
-                }
-              })
-              .then((data) => {
-                if (data.status === "success") {
-                  alert(data.message);
-                  window.location.reload();
-                } else {
-                  alert("Error: " + data.message);
-                }
-              })
-              .catch((error) => {
-                console.error("Error recording payment data:", error);
-              });
+            
           })
           .catch((error) => {
             console.error("Error fetching hash:", error);
