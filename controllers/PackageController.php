@@ -24,7 +24,7 @@ class PackageController
             $parsed_data = json_decode($data, true);
 
 
-            $packageID = $this->packageModel->createPackage($parameters["vendorID"], $parsed_data);
+            $packageID  = $this->packageModel->createPackage($parameters["vendorID"], $parsed_data);
             if ($packageID) {
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode([

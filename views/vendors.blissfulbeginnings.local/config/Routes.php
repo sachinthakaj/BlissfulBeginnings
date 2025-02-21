@@ -14,6 +14,7 @@ $router->get("/packages/{vendorID}", "vendorController@editProfilePage");
 $router->get("/edit-profile/vendor-details/{vendorID}", "vendorController@getVendorDetailsAndPackages");
 $router->delete("/packages/delete/{packageID}", "PackageController@deletePackage");
 
+
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}", "vendorController@weddingDashboard");
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-tasks", "vendorController@getTasks");
 
