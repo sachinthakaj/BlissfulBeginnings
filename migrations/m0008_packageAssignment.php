@@ -14,6 +14,7 @@ class m0008_packageAssignment {
         `typeID` ENUM('photographer', 'salon', 'bride-salon', 'groom-salon', 'florist', 'bride-dress-designer', 'groom-dress-designer', 'dress-designer') NOT NULL,
         `assignmentState` ENUM('agreed', 'unagreed') NOT NULL,
         `progress` decimal(5, 1) NOT NULL,
+        `isPaid` BOOLEAN DEFAULT FALSE,
 
 
   CONSTRAINT WeddingID_fk FOREIGN KEY (weddingID) REFERENCES wedding(weddingID) ON DELETE CASCADE ON UPDATE CASCADE,

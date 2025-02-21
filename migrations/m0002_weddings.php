@@ -16,7 +16,7 @@ class m0002_weddings {
         location varchar(255) NOT NULL,
         theme varchar(255) NOT NULL,
         budget int,
-        currentPaid int,
+        currentPaid int DEFAULT 0,
         numTasks int,
         currentCompleted int,
         sepSalons BOOLEAN, 

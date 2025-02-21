@@ -8,6 +8,15 @@ const weddingProgress = document.getElementById('wedding-progress-bar');
 const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
+
+document.addEventListener('DOMContentLoaded', function (){
+    const payNowButton = document.querySelector('.pay-now');
+    payNowButton.addEventListener('click',function(){
+        window.location.href=`/wedding/payments/${weddingID}`;
+
+    })
+})
+
 // Function to render messages to the chat container
 function renderMessages() {
     const chatContainer = document.querySelector('.chat-show-area');
@@ -1224,3 +1233,4 @@ function render() {
 }
 
 document.addEventListener('DOMContentLoaded', render);
+
