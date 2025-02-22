@@ -359,9 +359,7 @@ function render() {
         //console.log(event.target.)
         calendar-modal-container.classList.add('show');
     }
-    const calendarModal = document.querySelector(".calendar-modal-container");
-console.log(calendarModal); // Check if this logs `null`
-
+ 
 
     // modal for delete profile
     function openModal() {
