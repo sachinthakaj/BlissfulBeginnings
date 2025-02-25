@@ -6,6 +6,10 @@ function render() {
     const scrollContainer = document.querySelector(".slide-content");
     const deleteProfile = document.querySelector('.delete-profile');
     const modalContainer = document.querySelector('.modal-container');
+    const calendarModalContainer = document.querySelector('.calendar-modal-container');
+    const cancelBtn = document.querySelector(".calendar-modal .cancel-button");
+    const confirmBtn = document.querySelector(".calendar-modal .confirm-button");
+
     const cancelButton = document.querySelector('.cancel-button');
     const deleteButton = document.querySelector('.delete-button');
     const editProfile = document.querySelector('.edit-profile');
@@ -151,7 +155,7 @@ function render() {
                     cell.className = "date-picker";
                     cell.innerHTML = "<span>" + date + "</span";
                     cell.addEventListener("click", openCalendarModal);
-
+                    
                     if (
                         date === today.getDate() &&
                         year === today.getFullYear() &&
@@ -354,12 +358,22 @@ function render() {
 
     initializeCards();
 
-
+  //modal for calendar
     function openCalendarModal(event) {
         //console.log(event.target.)
-        calendar-modal-container.classList.add('show');
+        calendarModalContainer.classList.add('show');
     }
- 
+    function closeCalendarModal() {
+        calendarModalContainer.classList.remove('show');
+    }
+   
+    // Event Listeners
+    if (calendarModalContainer&&cancelBtn) {
+
+        // Close modal when clicking cancel button
+        cancelBtn.addEventListener('click', closeCalendarModal);
+
+    }
 
     // modal for delete profile
     function openModal() {
@@ -555,5 +569,6 @@ function render() {
 
 
 }
+
 
 document.addEventListener('DOMContentLoaded', render);
