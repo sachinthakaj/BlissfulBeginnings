@@ -165,7 +165,9 @@ main {
 
 .prev-button,
 .next-button,
-.submit-button {
+.submit-button,
+.confirm-button {
+    
     padding: 8px 16px;
     border: none;
     border-radius: 24px;
