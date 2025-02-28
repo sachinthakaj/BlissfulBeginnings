@@ -48,7 +48,10 @@ class GalleryController
             }
 
             $filename = uniqid('img_') . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
-            $filePath = $uploadDir . DIRECTORY_SEPARATOR . $filename;
+            $description = isset($_POST['description']) ? trim($_POST['description']) : "";
+            $filePath = $uploadDir . DIRECTORY_SEPARATOR . $filename; 
+            $relativePath = "/vendorGalleries/{$vendorID}/{$filename}";          
+            $imageContent = file_get_contents($filePath);     
 
             if (!move_uploaded_file($file['tmp_name'], $filePath)) {
                 http_response_code(500);
@@ -56,7 +59,7 @@ class GalleryController
                 return;
             }
 
-            $imageID = $this->galleryModel->createGallery($vendorID, $filename, "");
+            $imageID = $this->galleryModel->createGallery($vendorID, $filename, $relativePath, $description, $imageContent);
 
             if (!$imageID) {
                 http_response_code(500);

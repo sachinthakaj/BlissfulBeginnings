@@ -9,21 +9,23 @@ class Gallery
         $this->db = Database::getInstance();
     }
 
-    public function createGallery($vendorID, $image, $description)
+    public function createGallery($vendorID, $image, $path, $description, $display)
     {
         try {
             error_log("Create gallery function runs");
             $this->db->startTransaction();
             $imageID = generateUUID($this->db);
 
-            $sql = "INSERT INTO gallery (imageID, vendorID, image, description) 
-                    VALUES (UNHEX(:imageID), UNHEX(:vendorID), :image, :description)";
+            $sql = "INSERT INTO gallery (imageID, vendorID, image, path, description, display) 
+                    VALUES (UNHEX(:imageID), UNHEX(:vendorID), :image, :path, :description, :display)";
 
             $this->db->query($sql);
             $this->db->bind(':imageID', $imageID, PDO::PARAM_STR);
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
             $this->db->bind(':image', $image, PDO::PARAM_STR);
+            $this->db->bind(':path', $path, PDO::PARAM_STR);
             $this->db->bind(':description', $description, PDO::PARAM_STR);
+            $this->db->bind(':display', $display, PDO::PARAM_LOB);
             $this->db->execute();
 
             $this->db->commit();
@@ -35,18 +37,14 @@ class Gallery
         }
     }
 
-
-    public function getImage($imageID, $vendorID)
+    public function getVendorGallery($vendorID)
     {
-        $this->db->query("
-            SELECT * FROM gallery 
-            WHERE imageID = UNHEX(:imageID) AND vendorID = UNHEX(:vendorID);
-        ");
-        $this->db->bind(':imageID', $imageID, PDO::PARAM_STR);
+        $sql = "SELECT path FROM gallery WHERE vendorID = UNHEX(:vendorID) ORDER BY created_at DESC";
+        $this->db->query($sql);
         $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
         $this->db->execute();
 
-        return $this->db->single(); // Fetch single image record
+        return $this->db->resultSet(); // Fetch all image paths
     }
 
 
