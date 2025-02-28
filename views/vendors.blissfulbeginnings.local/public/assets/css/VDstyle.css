@@ -5,6 +5,9 @@
 @import url('/public/assets/css/components/Scrollbar.css');
 @import url('/public/assets/css/components/VDWeddingCards.css');
 @import url('/public/assets/css/components/Modal.css');
+@import url('/public/assets/css/components/calendarModal.css');
+
+
 
 body {
     padding: 0;
@@ -162,7 +165,9 @@ main {
 
 .prev-button,
 .next-button,
-.submit-button {
+.submit-button,
+.confirm-button {
+    
     padding: 8px 16px;
     border: none;
     border-radius: 24px;

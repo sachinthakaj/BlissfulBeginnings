@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("next").addEventListener("click", next);
   document.getElementById("previous").addEventListener("click", previous);
+  document.getElementById("jump").addEventListener("click", jump);
     
   
 
@@ -158,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.className = "date-picker";
           cell.innerHTML = "<span>" + date + "</span";
           cell.addEventListener("click", () => {
-            console.log("Hello")
+            
           })
           if (
             date === today.getDate() &&
@@ -227,6 +228,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Call the showCalendar function initially to display the calendar
   showCalendar(currentMonth, currentYear);
+
+  const modal = document.getElementById('modal');
+  const modalContent = document.getElementById('modal-content');
+  modalContent.classList.add('modal-content');
+  modalContent.innerHTML = `
+      <span class="close-button">&times;</span>
+     
+      <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input" />
+        </div>
+      <div class="package-grid">
+        <!-- Vendor information will be populated here -->
+      </div>
+      <button class="submit-button">Reccomend Packages</button>
+    
+  `;
   // Assuming you have a function to fetch notifications from the backend
   const notificationContainer = document.querySelector('.notification-container');
   fetch('/notifications', {
