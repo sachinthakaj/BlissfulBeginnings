@@ -381,107 +381,92 @@ document.addEventListener("DOMContentLoaded", () => {
         "<p>Error loading data. Please try again later.</p>";
     });
 
-  newGalleryImage.addEventListener("change", (event) => {
-    function openGalleryModal() {
-      uploadModalContainer.classList.add("show");
-    }
+  function openGalleryModal() {
+    uploadModalContainer.classList.add("show");
+  }
 
-    function closeGalleryModal() {
-      uploadModalContainer.classList.remove("show");
-    }
+  function closeGalleryModal() {
+    uploadModalContainer.classList.remove("show");
+  }
 
-    // Event Listeners
-    if (uploadModal && uploadModalContainer) {
-      uploadModal.addEventListener("click", openGalleryModal);
+  // Event Listeners
+  if (uploadModal && uploadModalContainer) {
+    uploadModal.addEventListener("click", openGalleryModal);
 
-      // Close modal when clicking cancel button
-      cancelButton.addEventListener("click", closeGalleryModal);
+    // Close modal when clicking cancel button
+    cancelButton.addEventListener("click", closeGalleryModal);
 
-      // Handle delete action
-      uploadButton.addEventListener("click", () => {
-        fetch("/delete-profile/vendor-details/" + vendorID, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        }).then((response) => {
-          if (response.status === 204) {
-            showNotification(" There is no vendor in this vendorID", "red");
-          }
-          if (!response.ok) {
-            if (response.status === 409) {
-              closeModal();
-              showNotification(" This vendor has assigned weddings", "red");
-              return;
-            }
-          }
-        });
-        showNotification("Profile deleted", "red");
-        window.location.href = "/register";
-        closeGalleryModal();
-      });
+    // Handle delete action
+    uploadButton.addEventListener("click", (event) => {
+      console.log(event.target);
+      const file = document.getElementById("image-upload").files[0]; // Get the selected file event.target.files[0]; // Get the selected file
+      const description = document
+        .getElementById("image-description")
+        .value.trim();
 
-      // Close modal when clicking outside
-      uploadModalContainer.addEventListener("click", (event) => {
-        if (event.target === uploadModalContainer) {
-          closeModal();
-        }
-      });
+      // Ensure a file was selected
+      if (!file || !description) {
+        alert("No file selected or no description provided.");
+        return;
+      }
 
-      // Close modal with Escape key
-      document.addEventListener("keydown", (event) => {
-        if (
-          event.key === "Escape" &&
-          uploadModalContainer.classList.contains("show")
-        ) {
-          closeGalleryModal();
-        }
-      });
-    }
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF).");
+        return;
+      }
 
-    const file = event.target.files[0]; // Get the selected file
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert("File size must be less than 2 MB.");
+        return;
+      }
 
-    // Ensure a file was selected
-    if (!file) {
-      alert("No file selected.");
-      return;
-    }
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("description", description);
 
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-    if (!validImageTypes.includes(file.type)) {
-      alert("Please upload a valid image file (JPEG, PNG, GIF).");
-      return;
-    }
-
-    const maxSize = 2 * 1024 * 1024;
-    if (file.size > maxSize) {
-      alert("File size must be less than 2 MB.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    fetch("http://cdn.blissfulbeginnings.local/gallery/upload/" + vendorID, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data.storagePath) {
-          throw new Error(
-            "Invalid response from server. No storage path provided."
-          );
-        }
-
-        alert("Image sent successfully!");
+      fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
+        method: "POST",
+        body: formData,
       })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred while uploading the image.");
-      });
-  });
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data.storagePath) {
+            throw new Error(
+              "Invalid response from server. No storage path provided."
+            );
+          }
+
+          alert("Image sent successfully!");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while uploading the image.");
+        });
+
+      // showNotification("Image sent successfully", "green");
+      // window.location.href = "/packages/" + vendorID;
+      closeGalleryModal();
+    });
+
+    // Close modal when clicking outside
+    uploadModalContainer.addEventListener("click", (event) => {
+      if (event.target === uploadModalContainer) {
+        closeGalleryModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener("keydown", (event) => {
+      if (
+        event.key === "Escape" &&
+        uploadModalContainer.classList.contains("show")
+      ) {
+        closeGalleryModal();
+      }
+    });
+  }
 });
 
 const createPhotographerPackage = (modalContent) => {
