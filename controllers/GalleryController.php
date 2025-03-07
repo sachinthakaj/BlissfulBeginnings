@@ -51,7 +51,8 @@ class GalleryController
             $description = isset($_POST['description']) ? trim($_POST['description']) : "";
             $filePath = $uploadDir . DIRECTORY_SEPARATOR . $filename; 
             $relativePath = "/vendorGalleries/{$vendorID}/{$filename}";          
-            $imageContent = file_get_contents($filePath);     
+            $imageContent = file_get_contents($filePath);   
+            $mimeType = $file['type'];  
 
             if (!move_uploaded_file($file['tmp_name'], $filePath)) {
                 http_response_code(500);
@@ -59,7 +60,7 @@ class GalleryController
                 return;
             }
 
-            $imageID = $this->galleryModel->createGallery($vendorID, $filename, $relativePath, $description, $imageContent);
+            $imageID = $this->galleryModel->createGallery($vendorID, $filename, $relativePath, $description, $imageContent, $mimeType);
 
             if (!$imageID) {
                 http_response_code(500);
@@ -78,5 +79,6 @@ class GalleryController
             echo json_encode(["error" => "Gallery Creation failed"]);
         }
     }
+
 }
 ?>

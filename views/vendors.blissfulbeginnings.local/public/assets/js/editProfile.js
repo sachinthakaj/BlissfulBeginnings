@@ -432,13 +432,13 @@ document.addEventListener("DOMContentLoaded", () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (!data.storagePath) {
+          if (!data.imageID) {
             throw new Error(
               "Invalid response from server. No storage path provided."
             );
           }
-
           alert("Image sent successfully!");
+          fetchVendorGallery(vendorID);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -643,3 +643,35 @@ const vendorDisplayFunctions = {
   Salon: displaySalonPackage,
   Florist: displayFloristPackage,
 };
+
+function fetchVendorGallery(vendorID) {
+  fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        console.error("Error fetching images:", data.error);
+        return;
+      }
+
+      const galleryContainer = document.getElementById("gallery-container");
+      galleryContainer.innerHTML = ""; // Clear previous images
+
+      data.forEach((image) => {
+        const imgDiv = document.createElement("div");
+        imgDiv.classList.add("gallery-item");
+
+        const imgElement = document.createElement("img");
+        imgElement.src = "http://cdn.blissfulbeginnings.com/" + image.path;
+        imgElement.alt = image.description;
+        imgElement.classList.add("gallery-img");
+
+        const desc = document.createElement("p");
+        desc.textContent = image.description;
+
+        imgDiv.appendChild(imgElement);
+        imgDiv.appendChild(desc);
+        galleryContainer.appendChild(imgDiv);
+      });
+    })
+    .catch((error) => console.error("Error:", error));
+}
