@@ -9,15 +9,15 @@ class Gallery
         $this->db = Database::getInstance();
     }
 
-    public function createGallery($vendorID, $image, $path, $description, $display)
+    public function createGallery($vendorID, $image, $path, $description, $display, $mime_type)
     {
         try {
             error_log("Create gallery function runs");
             $this->db->startTransaction();
             $imageID = generateUUID($this->db);
 
-            $sql = "INSERT INTO gallery (imageID, vendorID, image, path, description, display) 
-                    VALUES (UNHEX(:imageID), UNHEX(:vendorID), :image, :path, :description, :display)";
+            $sql = "INSERT INTO gallery (imageID, vendorID, image, path, description, display, mime_type) 
+                    VALUES (UNHEX(:imageID), UNHEX(:vendorID), :image, :path, :description, :display, :mime_type)";
 
             $this->db->query($sql);
             $this->db->bind(':imageID', $imageID, PDO::PARAM_STR);
@@ -26,6 +26,7 @@ class Gallery
             $this->db->bind(':path', $path, PDO::PARAM_STR);
             $this->db->bind(':description', $description, PDO::PARAM_STR);
             $this->db->bind(':display', $display, PDO::PARAM_LOB);
+            $this->db->bind(':mime_type', $mime_type, PDO::PARAM_STR);
             $this->db->execute();
 
             $this->db->commit();
@@ -37,16 +38,22 @@ class Gallery
         }
     }
 
-    public function getVendorGallery($vendorID)
+    public function getImagesByVendorID($vendorID)
     {
-        $sql = "SELECT path FROM gallery WHERE vendorID = UNHEX(:vendorID) ORDER BY created_at DESC";
-        $this->db->query($sql);
-        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
-        $this->db->execute();
-
-        return $this->db->resultSet(); // Fetch all image paths
+        try {
+            $sql = "SELECT path, imageID, description FROM gallery WHERE vendorID = UNHEX(:vendorID)";
+            $this->db->query($sql);
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        
+            $this->db->execute();
+            $images = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        
+            return $images;
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return false;
+        }
     }
-
 
 
     public function updateImageDescription($imageID, $vendorID, $description)
