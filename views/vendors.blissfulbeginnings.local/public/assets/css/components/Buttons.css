@@ -98,7 +98,9 @@
     transition: ease-in 0.3s;
 }
 
-.cancel-button, .delete-button, .upload-button,.confirm-button {
+.cancel-button, .delete-button, .upload-button,.confirm-button,
+.delete-image-cancel-button, .delete-image-delete-button,
+.update-image-cancel-button, .update-image-update-button {
     padding: 8px 16px;
     border-radius: 24px;
     cursor: pointer;
@@ -106,12 +108,12 @@
     font-weight: 500;
 }
 
-.cancel-button {
+.cancel-button, .delete-image-cancel-button, .update-image-cancel-button {
     background-color: var(--vendorcard-background-color);
     color: var(--tertiary-color);
 }
 
-.delete-button, .upload-button {
+.delete-button, .upload-button, .delete-image-delete-button, .update-image-update-button {
     background-color: var(--secondary-color);
     color: var(--primary-white-color);
 }
@@ -120,13 +122,13 @@
     color: var(--tertiary-color);
 }
 
-.cancel-button:hover {
+.cancel-button:hover, .delete-image-cancel-button:hover, .update-image-cancel-button:hover {
     background-color: var(--cancel-button-hover-color);
 }
 .confirm-button:hover {
     background-color: var(--cancel-button-hover-color);
 }
 
-.delete-button:hover, .upload-button:hover {
+.delete-button:hover, .upload-button:hover, .delete-image-delete-button:hover, .update-image-update-button:hover {
     background-color: var(--primary-color);
 }

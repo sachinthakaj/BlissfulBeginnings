@@ -1,7 +1,7 @@
 @import url('/public/assets/css/common.css');
 @import url('/public/assets/css/components/Buttons.css');
 
-.modal-container {
+.modal-container, .delete-modal-container, .delete-image-modal-container, .update-image-modal-container {
     display: none;
     position: fixed;
     top: 0;
@@ -14,11 +14,11 @@
     align-items: center;
 }
 
-.modal-container.show {
+.modal-container.show, .delete-modal-container.show, .delete-image-modal-container.show, .update-image-modal-container.show {
     display: flex;
 }
 
-.modal {
+.modal, .delete-image-modal, .update-image-modal {
     background-color: var(--primary-white-color);
     padding: 20px;
     border-radius: 8px;
@@ -39,23 +39,23 @@
     }
 }
 
-.modal-header {
+.modal-header, .delete-image-modal-header, .update-image-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.modal-header h2 {
+.modal-header h2, .delete-image-modal-header h2, .update-image-modal-header h2 {
     margin: 0;
     color: var(--tertiary-color);
 }
 
-.modal-body {
+.modal-body, .delete-image-modal-body, .update-image-modal-body {
     margin-bottom: 20px;
 }
 
-.modal-footer {
+.modal-footer, .delete-image-modal-footer, .update-image-modal-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;

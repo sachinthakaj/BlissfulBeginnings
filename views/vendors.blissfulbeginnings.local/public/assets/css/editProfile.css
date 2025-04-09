@@ -1,6 +1,5 @@
 @import url('/public/assets/css/common.css');
 @import url('/public/assets/css/components/Spinner.css');
-@import url('/public/assets/css/components/Buttons.css');
 @import url('/public/assets/css/components/Modal.css');
 
 #loading-screen {
@@ -523,4 +522,14 @@ button[type="submit"]:hover {
     border-color: var(--secondary-color);
     outline: none;
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.update-image-modal-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.update-image-modal-content-right {
+    padding-left: 20px;
 }
