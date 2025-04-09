@@ -6,7 +6,7 @@ require_once '../core/helpers.php';
 
 // Allow requests from 'vendors.blissfulbeginnings.local'
 header("Access-Control-Allow-Origin: http://vendors.blissfulbeginnings.com");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Methods: POST, GET, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -18,12 +18,40 @@ $galleryModel = new Gallery();
 
 $vendorID = preg_replace("/[^a-zA-Z0-9_-]/", "", $_GET['vendorID']); // Sanitize input
 
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
+    // Get request body content
+    $jsonData = file_get_contents('php://input');
+    $data = json_decode($jsonData, true);
+    
+    if (!isset($data['path'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Image path not provided in request body"]);
+        exit;
+    }
+    
+    $imagePath = $data['path'];
+    
+    // Delete image from database and filesystem
+    try {
+        if ($galleryModel->deleteImageFromGallery($imagePath, $vendorID)) {
+            echo json_encode(["success" => "Image deleted successfully"]);
+        } else {
+            http_response_code(404);
+            echo json_encode(["error" => "Image not found or could not be deleted"]);
+        }
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(["error" => "Server error: " . $e->getMessage()]);
+    }
+    exit;
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
     $vendorID = preg_replace("/[^a-fA-F0-9]/", "", $_GET['vendorID']); // Ensure only valid hex characters
     $imagesData = $galleryModel->getImagesByVendorID($vendorID);
 
     if ($imagesData) {
-        
         echo json_encode($imagesData);
     } else {
         http_response_code(404);
@@ -86,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['vendorID'])) {
         return;
     }
 
-    echo json_encode(["imageID" => $imageID, "status" => "OK"]);
+    echo json_encode(["status" => "OK"]);
 } else {
     http_response_code(400);
     echo json_encode(["error" => "Invalid request"]);

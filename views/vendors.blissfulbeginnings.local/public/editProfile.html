@@ -91,7 +91,7 @@
             <div class="delete-modal-container" id="delete-modal-container">
                 <div class="delete-modal">
                     <div class="delete-modal-header">
-                        <h2>Delete Profile</h2>
+                        <h2>Delete Package</h2>
                     </div>
                     <div class="delete-modal-body">
                         <p>Are you sure you want to delete this package? </p>
@@ -99,6 +99,54 @@
                     <div class="delete-modal-footer">
                         <button class="cancel-button">Cancel</button>
                         <button class="delete-button">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- modal for delete image -->
+            <div class="delete-image-modal-container" id="delete-image-modal-container">
+                <div class="delete-image-modal">
+                    <div class="delete-image-modal-header">
+                        <h2>Delete Image</h2>
+                    </div>
+                    <div class="delete-image-modal-body">
+                        <p>Are you sure you want to delete this image? </p>
+                    </div>
+                    <div class="delete-image-modal-footer">
+                        <button class="delete-image-cancel-button">Cancel</button>
+                        <button class="delete-image-delete-button">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- modal to update image description -->
+            <div class="update-image-modal-container" id="update-image-modal-container">
+                <div class="update-image-modal">
+                    <div class="update-image-modal-header">
+                        <h2>Update Image Description</h2>
+                    </div>
+                    <div class="update-image-modal-content">
+                        <div class="update-image-modal-content-left">
+                            <!-- insert the image in here -->
+                        </div>
+                        <div class="update-image-modal-content-right">
+                            <div class="update-image-modal-body">
+                                <label for="update-image-imageID update-image-label">Image ID:</label>
+                                <input type="text" id="update-image-imageID" disabled>
+                                <label for="update-image-vendorID update-image-label">Vendor ID:</label>
+                                <input type="text" id="update-image-vendorID" disabled>
+                                <label for="update-image-datetime update-image-label">Date and Time:</label>
+                                <input type="text" id="update-image-datetime" disabled>
+                                <label for="update-image-mimetype update-image-label">Mime Type:</label>
+                                <input type="text" id="update-image-mimetype" disabled>
+                                <label for="update-image-description update-image-label">Description:</label>
+                                <input type="text" id="update-image-description" placeholder="Enter description" required>
+                            </div>
+                            <div class="update-image-modal-footer">
+                                <button class="update-image-cancel-button">Cancel</button>
+                                <button class="update-image-update-button">Save Changes</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

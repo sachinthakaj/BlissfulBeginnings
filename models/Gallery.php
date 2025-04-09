@@ -14,13 +14,13 @@ class Gallery
         try {
             error_log("Create gallery function runs");
             $this->db->startTransaction();
-            $imageID = generateUUID($this->db);
+            // $imageID = generateUUID($this->db);
 
-            $sql = "INSERT INTO gallery (imageID, vendorID, image, path, description, display, mime_type) 
-                    VALUES (UNHEX(:imageID), UNHEX(:vendorID), :image, :path, :description, :display, :mime_type)";
+            $sql = "INSERT INTO gallery (vendorID, image, path, description, display, mime_type) 
+                    VALUES (UNHEX(:vendorID), :image, :path, :description, :display, :mime_type)";
 
             $this->db->query($sql);
-            $this->db->bind(':imageID', $imageID, PDO::PARAM_STR);
+            // $this->db->bind(':imageID', $imageID, PDO::PARAM_STR);
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
             $this->db->bind(':image', $image, PDO::PARAM_STR);
             $this->db->bind(':path', $path, PDO::PARAM_STR);
@@ -30,7 +30,7 @@ class Gallery
             $this->db->execute();
 
             $this->db->commit();
-            return $imageID;
+            return true;
         } catch (PDOException $e) {
             $this->db->rollbackTransaction();
             error_log("Database Error: " . $e->getMessage());
@@ -41,7 +41,7 @@ class Gallery
     public function getImagesByVendorID($vendorID)
     {
         try {
-            $sql = "SELECT path, imageID, description FROM gallery WHERE vendorID = UNHEX(:vendorID)";
+            $sql = "SELECT path, description FROM gallery WHERE vendorID = UNHEX(:vendorID)";
             $this->db->query($sql);
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
         
@@ -55,6 +55,57 @@ class Gallery
         }
     }
 
+    public function deleteImageFromGallery($path, $vendorID) 
+    {
+      try {
+        $imageName = basename($path);
+
+        // Fetch image path before deleting
+        $this->db->query("SELECT * FROM gallery WHERE path = :path AND vendorID = UNHEX(:vendorID)");
+        $this->db->bind(':path', $path, PDO::PARAM_STR);
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $imageData = $this->db->single();
+        
+        if (!$imageData) {
+            return false; // Image not found
+        }
+        
+        // Delete the image record from the database
+        $this->db->query("DELETE FROM gallery WHERE image = :image AND vendorID = UNHEX(:vendorID)");
+        $this->db->bind(':image', $imageName, PDO::PARAM_STR);
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $result = $this->db->execute();
+        
+        // Delete the file from the server if it exists
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        
+        return $result; 
+        } catch (PDOException $e) {
+            if (isset($this->db) && method_exists($this->db, 'rollbackTransaction')) {
+                $this->db->rollbackTransaction();
+            }
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
+
+
+    public function getImagePathByID($imageID, $vendorID)
+    {
+        try {
+            $sql = "SELECT path FROM gallery WHERE imageID = UNHEX(:imageID) AND vendorID = UNHEX(:vendorID)";
+            $this->db->query($sql);
+            $this->db->bind(':imageID', $imageID, PDO::PARAM_STR);
+            $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+            $image = $this->db->single();
+            return $image;
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return false;
+        }
+    }
 
     public function updateImageDescription($imageID, $vendorID, $description)
     {
@@ -62,7 +113,7 @@ class Gallery
             $this->db->startTransaction();
 
             // SQL query to update the image description (ensuring vendorID match)
-            $sql = "UPDATE images SET description = :description 
+            $sql = "UPDATE gallery SET description = :description 
                     WHERE imageID = UNHEX(:imageID) AND vendorID = UNHEX(:vendorID)";
 
             error_log("Executing SQL: " . $sql);

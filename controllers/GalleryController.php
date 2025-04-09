@@ -80,5 +80,9 @@ class GalleryController
         }
     }
 
+    // public function updateGallery($parameters)
+    // {
+
+    // }
 }
 ?>
