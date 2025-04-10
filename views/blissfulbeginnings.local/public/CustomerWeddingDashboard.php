@@ -68,18 +68,21 @@
                 </div>
             </main>
 
-            <aside style="flex: 1;">
-                <div id="chat-container"></div>
-                <div class="text-field">
-                    <div class="image-upload-container">
-                        <label for="imageUpload" class="upload-icon">
-                            <img src="upload-icon.png" alt="Upload Image" title="Upload an image">
-                        </label>
-                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            <aside class="chat-container">
+                <div>
+                    <div id="chat-show-area"></div>
+                    <div class="text-field">
+                        <div class="image-upload-container">
+                            <label for="imageUpload" class="upload-icon">
+                                <img src="upload-icon.png" alt="Upload Image" title="Upload an image">
+                            </label>
+                            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                        </div>
                     </div>
                     <input id="chat-type-field">
-                    <button id="chat-send-button">Send</button>
                 </div>
+                <button id="chat-send-button">Send</button>
+
             </aside>
         </div>
     </div>

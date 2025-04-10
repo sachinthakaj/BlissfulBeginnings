@@ -4,6 +4,7 @@ const vendorID = pathParts[pathParts.length - 3];
 const assignmentID = pathParts[pathParts.length - 1];
 
 const weddingID = getWeddingIdFRomAssignmentID(assignmentID);
+let vendorName = 'Vendor'
 
 async function getWeddingIdFRomAssignmentID(assignmentID) {
   try {

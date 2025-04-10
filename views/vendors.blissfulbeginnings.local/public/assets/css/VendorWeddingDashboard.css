@@ -13,6 +13,16 @@ body {
     min-height: 100vh;
 }
 
+.page-wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    position: static;
+}
+
 .wedding-title {
     text-align: center;
     margin-left: 40px;
@@ -20,6 +30,7 @@ body {
 
 
 .main-container {
+    height: 90vh;
     display: flex;
 }
 
@@ -52,68 +63,7 @@ main {
     margin: 0 auto 10px;
 }
 
-aside.chat-container {
-    flex-basis: 250px;
-    max-width: 300px;
-    flex: 1;
-    padding: 20px;
-    background-color: darkgrey;
-    border-left: 2px solid #e0e0e0;
-    min-width: 100px;
-    border-radius: 10px;
-}
 
-.chat-all-area {
-    background-color: #dddddd33;
-    padding-top: 5px;
-}
-
-.chat-show-area {
-    background-color: #fff;
-    min-height: 500px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 10px;
-}
-
-.chat-action-area {
-    background-color: rgba(0, 0, 0, 0.251);
-    height: 60px;
-    display: flex;
-    align-items: end;
-    gap: 10px;
-}
-
-.Message-type-area {
-    background-color: #fff;
-    height: 50px;
-    min-width: 200px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    border-radius: 10px;
-}
-
-.Message-send-button-area {
-    background-color: #ddd;
-    height: 50px;
-    width: 80px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    font-family: monospace;
-}
-
-.message-text {
-    display: inline;
-}
-
-.message {
-    display: block;
-    margin-bottom: 10px;
-}
 
 /* slider */
 
