@@ -66,7 +66,7 @@ function renderMessages() {
     senderElement.innerHTML = '<h4">' + sender + '</h4>';
     imageElement.appendChild(senderElement);
     const img = document.createElement('img');
-    img.src = "http://cdn.blissfulbeginnings.local" + imageReference;
+    img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
     img.alt = "Uploaded Image";
     img.classList.add('chat-image');
     img.style.maxWidth = '200px';
@@ -84,7 +84,7 @@ function renderMessages() {
     const message = messageInput.value.trim();
     if (message) {
       chatMessage = {
-        sender: 'planner',
+        role: 'planner',
         message: message,
         timestamp: timestamp,
       };
@@ -154,8 +154,8 @@ function renderMessages() {
 
       const metaWithImage = {
         timestamp: formData.timestamp,
-        sender: "planner",
-        imageReference: imageReference,
+        role: "planner",
+        relativePath: imageReference,
         Image: "image_reference",
       };
 

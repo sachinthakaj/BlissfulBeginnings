@@ -69,10 +69,16 @@
             </main>
 
             <aside style="flex: 1;">
-                <div class="chat-container"></div>
+                <div id="chat-container"></div>
                 <div class="text-field">
-                    <input class="chat-type-field">
-                    <button class="chat-send-button">Send</button>
+                    <div class="image-upload-container">
+                        <label for="imageUpload" class="upload-icon">
+                            <img src="upload-icon.png" alt="Upload Image" title="Upload an image">
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                    </div>
+                    <input id="chat-type-field">
+                    <button id="chat-send-button">Send</button>
                 </div>
             </aside>
         </div>
@@ -101,7 +107,7 @@
                 <h2>Edit Profile</h2>
                 <span class="close-button">&times;</span>
             </div>
-            
+
             <!-- Page 1 -->
             <div class="modal-page" data-page="1">
                 <div class="modal-body">
@@ -115,7 +121,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Page 2 -->
             <div class="modal-page" data-page="2">
                 <div class="modal-body">
@@ -151,7 +157,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Page 3 -->
             <div class="modal-page" data-page="3">
                 <div class="modal-body">
@@ -217,7 +223,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="edit-modal-footer">
                 <div class="pagination-dots">
                     <span class="dot active" data-page="1"></span>

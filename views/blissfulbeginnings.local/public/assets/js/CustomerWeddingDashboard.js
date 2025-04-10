@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', function (){
 
 // Function to render messages to the chat container
 function renderMessages() {
-    const chatContainer = document.querySelector('.chat-show-area');
+    const chatContainer = document.getElementById('chat-container');
     chatContainer.innerHTML = '';
   
     const wsUrl = 'ws://localhost:8080/';
   
     const socket = new WebSocket(wsUrl);
     const messageInput = document.getElementById('chat-type-field');
-    const sendBtn = document.getElementById('send-button');
+    const sendBtn = document.getElementById('chat-send-button');
   
   
     socket.onopen = () => {
@@ -50,7 +50,7 @@ function renderMessages() {
           appendTextMessage(message.message, message.timestamp, sender);
         }
       });
-      chatContainer.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
+      chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the latest message
     };
   
     socket.onerror = (error) => {
@@ -96,7 +96,7 @@ function renderMessages() {
       const message = messageInput.value.trim();
       if (message) {
         chatMessage = {
-          sender: 'customer',
+          role: 'customer',
           message: message,
           timestamp: timestamp,
         };
@@ -120,7 +120,7 @@ function renderMessages() {
   
       const img = document.createElement('img'); // Create the <img> element
       console.log(imageReference);
-      img.src = "http://cdn.blissfulbeginnings.local/" + imageReference; // Set the source of the image
+      img.src = "http://cdn.blissfulbeginnings.com/" + imageReference; // Set the source of the image
       img.alt = "Uploaded Image"; // Alt text for accessibility
       img.classList.add('chat-image'); // Optional class for styling the image
       img.style.maxWidth = '200px'; // Add a size limit if needed
@@ -183,8 +183,8 @@ function renderMessages() {
   
         const metaWithImage = {
           timestamp: formData.timestamp,
-          sender: "Customer",
-          imageReference: imageReference,
+          role: "Customer",
+          relativePath: imageReference,
           Image: "image_reference",
         };
   

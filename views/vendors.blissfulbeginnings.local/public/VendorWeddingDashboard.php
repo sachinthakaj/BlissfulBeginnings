@@ -67,6 +67,12 @@
                 </div>
 
                 <div class="chat-action-area">
+                    <div class="image-upload-container">
+                        <label for="imageUpload" class="upload-icon">
+                            <img src="upload-icon.png" alt="Upload Image" title="Upload an image">
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                    </div>
                     <div class="Message-type-area">
                         <input type="text" id="chat-type-field" placeholder="Type your message here...">
                     </div>
