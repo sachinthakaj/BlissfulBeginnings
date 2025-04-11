@@ -9,7 +9,6 @@ class m0015_gallery {
     public function up() {
       $SQL = "
       CREATE TABLE `gallery` (
-        `imageID` BINARY(16) PRIMARY KEY,
         `vendorID` BINARY(16) NOT NULL,
         `image` varchar(255) NOT NULL,
         `mime_type` varchar(255) NOT NULL,
@@ -20,7 +19,7 @@ class m0015_gallery {
 
         CONSTRAINT fk_gallery_ref_vendor FOREIGN KEY (vendorID) REFERENCES vendors(vendorID) ON DELETE CASCADE ON UPDATE CASCADE
       )";
-      $this->dbh->exec($SQL);;
+      $this->dbh->exec($SQL);
     }
 
     public function down() {

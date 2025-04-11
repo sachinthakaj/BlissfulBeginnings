@@ -11,6 +11,29 @@ const uploadModal = document.getElementById("open-modal-button");
 const uploadModalContainer = document.querySelector(".modal-container");
 const uploadButton = document.querySelector(".upload-button");
 
+function showNotification(message, color) {
+  // Create notification element
+  const notification = document.createElement("div");
+  notification.textContent = message;
+  notification.style.position = "fixed";
+  notification.style.bottom = "20px";
+  notification.style.left = "20px";
+  notification.style.backgroundColor = color;
+  notification.style.color = "white";
+  notification.style.padding = "10px 20px";
+  notification.style.borderRadius = "5px";
+  notification.style.zIndex = 1000;
+  notification.style.fontSize = "16px";
+
+  // Append to body
+  document.body.appendChild(notification);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.getElementById("loading-screen");
   const mainContent = document.getElementById("main-content");
@@ -33,29 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document
         .getElementById("profile-image")
         .setAttribute("src", vendorData.image);
-
-      function showNotification(message, color) {
-        // Create notification element
-        const notification = document.createElement("div");
-        notification.textContent = message;
-        notification.style.position = "fixed";
-        notification.style.bottom = "20px";
-        notification.style.left = "20px";
-        notification.style.backgroundColor = color;
-        notification.style.color = "white";
-        notification.style.padding = "10px 20px";
-        notification.style.borderRadius = "5px";
-        notification.style.zIndex = 1000;
-        notification.style.fontSize = "16px";
-
-        // Append to body
-        document.body.appendChild(notification);
-
-        // Remove after 3 seconds
-        setTimeout(() => {
-          notification.remove();
-        }, 3000);
-      }
 
       const packagesContainer = document.getElementById("packages-container");
 
@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (!data.imageID) {
+          if (!data.status) {
             throw new Error(
               "Invalid response from server. No storage path provided."
             );
@@ -644,8 +644,12 @@ const vendorDisplayFunctions = {
   Florist: displayFloristPackage,
 };
 
-function fetchVendorGallery(vendorID) {
-  fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID)
+document.addEventListener("DOMContentLoaded", fetchVendorGallery);
+
+function fetchVendorGallery() {
+  fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
+    method: "GET",
+  })
     .then((response) => response.json())
     .then((data) => {
       if (data.error) {
@@ -654,11 +658,66 @@ function fetchVendorGallery(vendorID) {
       }
 
       const galleryContainer = document.getElementById("gallery-container");
-      galleryContainer.innerHTML = ""; // Clear previous images
+
+      // Delete modal elements
+      const deleteImageModalContainer = document.querySelector(
+        ".delete-image-modal-container"
+      );
+      const cancelButton = document.querySelector(
+        ".delete-image-cancel-button"
+      );
+      const imageDeleteButton = document.querySelector(
+        ".delete-image-delete-button"
+      );
+
+      // Update modal elements
+      const updateImageModalContainer = document.querySelector(
+        ".update-image-modal-container"
+      );
+      const updateCancelButton = document.querySelector(
+        ".update-image-cancel-button"
+      );
+      const updateButton = document.querySelector(
+        ".update-image-update-button"
+      );
+      const updateDescriptionInput = document.getElementById(
+        "update-image-description"
+      );
+      const updateVendorIDInput = document.getElementById(
+        "update-image-vendorID"
+      );
+      const updateImageIDInput = document.getElementById(
+        "update-image-imageID"
+      );
+      const updateDateTimeInput = document.getElementById(
+        "update-image-datetime"
+      );
+      const updateImageContainer = document.querySelector(
+        ".update-image-modal-content-left"
+      );
+
+      // Variables to store the current image data
+      let currentImageToDelete = null;
+      let currentImageToUpdate = null;
+
+      // Fetch vendor name for display in modal
+      // let vendorName = "";
+      // fetch("http://cdn.blissfulbeginnings.com/packages/" + vendorID)
+      //   .then((response) => response.json())
+      //   .then((vendorData) => {
+      //     if (vendorData && vendorData.name) {
+      //       vendorName = vendorData.name;
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error fetching vendor details:", error);
+      //   });
 
       data.forEach((image) => {
         const imgDiv = document.createElement("div");
+        imgDiv.path = image.path;
         imgDiv.classList.add("gallery-item");
+        imgDiv.style.position = "relative"; // Ensure relative positioning for absolute child elements
 
         const imgElement = document.createElement("img");
         imgElement.src = "http://cdn.blissfulbeginnings.com/" + image.path;
@@ -668,10 +727,269 @@ function fetchVendorGallery(vendorID) {
         const desc = document.createElement("p");
         desc.textContent = image.description;
 
+        // Create delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "❌";
+        deleteBtn.classList.add("delete-btn");
+
+        // Style delete button
+        deleteBtn.style.position = "absolute";
+        deleteBtn.style.top = "5px";
+        deleteBtn.style.right = "5px";
+        deleteBtn.style.background = "transparent";
+        deleteBtn.style.color = "white";
+        deleteBtn.style.border = "none";
+        deleteBtn.style.padding = "5px 8px";
+        deleteBtn.style.borderRadius = "50%";
+        deleteBtn.style.cursor = "pointer";
+        deleteBtn.style.display = "none"; // Hide initially
+
+        // Show delete button on hover
+        imgDiv.addEventListener("mouseenter", () => {
+          deleteBtn.style.display = "block";
+        });
+
+        imgDiv.addEventListener("mouseleave", () => {
+          deleteBtn.style.display = "none";
+        });
+
+        // Open confirmation modal on delete button click
+        deleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation(); // Prevent triggering the imgDiv click event
+          currentImageToDelete = image.path;
+          console.log("Delete button clicked");
+          console.log(currentImageToDelete);
+          openDeleteImageModal();
+        });
+
+        // Open update modal when clicking on the image
+        imgDiv.addEventListener("click", () => {
+          currentImageToUpdate = {
+            id: image.imageID,
+            path: image.path,
+            description: image.description,
+            vendorID: vendorID,
+            // vendorName: vendorName,
+            datetime: image.uploadDateTime || formatDatetime(new Date()),
+          };
+          openUpdateImageModal(currentImageToUpdate);
+        });
+
+        // Append elements
         imgDiv.appendChild(imgElement);
         imgDiv.appendChild(desc);
+        imgDiv.appendChild(deleteBtn); // Append delete button inside imgDiv
         galleryContainer.appendChild(imgDiv);
       });
+
+      // Helper function to format date and time
+      function formatDatetime(date) {
+        const options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        };
+        return new Date(date).toLocaleString(undefined, options);
+      }
+
+      // Delete Modal functions
+      function openDeleteImageModal() {
+        deleteImageModalContainer.classList.add("show");
+      }
+
+      function closeDeleteImageModal() {
+        deleteImageModalContainer.classList.remove("show");
+      }
+
+      // Update Modal functions
+      function openUpdateImageModal(imageData) {
+        // Clear previous content
+        updateImageContainer.innerHTML = "";
+
+        // Create and append image
+        const imgElement = document.createElement("img");
+        imgElement.src = "http://cdn.blissfulbeginnings.com/" + imageData.path;
+        imgElement.alt = imageData.description;
+        imgElement.style.maxWidth = "100%";
+        imgElement.style.maxHeight = "300px";
+        imgElement.style.objectFit = "contain";
+
+        updateImageContainer.appendChild(imgElement);
+
+        // Set field values
+        updateImageIDInput.value = imageData.imageID;
+        updateVendorIDInput.value = imageData.vendorID;
+        updateDateTimeInput.value = imageData.datetime;
+        updateDescriptionInput.value = imageData.description;
+
+        // Show modal
+        updateImageModalContainer.classList.add("show");
+      }
+
+      function closeUpdateImageModal() {
+        updateImageModalContainer.classList.remove("show");
+        currentImageToUpdate = null;
+      }
+
+      // Set up delete modal event listeners
+      if (deleteImageModalContainer) {
+        // Close modal when clicking cancel button
+        cancelButton.addEventListener("click", closeDeleteImageModal);
+
+        // Delete image and close modal when clicking delete button
+        imageDeleteButton.addEventListener("click", () => {
+          // console.log(imageID);
+
+          if (currentImageToDelete) {
+            // Remove from DOM
+            const imgElement = document.getElementById(currentImageToDelete);
+            if (imgElement) {
+              imgElement.remove();
+            }
+
+            // Call server delete endpoint
+            fetch(
+              `http://cdn.blissfulbeginnings.com/gallery/upload/${vendorID}`,
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+                body: JSON.stringify({
+                  path: currentImageToDelete,
+                  vendorID: vendorID,
+                }),
+              }
+            )
+              .then((response) => {
+                if (response.status === 204) {
+                  showNotification("There is no image for this imageID", "red");
+                } else {
+                  showNotification("Image deleted", "red");
+                }
+              })
+              .catch((error) => {
+                console.error("Error deleting image:", error);
+                showNotification("Error deleting image", "red");
+              });
+
+            closeDeleteImageModal();
+          }
+        });
+
+        // Close modal when clicking outside
+        deleteImageModalContainer.addEventListener("click", (event) => {
+          if (event.target === deleteImageModalContainer) {
+            closeDeleteImageModal();
+          }
+        });
+
+        // Close modal with Escape key for delete modal
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.key === "Escape" &&
+            deleteImageModalContainer.classList.contains("show")
+          ) {
+            closeDeleteImageModal();
+          }
+        });
+      }
+
+      // Set up update modal event listeners
+      if (updateImageModalContainer) {
+        // Close modal when clicking cancel button
+        updateCancelButton.addEventListener("click", closeUpdateImageModal);
+
+        // Update image description and close modal when clicking update button
+        updateButton.addEventListener("click", () => {
+          if (currentImageToUpdate) {
+            const newDescription = updateDescriptionInput.value.trim();
+
+            if (newDescription) {
+              // Update the description in the DOM
+              const imgElement = document.getElementById(
+                currentImageToUpdate.id
+              );
+              if (imgElement) {
+                const descElement = imgElement.querySelector("p");
+                if (descElement) {
+                  descElement.textContent = newDescription;
+                }
+              }
+
+              // Call server update endpoint
+              fetch(
+                "http://cdn.blissfulbeginnings.com/gallery/upload/" +
+                  currentImageToUpdate.id,
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem(
+                      "authToken"
+                    )}`,
+                  },
+                  body: JSON.stringify({
+                    description: newDescription,
+                  }),
+                }
+              )
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  showNotification("Image description updated", "green");
+                })
+                .catch((error) => {
+                  console.error("Error updating image:", error);
+                  showNotification("Error updating image description", "red");
+                });
+
+              closeUpdateImageModal();
+            } else {
+              showNotification("Description cannot be empty", "red");
+            }
+          }
+        });
+
+        // Close modal when clicking outside
+        updateImageModalContainer.addEventListener("click", (event) => {
+          if (event.target === updateImageModalContainer) {
+            closeUpdateImageModal();
+          }
+        });
+
+        // Close modal with Escape key for update modal
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.key === "Escape" &&
+            updateImageModalContainer.classList.contains("show")
+          ) {
+            closeUpdateImageModal();
+          }
+        });
+      }
     })
     .catch((error) => console.error("Error:", error));
 }
+
+// function deleteImageFromGallery(imageID) {
+//   fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + imageID, {
+//     method: "DELETE",
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (data.success) {
+//         console.log("Image deleted successfully");
+//       } else {
+//         console.error("Failed to delete image:", data.error);
+//       }
+//     })
+//     .catch((error) => console.error("Error deleting image:", error));
+// }
