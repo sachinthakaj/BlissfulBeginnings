@@ -9,198 +9,186 @@ const budgetProgress = document.getElementById('budget-progress-bar');
 const vendorGrid = document.querySelector('.vendor-grid');
 
 
-document.addEventListener('DOMContentLoaded', function (){
+document.addEventListener('DOMContentLoaded', function () {
     const payNowButton = document.querySelector('.pay-now');
-    payNowButton.addEventListener('click',function(){
-        window.location.href=`/wedding/payments/${weddingID}`;
+    payNowButton.addEventListener('click', function () {
+        window.location.href = `/wedding/payments/${weddingID}`;
 
     })
 })
 
 // Function to render messages to the chat container
 function renderMessages() {
-    const chatContainer = document.getElementById('chat-container');
+    const chatContainer = document.getElementById('chat-show-area');
     chatContainer.innerHTML = '';
-  
+
     const wsUrl = 'ws://localhost:8080/';
-  
+
     const socket = new WebSocket(wsUrl);
     const messageInput = document.getElementById('chat-type-field');
     const sendBtn = document.getElementById('chat-send-button');
-  
-  
+
+
     socket.onopen = () => {
-      socket.send(JSON.stringify({
-        weddingID: weddingID,
-      }));
+        socket.send(JSON.stringify({
+            weddingID: weddingID,
+        }));
     };
-  
+
     socket.onmessage = (event) => {
-      const messages = JSON.parse(event.data);
-      console.log(messages);
-      messages.forEach(message => {
-        sender = (message.role === 'Customer') ? 'me' : 'other';
-        if (!message) {
-          return;
-        }
-        if (message.relativePath) {
-          appendImageMessage(message.relativePath, message.timestamp, sender);
-          return;
-        } else {
-          appendTextMessage(message.message, message.timestamp, sender);
-        }
-      });
-      chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the latest message
+        const messages = JSON.parse(event.data);
+        console.log(messages);
+        messages.forEach(message => {
+            sender = (message.role === 'Customer') ? 'me' : 'other';
+            if (!message) {
+                return;
+            }
+            if (message.relativePath) {
+                appendImageMessage(message.relativePath, message.timestamp, sender);
+                return;
+            } else {
+                appendTextMessage(message.message, message.timestamp, sender);
+            }
+        });
+        chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the latest message
     };
-  
+
     socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-      chatContainer.innerHTML = "<p>Unexpected error occured</p>"
+        console.error('WebSocket error:', error);
+        chatContainer.innerHTML = "<p>Unexpected error occured</p>"
     };
-  
+
     socket.onclose = () => {
-      console.log('WebSocket connection closed.');
+        console.log('WebSocket connection closed.');
     };
-  
+
     function appendTextMessage(message, timestamp, sender) {
-      const messageElement = document.createElement('div');
-      messageElement.classList.add('message');
-      messageElement.innerHTML = `<div class="sender ${sender}">` + sender + ': </div><p class=message-text>' + message + '</p>';
-      messageElement.dataset.timestamp = timestamp;
-      chatContainer.appendChild(messageElement);
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message');
+        messageElement.innerHTML = `<div class="sender ${sender}">` + sender + ': </div><p class=message-text>' + message + '</p>';
+        messageElement.dataset.timestamp = timestamp;
+        chatContainer.appendChild(messageElement);
     }
     function appendImageMessage(imageReference, timestamp, sender) {
-      const imageElement = document.createElement('div');
-      imageElement.classList.add('message', 'image');
-      imageElement.dataset.timestamp = timestamp;
-  
-      const senderElement = document.createElement('div');
-      senderElement.classList.add('sender', sender);
-      senderElement.innerHTML = '<h4">' + sender + '</h4>';
-      imageElement.appendChild(senderElement);
-      const img = document.createElement('img');
-      img.src = "http://cdn.blissfulbeginnings.local" + imageReference;
-      img.alt = "Uploaded Image";
-      img.classList.add('chat-image');
-      img.style.maxWidth = '200px';
-      img.style.borderRadius = '8px';
-  
-      imageElement.appendChild(img); // Append the image to the container
-      chatContainer.appendChild(imageElement); // Append the message container to the chat
+        const imageElement = document.createElement('div');
+        imageElement.classList.add('message', 'image');
+        imageElement.dataset.timestamp = timestamp;
+        imageElement.style.display = 'flex';
+        imageElement.style.flexDirection = 'column';
+
+        const senderElement = document.createElement('div');
+        senderElement.classList.add('sender');
+        senderElement.classList.add(sender);
+        senderElement.innerHTML = '<h4">' + sender + '</h4>';
+        console.log(senderElement);
+        imageElement.appendChild(senderElement);
+        const img = document.createElement('img');
+        img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
+        img.alt = "Uploaded Image";
+        img.classList.add('chat-image');
+
+
+        imageElement.appendChild(img); // Append the image to the container
+        chatContainer.appendChild(imageElement); // Append the message container to the chat
     }
-  
-  
+
+
     sendBtn.addEventListener('click', () => {
-      timestamp = new Date().toISOString()
-      timestamp = timestamp.replace('T', ' ').split('.')[0];
-      const message = messageInput.value.trim();
-      if (message) {
-        chatMessage = {
-          role: 'customer',
-          message: message,
-          timestamp: timestamp,
-        };
-        socket.send(JSON.stringify(chatMessage));
-        console.log(chatMessage);
-        appendTextMessage(message, timestamp, 'me');
-        messageInput.value = '';
-      }
+        timestamp = new Date().toISOString()
+        timestamp = timestamp.replace('T', ' ').split('.')[0];
+        const message = messageInput.value.trim();
+        if (message) {
+            chatMessage = {
+                role: 'customer',
+                message: message,
+                timestamp: timestamp,
+            };
+            socket.send(JSON.stringify(chatMessage));
+            console.log(chatMessage);
+            appendTextMessage(message, timestamp, 'me');
+            messageInput.value = '';
+        }
+        chatContainer.scrollTop = chatContainer.scrollHeight;
     });
-  
+
     messageInput.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') {
-        sendBtn.click();
-      }
+        if (event.key === 'Enter') {
+            sendBtn.click();
+        }
     });
-  
-    function appendImageMessage(imageReference, timestamp) {
-      const imageElement = document.createElement('div'); // Container for the image
-      imageElement.classList.add('message', 'me'); // Add the same class as normal messages
-      imageElement.dataset.timestamp = timestamp;
-  
-      const img = document.createElement('img'); // Create the <img> element
-      console.log(imageReference);
-      img.src = "http://cdn.blissfulbeginnings.com/" + imageReference; // Set the source of the image
-      img.alt = "Uploaded Image"; // Alt text for accessibility
-      img.classList.add('chat-image'); // Optional class for styling the image
-      img.style.maxWidth = '200px'; // Add a size limit if needed
-      img.style.borderRadius = '8px'; // Optional: style the image to match your design
-  
-      imageElement.appendChild(img); // Append the image to the container
-      chatContainer.appendChild(imageElement); // Append the message container to the chat
-    }
-  
-  
+
+
+
     document.getElementById('imageUpload').addEventListener('change', async function (event) {
-      const file = event.target.files[0]; // Get the selected file
-  
-      // Ensure a file was selected
-      if (!file) {
-        alert("No file selected.");
-        return;
-      }
-  
-  
-      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-      if (!validImageTypes.includes(file.type)) {
-        alert("Please upload a valid image file (JPEG, PNG, GIF).");
-        return;
-      }
-  
-  
-      const maxSize = 2 * 1024 * 1024;
-      if (file.size > maxSize) {
-        alert("File size must be less than 2 MB.");
-        return;
-      }
-  
-  
-      timestamp = new Date().toISOString()
-      timestamp = timestamp.replace('T', ' ').split('.')[0];
-      sender = "planner"
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("timestamp", timestamp);
-      formData.append("sender", JSON.stringify(sender));
-  
-      try {
-        const response = await fetch("/chat/upload-image/" + weddingID, {
-          method: "POST",
-          body: formData,
-        });
-  
-        if (!response.ok) {
-          throw new Error(`Failed to upload image. Status: ${response.status}`);
+        const file = event.target.files[0]; // Get the selected file
+
+        // Ensure a file was selected
+        if (!file) {
+            alert("No file selected.");
+            return;
         }
-  
-        const data = await response.json();
-  
-        if (!data.storagePath) {
-          throw new Error("Invalid response from server. No storage path provided.");
+
+
+        const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+        if (!validImageTypes.includes(file.type)) {
+            alert("Please upload a valid image file (JPEG, PNG, GIF).");
+            return;
         }
-  
-        const imageReference = data.storagePath;
-  
-        const metaWithImage = {
-          timestamp: formData.timestamp,
-          role: "Customer",
-          relativePath: imageReference,
-          Image: "image_reference",
-        };
-  
-        socket.send(JSON.stringify(metaWithImage));
-  
-        appendImageMessage(imageReference, metaWithImage.timestamp);
-        alert("Image sent successfully!");
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred while uploading the image.");
-      }
+
+
+        const maxSize = 2 * 1024 * 1024;
+        if (file.size > maxSize) {
+            alert("File size must be less than 2 MB.");
+            return;
+        }
+
+
+        timestamp = new Date().toISOString()
+        timestamp = timestamp.replace('T', ' ').split('.')[0];
+        sender = "planner"
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("timestamp", timestamp);
+        formData.append("sender", JSON.stringify(sender));
+
+        try {
+            const response = await fetch("/chat/upload-image/" + weddingID, {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to upload image. Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (!data.storagePath) {
+                throw new Error("Invalid response from server. No storage path provided.");
+            }
+
+            const imageReference = data.storagePath;
+
+            const metaWithImage = {
+                timestamp: formData.timestamp,
+                role: "Customer",
+                relativePath: imageReference,
+                Image: "image_reference",
+            };
+
+            socket.send(JSON.stringify(metaWithImage));
+
+            appendImageMessage(imageReference, metaWithImage.timestamp);
+            alert("Image sent successfully!");
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while uploading the image.");
+        }
     });
-  
-  
+
+
     chatContainer.scrollTop = chatContainer.scrollHeight;
-  }
+}
 document.addEventListener("DOMContentLoaded", renderMessages);
 
 

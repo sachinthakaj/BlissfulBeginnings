@@ -63,21 +63,18 @@
             <aside class="chat-container">
                 <div class="chat-all-area">
                     <div class="chat-show-area">
-
-
                     </div>
-
                     <div class="chat-action-area">
                         <div class="image-upload-container">
-                            <label for="imageUpload" class="upload-icon">
-                                <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
-                            </label>
+                            <label>
+                            <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
                             <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                            </label>
                         </div>
-                        <div class="Message-type-area">
-                            <input type="text" id="chat-type-field" placeholder="Type your message here...">
+                        <div class="chat-type-area">
+                            <input type="text" id="chat-type-field" class="chat-type-field" placeholder="Type your message here...">
                         </div>
-                        <button class="Message-send-button-area" id="send-button">SEND</button>
+                        <div class="send-button-area" id="send-button"><img src='http://cdn.blissfulbeginnings.com/common-icons/chat-send.png' alt="Send" class="send-button-icon"></div>
 
 
                     </div>

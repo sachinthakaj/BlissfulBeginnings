@@ -69,9 +69,6 @@ function renderMessages() {
     img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
     img.alt = "Uploaded Image";
     img.classList.add('chat-image');
-    img.style.maxWidth = '200px';
-    img.style.borderRadius = '8px';
-    img.style.margin = '5px 0 10px 10px';
 
     imageElement.appendChild(img); 
     chatContainer.appendChild(imageElement); 

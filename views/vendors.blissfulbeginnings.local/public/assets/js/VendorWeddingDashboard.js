@@ -22,7 +22,7 @@ async function getWeddingIdFRomAssignmentID(assignmentID) {
     return data['weddingID'];
   } catch (error) {
     console.error(error)
-    // window.location.href = '/signin';
+    window.location.href = '/signin';
   }
 }
 
@@ -218,16 +218,14 @@ function renderMessages() {
     imageElement.style.flexDirection = 'column';
 
     const senderElement = document.createElement('div');
-    senderElement.classList.add('sender', sender);
+    senderElement.classList.add(sender);
+    senderElement.classList.add('sender');
     senderElement.innerHTML = '<h4">' + sender + '</h4>';
     imageElement.appendChild(senderElement);
     const img = document.createElement('img');
     img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
     img.alt = "Uploaded Image";
     img.classList.add('chat-image');
-    img.style.maxWidth = '200px';
-    img.style.borderRadius = '8px';
-    img.style.margin = '5px 0 10px 10px';
 
     imageElement.appendChild(img);
     chatContainer.appendChild(imageElement);
@@ -248,6 +246,7 @@ function renderMessages() {
       console.log(chatMessage);
       appendTextMessage(message, timestamp, 'me');
       messageInput.value = '';
+      chatContainer.scrollTop = chatContainer.scrollHeight;
     }
   });
 

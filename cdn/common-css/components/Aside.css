@@ -1,4 +1,3 @@
-@import url('/public/assets/css/common.css');
 
 aside {
     display: flex;
@@ -6,17 +5,12 @@ aside {
     top: 0;
     padding: 0px 10px;
     background-color: var(--header-background-color);
+    flex-basis: 350px;
+    flex-grow: 0;
+    flex-shrink: 1;
    
 }
 
-/*.chat-container {
-    width: 100%;
-    height: 90%;
-    background-color: var(--primary-white-color);
-    border-radius: 10px;
-
-}
-    */
 
 .chat-all-area {
     height: 100%;
@@ -33,37 +27,67 @@ aside {
 .chat-show-area {
     height: 90%;
     overflow-y: auto;
-    border-radius: 5px;
+    border-radius: 16px;
     background-color: var(--primary-white-color);
+    padding: 10px;
 
 }
 
 
 .chat-action-area {
-    height: 10%;
+    height: 7%;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap:10px;
+    align-items: center;
+    border-radius: 20px;
+    margin: 0.5em 0rem 1em 0rem;
+    background-color: var(--primary-white-color);
+}
+
+.image-upload-container {
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
 .upload-image-icon {
-    width: 50px;
+    margin: 5% 0.5em 1% 0.5em;
+    width: 1.5em;
     height: auto;
+}
+
+.chat-type-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
 }
 
 .chat-type-field {
     height: 100%;
     width: 90%;
-    margin: 0px 8px 0px 0px;
     border: none;
     border-radius: 10px;
 }
 
-.chat-send-button {
-    border: none;
-    border-radius: 10px;
-    background-color: var(--secondary-color);
+.chat-type-field:focus {
+    outline: none;
+    border:none;
+}
+
+.send-button-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.send-button-icon {
+    margin: 5% 0.5em 1% 0.5em;
+    width: 1.5em;
+    height: auto;
 }
 
 .chat-send-button:hover {
@@ -77,4 +101,32 @@ aside {
 .message {
     display: block;
     margin-bottom: 10px;
+}
+
+
+.message.bot {
+    color: #333;
+}
+
+.message.user {
+    color: #007bff;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.message-text {
+    display: inline;
+}
+
+.sender {
+    font-weight: bold;
+}
+
+.chat-image {
+    max-width: 200px;
+    border-radius: 8px;
+    margin: 5px 0 10px 10px;
 }

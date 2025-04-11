@@ -1,7 +1,7 @@
 @import url('/public/assets/css/common.css');
 @import url('/public/assets/css/components/GoBackButton.css');
 @import url('/public/assets/css/components/ProgressBars.css');
-@import url('/public/assets/css/components/Aside.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/Aside.css');
 
 * {
     font-family: var(--secondary-font-family);
