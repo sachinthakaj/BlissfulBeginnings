@@ -230,7 +230,7 @@ class vendorController
 
 
     public function getTasks($parameters){
-        if(!Authenticate('vendor', $parameters['assignmentID'])){
+        if(!Authenticate('vendor', $parameters['vendorID'])){
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -249,4 +249,41 @@ class vendorController
             echo json_encode(['error' => 'Error fetching Data']);
         }
     }
+
+    public function updateOfTasks($parameters){
+        if(!Authenticate('vendor', $parameters['vendorID'])){
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try{
+            $data = json_decode(file_get_contents('php://input'),true);
+            //var_dump($data);
+
+            if(!isset($data['taskID'])|| empty($data['taskID'])){
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: taskID is required']);
+                return;
+            }
+
+            $task = new Task();
+
+            $isUpdated = $task->saveFinishedTasks($data['taskID']);
+
+            if($isUpdated) {
+                header("HTTP/1.1 200 Okay");
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success','message' => 'Task updated successfully']);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['status'=>'error','error' => 'Error updating task']);
+            }
+
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+    
 }
