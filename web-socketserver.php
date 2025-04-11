@@ -42,10 +42,11 @@ function registerClient($client, &$wedding_clients)
     $opcode = 8;
     // Read the first message (wedding ID)
     $wedding_id = unmask(socket_read($client, 1024, PHP_BINARY_READ), $opcode);
+    var_dump($wedding_id);
     // Validate wedding ID (basic check)
     if (empty($wedding_id->weddingID)) {
         socket_close($client);
-        echo "Invalid wedding ID. Client disconnected.\n";
+        echo "No wedding ID. Client disconnected.\n";
         return false;
     }
     $wedding_id = $wedding_id->weddingID;
@@ -120,9 +121,10 @@ function send_message($client, $message)
 
 function saveMessage($weddingID, $data)
 {
+    error_log("Saving");
     try {
         $chat = new Chat();
-        $chat->saveMessage($weddingID, $data->sender, $data->timestamp, $data->message);
+        $chat->saveMessage($weddingID, $data->role, $data->timestamp, $data->message);
         return true;
     } catch (Exception $e) {
         error_log($e);
@@ -185,7 +187,7 @@ while (true) {
                     continue;
                 }
                 if (isset($data->Image)) {
-                    saveImageMessage($wedding_id, $data->imageReference, $data->timestamp, $data->sender);
+                    saveImageMessage($wedding_id, $data->relativePath, $data->timestamp, $data->role);
                 } else {
                     saveMessage($wedding_id, $data);
                 }

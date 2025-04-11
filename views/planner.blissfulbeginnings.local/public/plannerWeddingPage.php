@@ -89,14 +89,15 @@
           <div class="chat-action-area">
             <div class="image-upload-container">
               <label for="imageUpload" class="upload-icon">
-                <img src="upload-icon.png" alt="Upload Image" title="Upload an image">
+                <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
               </label>
-              <input type="file" id="imageUpload" accept="image/*" style="display: none;">
             </div>
-            <div class="Message-type-area">
-              <input type="text" id="chat-type-field" placeholder="Type your message here...">
+            <div class="chat-type-area">
+              <input type="text" id="chat-type-field" placeholder="Type your message here..." class="chat-type-field">
             </div>
-            <button class="Message-send-button-area" id="send-button">SEND</button>
+            <div class="send-button-area" id="send-button"><img src='http://cdn.blissfulbeginnings.com/common-icons/chat-send.png' alt="Send" class="send-button-icon"></div>
+
 
 
           </div>

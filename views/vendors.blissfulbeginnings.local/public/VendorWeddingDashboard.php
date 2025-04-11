@@ -15,68 +15,73 @@
 </head>
 
 <body>
-    <header>
-        <div class="nav-bar-logo-container">
-            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
-        </div>
-        <div class="wedding-title-container">
-            <h1 class="wedding-title"></h1>
-        </div>
-    </header>
-
-    <div class="main-container">
-        <main>
-            <a href="#" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to all weddings</span></a>
-            <div class="time-remaining-container">
-                <h2 id="days-left"></h2>
+    <div class="page-wrapper">
+        <header>
+            <div class="nav-bar-logo-container">
+                <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
             </div>
-
-            <div class="progress-bars">
-                <div class="progress-bar-container">
-                    <label>Wedding Progress</label>
-                    <div class="bar"></div>
-                    <div class="bar wedding-progress-bar" id="wedding-progress-bar"></div>
-                </div>
-                <div class="progress-bar-container">
-                    <label>Budget Progress</label>
-                    <div class="bar"></div>
-                    <div class="bar budget-progress-bar" id="budget-progress-bar"></div>
-                </div>
+            <div class="wedding-title-container">
+                <h1 class="wedding-title"></h1>
             </div>
+        </header>
 
-            <div class="slide-container">
-                <button id="backBtn">
-                    <img src="/public/assets/images/left-arrow-svgrepo-com.svg" alt="Left arrow" />
-                </button>
-
-                <div class="slide-content">
-                    <!-- dynamic insertion of cards -->
+        <div class="main-container">
+            <main>
+                <a href="#" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to all weddings</span></a>
+                <div class="time-remaining-container">
+                    <h2 id="days-left"></h2>
                 </div>
 
-                <button id="nextBtn">
-                    <img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Right arrow" />
-                </button>
-            </div>
-        </main>
-
-        <aside class="chat-container">
-            <div class="chat-all-area">
-                <div class="chat-show-area">
-
-
-                </div>
-
-                <div class="chat-action-area">
-                    <div class="Message-type-area">
-                        <input type="text" id="chat-type-field" placeholder="Type your message here...">
+                <div class="progress-bars">
+                    <div class="progress-bar-container">
+                        <label>Wedding Progress</label>
+                        <div class="bar"></div>
+                        <div class="bar wedding-progress-bar" id="wedding-progress-bar"></div>
                     </div>
-                    <button class="Message-send-button-area" id="send-button">SEND</button>
-
-
+                    <div class="progress-bar-container">
+                        <label>Budget Progress</label>
+                        <div class="bar"></div>
+                        <div class="bar budget-progress-bar" id="budget-progress-bar"></div>
+                    </div>
                 </div>
 
-            </div>
-        </aside>
+                <div class="slide-container">
+                    <button id="backBtn">
+                        <img src="/public/assets/images/left-arrow-svgrepo-com.svg" alt="Left arrow" />
+                    </button>
+
+                    <div class="slide-content">
+                        <!-- dynamic insertion of cards -->
+                    </div>
+
+                    <button id="nextBtn">
+                        <img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Right arrow" />
+                    </button>
+                </div>
+            </main>
+
+            <aside class="chat-container">
+                <div class="chat-all-area">
+                    <div class="chat-show-area">
+                    </div>
+                    <div class="chat-action-area">
+                        <div class="image-upload-container">
+                            <label>
+                            <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
+                            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <div class="chat-type-area">
+                            <input type="text" id="chat-type-field" class="chat-type-field" placeholder="Type your message here...">
+                        </div>
+                        <div class="send-button-area" id="send-button"><img src='http://cdn.blissfulbeginnings.com/common-icons/chat-send.png' alt="Send" class="send-button-icon"></div>
+
+
+                    </div>
+
+                </div>
+            </aside>
+        </div>
     </div>
 </body>
 

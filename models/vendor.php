@@ -220,4 +220,17 @@ class Vendor
             throw new Exception("Error Processing Request", 1);
         }
     }
+
+    public function getWeddingIDbyAssignmentID($assignmentID) {
+        try{
+            $this->db->query('SELECT weddingID FROM packageassignment WHERE assignmentID = UNHEX(:assignmentID);');
+            $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
+            $this->db->execute();
+            $result = $this->db->single();
+            return bin2hex($result->weddingID);
+        } catch( Exception $e) {
+            error_log($e);
+            throw $e;
+        }
+    }
 }

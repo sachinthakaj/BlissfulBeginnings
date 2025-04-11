@@ -1,0 +1,231 @@
+/* Common Colors and Fonts */
+:root {
+    --primary-color: #c1a42e;
+    --secondary-color: #656233;
+    --tertiary-color: #333;
+    --primary-dark-color: #444223;
+    --secondary-dark-color: #444223;
+    --star-selected-color: #f1c40f;
+    --header-background-color: #ddd;
+    --primary-white-color: #fff;
+    --semi-transparent-white-color: rgba(255, 255, 255, 0.9);
+    --scrollbar-background-color: #e0dcdc;
+    --vendorcard-background-color: #e0e0e0;
+    --spinner-border-color: #f3f3f3;
+    --cancel-button-color: #e0e0e0;
+    --cancel-button-hover-color: #d0d0d0;
+    --prev-background-color: #eee;
+    --prev-font-color: #666;
+    --prev-disabled-font-color: #999;
+    --primary-font-family: 'Inter', sans-serif;
+    --secondary-font-family: 'Poppins', sans-serif;
+    --tertiary-font-family: Arial, sans-serif;
+    --heading-font-family: 'Gwendolyn', cursive;
+}
+
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--secondary-font-family);
+}
+
+/* Body Styles */
+body {
+    color: var(--tertiary-color);
+    background-color: var(--primary-white-color);
+    margin: 0;
+}
+
+/* Header and Navigation */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--header-background-color);
+    height: 10vh;
+    padding: 10px;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-bar-logo-container {
+    height: 100%;
+    flex-shrink: 0; 
+}
+
+.nav-bar-logo {
+    max-height: 100%;
+    max-width: auto;
+    margin-right: 30px;
+}
+
+.wedding-title {
+    font-family: var(--heading-font-family);
+    font-size: 40px;
+    color: var(--primary-color);
+  }
+
+.top-right {
+    margin-right: 30px;
+}
+
+/* dropdown */
+/* Base Reset */
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Parent Menu Items */
+ul li {
+    position: relative;
+    display: inline-block;
+}
+
+ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: color 0.3s ease;   
+}
+
+ul li a:hover {
+    text-decoration: none;
+}
+
+ul li a:not(.top-right-button):hover {
+    color: var(--primary-color);
+}
+
+ul li .active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* Dropdown Menu */
+ul li ul.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    display: none;
+    z-index: 9999;
+    width: 150px;
+}
+
+ul li ul.dropdown li {
+    display: block;
+}
+
+ul li ul.dropdown li a {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+ul li ul.dropdown li a:hover {
+    background-color: #c1a42e;
+    color: #fff;
+}
+
+ul li:hover ul.dropdown {
+    display: block;
+} 
+
+.top-right-button {
+    background-color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px 25px;
+    color: var(--primary-white-color);
+    border-radius: 35px;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.top-right-button:hover {
+    background-color: var(--primary-color);
+    transition: ease-in 0.3s;
+}
+
+/* Extra Responsiveness */
+@media (max-width: 768px) {
+    ul li {
+        display: block;
+    }
+
+    ul li ul.dropdown {
+        width: 100%;
+    }
+}
+
+/* Section Headings */
+h2 {
+    color: var(--primary-color);
+    font-family: var(--secondary-font-family);
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* background image */
+.hero {
+    background-image: url('/public/assets/images/homapge.png'); /* Replace with your background image URL */
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 180px 20px;
+    color: var(--primary-white-color);
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero h2 {
+    font-size: 48px;
+    font-family: 'Georgia', serif;
+    color: var(--primary-white-color);
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero h3 {
+    font-size: 36px;
+    font-family: 'Georgia', serif;
+    color: var(--primary-white-color);
+    font-weight: 400;
+    margin: 10px 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    color: var(--primary-white-color);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
