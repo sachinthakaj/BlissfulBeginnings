@@ -50,16 +50,22 @@
                     <h2 id="days-left"></h2>
                 </div>
 
-                <div class="progress-bars">
-                    <div class="progress-bar-container">
-                        <label>Wedding Progress</label>
-                        <div class="bar"></div>
-                        <div class="bar wedding-progress-bar" id="wedding-progress-bar"></div>
+                <div class="progress-area">
+                    <div class="wedding-progress-area">
+
+                        <div class="Text">Wedding Progress</div>
+                        <div class="Precentage" id="weddingProgressPrecentage"></div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                        </div>
                     </div>
-                    <div class="progress-bar-container">
-                        <label>Budget Progress</label>
-                        <div class="bar"></div>
-                        <div class="bar budget-progress-bar" id="budget-progress-bar"></div>
+
+                    <div class="budget-progress-area">
+                        <div class="Text">Budget Progress</div>
+                        <div class="Precentage" id="budgetProgressPrecentage"></div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="budgetBar" style="width: 0%"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -68,12 +74,25 @@
                 </div>
             </main>
 
-            <aside style="flex: 1;">
-                <div class="chat-container"></div>
-                <div class="text-field">
-                    <input class="chat-type-field">
-                    <button class="chat-send-button">Send</button>
+            <aside class="chat-container">
+                <div class='chat-all-area'>
+                    <div id="chat-show-area" class='chat-show-area'>
+
+                    </div>
+                    <div class="chat-action-area">
+                        <div class="image-upload-container">
+                            <label>
+                                <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
+                                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <div class="chat-type-area">
+                            <input type='text' id="chat-type-field" class="chat-type-field" placeholder="Type your message here...">
+                        </div>
+                        <div id="chat-send-button" class="send-button-area"><img src='http://cdn.blissfulbeginnings.com/common-icons/chat-send.png' alt="Send" class="send-button-icon"></div>
+                    </div>
                 </div>
+
             </aside>
         </div>
     </div>
@@ -101,7 +120,7 @@
                 <h2>Edit Profile</h2>
                 <span class="close-button">&times;</span>
             </div>
-            
+
             <!-- Page 1 -->
             <div class="modal-page" data-page="1">
                 <div class="modal-body">
@@ -115,7 +134,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Page 2 -->
             <div class="modal-page" data-page="2">
                 <div class="modal-body">
@@ -151,7 +170,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Page 3 -->
             <div class="modal-page" data-page="3">
                 <div class="modal-body">
@@ -217,7 +236,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="edit-modal-footer">
                 <div class="pagination-dots">
                     <span class="dot active" data-page="1"></span>

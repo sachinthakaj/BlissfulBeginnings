@@ -67,7 +67,7 @@ class Task
     public function deleteTask($taskID)
     {
         try {
-            
+
             $this->db->query("DELETE FROM task WHERE taskID=UNHEX(:taskID)");
             $this->db->bind(":taskID", $taskID, PDO::PARAM_LOB);
             $this->db->execute();
@@ -87,11 +87,11 @@ class Task
             $this->db->execute();
             $result = $this->db->fetch(PDO::FETCH_ASSOC);
             $wedding = new Wedding();
-            $result["weddingTitle"]  = $wedding->getWeddingName(bin2hex($result["weddingID"])); 
+            $result["weddingTitle"]  = $wedding->getWeddingName(bin2hex($result["weddingID"]));
             unset($result['userID']);
             $result['weddingID'] = bin2hex($result["weddingID"]);
             $results = ["weddingDetails" => $result];
-            $this->db->query("SELECT taskID,description,dateToFinish FROM task WHERE assignmentID=UNHEX(:assignmentID) ORDER BY dateToFinish ASC;");
+            $this->db->query("SELECT taskID,description,dateToFinish,state FROM task WHERE assignmentID=UNHEX(:assignmentID) ORDER BY dateToFinish ASC;");
             $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
@@ -118,6 +118,47 @@ class Task
                 $result[$i]["assignmentID"] = bin2hex($result[$i]["assignmentID"]);
             }
             return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function saveFinishedTasks($taskID)
+    {
+        try {
+            $this->db->query("UPDATE task SET state='finished' WHERE taskID=UNHEX(:taskID);");
+            $this->db->bind(':taskID', $taskID);
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function getAllTasksForAWedding($weddingID)
+    {
+        try {
+            $this->db->query("SELECT COUNT(t.taskID) AS taskCount FROM task t
+           JOIN packageAssignment p ON t.assignmentID=p.assignmentID
+           JOIN wedding w ON p.weddingID=w.weddingID
+           WHERE w.weddingID=UNHEX(:weddingID) ;");
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
+            $taskCount = $this->db->fetch(PDO::FETCH_ASSOC);
+
+            $this->db->query("SELECT COUNT(t.taskID) AS finishedTaskCount FROM task t
+           JOIN packageAssignment p ON t.assignmentID=p.assignmentID
+           JOIN wedding w ON p.weddingID=w.weddingID
+           WHERE w.weddingID=UNHEX(:weddingID) AND t.state='finished';");
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
+            $finishedTaskCount = $this->db->fetch(PDO::FETCH_ASSOC);
+
+            return [
+                'taskCount' => $taskCount['taskCount'],
+                'finishedTaskCount' => $finishedTaskCount['finishedTaskCount']
+            ];
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;

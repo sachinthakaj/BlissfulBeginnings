@@ -1,3 +1,5 @@
+@import url("http://cdn.blissfulbeginnings.com/common-css/Common.css");
+@import url("http://cdn.blissfulbeginnings.com/common-css/components/Aside.css");
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -8,6 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: hidden;
 }
 header {
   font-family: "Gwendolyn";
@@ -18,6 +21,7 @@ header {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  position: static;
 }
 
 .wedding-dashboard-title {
@@ -192,6 +196,7 @@ main {
 .content-wrapper {
   display: flex;
   flex: 1;
+  height:10vh;
 }
 
 main {
@@ -200,16 +205,7 @@ main {
   background-color: #f0f0f0;
 }
 
-aside.chat-container {
-  flex-basis: 250px;
-  max-width: 300px;
-  flex: 1;
-  padding: 5px;
-  background-color: darkgrey;
-  border-left: 2px solid #e0e0e0;
-  min-width: 100px;
-  border-radius: 10px;
-}
+
 
 .vendor-search-and-cards {
   width: 100%;
@@ -302,93 +298,10 @@ aside.chat-container {
   transition: width 0.4s ease;
 }
 
-.progress-bar-vendor-search-and-cards {
-  width: auto;
-}
 
-.weddingProgressText {
+
+.Text {
   color: black;
   font-size: large;
   font-family: serif;
-}
-
-.chat-all-area {
-  background-color: #dddddd33;
-  padding-top: 5px;
-}
-
-.chat-show-area {
-  background-color: #fff;
-  min-height: 500px;
-  margin-left: 5px;
-  margin-right: 5px;
-  border-radius: 10px;
-}
-
-.chat-action-area {
-  background-color: rgba(0, 0, 0, 0.251);
-  height: 60px;
-  display: flex;
-  align-items: end;
-  gap: 10px;
-}
-
-.Message-type-area {
-  background-color: #fff;
-  height: 50px;
-  min-width: 200px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  border-radius: 10px;
-}
-
-.Message-send-button-area {
-  background-color: #ddd;
-  height: 50px;
-  width: 80px;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  border-radius: 10px;
-  border:none;
-  cursor: pointer;
-  font-size: 18px;
-  font-family: monospace;
-}
-
-.message-text {
-  display: inline-block;
-  margin: 0 0 0 10px;
-}
-
-.message {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 10px;
-  width: auto;
-}
-
-
-/* Image upload */
-.image-upload-container {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-}
-
-.upload-icon {
-  width: 50px; /* Adjust size as needed */
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.upload-icon img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.2s;
-}
-
-.upload-icon img:hover {
-  transform: scale(1.1); /* Slight zoom effect on hover */
 }

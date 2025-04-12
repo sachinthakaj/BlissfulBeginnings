@@ -27,3 +27,10 @@ $router->post("/vendor/{vendorID}/update-package/{packageID}", "PackageControlle
 $router->get("/get-profile-details/vendor-details/{vendorID}","vendorController@getProfileDetails");
 $router->post("/update-profile/vendor-details/{vendorID}","vendorController@updateProfileDetails");
 $router->delete("/delete-profile/vendor-details/{vendorID}","vendorController@deleteProfile");
+
+$router->post("/task_state_update/{vendorID}","vendorController@updateOfTasks");
+
+
+$router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-wedding-id", "vendorController@getWeddingIDbyAssignmentID");
+
+$router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");

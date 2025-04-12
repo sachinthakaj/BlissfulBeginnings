@@ -66,12 +66,9 @@ function renderMessages() {
     senderElement.innerHTML = '<h4">' + sender + '</h4>';
     imageElement.appendChild(senderElement);
     const img = document.createElement('img');
-    img.src = "http://cdn.blissfulbeginnings.local" + imageReference;
+    img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
     img.alt = "Uploaded Image";
     img.classList.add('chat-image');
-    img.style.maxWidth = '200px';
-    img.style.borderRadius = '8px';
-    img.style.margin = '5px 0 10px 10px';
 
     imageElement.appendChild(img); 
     chatContainer.appendChild(imageElement); 
@@ -84,7 +81,7 @@ function renderMessages() {
     const message = messageInput.value.trim();
     if (message) {
       chatMessage = {
-        sender: 'planner',
+        role: 'planner',
         message: message,
         timestamp: timestamp,
       };
@@ -154,8 +151,8 @@ function renderMessages() {
 
       const metaWithImage = {
         timestamp: formData.timestamp,
-        sender: "planner",
-        imageReference: imageReference,
+        role: "planner",
+        relativePath: imageReference,
         Image: "image_reference",
       };
 
@@ -179,36 +176,98 @@ document.addEventListener("DOMContentLoaded", renderMessages);
 document.addEventListener("DOMContentLoaded", function () {
   function updateProgressBar(totalTasks, completedTasks) {
     const progressBar = document.getElementById("progressBar");
-    const percentage = (completedTasks / totalTasks) * 100;
+    const percentage = document.getElementById("weddingProgressPrecentage");
+    const valueOfPercentage = ((completedTasks / totalTasks) * 100).toFixed(1);
+    percentage.innerHTML = valueOfPercentage + "%";
 
-    progressBar.style.width = `${percentage}%`;
-    if (percentage === 100) {
+
+    progressBar.style.width = `${valueOfPercentage}%`;
+    if (valueOfPercentage === 100) {
       progressBar.style.backgroundColor = "#4caf50";
-    } else if (percentage > 50) {
+    } else if (valueOfPercentage > 50) {
       progressBar.style.backgroundColor = "#ffc107";
     } else {
       progressBar.style.backgroundColor = "#f44336";
     }
   }
 
-  function updateBudgetBar(totalTasks, completedTasks) {
+  function updateBudgetBar(totalAmount, paidAmount) {
     const progressBar = document.getElementById("budgetBar");
-    const percentage = (completedTasks / totalTasks) * 100;
+    const percentage = document.getElementById("budgetProgressPrecentage");
+    const valueOfPercentage = ((paidAmount / totalAmount) * 100).toFixed(1);
+    percentage.innerHTML = valueOfPercentage+ "%";
 
-    progressBar.style.width = `${percentage}%`;
-    if (percentage === 100) {
+    progressBar.style.width = `${valueOfPercentage}%`;
+    if (valueOfPercentage === 100) {
       progressBar.style.backgroundColor = "#4caf50";
-    } else if (percentage > 50) {
+    } else if (valueOfPercentage > 50) {
       progressBar.style.backgroundColor = "#ffc107";
     } else {
       progressBar.style.backgroundColor = "#f44336";
     }
   }
 
-  const totalTasks = 10;
-  const completedTasks = 6;
-  updateProgressBar(totalTasks, completedTasks);
-  updateBudgetBar(totalTasks, completedTasks);
+  fetch(`/fetch-for-budget-progress/${weddingID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.status == 401) { 
+        window.location.href = "/signin";
+      } else if (response.status == 500) {
+        throw new Error("Internal Server Error");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const totalBudget = data.totalPackagesValue;
+      const paidValue= data.currentPaid;
+      updateBudgetBar(totalBudget, paidValue);
+
+
+
+    })
+    .catch((error) => {
+      console.error("Error fetching budget progress:", error);
+    });
+
+
+    
+  fetch(`/fetch-for-wedding-progress/${weddingID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.status == 401) { 
+        window.location.href = "/signin";
+      } else if (response.status == 500) {
+        throw new Error("Internal Server Error");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      
+      const taskCount = data.tasks.taskCount;
+      const finishedTaskCount= data.tasks.finishedTaskCount;
+      updateProgressBar(taskCount, finishedTaskCount);
+
+
+
+    })
+    .catch((error) => {
+      console.error("Error fetching budget progress:", error);
+    });
+
+
+
+  
+  
 
   const weddingTitleElement = document.querySelector(
     ".wedding-dashboard-title"
