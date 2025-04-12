@@ -929,8 +929,7 @@ function fetchVendorGallery() {
 
               // Call server update endpoint
               fetch(
-                "http://cdn.blissfulbeginnings.com/gallery/upload" +
-                  currentImageToUpdate.path,
+                "http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID,
                 {
                   method: "PUT",
                   headers: {
@@ -941,6 +940,7 @@ function fetchVendorGallery() {
                   },
                   body: JSON.stringify({
                     description: newDescription,
+                    path: currentImageToUpdate.path,
                   }),
                 }
               )

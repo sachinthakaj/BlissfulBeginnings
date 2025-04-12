@@ -44,9 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
         echo json_encode(["error" => "Server error: " . $e->getMessage()]);
     }
     exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['vendorID'])) {
+} else if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['vendorID'])) {
     $jsonData = file_get_contents('php://input');
     $data = json_decode($jsonData, true);   
 
@@ -71,9 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['vendorID'])) {
         http_response_code(500);
         echo json_encode(["error" => "Server error: " . $e->getMessage()]);
     }
-} 
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
     $vendorID = preg_replace("/[^a-fA-F0-9]/", "", $_GET['vendorID']); // Ensure only valid hex characters
     $imagesData = $galleryModel->getImagesByVendorID($vendorID);
 
@@ -85,9 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
         echo json_encode(["error" => "Image not found"]);
     }
     exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['vendorID'])) {
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['vendorID'])) {
     if (!$vendorID) {
         http_response_code(400);
         echo json_encode(["error" => "Missing vendorID"]);
