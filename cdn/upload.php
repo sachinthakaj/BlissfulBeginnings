@@ -6,7 +6,7 @@ require_once '../core/helpers.php';
 
 // Allow requests from 'vendors.blissfulbeginnings.local'
 header("Access-Control-Allow-Origin: http://vendors.blissfulbeginnings.com");
-header("Access-Control-Allow-Methods: POST, GET, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: POST, GET, DELETE, PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -46,10 +46,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['vendorID'])) {
+    $jsonData = file_get_contents('php://input');
+    $data = json_decode($jsonData, true);   
+
+    if (!isset($data['description'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Image description not provided in request body"]);
+        exit;
+    }
+    
+    $path = $data['path'];
+    $description = $data['description'];
+
+    try {
+        if ($galleryModel->updateImageDescription($path, $vendorID, $description)) {
+            http_response_code(200);
+            echo json_encode(["success" => "Image description updated successfully"]);
+        } else {
+            http_response_code(404);
+            echo json_encode(["error" => "Image not found or could not be updated"]);
+        }
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(["error" => "Server error: " . $e->getMessage()]);
+    }
+} 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
     $vendorID = preg_replace("/[^a-fA-F0-9]/", "", $_GET['vendorID']); // Ensure only valid hex characters
     $imagesData = $galleryModel->getImagesByVendorID($vendorID);
+
 
     if ($imagesData) {
         echo json_encode($imagesData);

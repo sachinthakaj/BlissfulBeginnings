@@ -107,32 +107,30 @@ class Gallery
         }
     }
 
-    public function updateImageDescription($imageID, $vendorID, $description)
+    public function updateImageDescription($path, $vendorID, $description)
     {
         try {
             $this->db->startTransaction();
 
             // SQL query to update the image description (ensuring vendorID match)
             $sql = "UPDATE gallery SET description = :description 
-                    WHERE imageID = UNHEX(:imageID) AND vendorID = UNHEX(:vendorID)";
+                    WHERE path = :path AND vendorID = UNHEX(:vendorID)";
 
             error_log("Executing SQL: " . $sql);
 
             // Bind parameters
             $this->db->query($sql);
             $this->db->bind(':description', $description);
-            $this->db->bind(':imageID', $imageID);  // Assuming imageID is stored as BINARY(16)
-            $this->db->bind(':vendorID', $vendorID); // Assuming vendorID is stored as BINARY(16)
-
+            $this->db->bind(':path', $path);  // image name
+            $this->db->bind(':vendorID', $vendorID); 
             $this->db->execute();
 
-            // Check if any row was updated
             if ($this->db->rowCount() > 0) {
                 $this->db->commit();
                 return true; // Success
             } else {
                 $this->db->rollbackTransaction();
-                error_log("No rows affected. Either imageID/vendorID is incorrect or the description is unchanged.");
+                error_log("No rows affected.");
                 return false; // No update happened
             }
         } catch (PDOException $e) {
