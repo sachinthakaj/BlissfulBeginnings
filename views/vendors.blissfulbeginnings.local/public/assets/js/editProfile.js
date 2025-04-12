@@ -438,6 +438,11 @@ document.addEventListener("DOMContentLoaded", () => {
             );
           }
           alert("Image sent successfully!");
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000); // 1 second delay
+
           fetchVendorGallery(vendorID);
         })
         .catch((error) => {
@@ -764,14 +769,13 @@ function fetchVendorGallery() {
 
         // Open update modal when clicking on the image
         imgDiv.addEventListener("click", () => {
+          console.log(image);
           currentImageToUpdate = {
-            id: image.imageID,
             path: image.path,
             description: image.description,
-            vendorID: vendorID,
-            // vendorName: vendorName,
-            datetime: image.uploadDateTime || formatDatetime(new Date()),
+            created_at: image.created_at || formatDatetime(new Date()),
           };
+          console.log(currentImageToUpdate);
           openUpdateImageModal(currentImageToUpdate);
         });
 
@@ -819,9 +823,9 @@ function fetchVendorGallery() {
         updateImageContainer.appendChild(imgElement);
 
         // Set field values
-        updateImageIDInput.value = imageData.imageID;
-        updateVendorIDInput.value = imageData.vendorID;
-        updateDateTimeInput.value = imageData.datetime;
+        // updateImageIDInput.value = imageData.imageID;
+        // updateVendorIDInput.value = imageData.vendorID;
+        updateDateTimeInput.value = imageData.created_at;
         updateDescriptionInput.value = imageData.description;
 
         // Show modal
@@ -869,6 +873,9 @@ function fetchVendorGallery() {
                   showNotification("There is no image for this imageID", "red");
                 } else {
                   showNotification("Image deleted", "red");
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000); // 1 second delay
                 }
               })
               .catch((error) => {
@@ -911,7 +918,7 @@ function fetchVendorGallery() {
             if (newDescription) {
               // Update the description in the DOM
               const imgElement = document.getElementById(
-                currentImageToUpdate.id
+                currentImageToUpdate.path
               );
               if (imgElement) {
                 const descElement = imgElement.querySelector("p");
@@ -922,8 +929,7 @@ function fetchVendorGallery() {
 
               // Call server update endpoint
               fetch(
-                "http://cdn.blissfulbeginnings.com/gallery/upload/" +
-                  currentImageToUpdate.id,
+                "http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID,
                 {
                   method: "PUT",
                   headers: {
@@ -934,6 +940,7 @@ function fetchVendorGallery() {
                   },
                   body: JSON.stringify({
                     description: newDescription,
+                    path: currentImageToUpdate.path,
                   }),
                 }
               )
@@ -978,18 +985,3 @@ function fetchVendorGallery() {
     })
     .catch((error) => console.error("Error:", error));
 }
-
-// function deleteImageFromGallery(imageID) {
-//   fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + imageID, {
-//     method: "DELETE",
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       if (data.success) {
-//         console.log("Image deleted successfully");
-//       } else {
-//         console.error("Failed to delete image:", data.error);
-//       }
-//     })
-//     .catch((error) => console.error("Error deleting image:", error));
-// }

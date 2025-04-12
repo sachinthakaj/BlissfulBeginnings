@@ -10,7 +10,7 @@ class m0015_gallery {
       $SQL = "
       CREATE TABLE `gallery` (
         `vendorID` BINARY(16) NOT NULL,
-        `image` varchar(255) NOT NULL,
+        `image` varchar(255) PRIMARY KEY NOT NULL,
         `mime_type` varchar(255) NOT NULL,
         `display` BLOB NOT NULL,
         `path` varchar(255) NOT NULL,
