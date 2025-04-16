@@ -1,6 +1,6 @@
 <?php
 // core/Database.php
-require_once './core/Config.php';
+require_once 'C://xampp/htdocs/BlissfulBeginnings/core/Config.php';
 loadEnv(__DIR__ . '/.env');
 
 class Migrations
@@ -61,7 +61,7 @@ class Migrations
         $appliedMigrations = $this->getAppliedsMigrations();
         echo "aplliedMigrations: ";
         print_r($appliedMigrations);
-        $files = scandir('./migrations');
+        $files = scandir('C://xampp/htdocs/BlissfulBeginnings/migrations');
         $toApplyMigrations = array_diff($files, $appliedMigrations);
         echo "toApplyMigrations: ";
         print_r($toApplyMigrations);
@@ -70,7 +70,7 @@ class Migrations
                 continue;
             }
             echo $migration;
-            require_once './migrations/' . $migration;
+            require_once 'C://xampp/htdocs/BlissfulBeginnings/migrations/' . $migration;
 
             $className = pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className($this->dbh);
