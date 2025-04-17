@@ -169,5 +169,99 @@ class CalendarController
             echo json_encode(["error" => "Failed to clear unavailable dates"]);
         }
     }
+
+    public function PsetUnavailableDate()
+{
+    try {
+        // Get JSON input
+        $input = json_decode(file_get_contents('php://input'), true);
+        
+        // Validate required fields
+        if (empty($input['date'])) {
+            http_response_code(400);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Date is required'
+            ]);
+            return;
+        }
+
+        // Validate date format (YYYY-MM-DD)
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $input['date'])) {
+            http_response_code(400);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Invalid date format. Use YYYY-MM-DD'
+            ]);
+            return;
+        }
+
+        // Check if date is in the past
+        $today = new DateTime();
+        $selectedDate = new DateTime($input['date']);
+        if ($selectedDate < $today) {
+            http_response_code(400);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Cannot mark past dates as unavailable'
+            ]);
+            return;
+        }
+
+        // Set the date as unavailable
+        $dateID = $this->calendarModel->PsetUnavailableDate($input['date']);
+
+        if (!$dateID) {
+            http_response_code(409);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Date is already marked as unavailable'
+            ]);
+            return;
+        }
+
+        http_response_code(200);
+        echo json_encode([
+            "dateID" => $dateID,
+            "status" => "success",
+            "message" => "Date marked as unavailable"
+        ]);
+
+    } catch (Exception $e) {
+        error_log('PsetUnavailableDate Error: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode([
+            "status" => "error",
+            "message" => "Failed to set unavailable date"
+        ]);
+    }
+}public function PgetUnavailableDates()
+{
+    try {
+        // Get all unavailable dates (no vendor-specific filtering)
+        $dates = $this->calendarModel->getUnavailableDates();
+
+        // Format dates for response
+        $formattedDates = array_map(function($date) {
+            return [
+                'date' => $date->unavailable_date,
+                'formatted' => (new DateTime($date->unavailable_date))->format('M j, Y')
+            ];
+        }, $dates);
+
+        return response()->json([
+            "status" => "success",
+            "dates" => $formattedDates
+        ]);
+
+    } catch (Exception $e) {
+        Log::error('PgetUnavailableDates Error: ' . $e->getMessage());
+        return response()->json([
+            "status" => "error",
+            "message" => "Failed to retrieve unavailable dates"
+        ], 500);
+    }
+}
+
 }
 ?>

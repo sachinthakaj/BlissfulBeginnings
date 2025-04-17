@@ -482,7 +482,7 @@ if (Array.isArray(unavailableDates)) {
                 if (!response.ok) {
                     if (response.status === 409) {
                         closeCalendarModal();
-                        showNotification(" You marked this date as unavailable ealier", "red");
+                        showNotification(" Date is already marked as unavailable", "red");
                         return Promise.reject('Conflict - Date already marked');
                     }
                         
