@@ -56,3 +56,6 @@ $router->post("/customerPaymentData", "CustomerController@getPaymentData");
 
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+
+$router->get("/get-ratings/{weddingID}", "CustomerController@getRatings");
+$router->post("/rate-vendor/{assignmentID}", "CustomerController@rateVendor");

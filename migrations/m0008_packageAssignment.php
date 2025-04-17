@@ -20,7 +20,7 @@ class m0008_packageAssignment
         `isPaid` BOOLEAN DEFAULT FALSE,
         `rating` INT DEFAULT 0,
 
-        CONSTRAINT CHECK `rating` <= 5 AND `rating` >= 0
+        CONSTRAINT CHECK (`rating` <= 5 AND `rating` >= 0),
 
 
   CONSTRAINT WeddingID_fk FOREIGN KEY (weddingID) REFERENCES wedding(weddingID) ON DELETE CASCADE ON UPDATE CASCADE,
