@@ -59,7 +59,7 @@ function renderMessages() {
     imageElement.classList.add('message', 'image');
     imageElement.dataset.timestamp = timestamp;
     imageElement.style.display = 'flex';
-    imageElement.style.flexDirection = 'column';  
+    imageElement.style.flexDirection = 'column';
 
     const senderElement = document.createElement('div');
     senderElement.classList.add('sender', sender);
@@ -70,8 +70,8 @@ function renderMessages() {
     img.alt = "Uploaded Image";
     img.classList.add('chat-image');
 
-    imageElement.appendChild(img); 
-    chatContainer.appendChild(imageElement); 
+    imageElement.appendChild(img);
+    chatContainer.appendChild(imageElement);
   }
 
 
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const progressBar = document.getElementById("budgetBar");
     const percentage = document.getElementById("budgetProgressPrecentage");
     const valueOfPercentage = ((paidAmount / totalAmount) * 100).toFixed(1);
-    percentage.innerHTML = valueOfPercentage+ "%";
+    percentage.innerHTML = valueOfPercentage + "%";
 
     progressBar.style.width = `${valueOfPercentage}%`;
     if (valueOfPercentage === 100) {
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   })
     .then((response) => {
-      if (response.status == 401) { 
+      if (response.status == 401) {
         window.location.href = "/signin";
       } else if (response.status == 500) {
         throw new Error("Internal Server Error");
@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then((data) => {
       const totalBudget = data.totalPackagesValue;
-      const paidValue= data.currentPaid;
+      const paidValue = data.currentPaid;
       updateBudgetBar(totalBudget, paidValue);
 
 
@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    
+
   fetch(`/fetch-for-wedding-progress/${weddingID}`, {
     method: "GET",
     headers: {
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   })
     .then((response) => {
-      if (response.status == 401) { 
+      if (response.status == 401) {
         window.location.href = "/signin";
       } else if (response.status == 500) {
         throw new Error("Internal Server Error");
@@ -252,9 +252,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
-      
+
       const taskCount = data.tasks.taskCount;
-      const finishedTaskCount= data.tasks.finishedTaskCount;
+      const finishedTaskCount = data.tasks.finishedTaskCount;
       updateProgressBar(taskCount, finishedTaskCount);
 
 
@@ -266,8 +266,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  
-  
+
+
 
   const weddingTitleElement = document.querySelector(
     ".wedding-dashboard-title"
@@ -301,6 +301,47 @@ document.addEventListener("DOMContentLoaded", function () {
           "<h1>Waiting for the Customer to choose a package</h1>";
         vendorCardContainer.appendChild(messageDiv);
       } else if (wedding.weddingState == "ongoing") {
+        // Checks if the wedding is over and ask to end the service
+        const targetDate = new Date(wedding.date);
+        const today = new Date();
+        const differenceInTime = targetDate - today;
+        const remainingDays = Math.ceil(
+          differenceInTime / (1000 * 60 * 60 * 24)
+        );
+        if(remainingDays < 0) {
+          console.log("Wedding is over");
+          completeButton = document.createElement("button");
+          completeButton.classList.add("completeButton");
+          completeButton.innerHTML = "Mark as Completed";
+          completeButton.addEventListener("click", () => {
+            fetch(`/complete-wedding/${weddingID}`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => {
+                if (response.status == 401) {
+                  alert("Unauthorized");
+                  // window.location.href = "/signin";
+                } else if (response.status == 500) {
+                  throw new Error("Internal Server Error");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                alert("Wedding successfully marked as completed");
+                window.location.href = `/wedding/${weddingID}`;
+
+              })
+              .catch((error) => {
+                console.error("Error fetching wedding:", error);
+              });
+          })
+          document.querySelector(".miscellanous").appendChild(completeButton);
+        }
+
         fetch(`/fetch-assigned-vendors/${weddingID}`, {
           method: "GET",
           headers: {
@@ -457,6 +498,36 @@ document.addEventListener("DOMContentLoaded", function () {
           .catch((error) => {
             console.error("Error fetching vendors:", error);
           });
+      } else if (wedding.weddingState == "finished") {
+        fetch(
+          `/get-vendor_ratings/${weddingID}`,{
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        ).then((res) => {
+          if (res.status == 401) {
+            window.location.href = "/signin";
+          } else if (res.status == 200) {
+            return res.json();
+          } else {
+            throw new Error("Network response was not ok");
+          }
+        }).then((data) => {
+          data.forEach((vendor) => {
+            const vendorCard = document.createElement("div");
+            vendorCard.classList.add("vendorCard");
+            vendorCard.id = vendor.assignmentID;
+            vendorCard.innerHTML = `
+            <div class="vendorName">${vendor.vendorName}</div>
+            <div class="vendorRating">${vendor.vendorRating}</div>
+            <div class="vendorReview">${vendor.vendorReview}</div>
+          `;
+            cardContainer.appendChild(vendorCard);
+          });
+        })
       }
     })
     .catch((error) => {

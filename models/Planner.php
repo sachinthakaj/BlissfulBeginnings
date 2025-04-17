@@ -116,4 +116,12 @@ class Planner
         $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function markWeddingAsComplete($weddingID) {
+        $this->db->query('UPDATE wedding SET weddingState = "finished" WHERE weddingID = UNHEX(:weddingID)');
+        $this->db->bind(':weddingID', $weddingID);
+        $this->db->execute();
+        $result = $this->db->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
