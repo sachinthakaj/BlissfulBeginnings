@@ -298,6 +298,47 @@ document.addEventListener("DOMContentLoaded", function () {
           "<h1>Waiting for the Customer to choose a package</h1>";
         vendorCardContainer.appendChild(messageDiv);
       } else if (wedding.weddingState == "ongoing") {
+        // Checks if the wedding is over and ask to end the service
+        const targetDate = new Date(wedding.date);
+        const today = new Date();
+        const differenceInTime = targetDate - today;
+        const remainingDays = Math.ceil(
+          differenceInTime / (1000 * 60 * 60 * 24)
+        );
+        if(remainingDays < 0) {
+          console.log("Wedding is over");
+          completeButton = document.createElement("button");
+          completeButton.classList.add("completeButton");
+          completeButton.innerHTML = "Mark as Completed";
+          completeButton.addEventListener("click", () => {
+            fetch(`/complete-wedding/${weddingID}`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => {
+                if (response.status == 401) {
+                  alert("Unauthorized");
+                  // window.location.href = "/signin";
+                } else if (response.status == 500) {
+                  throw new Error("Internal Server Error");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                alert("Wedding successfully marked as completed");
+                window.location.href = `/wedding/${weddingID}`;
+
+              })
+              .catch((error) => {
+                console.error("Error fetching wedding:", error);
+              });
+          })
+          document.querySelector(".miscellanous").appendChild(completeButton);
+        }
+
         fetch(`/fetch-assigned-vendors/${weddingID}`, {
           method: "GET",
           headers: {
@@ -465,6 +506,58 @@ document.addEventListener("DOMContentLoaded", function () {
           .catch((error) => {
             console.error("Error fetching vendors:", error);
           });
+      } else if (wedding.weddingState == "finished") {
+        function createVendorCard(vendorName, vendorType, rating) {
+          const card = document.createElement('div');
+          card.classList.add('vendor-card');
+          const nameElement = document.createElement('h2');
+          nameElement.textContent = vendorName;
+          const typeElement = document.createElement('p');
+          typeElement.textContent = vendorType;
+          const ratingElement = document.createElement('div');
+          ratingElement.classList.add('vendor-rating');
+          for (let i = 1; i <= 5; i++) {
+              const star = document.createElement('span');
+              star.classList.add('star');
+              star.innerHTML = '&#9733;';  // Unicode star
+              if (i > rating) {
+                  star.classList.add('unfilled');
+              }
+              ratingElement.appendChild(star);
+          }
+      
+          card.appendChild(nameElement);
+          card.appendChild(typeElement);
+          card.appendChild(ratingElement);
+      
+          return card;
+      }
+
+        fetch(
+          `/get-vendor-ratings/${weddingID}`,{
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        ).then((res) => {
+          if (res.status == 401) {
+            window.location.href = "/signin";
+          } else if (res.status == 200) {
+            return res.json();
+          } else {
+            throw new Error("Network response was not ok");
+          }
+        }).then((data) => {
+          const main = document.querySelector('main');
+          const cardContainer = document.createElement("div");
+          cardContainer.classList.add("rating-card-container");
+          data.forEach((vendor) => {
+            cardContainer.appendChild(createVendorCard(vendor.businessName, vendor.typeID, vendor.rating));
+          });
+          main.appendChild(cardContainer);
+        })
       }
     })
     .catch((error) => {

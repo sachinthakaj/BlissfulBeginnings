@@ -1079,13 +1079,7 @@ const finished = (data) => {
                                   cardData.progress
                                 }%"></div>
                             </div>
-                            <h4 class="description">Wedding Budget: </h4> 
-                            <div class="progress-bar-container">
-                                <div class="progress-bar budget-progress-bar" style="width: ${
-                                  cardData.budget
-                                }%"></div>
-                            </div>
-                            <div class="stars">
+                            <div class="stars" data-assignmentID="${cardData.assignmentID}">
                             ${Array(5)
                               .fill(0)
                               .map(
@@ -1114,16 +1108,16 @@ const finished = (data) => {
                 }
               });
             });
-            star.addEventListener("click", () => {
+            star.addEventListener("click", (e) => {
               const value = Number(star.dataset.value);
-              fetch("/api/ratings", {
+              console.log(e);
+              fetch(`/rate-vendor/${e.target.parentElement.dataset.assignmentid}`, {
                 method: "POST",
                 headers: {
                   "Content-type": "application/json",
                   Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
                 body: JSON.stringify({
-                  vendorID: cardData.vendorID,
                   rating: value,
                 }),
               }).then((response) => {
@@ -1140,6 +1134,7 @@ const finished = (data) => {
     console.error(e);
   }
 };
+
 
 function render() {
   const loadingScreen = document.getElementById("loading-screen");
@@ -1199,6 +1194,8 @@ function render() {
           ongoing(data);
         } else if (data.weddingState === "unassigned") {
           unassigned(data);
+        } else if (data.weddingState === "finished") {
+          finished(data);
         }
 
         loadingScreen.style.display = "none";

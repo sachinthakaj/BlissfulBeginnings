@@ -81,3 +81,7 @@ $router->get("/vendor/vendor-details/{vendorID}","PlannerController@vendorProfil
 
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+
+
+$router->get("/complete-wedding/{weddingID}", "PlannerController@markWeddingAsComplete");
+$router->get("/get-vendor-ratings/{weddingID}", "PlannerController@getVendorRatings");

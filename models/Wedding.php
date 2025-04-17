@@ -305,4 +305,33 @@ class Wedding
             return false;
         }
     }
+
+    public function getRatings($weddingID)
+    {
+        try {
+            $this->db->query("SELECT a.assignmentID, a.typeID, a.ratings, v.businessName FROM packageAssignments a INNER JOIN packages p ON a.packageID = p.packageID 
+            INNER JOIN vendors v ON v.vendorID = p.vendorID WHERE weddingID=UNHEX(:weddingID)");
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+            $this->db->execute();
+            $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function rateVendor($assignmentID, $rating)
+    {
+        try {
+            $this->db->query("UPDATE packageAssignment SET rating=:rating WHERE assignmentID=UNHEX(:assignmentID)");
+            $this->db->bind(":rating", $rating, PDO::PARAM_INT);
+            $this->db->bind(":assignmentID", $assignmentID, PDO::PARAM_LOB);
+            $this->db->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
 }
