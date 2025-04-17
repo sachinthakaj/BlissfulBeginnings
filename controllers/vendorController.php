@@ -318,4 +318,20 @@ class vendorController
     }
 
     
+
+    public function getWeddingIDbyAssignmentID($parameters) {
+        if(!Authenticate('vendor', $parameters['vendorID'])){
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try {
+            $weddingID = $this->vendorModel->getWeddingIDbyAssignmentID($parameters['assignmentID']);
+            echo json_encode(["weddingID" => $weddingID]);
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data', "error" => $e->getMessage()]);
+        }
+
+    }
 }

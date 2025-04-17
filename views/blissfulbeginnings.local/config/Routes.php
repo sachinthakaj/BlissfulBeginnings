@@ -54,3 +54,6 @@ $router->post("/delete_ongoing_payments/{weddingID}", "CustomerController@delete
 $router->get("/fetch-hash-for-paymentGateway/{weddingID}","CustomerController@generateHashForPaymentGateway");
 $router->post("/customerPaymentData", "CustomerController@getPaymentData");
 $router->get("/fetch-for-wedding-progress/{weddingID}","CustomerController@getTasksDetailsForWeddingProgress");
+
+
+$router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");

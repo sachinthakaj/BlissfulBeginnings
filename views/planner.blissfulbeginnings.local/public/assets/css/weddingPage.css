@@ -1,3 +1,5 @@
+@import url("http://cdn.blissfulbeginnings.com/common-css/Common.css");
+@import url("http://cdn.blissfulbeginnings.com/common-css/components/Aside.css");
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -8,6 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: hidden;
 }
 header {
   font-family: "Gwendolyn";
@@ -18,6 +21,7 @@ header {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  position: static;
 }
 
 .wedding-dashboard-title {
@@ -192,6 +196,7 @@ main {
 .content-wrapper {
   display: flex;
   flex: 1;
+  height:10vh;
 }
 
 main {
@@ -200,16 +205,7 @@ main {
   background-color: #f0f0f0;
 }
 
-aside.chat-container {
-  flex-basis: 250px;
-  max-width: 300px;
-  flex: 1;
-  padding: 5px;
-  background-color: darkgrey;
-  border-left: 2px solid #e0e0e0;
-  min-width: 100px;
-  border-radius: 10px;
-}
+
 
 .vendor-search-and-cards {
   width: 100%;

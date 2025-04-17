@@ -1,6 +1,6 @@
 <?php
 // core/Database.php
-require_once './core/Config.php';
+require_once 'C://xampp/htdocs/BlissfulBeginnings/core/Config.php';
 loadEnv(__DIR__ . '/.env');
 
 class Migrations
@@ -24,8 +24,33 @@ class Migrations
         try {
             $this->dbh = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS'], $options);
         } catch (PDOException $e) {
-            $this->error = $e->getMessage();
-            echo $this->error; // Show error if connection fails
+            if (str_contains($e->getMessage(), 'Unknown database')) {
+                try {
+                    // Extract host and charset from original DSN
+                    preg_match('/host=([^;]+)/', $dsn, $hostMatch);
+                    preg_match('/charset=([^;]+)/', $dsn, $charsetMatch);
+                    $host = $hostMatch[1] ?? 'localhost';
+                    $charset = $charsetMatch[1] ?? 'utf8mb4';
+        
+                    // Rebuild DSN without specifying the database
+                    $newDsn = "mysql:host=$host;charset=$charset";
+        
+                    // Connect without specifying database
+                    $pdo = new PDO($newDsn, $_ENV['DB_USER'], $_ENV['DB_PASS'], $options);
+        
+                    // Create the database
+                    $pdo->exec("CREATE DATABASE IF NOT EXISTS blissful_beginnings CHARACTER SET $charset COLLATE ${charset}_general_ci");
+        
+                    // Connect again using the new database
+                    $this->dbh = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS'], $options);
+                } catch (PDOException $e2) {
+                    $this->error = $e2->getMessage();
+                    echo "Failed to create or connect to database: " . $this->error;
+                }
+            } else {
+                $this->error = $e->getMessage();
+                echo $this->error;
+            }
         }
     }
 
@@ -36,7 +61,7 @@ class Migrations
         $appliedMigrations = $this->getAppliedsMigrations();
         echo "aplliedMigrations: ";
         print_r($appliedMigrations);
-        $files = scandir('./migrations');
+        $files = scandir('C://xampp/htdocs/BlissfulBeginnings/migrations');
         $toApplyMigrations = array_diff($files, $appliedMigrations);
         echo "toApplyMigrations: ";
         print_r($toApplyMigrations);
@@ -45,7 +70,7 @@ class Migrations
                 continue;
             }
             echo $migration;
-            require_once './migrations/' . $migration;
+            require_once 'C://xampp/htdocs/BlissfulBeginnings/migrations/' . $migration;
 
             $className = pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className($this->dbh);

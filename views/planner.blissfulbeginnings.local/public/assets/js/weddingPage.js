@@ -70,13 +70,10 @@ function renderMessages() {
     senderElement.classList.add("sender", sender);
     senderElement.innerHTML = '<h4">' + sender + "</h4>";
     imageElement.appendChild(senderElement);
-    const img = document.createElement("img");
-    img.src = "http://cdn.blissfulbeginnings.local" + imageReference;
+    const img = document.createElement('img');
+    img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
     img.alt = "Uploaded Image";
-    img.classList.add("chat-image");
-    img.style.maxWidth = "200px";
-    img.style.borderRadius = "8px";
-    img.style.margin = "5px 0 10px 10px";
+    img.classList.add('chat-image');
 
     imageElement.appendChild(img);
     chatContainer.appendChild(imageElement);
@@ -128,13 +125,12 @@ function renderMessages() {
         return;
       }
 
-      timestamp = new Date().toISOString();
-      timestamp = timestamp.replace("T", " ").split(".")[0];
-      sender = "planner";
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("timestamp", timestamp);
-      formData.append("sender", JSON.stringify(sender));
+      const metaWithImage = {
+        timestamp: formData.timestamp,
+        role: "planner",
+        relativePath: imageReference,
+        Image: "image_reference",
+      };
 
       try {
         const response = await fetch("/chat/upload-image/" + weddingID, {
