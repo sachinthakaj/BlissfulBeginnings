@@ -3,14 +3,56 @@ const pathParts = path.split("/");
 const vendorID = pathParts[pathParts.length - 3];
 const assignmentID = pathParts[pathParts.length - 1];
 
-const getProgress = (wedding, budget) => {
-  progress = {
-    budget: 40,
-    wedding: 60,
-  };
-  wedding.style.width = `${progress.wedding}%`;
-  budget.style.width = `${progress.budget}%`;
-};
+function updateProgressBar(totalTasks, completedTasks) {
+  const progressBar = document.getElementById("progressBar");
+  const percentage = document.getElementById("weddingProgressPrecentage");
+  const valueOfPercentage = ((completedTasks / totalTasks) * 100).toFixed(1);
+  percentage.innerHTML = valueOfPercentage + "%";
+
+  progressBar.style.width = `${valueOfPercentage}%`;
+
+  // Convert valueOfPercentage to a number for proper comparison
+  const numericPercentage = parseFloat(valueOfPercentage);
+
+  if (numericPercentage === 100) {
+      progressBar.style.backgroundColor = "#4caf50"; // Green
+  } else if (numericPercentage >= 50 && numericPercentage < 100) {
+      progressBar.style.backgroundColor = "#ffc107"; // Yellow
+  } else if (numericPercentage < 50) {
+      progressBar.style.backgroundColor = "#f44336"; // Red
+  }
+}
+
+
+fetch(`/fetch_for_progress/${vendorID}/${assignmentID}`, {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => {
+    if (response.status == 401) { 
+      window.location.href = "/signin";
+    } else if (response.status == 500) {
+      throw new Error("Internal Server Error");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    
+    const taskCount = data.tasks.taskCount;
+    const finishedTaskCount= data.tasks.finishedTaskCount;
+    updateProgressBar(taskCount, finishedTaskCount);
+
+
+
+  })
+  .catch((error) => {
+    console.error("Error fetching wedding progress:", error);
+  });
+
 
 function render() {
   const scrollContainer = document.querySelector(".slide-content");
@@ -81,7 +123,13 @@ function render() {
               taskID: cardData.taskID,
             }),
           })
-            .then((res) => res.json())
+          .then((response) => {
+            if (response.status === 401) {
+              window.location.href = "/signin";
+            } else {
+              return response.json();
+            }
+          })
             .then((data) => {
               if (data.status === "success") {
                 alert(data.message);

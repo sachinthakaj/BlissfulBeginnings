@@ -392,3 +392,28 @@ aside.chat-container {
 .upload-icon img:hover {
   transform: scale(1.1); /* Slight zoom effect on hover */
 }
+
+.completed-task {
+  background-color: #f0fdf4; /* Soft green background */
+  border-left: 4px solid #34d399; /* Vibrant green border */
+  color: #065f46; /* Dark green text */
+  font-weight: 500; /* Slightly bold text */
+  padding: 12px 16px; /* Balanced padding */
+  margin-bottom: 12px; /* Spacing between tasks */
+  border-radius: 8px; /* Smooth rounded corners */
+  position: relative; /* For badge positioning */
+}
+
+.completed-task::after {
+  content: "✔ Done"; /* Badge text */
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background-color: #34d399; /* Green badge */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px; /* Rounded badge */
+}

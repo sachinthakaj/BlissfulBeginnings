@@ -32,16 +32,17 @@
             </div>
 
             <div class="progress-bars">
-                <div class="progress-bar-container">
-                    <label>Wedding Progress</label>
-                    <div class="bar"></div>
-                    <div class="bar wedding-progress-bar" id="wedding-progress-bar"></div>
+
+                <div class="wedding-progress-area">
+
+                    <div class="Text">Progress</div>
+                    <div class="Precentage" id="weddingProgressPrecentage"></div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                    </div>
                 </div>
-                <div class="progress-bar-container">
-                    <label>Budget Progress</label>
-                    <div class="bar"></div>
-                    <div class="bar budget-progress-bar" id="budget-progress-bar"></div>
-                </div>
+
+
             </div>
 
             <div class="slide-container">

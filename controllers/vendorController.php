@@ -285,5 +285,37 @@ class vendorController
         }
     }
 
+    public function getForProgress($parameters){
+        if(!Authenticate('vendor', $parameters['vendorID'])){
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try{
+            if(!isset($parameters['assignmentID']) || empty($parameters['assignmentID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: assignmentID is required']);
+                return;
+            }
+
+            $task = new Task();
+            $taskCount = $task->getForTaskProgressOfAVendor($parameters['assignmentID']);
+           
+
+            if (!empty($taskCount)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'tasks' => $taskCount]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No tasks found for the specified assignment']);
+            }
+
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+
+    }
+
     
 }
