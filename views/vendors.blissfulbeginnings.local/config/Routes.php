@@ -17,6 +17,7 @@ $router->delete("/packages/delete/{packageID}", "PackageController@deletePackage
 
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}", "vendorController@weddingDashboard");
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-tasks", "vendorController@getTasks");
+$router->get("/fetch_for_progress/{vendorID}/{assignmentID}", "vendorController@getForProgress");
 
 
 $router->post("/vendor/{vendorID}/create-package", "PackageController@createPackage");

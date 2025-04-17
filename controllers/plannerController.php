@@ -633,4 +633,42 @@ class PlannerController
             echo json_encode(['error' => 'Error getting tasks details']);
         }
     }
+
+
+    public function searchWedding(){
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        };
+        try{
+            $data = json_decode(file_get_contents('php://input'),true);
+            //var_dump($data);
+           
+            if (!isset($data['str1']) || empty($data['str1']) && 
+                !isset($data['str2']) || empty($data['str2'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: brideName and groomName are required']);
+                return;
+            }
+
+            $wedding = new Wedding();
+
+            $searchedData = $wedding->getSerchedWeddingData($data['str1'],$data['str2']);
+
+            if($searchedData) {
+                header("HTTP/1.1 200 Okay");
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success','message' => 'searched successfully','weddings'=> $searchedData]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['status'=>'error','error' => 'Error searching wedding data']);
+            }
+
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
 }
