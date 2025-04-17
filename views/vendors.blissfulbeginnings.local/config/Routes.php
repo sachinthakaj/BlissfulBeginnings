@@ -17,6 +17,7 @@ $router->delete("/packages/delete/{packageID}", "PackageController@deletePackage
 
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}", "vendorController@weddingDashboard");
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-tasks", "vendorController@getTasks");
+$router->get("/fetch_for_progress/{vendorID}/{assignmentID}", "vendorController@getForProgress");
 
 
 $router->post("/vendor/{vendorID}/create-package", "PackageController@createPackage");
@@ -30,3 +31,11 @@ $router->delete("/delete-profile/vendor-details/{vendorID}","vendorController@de
 
 $router->post("/vendor/set-unavailable/{vendorID}", "CalendarController@setUnavailableDate");
 $router->get("/vendor/get-unavailable/{vendorID}", "CalendarController@getUnavailableDates");
+
+$router->post("/task_state_update/{vendorID}","vendorController@updateOfTasks");
+
+
+$router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-wedding-id", "vendorController@getWeddingIDbyAssignmentID");
+
+$router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+

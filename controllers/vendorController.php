@@ -230,7 +230,7 @@ class vendorController
 
 
     public function getTasks($parameters){
-        if(!Authenticate('vendor', $parameters['assignmentID'])){
+        if(!Authenticate('vendor', $parameters['vendorID'])){
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
@@ -248,5 +248,90 @@ class vendorController
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
         }
+    }
+
+    public function updateOfTasks($parameters){
+        if(!Authenticate('vendor', $parameters['vendorID'])){
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try{
+            $data = json_decode(file_get_contents('php://input'),true);
+            //var_dump($data);
+
+            if(!isset($data['taskID'])|| empty($data['taskID'])){
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: taskID is required']);
+                return;
+            }
+
+            $task = new Task();
+
+            $isUpdated = $task->saveFinishedTasks($data['taskID']);
+
+            if($isUpdated) {
+                header("HTTP/1.1 200 Okay");
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success','message' => 'Task updated successfully']);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['status'=>'error','error' => 'Error updating task']);
+            }
+
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+    public function getForProgress($parameters){
+        if(!Authenticate('vendor', $parameters['vendorID'])){
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try{
+            if(!isset($parameters['assignmentID']) || empty($parameters['assignmentID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: assignmentID is required']);
+                return;
+            }
+
+            $task = new Task();
+            $taskCount = $task->getForTaskProgressOfAVendor($parameters['assignmentID']);
+           
+
+            if (!empty($taskCount)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'tasks' => $taskCount]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No tasks found for the specified assignment']);
+            }
+
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+
+    }
+
+    
+
+    public function getWeddingIDbyAssignmentID($parameters) {
+        if(!Authenticate('vendor', $parameters['vendorID'])){
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try {
+            $weddingID = $this->vendorModel->getWeddingIDbyAssignmentID($parameters['assignmentID']);
+            echo json_encode(["weddingID" => $weddingID]);
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data', "error" => $e->getMessage()]);
+        }
+
     }
 }

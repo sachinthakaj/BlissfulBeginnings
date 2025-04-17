@@ -36,38 +36,46 @@
 
         <main>
           <div class="progress-bar-vendor-search-and-cards">
-            <div class="weddingProgressText">Wedding Progress</div>
-
-            <div class="progress-container">
-              <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-            </div>
-            <div class="weddingProgressText">Budget Progress</div>
-            <div class="progress-container">
-              <div class="progress-bar" id="budgetBar" style="width: 0%"></div>
-            </div>
-
-            <div class="vendor-search-and-cards">
-
-
-              <div class="vendor-cards"></div>
-              <div id="taskFormModal" class="modal">
-                <div class="modal-content">
-                  <span id="closeModal" class="close">&times;</span>
-                  <h2>Add Task</h2>
-                  <form id="taskForm">
-                    <input id="assignmentID" type="hidden" name="assignmentID" value="">
-                    <lable for="taskDescription" class="taskDescription">Description:</lable>
-                    <textarea id="taskDescription" name="taskDescription" required></textarea>
-                    <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
-                    <input id="dateToFinish" name="dateToFinish" type="date" required>
-                    <button type="submit" class="submitButton">Submit</button>
-
-                  </form>
+            <div class="progress-area">
+              <div class="wedding-progress-area">
+                
+                <div class="Text">Wedding Progress</div>
+                <div class="Precentage" id="weddingProgressPrecentage"></div>
+                <div class="progress-container">
+                  <div class="progress-bar" id="progressBar" style="width: 0%"></div>
                 </div>
+              </div>
 
+              <div class="budget-progress-area">
+                <div class="Text">Budget Progress</div>
+                <div class="Precentage" id="budgetProgressPrecentage"></div>
+                <div class="progress-container">
+                  <div class="progress-bar" id="budgetBar" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="vendor-search-and-cards">
+
+
+                <div class="vendor-cards"></div>
+                <div id="taskFormModal" class="modal">
+                  <div class="modal-content">
+                    <span id="closeModal" class="close">&times;</span>
+                    <h2>Add Task</h2>
+                    <form id="taskForm">
+                      <input id="assignmentID" type="hidden" name="assignmentID" value="">
+                      <lable for="taskDescription" class="taskDescription">Description:</lable>
+                      <textarea id="taskDescription" name="taskDescription" required></textarea>
+                      <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
+                      <input id="dateToFinish" name="dateToFinish" type="date" required>
+                      <button type="submit" class="submitButton">Submit</button>
+
+                    </form>
+                  </div>
+
+                </div>
               </div>
             </div>
-          </div>
         </main>
       </div>
 
@@ -81,14 +89,15 @@
           <div class="chat-action-area">
             <div class="image-upload-container">
               <label for="imageUpload" class="upload-icon">
-                <img src="upload-icon.png" alt="Upload Image" title="Upload an image">
+                <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
               </label>
-              <input type="file" id="imageUpload" accept="image/*" style="display: none;">
             </div>
-            <div class="Message-type-area">
-              <input type="text" id="chat-type-field" placeholder="Type your message here...">
+            <div class="chat-type-area">
+              <input type="text" id="chat-type-field" placeholder="Type your message here..." class="chat-type-field">
             </div>
-            <button class="Message-send-button-area" id="send-button">SEND</button>
+            <div class="send-button-area" id="send-button"><img src='http://cdn.blissfulbeginnings.com/common-icons/chat-send.png' alt="Send" class="send-button-icon"></div>
+
 
 
           </div>

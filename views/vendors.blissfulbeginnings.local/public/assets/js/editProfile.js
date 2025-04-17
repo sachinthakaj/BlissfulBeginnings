@@ -11,6 +11,29 @@ const uploadModal = document.getElementById("open-modal-button");
 const uploadModalContainer = document.querySelector(".modal-container");
 const uploadButton = document.querySelector(".upload-button");
 
+function showNotification(message, color) {
+  // Create notification element
+  const notification = document.createElement("div");
+  notification.textContent = message;
+  notification.style.position = "fixed";
+  notification.style.bottom = "20px";
+  notification.style.left = "20px";
+  notification.style.backgroundColor = color;
+  notification.style.color = "white";
+  notification.style.padding = "10px 20px";
+  notification.style.borderRadius = "5px";
+  notification.style.zIndex = 1000;
+  notification.style.fontSize = "16px";
+
+  // Append to body
+  document.body.appendChild(notification);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.getElementById("loading-screen");
   const mainContent = document.getElementById("main-content");
@@ -33,29 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document
         .getElementById("profile-image")
         .setAttribute("src", vendorData.image);
-
-      function showNotification(message, color) {
-        // Create notification element
-        const notification = document.createElement("div");
-        notification.textContent = message;
-        notification.style.position = "fixed";
-        notification.style.bottom = "20px";
-        notification.style.left = "20px";
-        notification.style.backgroundColor = color;
-        notification.style.color = "white";
-        notification.style.padding = "10px 20px";
-        notification.style.borderRadius = "5px";
-        notification.style.zIndex = 1000;
-        notification.style.fontSize = "16px";
-
-        // Append to body
-        document.body.appendChild(notification);
-
-        // Remove after 3 seconds
-        setTimeout(() => {
-          notification.remove();
-        }, 3000);
-      }
 
       const packagesContainer = document.getElementById("packages-container");
 
@@ -381,107 +381,97 @@ document.addEventListener("DOMContentLoaded", () => {
         "<p>Error loading data. Please try again later.</p>";
     });
 
-  newGalleryImage.addEventListener("change", (event) => {
-    function openGalleryModal() {
-      uploadModalContainer.classList.add("show");
-    }
+  function openGalleryModal() {
+    uploadModalContainer.classList.add("show");
+  }
 
-    function closeGalleryModal() {
-      uploadModalContainer.classList.remove("show");
-    }
+  function closeGalleryModal() {
+    uploadModalContainer.classList.remove("show");
+  }
 
-    // Event Listeners
-    if (uploadModal && uploadModalContainer) {
-      uploadModal.addEventListener("click", openGalleryModal);
+  // Event Listeners
+  if (uploadModal && uploadModalContainer) {
+    uploadModal.addEventListener("click", openGalleryModal);
 
-      // Close modal when clicking cancel button
-      cancelButton.addEventListener("click", closeGalleryModal);
+    // Close modal when clicking cancel button
+    cancelButton.addEventListener("click", closeGalleryModal);
 
-      // Handle delete action
-      uploadButton.addEventListener("click", () => {
-        fetch("/delete-profile/vendor-details/" + vendorID, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        }).then((response) => {
-          if (response.status === 204) {
-            showNotification(" There is no vendor in this vendorID", "red");
-          }
-          if (!response.ok) {
-            if (response.status === 409) {
-              closeModal();
-              showNotification(" This vendor has assigned weddings", "red");
-              return;
-            }
-          }
-        });
-        showNotification("Profile deleted", "red");
-        window.location.href = "/register";
-        closeGalleryModal();
-      });
+    // Handle delete action
+    uploadButton.addEventListener("click", (event) => {
+      console.log(event.target);
+      const file = document.getElementById("image-upload").files[0]; // Get the selected file event.target.files[0]; // Get the selected file
+      const description = document
+        .getElementById("image-description")
+        .value.trim();
 
-      // Close modal when clicking outside
-      uploadModalContainer.addEventListener("click", (event) => {
-        if (event.target === uploadModalContainer) {
-          closeModal();
-        }
-      });
+      // Ensure a file was selected
+      if (!file || !description) {
+        alert("No file selected or no description provided.");
+        return;
+      }
 
-      // Close modal with Escape key
-      document.addEventListener("keydown", (event) => {
-        if (
-          event.key === "Escape" &&
-          uploadModalContainer.classList.contains("show")
-        ) {
-          closeGalleryModal();
-        }
-      });
-    }
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF).");
+        return;
+      }
 
-    const file = event.target.files[0]; // Get the selected file
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert("File size must be less than 2 MB.");
+        return;
+      }
 
-    // Ensure a file was selected
-    if (!file) {
-      alert("No file selected.");
-      return;
-    }
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("description", description);
 
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-    if (!validImageTypes.includes(file.type)) {
-      alert("Please upload a valid image file (JPEG, PNG, GIF).");
-      return;
-    }
-
-    const maxSize = 2 * 1024 * 1024;
-    if (file.size > maxSize) {
-      alert("File size must be less than 2 MB.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    fetch("http://cdn.blissfulbeginnings.local/gallery/upload/" + vendorID, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data.storagePath) {
-          throw new Error(
-            "Invalid response from server. No storage path provided."
-          );
-        }
-
-        alert("Image sent successfully!");
+      fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
+        method: "POST",
+        body: formData,
       })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred while uploading the image.");
-      });
-  });
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data.status) {
+            throw new Error(
+              "Invalid response from server. No storage path provided."
+            );
+          }
+          alert("Image sent successfully!");
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000); // 1 second delay
+
+          fetchVendorGallery(vendorID);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while uploading the image.");
+        });
+
+      // showNotification("Image sent successfully", "green");
+      // window.location.href = "/packages/" + vendorID;
+      closeGalleryModal();
+    });
+
+    // Close modal when clicking outside
+    uploadModalContainer.addEventListener("click", (event) => {
+      if (event.target === uploadModalContainer) {
+        closeGalleryModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener("keydown", (event) => {
+      if (
+        event.key === "Escape" &&
+        uploadModalContainer.classList.contains("show")
+      ) {
+        closeGalleryModal();
+      }
+    });
+  }
 });
 
 const createPhotographerPackage = (modalContent) => {
@@ -658,3 +648,340 @@ const vendorDisplayFunctions = {
   Salon: displaySalonPackage,
   Florist: displayFloristPackage,
 };
+
+document.addEventListener("DOMContentLoaded", fetchVendorGallery);
+
+function fetchVendorGallery() {
+  fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        console.error("Error fetching images:", data.error);
+        return;
+      }
+
+      const galleryContainer = document.getElementById("gallery-container");
+
+      // Delete modal elements
+      const deleteImageModalContainer = document.querySelector(
+        ".delete-image-modal-container"
+      );
+      const cancelButton = document.querySelector(
+        ".delete-image-cancel-button"
+      );
+      const imageDeleteButton = document.querySelector(
+        ".delete-image-delete-button"
+      );
+
+      // Update modal elements
+      const updateImageModalContainer = document.querySelector(
+        ".update-image-modal-container"
+      );
+      const updateCancelButton = document.querySelector(
+        ".update-image-cancel-button"
+      );
+      const updateButton = document.querySelector(
+        ".update-image-update-button"
+      );
+      const updateDescriptionInput = document.getElementById(
+        "update-image-description"
+      );
+      const updateVendorIDInput = document.getElementById(
+        "update-image-vendorID"
+      );
+      const updateImageIDInput = document.getElementById(
+        "update-image-imageID"
+      );
+      const updateDateTimeInput = document.getElementById(
+        "update-image-datetime"
+      );
+      const updateImageContainer = document.querySelector(
+        ".update-image-modal-content-left"
+      );
+
+      // Variables to store the current image data
+      let currentImageToDelete = null;
+      let currentImageToUpdate = null;
+
+      // Fetch vendor name for display in modal
+      // let vendorName = "";
+      // fetch("http://cdn.blissfulbeginnings.com/packages/" + vendorID)
+      //   .then((response) => response.json())
+      //   .then((vendorData) => {
+      //     if (vendorData && vendorData.name) {
+      //       vendorName = vendorData.name;
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error fetching vendor details:", error);
+      //   });
+
+      data.forEach((image) => {
+        const imgDiv = document.createElement("div");
+        imgDiv.path = image.path;
+        imgDiv.classList.add("gallery-item");
+        imgDiv.style.position = "relative"; // Ensure relative positioning for absolute child elements
+
+        const imgElement = document.createElement("img");
+        imgElement.src = "http://cdn.blissfulbeginnings.com/" + image.path;
+        imgElement.alt = image.description;
+        imgElement.classList.add("gallery-img");
+
+        const desc = document.createElement("p");
+        desc.textContent = image.description;
+
+        // Create delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "❌";
+        deleteBtn.classList.add("delete-btn");
+
+        // Style delete button
+        deleteBtn.style.position = "absolute";
+        deleteBtn.style.top = "5px";
+        deleteBtn.style.right = "5px";
+        deleteBtn.style.background = "transparent";
+        deleteBtn.style.color = "white";
+        deleteBtn.style.border = "none";
+        deleteBtn.style.padding = "5px 8px";
+        deleteBtn.style.borderRadius = "50%";
+        deleteBtn.style.cursor = "pointer";
+        deleteBtn.style.display = "none"; // Hide initially
+
+        // Show delete button on hover
+        imgDiv.addEventListener("mouseenter", () => {
+          deleteBtn.style.display = "block";
+        });
+
+        imgDiv.addEventListener("mouseleave", () => {
+          deleteBtn.style.display = "none";
+        });
+
+        // Open confirmation modal on delete button click
+        deleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation(); // Prevent triggering the imgDiv click event
+          currentImageToDelete = image.path;
+          console.log("Delete button clicked");
+          console.log(currentImageToDelete);
+          openDeleteImageModal();
+        });
+
+        // Open update modal when clicking on the image
+        imgDiv.addEventListener("click", () => {
+          console.log(image);
+          currentImageToUpdate = {
+            path: image.path,
+            description: image.description,
+            created_at: image.created_at || formatDatetime(new Date()),
+          };
+          console.log(currentImageToUpdate);
+          openUpdateImageModal(currentImageToUpdate);
+        });
+
+        // Append elements
+        imgDiv.appendChild(imgElement);
+        imgDiv.appendChild(desc);
+        imgDiv.appendChild(deleteBtn); // Append delete button inside imgDiv
+        galleryContainer.appendChild(imgDiv);
+      });
+
+      // Helper function to format date and time
+      function formatDatetime(date) {
+        const options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        };
+        return new Date(date).toLocaleString(undefined, options);
+      }
+
+      // Delete Modal functions
+      function openDeleteImageModal() {
+        deleteImageModalContainer.classList.add("show");
+      }
+
+      function closeDeleteImageModal() {
+        deleteImageModalContainer.classList.remove("show");
+      }
+
+      // Update Modal functions
+      function openUpdateImageModal(imageData) {
+        // Clear previous content
+        updateImageContainer.innerHTML = "";
+
+        // Create and append image
+        const imgElement = document.createElement("img");
+        imgElement.src = "http://cdn.blissfulbeginnings.com/" + imageData.path;
+        imgElement.alt = imageData.description;
+        imgElement.style.maxWidth = "100%";
+        imgElement.style.maxHeight = "300px";
+        imgElement.style.objectFit = "contain";
+
+        updateImageContainer.appendChild(imgElement);
+
+        // Set field values
+        // updateImageIDInput.value = imageData.imageID;
+        // updateVendorIDInput.value = imageData.vendorID;
+        updateDateTimeInput.value = imageData.created_at;
+        updateDescriptionInput.value = imageData.description;
+
+        // Show modal
+        updateImageModalContainer.classList.add("show");
+      }
+
+      function closeUpdateImageModal() {
+        updateImageModalContainer.classList.remove("show");
+        currentImageToUpdate = null;
+      }
+
+      // Set up delete modal event listeners
+      if (deleteImageModalContainer) {
+        // Close modal when clicking cancel button
+        cancelButton.addEventListener("click", closeDeleteImageModal);
+
+        // Delete image and close modal when clicking delete button
+        imageDeleteButton.addEventListener("click", () => {
+          // console.log(imageID);
+
+          if (currentImageToDelete) {
+            // Remove from DOM
+            const imgElement = document.getElementById(currentImageToDelete);
+            if (imgElement) {
+              imgElement.remove();
+            }
+
+            // Call server delete endpoint
+            fetch(
+              `http://cdn.blissfulbeginnings.com/gallery/upload/${vendorID}`,
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+                body: JSON.stringify({
+                  path: currentImageToDelete,
+                  vendorID: vendorID,
+                }),
+              }
+            )
+              .then((response) => {
+                if (response.status === 204) {
+                  showNotification("There is no image for this imageID", "red");
+                } else {
+                  showNotification("Image deleted", "red");
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000); // 1 second delay
+                }
+              })
+              .catch((error) => {
+                console.error("Error deleting image:", error);
+                showNotification("Error deleting image", "red");
+              });
+
+            closeDeleteImageModal();
+          }
+        });
+
+        // Close modal when clicking outside
+        deleteImageModalContainer.addEventListener("click", (event) => {
+          if (event.target === deleteImageModalContainer) {
+            closeDeleteImageModal();
+          }
+        });
+
+        // Close modal with Escape key for delete modal
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.key === "Escape" &&
+            deleteImageModalContainer.classList.contains("show")
+          ) {
+            closeDeleteImageModal();
+          }
+        });
+      }
+
+      // Set up update modal event listeners
+      if (updateImageModalContainer) {
+        // Close modal when clicking cancel button
+        updateCancelButton.addEventListener("click", closeUpdateImageModal);
+
+        // Update image description and close modal when clicking update button
+        updateButton.addEventListener("click", () => {
+          if (currentImageToUpdate) {
+            const newDescription = updateDescriptionInput.value.trim();
+
+            if (newDescription) {
+              // Update the description in the DOM
+              const imgElement = document.getElementById(
+                currentImageToUpdate.path
+              );
+              if (imgElement) {
+                const descElement = imgElement.querySelector("p");
+                if (descElement) {
+                  descElement.textContent = newDescription;
+                }
+              }
+
+              // Call server update endpoint
+              fetch(
+                "http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID,
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem(
+                      "authToken"
+                    )}`,
+                  },
+                  body: JSON.stringify({
+                    description: newDescription,
+                    path: currentImageToUpdate.path,
+                  }),
+                }
+              )
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  showNotification("Image description updated", "green");
+                })
+                .catch((error) => {
+                  console.error("Error updating image:", error);
+                  showNotification("Error updating image description", "red");
+                });
+
+              closeUpdateImageModal();
+            } else {
+              showNotification("Description cannot be empty", "red");
+            }
+          }
+        });
+
+        // Close modal when clicking outside
+        updateImageModalContainer.addEventListener("click", (event) => {
+          if (event.target === updateImageModalContainer) {
+            closeUpdateImageModal();
+          }
+        });
+
+        // Close modal with Escape key for update modal
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.key === "Escape" &&
+            updateImageModalContainer.classList.contains("show")
+          ) {
+            closeUpdateImageModal();
+          }
+        });
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+}

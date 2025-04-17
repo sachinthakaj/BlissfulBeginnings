@@ -35,26 +35,20 @@ document.addEventListener("DOMContentLoaded", function () {
   let events = [];
 
   // letiables to store event input fields and reminder list
-  let eventDateInput =
-    document.getElementById("eventDate");
-  let eventTitleInput =
-    document.getElementById("eventTitle");
-  let eventDescriptionInput =
-    document.getElementById("eventDescription");
-  let reminderList =
-    document.getElementById("reminderList");
+  let eventDateInput = document.getElementById("eventDate");
+  let eventTitleInput = document.getElementById("eventTitle");
+  let eventDescriptionInput = document.getElementById("eventDescription");
+  let reminderList = document.getElementById("reminderList");
 
   // Counter to generate unique event IDs
   let eventIdCounter = 1;
 
-
-  // Function to generate a range of 
+  // Function to generate a range of
   // years for the year select input
   function generate_year_range(start, end) {
     let years = "";
     for (let year = start; year <= end; year++) {
-      years += "<option value='" +
-        year + "'>" + year + "</option>";
+      years += "<option value='" + year + "'>" + year + "</option>";
     }
     return years;
   }
@@ -66,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
   selectYear = document.getElementById("year");
   selectMonth = document.getElementById("month");
 
-  createYear = generate_year_range(currentYear-1,currentYear+2);
+  createYear = generate_year_range(currentYear - 1, currentYear + 2);
 
   document.getElementById("year").innerHTML = createYear;
 
@@ -84,47 +78,36 @@ document.addEventListener("DOMContentLoaded", function () {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
-  let days = [
-    "Sun", "Mon", "Tue", "Wed",
-    "Thu", "Fri", "Sat"];
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   $dataHead = "<tr>";
   for (dhead in days) {
-    $dataHead += "<th data-days='" +
-      days[dhead] + "'>" +
-      days[dhead] + "</th>";
+    $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
   }
   $dataHead += "</tr>";
 
   document.getElementById("thead-month").innerHTML = $dataHead;
 
-  monthAndYear =
-    document.getElementById("monthAndYear");
+  monthAndYear = document.getElementById("monthAndYear");
   showCalendar(currentMonth, currentYear);
 
   document.getElementById("next").addEventListener("click", next);
   document.getElementById("previous").addEventListener("click", previous);
   document.getElementById("jump").addEventListener("click", jump);
-    
-  
 
   // Function to navigate to the next month
   function next() {
-    currentYear = currentMonth === 11 ?
-      currentYear + 1 : currentYear;
+    currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
     currentMonth = (currentMonth + 1) % 12;
     showCalendar(currentMonth, currentYear);
-   
   }
 
   // Function to navigate to the previous month
   function previous() {
-    currentYear = currentMonth === 0 ?
-      currentYear - 1 : currentYear;
-    currentMonth = currentMonth === 0 ?
-      11 : currentMonth - 1;
+    currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+    currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
     showCalendar(currentMonth, currentYear);
   }
 
@@ -166,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.addEventListener("click", function() {
             openCalendarModal(this);
         });
+
           if (
             date === today.getDate() &&
             year === today.getFullYear() &&
@@ -177,9 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Check if there are events on this date
           if (hasEventOnDate(date, month, year)) {
             cell.classList.add("event-marker");
-            cell.appendChild(
-              createEventTooltip(date, month, year)
-            );
+            cell.appendChild(createEventTooltip(date, month, year));
           }
 
           row.appendChild(cell);
@@ -188,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       tbl.appendChild(row);
     }
-
   }
 
   //modal for calendar
@@ -317,9 +298,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Call the showCalendar function initially to display the calendar
   showCalendar(currentMonth, currentYear);
 
-  const modal = document.getElementById('modal');
-  const modalContent = document.getElementById('modal-content');
-  modalContent.classList.add('modal-content');
+  const modal = document.getElementById("modal");
+  const modalContent = document.getElementById("modal-content");
+  modalContent.classList.add("modal-content");
   modalContent.innerHTML = `
       <span class="close-button">&times;</span>
      
@@ -333,52 +314,54 @@ document.addEventListener("DOMContentLoaded", function () {
     
   `;
   // Assuming you have a function to fetch notifications from the backend
-  const notificationContainer = document.querySelector('.notification-container');
-  fetch('/notifications', {
-    method: 'GET',
+  const notificationContainer = document.querySelector(
+    ".notification-container"
+  );
+  fetch("/notifications", {
+    method: "GET",
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-      'Content-Type': 'application/json'
-    }
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+    },
   })
-    .then(response => {
+    .then((response) => {
       if (response.status === 401) {
-        window.location.href = '/signin';
+        window.location.href = "/signin";
       } else if (response.status === 200) {
         return response.json();
       } else if (response.status === 500) {
-        throw new Error('Internal Server Error');  
-      } else if(response.status === 204) {
-        throw new Error('No Notifications Found');
+        throw new Error("Internal Server Error");
+      } else if (response.status === 204) {
+        throw new Error("No Notifications Found");
       }
     })
-    .then(notifications => {
-      if (notifications.length === 0)
-        return;
-      notifications.forEach(notification => {
-        const notificationDiv = document.createElement('div');
+    .then((notifications) => {
+      if (notifications.length === 0) return;
+      notifications.forEach((notification) => {
+        const notificationDiv = document.createElement("div");
         notificationDiv.id = notification.id;
-        notificationDiv.classList.add('notification');
+        notificationDiv.classList.add("notification");
         notificationDiv.innerHTML = `
           <h3>${notification.title}</h3>
           <p>${notification.message}</p>
         `;
         notificationContainer.appendChild(notificationDiv);
-        console.log(notification)
-        if (notification.title === 'New Vendor') {
-          notificationDiv.classList.add('type-new-vendor');
-          notificationDiv.addEventListener('click', () => {
+        console.log(notification);
+        if (notification.title === "New Vendor") {
+          notificationDiv.classList.add("type-new-vendor");
+          notificationDiv.addEventListener("click", () => {
             window.location.href = `/vendor/${notification.reference}`;
           });
-        } else if (notification.title === 'New Package') {
-          notificationDiv.classList.add('type-new-package');
-          notificationDiv.addEventListener('click', () => {
+        } else if (notification.title === "New Package") {
+          notificationDiv.classList.add("type-new-package");
+          notificationDiv.addEventListener("click", () => {
             window.location.href = `/new-package/${notification.reference}`;
           });
         }
       });
-    }).catch(error => {
-      if(error.message === 'No Notifications Found') {
+    })
+    .catch((error) => {
+      if (error.message === "No Notifications Found") {
         return;
       }
       console.error(error);
@@ -386,20 +369,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Get the notification container
 
-
-
   const weddingCardsContainer = document.querySelector(".wedding-cards");
 
   fetch("/fetch-wedding-data", {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-      'Content-Type': 'application/json'
-    }
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+    },
   })
     .then((response) => {
       if (response.status == 401) {
-        window.location.href = '/signin';
+        window.location.href = "/signin";
       } else if (response.status == 500) {
         showNotification("error", "Something went wrong");
       }
@@ -409,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
       weddings.forEach((wedding) => {
         const card = document.createElement("div");
         card.classList.add("wedding-card");
-        card.id=wedding.weddingID;
+        card.id = wedding.weddingID;
 
         card.innerHTML = `
            <h3>${wedding.brideName} & ${wedding.groomName} </h3>
@@ -434,9 +415,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const acceptButton = document.createElement("button");
           acceptButton.classList.add("acceptButton");
           acceptButton.textContent = "Accept";
-          acceptButton.addEventListener('click', () => {
-            window.location.href = `/selectPackages/${wedding.weddingID}`
-          })
+          acceptButton.addEventListener("click", () => {
+            window.location.href = `/selectPackages/${wedding.weddingID}`;
+          });
           card.appendChild(acceptButton);
 
           const rejectButton = document.createElement("button");
@@ -451,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",
-                  'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
                 body: JSON.stringify({
                   weddingID: wedding.weddingID,
@@ -460,14 +441,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((res) => {
                   if (res.status === 401) {
                     alert("You are not logged in");
-                    window.location.href = '/signin';
+                    window.location.href = "/signin";
                   } else if (res.status === 200) {
                     return res.json();
                   } else {
                     throw new Error("Network response was not ok");
                   }
-                  
-                }).then((data) => {
+                })
+                .then((data) => {
                   console.log("in here");
                   console.log(wedding.weddingID);
                   console.log(document.getElementById(wedding.weddingID));
@@ -489,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <p><b>Location:</b>${wedding.location}</p>
             <p><b>Theme:</b>${wedding.theme}</p>
         `;
-        card.id = wedding.weddingID;
+          card.id = wedding.weddingID;
           card.classList.add("Unassigned");
           card.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -509,7 +490,7 @@ document.addEventListener("DOMContentLoaded", function () {
        `;
           card.classList.add("ongoing");
           card.addEventListener("click", (event) => {
-             window.location.href = `/wedding/${wedding.weddingID}`;
+            window.location.href = `/wedding/${wedding.weddingID}`;
           });
         }
 
@@ -526,10 +507,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const confirmed = confirm("Are you sure you want to log out?");
       if (confirmed) {
         fetch("/planner-logout", {
-
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-            'Content-Type': 'application/json'
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            "Content-Type": "application/json",
           },
           method: "POST",
         })
@@ -543,4 +523,70 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  const searchButton = document.querySelector(".search-button");
+
+  function searchWedding() {
+    const searchInput = document
+      .getElementById("search_id")
+      .value.toLowerCase()
+      .trim();
+    const str1 = searchInput.split(/[ &]/)[0];
+    const str2 = searchInput
+      .substring(searchInput.lastIndexOf(" ") + 1)
+      .split("&")
+      .pop();
+    weddingCardsContainer.innerHTML = "";
+
+    fetch(`/fetch_details_for_search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: JSON.stringify({
+        str1: str1,
+        str2: str2,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          window.location.href = "/signin";
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        if (data.status === "success" && data.weddings.length > 0) {
+          data.weddings.forEach((wedding) => {
+            const card = document.createElement("div");
+            card.classList.add("wedding-card");
+            card.id = wedding.weddingID;
+
+            card.innerHTML = `
+                    <h3>${wedding.brideName} & ${wedding.groomName}</h3>
+                    <p><b>Date:</b> ${wedding.date}</p>
+                    <p><b>Day/Night:</b> ${wedding.dayNight}</p>
+                    <p><b>Location:</b> ${wedding.location}</p>
+                    <p><b>Theme:</b> ${wedding.theme}</p>
+                `;
+
+            card.addEventListener("click", () => {
+              window.location.href = `/wedding/${wedding.weddingID}`;
+            });
+
+            weddingCardsContainer.appendChild(card);
+          });
+        } else {
+          const noResults = document.createElement("p");
+          noResults.textContent =
+            "No weddings found for the given search criteria.";
+          weddingCardsContainer.appendChild(noResults);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching wedding:", error);
+      });
+  }
+  searchButton.addEventListener("click", searchWedding);
 });

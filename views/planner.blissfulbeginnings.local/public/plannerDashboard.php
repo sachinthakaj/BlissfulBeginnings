@@ -73,7 +73,7 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
           <div class="search-bar-container">
             <input
               type="text"
-              id="search"
+              id="search_id"
               placeholder="Search Weddings"
               class="search-bar" />
             <button type="button" class="search-button">Search</button>

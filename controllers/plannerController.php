@@ -498,7 +498,7 @@ class PlannerController
             $packageData = $package->getPackageDataForPayments($parameters['assignmentID']);
             $temp = $packageData[0];
             $amount = $temp['fixedCost'];
-            
+
 
             $hash = strtoupper(
                 md5(
@@ -558,14 +558,12 @@ class PlannerController
             if (($local_md5sig === $md5sig) and ($status_code === "2")) {
                 $payment = new Payment();
                 $result = $payment->addPayment($assignment_id, $order_id, $payhere_amount, $payhere_currency, $status_code);
-                if($result == true){
-                header('Content-Type:application/json');
-                echo json_encode(["status" => "success", "message" => "Payment Successfully Recorded"]);
-                }
-                else{
-                header('Content-Type:application/json');
-                echo json_encode(["status" => "failed", "message" => "Payment Failed to  Record"]);
-
+                if ($result == true) {
+                    header('Content-Type:application/json');
+                    echo json_encode(["status" => "success", "message" => "Payment Successfully Recorded"]);
+                } else {
+                    header('Content-Type:application/json');
+                    echo json_encode(["status" => "failed", "message" => "Payment Failed to  Record"]);
                 }
             } else {
                 header('HTTP/1.1 400 Bad Request');
@@ -577,4 +575,100 @@ class PlannerController
             echo json_encode(['error' => 'Error fetching Data']);
         }
     }
+
+    public function getAmountToPayCustomer($parameters)
+    {
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        };
+        try {
+            $payment = new Payment();
+
+            $amount = $payment->getAmountToPayCustomer($parameters['weddingID']);
+
+            if ($amount) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($amount);
+            } else {
+                header('HTTP/1.1 404 Resource Not Found');
+                echo json_encode(['error' => 'Resource not found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error getting amount to pay']);
+        }
+    }
+
+    public function getTasksDetailsForWeddingProgress($parameters)
+    {
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        };
+        try {
+            if (!isset($parameters['weddingID']) || empty($parameters['weddingID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: weddingID is required']);
+                return;
+            }
+
+            $task = new Task();
+            $tasks = $task->getAllTasksForAWedding($parameters['weddingID']);
+
+
+            if (!empty($tasks)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'tasks' => $tasks]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No tasks found for the specified wedding']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error getting tasks details']);
+        }
+    }
+
+
+    public function searchWedding(){
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        };
+        try{
+            $data = json_decode(file_get_contents('php://input'),true);
+            //var_dump($data);
+           
+            if (!isset($data['str1']) || empty($data['str1']) && 
+                !isset($data['str2']) || empty($data['str2'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: brideName and groomName are required']);
+                return;
+            }
+
+            $wedding = new Wedding();
+
+            $searchedData = $wedding->getSerchedWeddingData($data['str1'],$data['str2']);
+
+            if($searchedData) {
+                header("HTTP/1.1 200 Okay");
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success','message' => 'searched successfully','weddings'=> $searchedData]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['status'=>'error','error' => 'Error searching wedding data']);
+            }
+
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
 }

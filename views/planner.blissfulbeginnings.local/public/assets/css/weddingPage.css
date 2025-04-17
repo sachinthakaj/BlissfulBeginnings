@@ -1,3 +1,5 @@
+@import url("http://cdn.blissfulbeginnings.com/common-css/Common.css");
+@import url("http://cdn.blissfulbeginnings.com/common-css/components/Aside.css");
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -8,6 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: hidden;
 }
 header {
   font-family: "Gwendolyn";
@@ -18,6 +21,7 @@ header {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  position: static;
 }
 
 .wedding-dashboard-title {
@@ -192,6 +196,7 @@ main {
 .content-wrapper {
   display: flex;
   flex: 1;
+  height:10vh;
 }
 
 main {
@@ -200,16 +205,7 @@ main {
   background-color: #f0f0f0;
 }
 
-aside.chat-container {
-  flex-basis: 250px;
-  max-width: 300px;
-  flex: 1;
-  padding: 5px;
-  background-color: darkgrey;
-  border-left: 2px solid #e0e0e0;
-  min-width: 100px;
-  border-radius: 10px;
-}
+
 
 .vendor-search-and-cards {
   width: 100%;
@@ -302,15 +298,15 @@ aside.chat-container {
   transition: width 0.4s ease;
 }
 
-.progress-bar-vendor-search-and-cards {
-  width: auto;
-}
 
-.weddingProgressText {
+
+.Text {
   color: black;
   font-size: large;
   font-family: serif;
 }
+
+
 
 .chat-all-area {
   background-color: #dddddd33;
@@ -391,4 +387,29 @@ aside.chat-container {
 
 .upload-icon img:hover {
   transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.completed-task {
+  background-color: #f0fdf4; /* Soft green background */
+  border-left: 4px solid #34d399; /* Vibrant green border */
+  color: #065f46; /* Dark green text */
+  font-weight: 500; /* Slightly bold text */
+  padding: 12px 16px; /* Balanced padding */
+  margin-bottom: 12px; /* Spacing between tasks */
+  border-radius: 8px; /* Smooth rounded corners */
+  position: relative; /* For badge positioning */
+}
+
+.completed-task::after {
+  content: "✔ Done"; /* Badge text */
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background-color: #34d399; /* Green badge */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px; /* Rounded badge */
 }

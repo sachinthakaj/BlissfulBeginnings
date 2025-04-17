@@ -1,7 +1,7 @@
 @import url('/public/assets/css/common.css');
 @import url('/public/assets/css/components/GoBackButton.css');
 @import url('/public/assets/css/components/ProgressBars.css');
-@import url('/public/assets/css/components/Aside.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/Aside.css');
 
 * {
     font-family: var(--secondary-font-family);
@@ -13,6 +13,16 @@ body {
     min-height: 100vh;
 }
 
+.page-wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    position: static;
+}
+
 .wedding-title {
     text-align: center;
     margin-left: 40px;
@@ -20,6 +30,7 @@ body {
 
 
 .main-container {
+    height: 90vh;
     display: flex;
 }
 
@@ -52,68 +63,7 @@ main {
     margin: 0 auto 10px;
 }
 
-aside.chat-container {
-    flex-basis: 250px;
-    max-width: 300px;
-    flex: 1;
-    padding: 20px;
-    background-color: darkgrey;
-    border-left: 2px solid #e0e0e0;
-    min-width: 100px;
-    border-radius: 10px;
-}
 
-.chat-all-area {
-    background-color: #dddddd33;
-    padding-top: 5px;
-}
-
-.chat-show-area {
-    background-color: #fff;
-    min-height: 500px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 10px;
-}
-
-.chat-action-area {
-    background-color: rgba(0, 0, 0, 0.251);
-    height: 60px;
-    display: flex;
-    align-items: end;
-    gap: 10px;
-}
-
-.Message-type-area {
-    background-color: #fff;
-    height: 50px;
-    min-width: 200px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    border-radius: 10px;
-}
-
-.Message-send-button-area {
-    background-color: #ddd;
-    height: 50px;
-    width: 80px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    font-family: monospace;
-}
-
-.message-text {
-    display: inline;
-}
-
-.message {
-    display: block;
-    margin-bottom: 10px;
-}
 
 /* slider */
 
@@ -279,3 +229,28 @@ button img {
     width: 50px;
     height: auto;
 }
+
+
+.progress-container {
+    width: 95%;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+    height: 20px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.4s ease;
+  }
+  
+  
+  
+  .Text {
+    color: black;
+    font-size: large;
+    font-family: serif;
+  }

@@ -18,7 +18,7 @@ class Wedding
             $this->db->query("SELECT * from wedding WHERE weddingID = :weddingID");
             $this->db->bind(":weddingID", hex2bin($weddingID), PDO::PARAM_LOB);
             $this->db->execute();
-            if($this->db->rowCount() == 0){
+            if ($this->db->rowCount() == 0) {
                 error_log("No wedding found");
                 throw new Exception("Wedding not found", 1);
             }
@@ -32,22 +32,24 @@ class Wedding
         }
     }
 
-    public function checkNoWedding($userID){
+    public function checkNoWedding($userID)
+    {
         try {
             $this->db->query("SELECT * from wedding WHERE userID = :userID");
-            $this->db->bind(":userID", hex2bin($userID), PDO::PARAM_STR);    
+            $this->db->bind(":userID", hex2bin($userID), PDO::PARAM_STR);
             $this->db->execute();
-            if($this->db->rowCount() == 0){
+            if ($this->db->rowCount() == 0) {
                 return true;
             }
             return false;
         } catch (PDOException $e) {
-            error_log($e);  
+            error_log($e);
             throw $e;
         }
     }
 
-    public function getWeddingName($weddingID) {
+    public function getWeddingName($weddingID)
+    {
         try {
             $this->db->query("SELECT bridegrooms.* FROM bridegrooms
             JOIN weddingbridegrooms ON bridegrooms.brideGroomsID = weddingbridegrooms.brideID OR bridegrooms.brideGroomsID = weddingbridegrooms.groomID
@@ -58,7 +60,7 @@ class Wedding
             $person2 = $this->db->fetch(PDO::FETCH_ASSOC);
             return $person1['name'] . " & " . $person2['name'];
         } catch (PDOException $e) {
-            error_log($e);  
+            error_log($e);
             throw $e;
         }
     }
@@ -230,7 +232,6 @@ class Wedding
         $this->db->query("UPDATE wedding SET weddingState='unassigned' WHERE weddingID=UNHEX(:weddingID) AND weddingState='new'");
         $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
         $this->db->execute();
-       
     }
 
     public function deleteFromPlannerDashboard($weddingID)
@@ -248,7 +249,6 @@ class Wedding
         $this->db->query("DELETE FROM wedding WHERE weddingID=UNHEX(:weddingID)");
         $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
         $this->db->execute();
-       
     }
 
     public function deleteWedding($weddingID)
@@ -260,15 +260,14 @@ class Wedding
             $this->db->execute();
             $state = $this->db->fetch(PDO::FETCH_ASSOC);
 
-            if($state['weddingState'] != "ongoing" ) {
+            if ($state['weddingState'] != "ongoing") {
                 $this->db->query("DELETE FROM wedding WHERE weddingID=UNHEX(:weddingID)");
                 $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
                 $this->db->execute();
 
                 $this->db->commit();
                 return $this->db->rowCount();
-            }
-            else {
+            } else {
                 $this->db->commit();
                 return -1;
             }
@@ -276,6 +275,34 @@ class Wedding
             $this->db->rollbackTransaction();
             error_log($e->getMessage());
             throw $e;
+        }
+    }
+
+
+    public function getSerchedWeddingData($str1, $str2)
+    {
+        try {
+            $this->db->query("SELECT w.weddingID,date,theme,location,weddingState,dayNight,b.name AS brideName,g.name AS groomName from wedding w 
+            JOIN weddingbridegrooms wbg ON w.weddingID=wbg.weddingID 
+            JOIN bridegrooms b ON wbg.brideID = b.brideGroomsID AND b.gender='Female' 
+            JOIN bridegrooms g ON wbg.groomID = g.brideGroomsID AND g.gender='Male'
+            WHERE LOWER(b.name) LIKE :str1 OR LOWER(g.name) LIKE :str2 OR LOWER(g.name) LIKE :str1 OR LOWER(b.name) LIKE :str2
+            ORDER BY FIELD(weddingState, 'new','unassigned','ongoing','finished'), date ASC");
+
+            $this->db->bind(':str1', '%' . strtolower($str1) . '%', PDO::PARAM_STR);
+            $this->db->bind(':str2', '%' . strtolower($str2) . '%', PDO::PARAM_STR);
+            $this->db->execute();
+            $weddings = [];
+
+            while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+                $row["weddingID"] = bin2hex($row["weddingID"]);
+                $weddings[] = $row;
+            }
+
+            return $weddings;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
         }
     }
 }
