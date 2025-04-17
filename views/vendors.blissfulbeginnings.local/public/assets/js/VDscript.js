@@ -22,9 +22,48 @@ function render() {
     const modalPages = editModalContainer.querySelectorAll('.modal-page');
     const paginationDots = editModalContainer.querySelectorAll('.dot');
     const navigateEditProfileButton = document.querySelector('.view-packages-button');
+ 
+// Update your CSS to style unavailable days
+const styleId = 'unavailable-day-style';
+if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+        .unavailable-day {
+            position: relative;
+        }
+        .unavailable-day::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            border-radius: 50%;
+            display: block !important;
+            z-index: 1;
+        }
+    `;
+    document.head.appendChild(style);
+}
 
-    // script.js
-
+// Add this function to fetch unavailable dates
+async function fetchUnavailableDates() {
+    try {
+        const response = await fetch(`/vendor/get-unavailable/${vendorID}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
+        if (!response.ok) throw new Error('Failed to fetch unavailable dates');
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching unavailable dates:', error);
+        return [];
+    }
+}
     // Define an array to store events
     let events = [];
 
@@ -93,14 +132,17 @@ function render() {
     $dataHead += "</tr>";
 
     document.getElementById("thead-month").innerHTML = $dataHead;
+    
+
 
     monthAndYear =
         document.getElementById("monthAndYear");
     showCalendar(currentMonth, currentYear);
+   
 
     document.getElementById("next").addEventListener("click", next);
   document.getElementById("previous").addEventListener("click", previous);
-  // document.getElementById("jump").addEventListener("click", jump);
+   document.getElementById("jump").addEventListener("click", jump);
     
     // Function to navigate to the next month
     function next() {
@@ -127,14 +169,16 @@ function render() {
     }
 
     // Function to display the calendar
-    function showCalendar(month, year) {
+    async function showCalendar(month, year) {
         let firstDay = new Date(year, month, 1).getDay();
         tbl = document.getElementById("calendar-body");
         tbl.innerHTML = "";
         monthAndYear.innerHTML = months[month] + " " + year;
         selectYear.value = year;
         selectMonth.value = month;
-
+// Fetch unavailable dates
+const unavailableDates =  await fetchUnavailableDates();
+console.log('Unavailable dates:', unavailableDates);
         let date = 1;
         for (let i = 0; i < 6; i++) {
             let row = document.createElement("tr");
@@ -154,7 +198,30 @@ function render() {
                     cell.setAttribute("data-month_name", months[month]);
                     cell.className = "date-picker";
                     cell.innerHTML = "<span>" + date + "</span";
-                    cell.addEventListener("click", openCalendarModal);
+                   
+// Check for unavailable dates - FIXED VERSION
+if (Array.isArray(unavailableDates)) {
+    const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+    
+    // More robust checking that handles different date formats
+    const isUnavailable = unavailableDates.some(unavailableDate => {
+        // Handle both string and object formats
+        const dateToCheck = typeof unavailableDate === 'string' 
+            ? unavailableDate 
+            : unavailableDate.date;
+        
+        return dateToCheck && dateToCheck.includes(currentDateStr);
+    });
+
+
+    
+    if (isUnavailable) {
+        cell.classList.add("unavailable-day");
+    }
+}
+                    cell.addEventListener("click", function() {
+                        openCalendarModal(this);
+                    });
                     
                     if (
                         date === today.getDate() &&
@@ -222,7 +289,7 @@ function render() {
     }
 
     // Call the showCalendar function initially to display the calendar
-    showCalendar(currentMonth, currentYear);
+    //showCalendar(currentMonth, currentYear);
 
 
 
@@ -282,7 +349,8 @@ function render() {
             messageDiv.classList.add('message');
             messageDiv.innerHTML = '<h2>Awaiting Planner Approval</h2>';
             scrollContainer.appendChild(messageDiv);
-            navigateEditProfile.disabled = true;
+            navigateEditProfileButton.disabled = true;
+
         } else {
             navigateEditProfileButton.addEventListener('click', navigateEditProfile);
             const cardsData = vendorData.weddings;
@@ -359,12 +427,31 @@ function render() {
     initializeCards();
 
   //modal for calendar
-    function openCalendarModal(event) {
-        //console.log(event.target.)
-        calendarModalContainer.classList.add('show');
+  function openCalendarModal(clickedCell) {
+    calendarModalContainer.classList.add('show');
+    
+    const date = clickedCell.getAttribute('data-date');
+    const month = clickedCell.getAttribute('data-month');
+    const year = clickedCell.getAttribute('data-year');
+    
+    if (date && month && year) {
+        selectedDate = `${year}-${month.padStart(2, '0')}-${date.padStart(2, '0')}`;
+        
+        const displayDate = new Date(selectedDate);
+        
+            displayDate.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+        return selectedDate;
     }
+}
     function closeCalendarModal() {
         calendarModalContainer.classList.remove('show');
+        
     }
    
     // Event Listeners
@@ -373,6 +460,52 @@ function render() {
         // Close modal when clicking cancel button
         cancelBtn.addEventListener('click', closeCalendarModal);
 
+    }
+   if (calendarModalContainer && confirmBtn) {
+        confirmBtn.addEventListener('click', () => {
+            
+            
+            if (!selectedDate) {
+                showNotification("Please select a date first", "red");
+                return;
+            }
+    console.log(selectedDate);
+            fetch(`/vendor/set-unavailable/${vendorID}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                },
+                body: JSON.stringify({ date: selectedDate })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 409) {
+                        closeCalendarModal();
+                        showNotification(" You marked this date as unavailable ealier", "red");
+                        return Promise.reject('Conflict - Date already marked');
+                    }
+                        
+                    throw new Error('Failed to set unavailable date');
+                }
+                return response.json();
+               
+            })
+           
+            .then(data => {
+                showNotification("Date marked as unavailable", "green");
+                closeCalendarModal();
+                // Refresh calendar to show the unavailable date
+                showCalendar(currentMonth, currentYear);
+            })
+        
+            .catch(error => {
+                if (error !== 'Conflict - Date already marked') {
+                    closeCalendarModal();
+                showNotification("Failed to set unavailable date", "red");
+            }});
+
+        });
     }
 
     // modal for delete profile

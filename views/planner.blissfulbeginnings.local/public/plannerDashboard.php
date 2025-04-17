@@ -86,8 +86,7 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
         <div id="right">
           <h3 id="monthAndYear"></h3>
           <div class="button-container-calendar">
-            <button id="previous"
-              onclick="previous()">
+            <button id="previous">
               ‹
             </button>
             <button id="next">
@@ -131,6 +130,22 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
     </div>
   </div>
   <script src="./public/assets/js/script.js"></script>
+
+ <!--calendar modal -->
+  <div class="calendar-modal-container" id="calendar-modal-container">
+        <div class=" calendar-modal">
+            <div class="calendar-modal-header">
+                <h2>Check Vendor Availability</h2>
+            </div>
+            <div class="calendar-modal-body">
+                <p>Are you sure  that you are  not available on this day? </p>
+            </div>
+            <div class="calendar-modal-footer">
+                <button  class="cancel-button">Cancel</button>
+                <button class="confirm-button">Confirm</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

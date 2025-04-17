@@ -27,3 +27,6 @@ $router->post("/vendor/{vendorID}/update-package/{packageID}", "PackageControlle
 $router->get("/get-profile-details/vendor-details/{vendorID}","vendorController@getProfileDetails");
 $router->post("/update-profile/vendor-details/{vendorID}","vendorController@updateProfileDetails");
 $router->delete("/delete-profile/vendor-details/{vendorID}","vendorController@deleteProfile");
+
+$router->post("/vendor/set-unavailable/{vendorID}", "CalendarController@setUnavailableDate");
+$router->get("/vendor/get-unavailable/{vendorID}", "CalendarController@getUnavailableDates");
