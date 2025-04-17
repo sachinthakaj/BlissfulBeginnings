@@ -1102,6 +1102,99 @@ const finished = (data) => {
   }
 };
 
+const completed = (data) => {
+  try {
+    fetch("/get-ratings/" + weddingID, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert(response);
+          if (response.status === 401) {
+            window.location.href = "/signin";
+          } else {
+            throw new Error("Network response was not ok");
+          }
+        }
+        return response.json();
+      })
+      .then((ratingsData) => {
+        ratingsData.forEach((assignment) => {
+          const packageCard = document.createElement("div");
+          packageCard.classList.add("assignment-card");
+          packageCard.innerHTML = `
+                    <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="${cardData.imgSrc}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="name">${cardData.businessName}</h2>
+                        <div class="content">
+                            <h4 class="description">Wedding Progress: </h4> 
+                            <div class="progress-bar-container">
+                                <div class="progress-bar wedding-progress-bar" style="width: ${ cardData.progress}%"></div>
+                            </div>
+                            <div class="stars">
+                            ${Array(5)
+                              .fill(0)
+                              .map(
+                                (_, i) => `
+                                <span class="star ${i < assignment.rating ? 'selected' : ''}" data-value="${i + 1}">&#9733;</span>
+                            `
+                              )
+                              .join("")}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        `;
+          const stars = packageCard.querySelectorAll(".star");
+          stars.forEach((star) => {
+            star.addEventListener("mouseover", () => {
+              const siblings = Array.from(star.parentElement.children);
+              const index = siblings.indexOf(star);
+              siblings.forEach((sibling) => {
+                if (sibling.dataset.value <= index + 1) {
+                  sibling.classList.add("selected");
+                } else {
+                  sibling.classList.remove("selected");
+                }
+              });
+            });
+            star.addEventListener("click", () => {
+              const value = Number(star.dataset.value);
+              fetch("/api/ratings", {
+                method: "POST",
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+                body: JSON.stringify({
+                  vendorID: assignment.vendorID,
+                  rating: value,
+                }),
+              }).then((response) => {
+                if (!response.ok) {
+                  alert("Error submitting rating");
+                }
+              });
+            });
+          });
+          vendorGrid.appendChild(packageCard);
+        });
+      });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 function render() {
   const loadingScreen = document.getElementById("loading-screen");
   const mainContent = document.getElementById("main-content");
@@ -1160,6 +1253,8 @@ function render() {
           ongoing(data);
         } else if (data.weddingState === "unassigned") {
           unassigned(data);
+        } else if (data.weddingState === "completed") {
+          completed(data);
         }
 
         loadingScreen.style.display = "none";

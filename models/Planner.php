@@ -124,4 +124,12 @@ class Planner
         $result = $this->db->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getVendorRatings($weddingID) {
+        $this->db->query('SELECT HEX(assignmentID) as assignmentID, rating, a.typeID, v.businessName FROM packageAssignment a INNER JOIN packages p ON a.packageID = p.packageID INNER  JOIN vendors v on v.vendorID = p.vendorID WHERE weddingID = UNHEX(:weddingID)');
+        $this->db->bind(':weddingID', $weddingID);
+        $this->db->execute();
+        $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

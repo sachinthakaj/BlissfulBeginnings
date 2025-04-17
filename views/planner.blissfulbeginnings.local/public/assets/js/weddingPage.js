@@ -499,8 +499,34 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error fetching vendors:", error);
           });
       } else if (wedding.weddingState == "finished") {
+        function createVendorCard(vendorName, vendorType, rating) {
+          const card = document.createElement('div');
+          card.classList.add('vendor-card');
+          const nameElement = document.createElement('h2');
+          nameElement.textContent = vendorName;
+          const typeElement = document.createElement('p');
+          typeElement.textContent = vendorType;
+          const ratingElement = document.createElement('div');
+          ratingElement.classList.add('vendor-rating');
+          for (let i = 1; i <= 5; i++) {
+              const star = document.createElement('span');
+              star.classList.add('star');
+              star.innerHTML = '&#9733;';  // Unicode star
+              if (i > rating) {
+                  star.classList.add('unfilled');
+              }
+              ratingElement.appendChild(star);
+          }
+      
+          card.appendChild(nameElement);
+          card.appendChild(typeElement);
+          card.appendChild(ratingElement);
+      
+          return card;
+      }
+
         fetch(
-          `/get-vendor_ratings/${weddingID}`,{
+          `/get-vendor-ratings/${weddingID}`,{
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -516,17 +542,13 @@ document.addEventListener("DOMContentLoaded", function () {
             throw new Error("Network response was not ok");
           }
         }).then((data) => {
+          const main = document.querySelector('main');
+          const cardContainer = document.createElement("div");
+          cardContainer.classList.add("rating-card-container");
           data.forEach((vendor) => {
-            const vendorCard = document.createElement("div");
-            vendorCard.classList.add("vendorCard");
-            vendorCard.id = vendor.assignmentID;
-            vendorCard.innerHTML = `
-            <div class="vendorName">${vendor.vendorName}</div>
-            <div class="vendorRating">${vendor.vendorRating}</div>
-            <div class="vendorReview">${vendor.vendorReview}</div>
-          `;
-            cardContainer.appendChild(vendorCard);
+            cardContainer.appendChild(createVendorCard(vendor.businessName, vendor.typeID, vendor.rating));
           });
+          main.appendChild(cardContainer);
         })
       }
     })

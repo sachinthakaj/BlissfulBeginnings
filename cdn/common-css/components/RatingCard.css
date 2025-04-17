@@ -1,0 +1,37 @@
+.vendor-card {
+    background-color: var(--vendorcard-background-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 16px 20px;
+    max-width: 320px;
+    font-family: var(--secondary-font-family);
+    margin: 12px;
+}
+
+.vendor-card h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    font-family: var(--primary-font-family);
+}
+
+.vendor-card p {
+    margin: 6px 0 12px;
+    color: var(--tertiary-color);
+    font-size: 1rem;
+}
+
+.vendor-rating {
+    display: flex;
+    align-items: center;
+}
+
+.vendor-rating .star {
+    color: var(--star-selected-color);
+    font-size: 1.3rem;
+    margin-right: 2px;
+}
+
+.vendor-rating .star.unfilled {
+    color: var(--secondary-dark-color);
+}

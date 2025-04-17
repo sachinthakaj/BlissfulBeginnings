@@ -634,7 +634,8 @@ class PlannerController
         }
     }
 
-    public function markWeddingAsComplete($parameters) {
+    public function markWeddingAsComplete($parameters)
+    {
         if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
@@ -650,10 +651,33 @@ class PlannerController
             $result = $plannerModel->markWeddingAsComplete($parameters['weddingID']);
             header("HTTP/1.1 200 Okay");
             echo json_encode(['result' => $result]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error marking wedding as complete']);
         }
-}
+    }
+
+    public function getVendorRatings($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        }
+        try {
+            if (!isset($parameters['weddingID']) || empty($parameters['weddingID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: weddingID is required']);
+                return;
+            }
+            $plannerModel = new Planner();
+            $result = $plannerModel->getVendorRatings($parameters['weddingID']);
+            header("HTTP/1.1 200 Okay");
+            echo json_encode($result);
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error getting vendor ratings']);
+        }
+    }
 }
