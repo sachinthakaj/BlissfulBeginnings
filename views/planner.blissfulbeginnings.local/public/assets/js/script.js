@@ -24,6 +24,11 @@ function showNotification(message, color) {
 document.addEventListener("DOMContentLoaded", function () {
   const loadingScreen = document.getElementById("loading-screen");
   const mainContent = document.querySelector(".dashboard");
+  const modalContainer = document.querySelector('.modal-container');
+  const calendarModalContainer = document.querySelector('.calendar-modal-container');
+  const cancelBtn = document.querySelector(".calendar-modal .cancel-button");
+  const confirmBtn = document.querySelector(".calendar-modal .confirm-button");
+
   // script.js
 
   // Define an array to store events
@@ -141,7 +146,10 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.setAttribute("data-month_name", months[month]);
           cell.className = "date-picker";
           cell.innerHTML = "<span>" + date + "</span";
-          cell.addEventListener("click", () => {});
+          cell.addEventListener("click", function() {
+            openCalendarModal(this);
+        });
+
           if (
             date === today.getDate() &&
             year === today.getFullYear() &&
@@ -163,6 +171,88 @@ document.addEventListener("DOMContentLoaded", function () {
       tbl.appendChild(row);
     }
   }
+
+  //modal for calendar
+  function openCalendarModal(clickedCell) {
+    calendarModalContainer.classList.add('show');
+    
+    const date = clickedCell.getAttribute('data-date');
+    const month = clickedCell.getAttribute('data-month');
+    const year = clickedCell.getAttribute('data-year');
+    
+    if (date && month && year) {
+        selectedDate = `${year}-${month.padStart(2, '0')}-${date.padStart(2, '0')}`;
+        
+        const displayDate = new Date(selectedDate);
+        
+            displayDate.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+        return selectedDate;
+    }
+}
+    function closeCalendarModal() {
+        calendarModalContainer.classList.remove('show');
+        
+    }
+   
+    // Event Listeners
+    if (calendarModalContainer&&cancelBtn) {
+
+        // Close modal when clicking cancel button
+        cancelBtn.addEventListener('click', closeCalendarModal);
+
+    }
+   if (calendarModalContainer && confirmBtn) {
+        confirmBtn.addEventListener('click', () => {
+            
+            
+            if (!selectedDate) {
+                showNotification("Please select a date first", "red");
+                return;
+            }
+    console.log(selectedDate);
+            fetch(`/vendor/set-unavailable/${vendorID}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                },
+                body: JSON.stringify({ date: selectedDate })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 409) {
+                        closeCalendarModal();
+                        showNotification(" You marked this date as unavailable ealier", "red");
+                        return Promise.reject('Conflict - Date already marked');
+                    }
+                        
+                    throw new Error('Failed to set unavailable date');
+                }
+                return response.json();
+               
+            })
+           
+            .then(data => {
+                showNotification("Date marked as unavailable", "green");
+                closeCalendarModal();
+                // Refresh calendar to show the unavailable date
+                showCalendar(currentMonth, currentYear);
+            })
+        
+            .catch(error => {
+                if (error !== 'Conflict - Date already marked') {
+                    closeCalendarModal();
+                showNotification("Failed to set unavailable date", "red");
+            }});
+
+        });
+    }
 
   // Function to create an event tooltip
   function createEventTooltip(date, month, year) {
@@ -193,6 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     });
   }
+
 
   // Function to check if there are events on a specific date
   function hasEventOnDate(date, month, year) {
