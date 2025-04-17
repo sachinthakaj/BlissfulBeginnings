@@ -431,6 +431,40 @@ class CustomerController
         }
     }
 
+    public function getTasksDetailsForWeddingProgress($parameters){
+        if(!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authentication failed']);
+            exit;
+        };
+        try{
+            if(!isset($parameters['weddingID']) || empty($parameters['weddingID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Wedding ID is required']);
+                return;
+            }
+
+            $task = new Task();
+            $tasks = $task->getAllTasksForAWedding($parameters['weddingID']);
+
+            if (!empty($tasks)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'tasks' => $tasks]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No tasks found for the specified wedding']);
+            }
+
+        } catch (Exception $e){
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error getting tasks details']);
+        }
+
+    }
+
+
+
     public function getRatings($parameters)
     {
         try {

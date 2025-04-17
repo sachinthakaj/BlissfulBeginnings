@@ -109,7 +109,8 @@ class Task
     public function tasksForAssignment($assignmentID)
     {
         try {
-            $this->db->query("SELECT * FROM task WHERE assignmentID=UNHEX(:assignmentID) ORDER BY dateToFinish ASC;");
+            $this->db->query("SELECT * FROM task WHERE assignmentID=UNHEX(:assignmentID) 
+            ORDER BY FIELD(state,'ongoing','finished'), dateToFinish ASC;");
             $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
@@ -163,5 +164,32 @@ class Task
             error_log($e->getMessage());
             return false;
         }
+    }
+
+    public function getForTaskProgressOfAVendor($assignmentID)
+    {
+        try{
+            $this->db->query("SELECT COUNT(taskID) AS taskCount FROM task
+            WHERE assignmentID=UNHEX(:assignmentID);");
+            $this->db->bind(':assignmentID', $assignmentID);
+            $this->db->execute();
+            $taskCount = $this->db->fetch(PDO::FETCH_ASSOC);
+            
+            $this->db->query("SELECT COUNT(taskID) AS finishedTaskCount FROM task
+            WHERE assignmentID=UNHEX(:assignmentID) AND state='finished';");
+            $this->db->bind(':assignmentID', $assignmentID);
+            $this->db->execute();
+            $finishedTaskCount = $this->db->fetch(PDO::FETCH_ASSOC);
+            return [
+                'taskCount' => $taskCount['taskCount'],
+                'finishedTaskCount' => $finishedTaskCount['finishedTaskCount']
+            ];
+
+
+        }catch(PDOException $e){
+            error_log($e->getMessage());
+            return false;
+        }
+
     }
 }

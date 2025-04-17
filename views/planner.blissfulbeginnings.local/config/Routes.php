@@ -21,6 +21,7 @@ $router->post("/plannerPaymentData","PlannerController@getPaymentData");
 
 $router->get("/fetch-for-budget-progress/{weddingID}", "PlannerController@getAmountToPayCustomer");
 $router->get("/fetch-for-wedding-progress/{weddingID}", "PlannerController@getTasksDetailsForWeddingProgress");
+$router->post("fetch_details_for_search","PlannerController@searchWedding");
 
 
 

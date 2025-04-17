@@ -20,9 +20,8 @@
             <div class="nav-bar-logo-container">
                 <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
             </div>
-            <div class="wedding-title-container">
-                <h1 class="wedding-title"></h1>
-            </div>
+
+
         </header>
 
         <div class="main-container">
@@ -33,17 +32,20 @@
                 </div>
 
                 <div class="progress-bars">
-                    <div class="progress-bar-container">
-                        <label>Wedding Progress</label>
-                        <div class="bar"></div>
-                        <div class="bar wedding-progress-bar" id="wedding-progress-bar"></div>
+
+                    <div class="wedding-progress-area">
+
+                        <div class="Text">Progress</div>
+                        <div class="Precentage" id="weddingProgressPrecentage"></div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                        </div>
                     </div>
-                    <div class="progress-bar-container">
-                        <label>Budget Progress</label>
-                        <div class="bar"></div>
-                        <div class="bar budget-progress-bar" id="budget-progress-bar"></div>
-                    </div>
+
+
                 </div>
+
+
 
                 <div class="slide-container">
                     <button id="backBtn">
@@ -67,8 +69,8 @@
                     <div class="chat-action-area">
                         <div class="image-upload-container">
                             <label>
-                            <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
-                            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                                <img src="http://cdn.blissfulbeginnings.com/common-icons/chat-attachment.png" alt="Upload Image" title="Upload an image" class='upload-image-icon'>
+                                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
                             </label>
                         </div>
                         <div class="chat-type-area">

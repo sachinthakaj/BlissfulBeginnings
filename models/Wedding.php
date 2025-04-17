@@ -278,6 +278,34 @@ class Wedding
         }
     }
 
+
+    public function getSerchedWeddingData($str1, $str2)
+    {
+        try {
+            $this->db->query("SELECT w.weddingID,date,theme,location,weddingState,dayNight,b.name AS brideName,g.name AS groomName from wedding w 
+            JOIN weddingbridegrooms wbg ON w.weddingID=wbg.weddingID 
+            JOIN bridegrooms b ON wbg.brideID = b.brideGroomsID AND b.gender='Female' 
+            JOIN bridegrooms g ON wbg.groomID = g.brideGroomsID AND g.gender='Male'
+            WHERE LOWER(b.name) LIKE :str1 OR LOWER(g.name) LIKE :str2 OR LOWER(g.name) LIKE :str1 OR LOWER(b.name) LIKE :str2
+            ORDER BY FIELD(weddingState, 'new','unassigned','ongoing','finished'), date ASC");
+
+            $this->db->bind(':str1', '%' . strtolower($str1) . '%', PDO::PARAM_STR);
+            $this->db->bind(':str2', '%' . strtolower($str2) . '%', PDO::PARAM_STR);
+            $this->db->execute();
+            $weddings = [];
+
+            while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
+                $row["weddingID"] = bin2hex($row["weddingID"]);
+                $weddings[] = $row;
+            }
+
+            return $weddings;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
     public function getRatings($weddingID)
     {
         try {
