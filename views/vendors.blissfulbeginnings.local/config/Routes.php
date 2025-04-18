@@ -32,6 +32,7 @@ $router->delete("/delete-profile/vendor-details/{vendorID}","vendorController@de
 $router->post("/vendor/set-unavailable/{vendorID}", "CalendarController@setUnavailableDate");
 $router->get("/vendor/get-unavailable/{vendorID}", "CalendarController@getUnavailableDates");
 
+
 $router->post("/task_state_update/{vendorID}","vendorController@updateOfTasks");
 
 

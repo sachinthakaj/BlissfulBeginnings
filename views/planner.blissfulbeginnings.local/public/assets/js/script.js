@@ -216,31 +216,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
     console.log(selectedDate);
-            fetch(`/vendor/set-unavailable/${vendorID}`, {
+            fetch(`/set-unavailable`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
                 body: JSON.stringify({ date: selectedDate })
+               
             })
+            
             .then(response => {
+             
                 if (!response.ok) {
+                  
                     if (response.status === 409) {
                         closeCalendarModal();
-                        showNotification(" You marked this date as unavailable ealier", "red");
+                        showNotification(" Date is already marked as unavailable", "red");
                         return Promise.reject('Conflict - Date already marked');
-                    }
                         
+                    }
+                   
                     throw new Error('Failed to set unavailable date');
+
                 }
                 return response.json();
-               
+              
             })
            
             .then(data => {
                 showNotification("Date marked as unavailable", "green");
                 closeCalendarModal();
+                console.log("hi");
                 // Refresh calendar to show the unavailable date
                 showCalendar(currentMonth, currentYear);
             })
