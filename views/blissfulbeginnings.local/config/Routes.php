@@ -57,3 +57,6 @@ $router->get("/fetch-for-wedding-progress/{weddingID}","CustomerController@getTa
 
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+
+$router->get("/get-ratings/{weddingID}", "CustomerController@getRatings");
+$router->post("/rate-vendor/{assignmentID}", "CustomerController@rateVendor");

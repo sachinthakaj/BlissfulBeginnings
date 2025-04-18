@@ -464,4 +464,51 @@ class CustomerController
     }
 
 
+
+    public function getRatings($parameters)
+    {
+        try {
+            $weddingID = $parameters['weddingID'];
+            $wedding = new Wedding();
+            $result = $wedding->getRatings($weddingID);
+            if ($result) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($result);
+            } else {
+                header('HTTP/1.1 404 Resource Not Found');
+                echo json_encode(['error' => 'Resource not found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }   
+    
+    public function rateVendor($parameters) {
+        if (!Authenticate('customer', $parameters['assignmentID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authentication failed']);
+            exit();
+        }
+        try {
+            $assignmentID = $parameters['assignmentID'];    
+            $wedding = new Wedding();
+            $data = file_get_contents('php://input');
+            $parsed_data = json_decode($data, true);
+            $result = $wedding->rateVendor($assignmentID, $parsed_data['rating']);
+            if ($result) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['message' => 'Rating added successfully']);
+            } else {
+                header('HTTP/1.1 404 Resource Not Found');
+                echo json_encode(['error' => 'Resource not found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+            
+    }
 }

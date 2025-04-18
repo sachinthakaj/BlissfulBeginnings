@@ -84,3 +84,8 @@ $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
 $router->post("/set-unavailable", "CalendarController@PsetUnavailableDate");
 $router->get("/get-unavailable", "CalendarController@PgetUnavailableDates");
 
+
+
+$router->get("/complete-wedding/{weddingID}", "PlannerController@markWeddingAsComplete");
+$router->get("/get-vendor-ratings/{weddingID}", "PlannerController@getVendorRatings");
+
