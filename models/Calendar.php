@@ -167,30 +167,12 @@ private function isDateUnavailableForPlanner($date)
   
 public function PgetUnavailableDates()
 {
-    try {
-        $this->db->query("
-            SELECT unavailable_date 
-            FROM p_unavailabledates
-            ORDER BY unavailable_date ASC
-        ");
-        $this->db->execute();
+    $this->db->query("
+        SELECT unavailable_date FROM p_unavailabledates 
+        ORDER BY unavailable_date ASC
+    ");
+    $this->db->execute();
 
-        $results = $this->db->resultSet();
-        
-        // Format dates for consistent response
-        $formattedDates = array_map(function($date) {
-            return [
-                'date' => $date['unavailable_date'],
-                'formatted' => (new DateTime($date['unavailable_date']))->format('M j, Y')
-            ];
-        }, $results);
-
-        return $formattedDates;
-
-    } catch (PDOException $e) {
-        error_log("Database Error in PgetUnavailableDates: " . $e->getMessage());
-        return []; // Return empty array on error
-    }
+    return $this->db->resultSet(); // Returns all unavailable dates from all vendors
 }
-
 }
