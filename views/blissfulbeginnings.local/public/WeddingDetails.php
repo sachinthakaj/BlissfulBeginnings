@@ -32,29 +32,29 @@
                 <div class="box-container">
                     <div class="left">
                         <div class="input-group">
-                            <label for="date">Date</label>
+                            <label for="date">Date<span class="required">*</span></label>
                             <input type="date" id="date" name="date" required>
                         </div>
                         <div class="input-group">
-                            <label for="daynight">Day/Night</label>
+                            <label for="daynight">Day/Night<span class="required">*</span></label>
                             <select id="daynight" name="daynight" required>
                                 <option value="Day">Day</option>
                                 <option value="Night">Night</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="location">Location</label>
+                            <label for="location">Location<span class="required">*</span></label>
                             <input type="text" id="location" name="location" required>
                         </div>
                     </div>
                     
                     <div class="right">
                         <div class="input-group">
-                            <label for="theme">Theme</label>
+                            <label for="theme">Theme<span class="required">*</span></label>
                             <input type="text" id="theme" name="theme" required>
                         </div>
                         <div class="input-group">
-                            <label for="budget">Expected Budget</label>
+                            <label for="budget">Expected Budget<span class="required">*</span></label>
                             <input type="number" id="budget" name="budget" required>
                         </div>
                     </div>
@@ -72,26 +72,26 @@
                 <div class="box-container">
                     <div class="left">
                         <div class="input-group">
-                            <label for="bride_name">Name</label>
+                            <label for="bride_name">Name<span class="required">*</span></label>
                             <input type="text" id="bride_name" name="bride_name" required>
                         </div>
                         <div class="input-group">
-                            <label for="bride_email">Email</label>
+                            <label for="bride_email">Email<span class="required">*</span></label>
                             <input type="email" id="bride_email" name="bride_email" required>
                         </div>
                         <div class="input-group">
-                            <label for="bride_contact">Contact</label>
+                            <label for="bride_contact">Contact<span class="required">*</span></label>
                             <input type="tel" id="bride_contact" name="bride_contact" required>
                         </div>
                     </div>
                     
                     <div class="right">
                         <div class="input-group">
-                            <label for="bride_address">Address</label>
+                            <label for="bride_address">Address<span class="required">*</span></label>
                             <input type="text" id="bride_address" name="bride_address" required>
                         </div>
                         <div class="input-group">
-                            <label for="bride_age">Age</label>
+                            <label for="bride_age">Age<span class="required">*</span></label>
                             <input type="number" id="bride_age" name="bride_age" required>
                         </div>
                     </div>
@@ -105,26 +105,26 @@
                 <div class="box-container">
                     <div class="left">
                         <div class="input-group">
-                            <label for="groom_name">Name</label>
+                            <label for="groom_name">Name<span class="required">*</span></label>
                             <input type="text" id="groom_name" name="groom_name" required>
                         </div>
                         <div class="input-group">
-                            <label for="groom_email">Email</label>
+                            <label for="groom_email">Email<span class="required">*</span></label>
                             <input type="email" id="groom_email" name="groom_email" required>
                         </div>
                         <div class="input-group">
-                            <label for="groom_contact">Contact</label>
+                            <label for="groom_contact">Contact<span class="required">*</span></label>
                             <input type="tel" id="groom_contact" name="groom_contact" required>
                         </div>
                     </div>
 
                     <div class="right">
                         <div class="input-group">
-                            <label for="groom_address">Address</label>
+                            <label for="groom_address">Address<span class="required">*</span></label>
                             <input type="text" id="groom_address" name="groom_address" required>
                         </div>
                         <div class="input-group">
-                            <label for="groom_age">Age</label>
+                            <label for="groom_age">Age<span class="required">*</span></label>
                             <input type="number" id="groom_age" name="groom_age" required>
                         </div>
                     </div>

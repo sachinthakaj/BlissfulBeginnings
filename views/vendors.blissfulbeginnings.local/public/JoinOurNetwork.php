@@ -37,32 +37,32 @@
                 </div>
                 <!-- Business Name -->
                 <div class="form-group">
-                    <label for="business-name">Business Name</label>
+                    <label for="business-name">Business Name<span class="required">*</span></label>
                     <input type="text" id="business-name" name="name" placeholder="Enter business name" required>
                 </div>
                 <!-- Business Type -->
                 <div class="form-group">
-                    <label for="businessType">Type</label>
+                    <label for="businessType">Type<span class="required">*</span></label>
                     <select id="businessType" name="businessType" required>
                     </select>
                 </div>
                 <!-- Description -->
                 <div class="form-group">
-                    <label for="description">Description</label>
+                    <label for="description">Description<span class="required">*</span></label>
                     <textarea id="description" name="description" placeholder="Enter business description" rows="4" required></textarea>
                 </div>
                 <!-- Contact Number -->
                 <div class="form-group">
-                    <label for="contact">Contact Number</label>
+                    <label for="contact">Contact Number<span class="required">*</span></label>
                     <input type="tel" id="contact" name="contact" placeholder="Enter contact number" pattern="[0-9]{10}" required>
                 </div>
                 <!-- Social Media Links -->
                 <div class="form-group">
-                    <label for="websiteLink">Web Site Link</label>
+                    <label for="websiteLink">Web Site Link<span class="required">*</span></label>
                     <textarea id="websiteLink" name="websiteLink" placeholder="Enter social media links" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="address">Address</label>
+                    <label for="address">Address<span class="required">*</span></label>
                     <textarea id="address" name="address" placeholder="Enter Address" rows="3" required></textarea>
                 </div>
             </div>
@@ -71,22 +71,22 @@
                     <h2>Account Details</h2>
                     <!-- Email -->
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email<span class="required">*</span></label>
                         <input type="text" id="email" name="email" placeholder="Email" required>
                     </div>
                     <!-- Confirm Email -->
                     <div class="form-group">
-                        <label for="confirmEmail">Confirm Email</label>
+                        <label for="confirmEmail">Confirm Email<span class="required">*</span></label>
                         <input type="text" id="conf-email" name="confirmEmail" placeholder="confirm Email" required>
                     </div>
                     <!-- Password -->
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password<span class="required">*</span></label>
                         <input type="password" id="password" name="password" placeholder="Password" required>
                     </div>
                     <!-- Confirm Password -->
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
+                        <label for="confirmPassword">Confirm Password<span class="required">*</span></label>
                         <input type="password" id="conf-password" name="confirmPassword" placeholder="Confirm Password" required>
                     </div>
                 </div>
