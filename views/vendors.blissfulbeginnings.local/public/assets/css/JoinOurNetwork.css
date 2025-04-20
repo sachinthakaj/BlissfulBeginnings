@@ -53,6 +53,10 @@ form {
 .form-group textarea:focus {
   border-color: #C1A42E;
 }
+.required{
+  color:red;
+  display: inline;
+}
 
 .vendor-left {
   margin-top: -40vh;

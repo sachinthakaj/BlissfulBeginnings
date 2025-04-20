@@ -21,6 +21,10 @@
 .input-group {
   margin-bottom: 1.5rem;
 }
+.required{
+  color:red;
+  display: inline;
+}
 
 label {
   display: block;
