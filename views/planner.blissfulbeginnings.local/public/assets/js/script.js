@@ -24,8 +24,10 @@ function showNotification(message, color) {
 document.addEventListener("DOMContentLoaded", function () {
   const loadingScreen = document.getElementById("loading-screen");
   const mainContent = document.querySelector(".dashboard");
-  const modalContainer = document.querySelector('.modal-container');
-  const calendarModalContainer = document.querySelector('.calendar-modal-container');
+  const modalContainer = document.querySelector(".modal-container");
+  const calendarModalContainer = document.querySelector(
+    ".calendar-modal-container"
+  );
   const cancelBtn = document.querySelector(".calendar-modal .cancel-button");
   const confirmBtn = document.querySelector(".calendar-modal .confirm-button");
 
@@ -146,9 +148,9 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.setAttribute("data-month_name", months[month]);
           cell.className = "date-picker";
           cell.innerHTML = "<span>" + date + "</span";
-          cell.addEventListener("click", function() {
+          cell.addEventListener("click", function () {
             openCalendarModal(this);
-        });
+          });
 
           if (
             date === today.getDate() &&
@@ -174,92 +176,83 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //modal for calendar
   function openCalendarModal(clickedCell) {
-    calendarModalContainer.classList.add('show');
-    
-    const date = clickedCell.getAttribute('data-date');
-    const month = clickedCell.getAttribute('data-month');
-    const year = clickedCell.getAttribute('data-year');
-    
+    calendarModalContainer.classList.add("show");
+
+    const date = clickedCell.getAttribute("data-date");
+    const month = clickedCell.getAttribute("data-month");
+    const year = clickedCell.getAttribute("data-year");
+
     if (date && month && year) {
-        selectedDate = `${year}-${month.padStart(2, '0')}-${date.padStart(2, '0')}`;
-        
-        const displayDate = new Date(selectedDate);
-        
-            displayDate.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
+      selectedDate = `${year}-${month.padStart(2, "0")}-${date.padStart(
+        2,
+        "0"
+      )}`;
 
-        return selectedDate;
-    }
-}
-    function closeCalendarModal() {
-        calendarModalContainer.classList.remove('show');
-        
-    }
-   
-    // Event Listeners
-    if (calendarModalContainer&&cancelBtn) {
+      const displayDate = new Date(selectedDate);
 
-        // Close modal when clicking cancel button
-        cancelBtn.addEventListener('click', closeCalendarModal);
+      displayDate.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
 
+      return selectedDate;
     }
-   if (calendarModalContainer && confirmBtn) {
-        confirmBtn.addEventListener('click', () => {
-            
-            
-            if (!selectedDate) {
-                showNotification("Please select a date first", "red");
-                return;
+  }
+  function closeCalendarModal() {
+    calendarModalContainer.classList.remove("show");
+  }
+
+  // Event Listeners
+  if (calendarModalContainer && cancelBtn) {
+    // Close modal when clicking cancel button
+    cancelBtn.addEventListener("click", closeCalendarModal);
+  }
+  if (calendarModalContainer && confirmBtn) {
+    confirmBtn.addEventListener("click", () => {
+      if (!selectedDate) {
+        showNotification("Please select a date first", "red");
+        return;
+      }
+      console.log(selectedDate);
+      fetch(`/set-unavailable`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+        body: JSON.stringify({ date: selectedDate }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 409) {
+              closeCalendarModal();
+              showNotification(" Date is already marked as unavailable", "red");
+              return Promise.reject("Conflict - Date already marked");
             }
-    console.log(selectedDate);
-            fetch(`/set-unavailable`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                },
-                body: JSON.stringify({ date: selectedDate })
-               
-            })
-            
-            .then(response => {
-             
-                if (!response.ok) {
-                  
-                    if (response.status === 409) {
-                        closeCalendarModal();
-                        showNotification(" Date is already marked as unavailable", "red");
-                        return Promise.reject('Conflict - Date already marked');
-                        
-                    }
-                   
-                    throw new Error('Failed to set unavailable date');
 
-                }
-                return response.json();
-              
-            })
-           
-            .then(data => {
-                showNotification("Date marked as unavailable", "green");
-                closeCalendarModal();
-                console.log("hi");
-                // Refresh calendar to show the unavailable date
-                showCalendar(currentMonth, currentYear);
-            })
-        
-            .catch(error => {
-                if (error !== 'Conflict - Date already marked') {
-                    closeCalendarModal();
-                showNotification("Failed to set unavailable date", "red");
-            }});
+            throw new Error("Failed to set unavailable date");
+          }
+          return response.json();
+        })
 
+        .then((data) => {
+          showNotification("Date marked as unavailable", "green");
+          closeCalendarModal();
+          console.log("hi");
+          // Refresh calendar to show the unavailable date
+          showCalendar(currentMonth, currentYear);
+        })
+
+        .catch((error) => {
+          if (error !== "Conflict - Date already marked") {
+            closeCalendarModal();
+            showNotification("Failed to set unavailable date", "red");
+          }
         });
-    }
+    });
+  }
 
   // Function to create an event tooltip
   function createEventTooltip(date, month, year) {
@@ -290,7 +283,6 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     });
   }
-
 
   // Function to check if there are events on a specific date
   function hasEventOnDate(date, month, year) {
@@ -378,45 +370,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const weddingCardsContainer = document.querySelector(".wedding-cards");
 
-  fetch("/fetch-wedding-data", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (response.status == 401) {
-        window.location.href = "/signin";
-      } else if (response.status == 500) {
-        showNotification("error", "Something went wrong");
-      }
-      return response.json();
-    })
-    .then((weddings) => {
+  function createWeddingCards(weddings) {
+    if (weddings.length > 0) {
       weddings.forEach((wedding) => {
         const card = document.createElement("div");
         card.classList.add("wedding-card");
         card.id = wedding.weddingID;
 
         card.innerHTML = `
-           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-            <p>${wedding.date}</p>
-            <p>${wedding.dayNight}</p>
-            <p>${wedding.location}</p>
-            <p>${wedding.theme}</p>            
-        `;
+         <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+          <p>${wedding.date}</p>
+          <p>${wedding.dayNight}</p>
+          <p>${wedding.location}</p>
+          <p>${wedding.theme}</p>            
+      `;
 
         if (wedding.weddingState == "new") {
           card.innerHTML = `
-           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-            <p><b>Date:</b>${wedding.date}</p>
-            <p><b>Day/Night</b>:${wedding.dayNight}</p>
-            <p><b>Location:</b>${wedding.location}</p>
-            <p><b>Theme:</b>${wedding.theme}</p>
-            
-        
-        `;
+         <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+          <p><b>Date:</b>${wedding.date}</p>
+          <p><b>Day/Night</b>:${wedding.dayNight}</p>
+          <p><b>Location:</b>${wedding.location}</p>
+          <p><b>Theme:</b>${wedding.theme}</p>
+          
+      
+      `;
           card.classList.add("new");
           card.id = wedding.weddingID;
           const acceptButton = document.createElement("button");
@@ -471,12 +449,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (wedding.weddingState == "unassigned") {
           card.innerHTML = `
-           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-            <p><b>Date:</b>${wedding.date}</p>
-            <p><b>Day/Night</b>:${wedding.dayNight}</p>
-            <p><b>Location:</b>${wedding.location}</p>
-            <p><b>Theme:</b>${wedding.theme}</p>
-        `;
+         <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+          <p><b>Date:</b>${wedding.date}</p>
+          <p><b>Day/Night</b>:${wedding.dayNight}</p>
+          <p><b>Location:</b>${wedding.location}</p>
+          <p><b>Theme:</b>${wedding.theme}</p>
+      `;
           card.id = wedding.weddingID;
           card.classList.add("Unassigned");
           card.addEventListener("click", (e) => {
@@ -487,14 +465,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (wedding.weddingState == "ongoing") {
           card.innerHTML = `
-          <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-            <p><b>Date:</b>${wedding.date}</p>
-            <p><b>Day/Night</b>:${wedding.dayNight}</p>
-            <p><b>Location:</b>${wedding.location}</p>
-            <p><b>Theme:</b>${wedding.theme}</p>
-           
-       
-       `;
+        <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+          <p><b>Date:</b>${wedding.date}</p>
+          <p><b>Day/Night</b>:${wedding.dayNight}</p>
+          <p><b>Location:</b>${wedding.location}</p>
+          <p><b>Theme:</b>${wedding.theme}</p>
+         
+     
+     `;
           card.classList.add("ongoing");
           card.addEventListener("click", (event) => {
             window.location.href = `/wedding/${wedding.weddingID}`;
@@ -505,8 +483,35 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       loadingScreen.style.display = "none";
       mainContent.style.display = "flex";
+    } else {
+      const noWeddingsMessage = document.createElement("p");
+      noWeddingsMessage.textContent =
+        "No weddings found. Please check back later.";
+      weddingCardsContainer.appendChild(noWeddingsMessage);
+    }
+  }
+
+  function displayAllweddings() {
+    fetch("/fetch-wedding-data", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "Content-Type": "application/json",
+      },
     })
-    .catch((error) => console.error("Error fetching wedding data:", error));
+      .then((response) => {
+        if (response.status == 401) {
+          window.location.href = "/signin";
+        } else if (response.status == 500) {
+          showNotification("error", "Something went wrong");
+        }
+        return response.json();
+      })
+      .then((weddings) => createWeddingCards(weddings))
+      .catch((error) => console.error("Error fetching wedding data:", error));
+  }
+
+  displayAllweddings();
 
   const logoutbutton = document.querySelector(".LogOut");
   if (logoutbutton) {
@@ -532,12 +537,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const searchButton = document.querySelector(".search-button");
+  const searchInput = document.getElementById("search_id");
 
   function searchWedding() {
     const searchInput = document
       .getElementById("search_id")
       .value.toLowerCase()
       .trim();
+
+    if (!searchInput) {
+      alert("Please enter something to search.");
+      return;
+    }
     const str1 = searchInput.split(/[ &]/)[0];
     const str2 = searchInput
       .substring(searchInput.lastIndexOf(" ") + 1)
@@ -565,25 +576,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         if (data.status === "success" && data.weddings.length > 0) {
-          data.weddings.forEach((wedding) => {
-            const card = document.createElement("div");
-            card.classList.add("wedding-card");
-            card.id = wedding.weddingID;
-
-            card.innerHTML = `
-                    <h3>${wedding.brideName} & ${wedding.groomName}</h3>
-                    <p><b>Date:</b> ${wedding.date}</p>
-                    <p><b>Day/Night:</b> ${wedding.dayNight}</p>
-                    <p><b>Location:</b> ${wedding.location}</p>
-                    <p><b>Theme:</b> ${wedding.theme}</p>
-                `;
-
-            card.addEventListener("click", () => {
-              window.location.href = `/wedding/${wedding.weddingID}`;
-            });
-
-            weddingCardsContainer.appendChild(card);
-          });
+          createWeddingCards(data.weddings);
         } else {
           const noResults = document.createElement("p");
           noResults.textContent =
@@ -596,4 +589,10 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
   searchButton.addEventListener("click", searchWedding);
+  searchInput.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchWedding();
+    }
+  });
 });

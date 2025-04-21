@@ -594,6 +594,14 @@ document.addEventListener("DOMContentLoaded", function () {
       "input[name='assignmentID']"
     ).value;
     console.log(assignmentID);
+
+    const today = new Date();
+    const formattedToday = today.toISOString().split("T")[0];
+    if (dateToFinish <= formattedToday) {
+      alert("Please select a date in the future.");
+      return;
+
+    }
     const taskDetails = {
       description: taskDescription,
       dateToFinish: dateToFinish,
