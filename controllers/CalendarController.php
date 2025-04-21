@@ -70,37 +70,32 @@ class CalendarController
     }
 
     public function getUnavailableDates($parameters)
-    {
-        try {
-            // Authenticate the vendor
-            if (!Authenticate('vendor', $parameters['vendorID'])) {
-                http_response_code(401);
-                echo json_encode(['error' => 'Authorization failed']);
-                return;
-            }
-
-            $vendorID = $parameters['vendorID'];
-            $dates = $this->calendarModel->getUnavailableDates($vendorID);
-
-            // Format dates for response
-            $formattedDates = array_map(function($date) {
-                return [
-                    'date' => $date->unavailable_date,
-                    'formatted' => (new DateTime($date->unavailable_date))->format('M j, Y')
-                ];
-            }, $dates);
-
-            echo json_encode([
-                "status" => "OK",
-                "dates" => $formattedDates
-            ]);
-
-        } catch (Exception $e) {
-            error_log($e->getMessage());
-            http_response_code(500);
-            echo json_encode(["error" => "Failed to retrieve unavailable dates"]);
+{
+    try {
+        // Authenticate the vendor
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Authorization failed']);
+            return;
         }
+
+        $vendorID = $parameters['vendorID'];
+        $dates = $this->calendarModel->getUnavailableDates($vendorID);
+
+        // Extract just the date strings into a flat array
+        $formattedDates = array_map(function($date) {
+            return $date->unavailable_date;
+        }, $dates);
+
+        // Return a simple array of date strings
+        echo json_encode($formattedDates);
+
+    } catch (Exception $e) {
+        error_log($e->getMessage());
+        http_response_code(500);
+        echo json_encode(["error" => "Failed to retrieve unavailable dates"]);
     }
+}
 
     public function removeUnavailableDate($parameters)
     {
@@ -238,30 +233,24 @@ class CalendarController
 }public function PgetUnavailableDates()
 {
     try {
-        // Get all unavailable dates (no vendor-specific filtering)
-        $dates = $this->calendarModel->getUnavailableDates();
 
-        // Format dates for response
+        $dates = $this->calendarModel->PgetUnavailableDates();
+
+        // Extract just the date strings into a flat array
         $formattedDates = array_map(function($date) {
-            return [
-                'date' => $date->unavailable_date,
-                'formatted' => (new DateTime($date->unavailable_date))->format('M j, Y')
-            ];
+            return $date->unavailable_date;
         }, $dates);
 
-        return response()->json([
-            "status" => "success",
-            "dates" => $formattedDates
-        ]);
+        // Return a simple array of date strings
+        echo json_encode($formattedDates);
 
     } catch (Exception $e) {
-        Log::error('PgetUnavailableDates Error: ' . $e->getMessage());
-        return response()->json([
-            "status" => "error",
-            "message" => "Failed to retrieve unavailable dates"
-        ], 500);
+        error_log($e->getMessage());
+        http_response_code(500);
+        echo json_encode(["error" => "Failed to retrieve unavailable dates"]);
     }
 }
+
 
 }
 ?>

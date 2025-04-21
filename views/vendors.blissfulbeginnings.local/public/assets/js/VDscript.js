@@ -23,27 +23,27 @@ function render() {
     const paginationDots = editModalContainer.querySelectorAll('.dot');
     const navigateEditProfileButton = document.querySelector('.view-packages-button');
  
-// Update your CSS to style unavailable days
+// Update CSS to style unavailable days
 const styleId = 'unavailable-day-style';
 if (!document.getElementById(styleId)) {
     const style = document.createElement('style');
     style.id = styleId;
     style.textContent = `
-        .unavailable-day {
+    .unavailable-day {
             position: relative;
-        }
-        .unavailable-day::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 8px;
-            height: 8px;
-            background-color: red;
-            border-radius: 50%;
-            display: block !important;
-            z-index: 1;
-        }
+     }
+ .unavailable-day::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: block !important;
+    z-index: 1;
+}
     `;
     document.head.appendChild(style);
 }
@@ -57,11 +57,25 @@ async function fetchUnavailableDates() {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
+        
         if (!response.ok) throw new Error('Failed to fetch unavailable dates');
-        return await response.json();
+        
+        const data = await response.json();
+        
+        // Convert object to array if needed
+        if (Array.isArray(data)) {
+            return data; // Already an array
+        } else if (data && typeof data === 'object') {
+            // If it's an object, extract the keys (dates)
+            return Object.values(data);
+        } else {
+            // If it's neither array nor object, return empty array
+            return [];
+        }
+        
     } catch (error) {
         console.error('Error fetching unavailable dates:', error);
-        return [];
+        return []; // Return empty array on error
     }
 }
     // Define an array to store events
@@ -168,85 +182,83 @@ async function fetchUnavailableDates() {
         showCalendar(currentMonth, currentYear);
     }
 
-    // Function to display the calendar
-    async function showCalendar(month, year) {
-        let firstDay = new Date(year, month, 1).getDay();
-        tbl = document.getElementById("calendar-body");
-        tbl.innerHTML = "";
-        monthAndYear.innerHTML = months[month] + " " + year;
-        selectYear.value = year;
-        selectMonth.value = month;
-// Fetch unavailable dates
-const unavailableDates =  await fetchUnavailableDates();
-console.log('Unavailable dates:', unavailableDates);
-        let date = 1;
-        for (let i = 0; i < 6; i++) {
-            let row = document.createElement("tr");
-            for (let j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDay) {
-                    cell = document.createElement("td");
-                    cellText = document.createTextNode("");
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                } else if (date > daysInMonth(month, year)) {
-                    break;
-                } else {
-                    cell = document.createElement("td");
-                    cell.setAttribute("data-date", date);
-                    cell.setAttribute("data-month", month + 1);
-                    cell.setAttribute("data-year", year);
-                    cell.setAttribute("data-month_name", months[month]);
-                    cell.className = "date-picker";
-                    cell.innerHTML = "<span>" + date + "</span";
-                   
-// Check for unavailable dates - FIXED VERSION
-if (Array.isArray(unavailableDates)) {
-    const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+   
+   // Function to display the calendar
+async function showCalendar(month, year) {
+    let firstDay = new Date(year, month, 1).getDay();
+    tbl = document.getElementById("calendar-body");
+    tbl.innerHTML = "";
+    monthAndYear.innerHTML = months[month] + " " + year;
+    selectYear.value = year;
+    selectMonth.value = month;
     
-    // More robust checking that handles different date formats
-    const isUnavailable = unavailableDates.some(unavailableDate => {
-        // Handle both string and object formats
-        const dateToCheck = typeof unavailableDate === 'string' 
-            ? unavailableDate 
-            : unavailableDate.date;
-        
-        return dateToCheck && dateToCheck.includes(currentDateStr);
-    });
-
-
+    // Fetch unavailable dates
+    const unavailableDates = await fetchUnavailableDates();
+  
     
-    if (isUnavailable) {
-        cell.classList.add("unavailable-day");
+    // Ensure we have an array of dates to work with
+    const unavailableDatesArray = Array.isArray(unavailableDates)
+        ? unavailableDates
+        : Object.values(unavailableDates || {});
+console.log('Unavailable dates array:', unavailableDatesArray);
+    let date = 1;
+    for (let i = 0; i < 6; i++) {
+        let row = document.createElement("tr");
+        for (let j = 0; j < 7; j++) {
+            if (i === 0 && j < firstDay) {
+                cell = document.createElement("td");
+                cellText = document.createTextNode("");
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+            } else if (date > daysInMonth(month, year)) {
+                break;
+            } else {
+                cell = document.createElement("td");
+                cell.setAttribute("data-date", date);
+                cell.setAttribute("data-month", month + 1);
+                cell.setAttribute("data-year", year);
+                cell.setAttribute("data-month_name", months[month]);
+                cell.className = "date-picker";
+                cell.innerHTML = "<span>" + date + "</span>";
+                
+                // Check if this date is unavailable
+                const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                if (unavailableDatesArray.includes(currentDateStr)) {
+                    cell.classList.add("unavailable-day");
+                }
+                
+                cell.addEventListener("click", function() {
+                    openCalendarModal(this);
+                });
+                
+                if (
+                    date === today.getDate() &&
+                    year === today.getFullYear() &&
+                    month === today.getMonth()
+                ) {
+                    cell.className = "date-picker selected";
+                    // Ensure we don't lose the unavailable-day class if this day is also unavailable
+                    const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                    if (unavailableDatesArray.includes(currentDateStr)) {
+                        cell.classList.add("unavailable-day");
+                    }
+                }
+
+                // Check if there are events on this date
+                if (hasEventOnDate(date, month, year)) {
+                    cell.classList.add("event-marker");
+                    cell.appendChild(
+                        createEventTooltip(date, month, year)
+                    );
+                }
+
+                row.appendChild(cell);
+                date++;
+            }
+        }
+        tbl.appendChild(row);
     }
 }
-                    cell.addEventListener("click", function() {
-                        openCalendarModal(this);
-                    });
-                    
-                    if (
-                        date === today.getDate() &&
-                        year === today.getFullYear() &&
-                        month === today.getMonth()
-                    ) {
-                        cell.className = "date-picker selected";
-                    }
-
-                    // Check if there are events on this date
-                    if (hasEventOnDate(date, month, year)) {
-                        cell.classList.add("event-marker");
-                        cell.appendChild(
-                            createEventTooltip(date, month, year)
-                        );
-                    }
-
-                    row.appendChild(cell);
-                    date++;
-                }
-            }
-            tbl.appendChild(row);
-        }
-
-    }
 
     // Function to create an event tooltip
     function createEventTooltip(date, month, year) {
@@ -359,7 +371,7 @@ if (Array.isArray(unavailableDates)) {
                 document.querySelectorAll('.card').forEach(card => {
                     console.log('Adding event listener')
                     card.addEventListener('click', () => {
-                        console.log("Here")
+                        
                         window.location.href = `/vendor/${vendorID}/assignment/${card.id}`
                     })
                 })

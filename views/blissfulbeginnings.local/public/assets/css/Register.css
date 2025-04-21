@@ -65,6 +65,10 @@ input[type="password"] {
 .checkbox-group input {
     margin-right: 10px;
 }
+.required{
+    color:red;
+    display: inline;
+  }
 
 a {
     color: #b69f61;

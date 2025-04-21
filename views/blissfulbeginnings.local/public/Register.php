@@ -23,28 +23,28 @@
 
         <form class="form" >
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email">Email<span class="required">*</span></label>
                 <input type="email" id="email" name="email" required>
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Password<span class="required">*</span></label>
                 <input type="password" id="password" name="password" required>
             </div>
 
             <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
+                <label for="confirm-password">Confirm Password<span class="required">*</span></label>
                 <input type="password" id="confirm-password" name="confirm-password" required>
             </div>
 
             <div class="form-group checkbox-group">
                 <input type="checkbox" id="agree" name="agree" required>
-                <label for="agree">I agree for the <a href="#">terms and conditions</a></label>
+                <label for="agree">I agree for the <a href="#">terms and conditions<span class="required">*</span></a></label>
             </div>
 
             <div class="form-group checkbox-group">
                 <input type="checkbox" id="newsletter" name="newsletter">
-                <label for="newsletter">Check to subscribe to our newsletter</label>
+                <label for="newsletter">Check to subscribe to our newsletter<span class="required">*</span></label>
             </div>
 
             <button type="submit" class="submit-btn">Submit</button>

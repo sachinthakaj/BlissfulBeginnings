@@ -31,7 +31,60 @@ document.addEventListener("DOMContentLoaded", function () {
   const cancelBtn = document.querySelector(".calendar-modal .cancel-button");
   const confirmBtn = document.querySelector(".calendar-modal .confirm-button");
 
-  // script.js
+// Update CSS to style unavailable days
+const styleId = 'unavailable-day-style';
+if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+    .unavailable-day {
+            position: relative;
+     }
+ .unavailable-day::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: block !important;
+    z-index: 1;
+}
+    `;
+    document.head.appendChild(style);
+}
+async function fetchUnavailableDates() {
+  try {
+      const response = await fetch(`/get-unavailable`, {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+          }
+      });
+      
+      if (!response.ok) throw new Error('Failed to fetch unavailable dates');
+      
+      const data = await response.json();
+      
+      // Convert object to array if needed
+      if (Array.isArray(data)) {
+          return data; // Already an array
+      } else if (data && typeof data === 'object') {
+          // If it's an object, extract the keys (dates)
+          return Object.values(data);
+      } else {
+          // If it's neither array nor object, return empty array
+          return [];
+      }
+      
+  } catch (error) {
+      console.error('Error fetching unavailable dates:', error);
+      return []; // Return empty array on error
+  }
+}
+
 
   // Define an array to store events
   let events = [];
@@ -121,13 +174,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Function to display the calendar
-  function showCalendar(month, year) {
+   async function showCalendar(month, year) {
     let firstDay = new Date(year, month, 1).getDay();
     tbl = document.getElementById("calendar-body");
     tbl.innerHTML = "";
     monthAndYear.innerHTML = months[month] + " " + year;
     selectYear.value = year;
     selectMonth.value = month;
+     // Fetch unavailable dates
+     const unavailableDates = await fetchUnavailableDates();
+     console.log('Unavailable dates:', unavailableDates);
+  
+    
+     // Ensure we have an array of dates to work with
+     const unavailableDatesArray = Array.isArray(unavailableDates)
+         ? unavailableDates
+         : Object.values(unavailableDates || {});
 
     let date = 1;
     for (let i = 0; i < 6; i++) {
@@ -148,17 +210,30 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.setAttribute("data-month_name", months[month]);
           cell.className = "date-picker";
           cell.innerHTML = "<span>" + date + "</span";
-          cell.addEventListener("click", function () {
-            openCalendarModal(this);
-          });
-
-          if (
-            date === today.getDate() &&
-            year === today.getFullYear() &&
-            month === today.getMonth()
-          ) {
-            cell.className = "date-picker selected";
+          // Check if this date is unavailable
+          const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+          if (unavailableDatesArray.includes(currentDateStr)) {
+              cell.classList.add("unavailable-day");
           }
+          
+          cell.addEventListener("click", function() {
+              openCalendarModal(this);
+          });
+          
+          if (
+              date === today.getDate() &&
+              year === today.getFullYear() &&
+              month === today.getMonth()
+          ) {
+              cell.className = "date-picker selected";
+              // Ensure we don't lose the unavailable-day class if this day is also unavailable
+              const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+              if (unavailableDatesArray.includes(currentDateStr)) {
+                  cell.classList.add("unavailable-day");
+              }
+          }
+
+          
 
           // Check if there are events on this date
           if (hasEventOnDate(date, month, year)) {
@@ -294,8 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return 32 - new Date(iYear, iMonth, 32).getDate();
   }
 
-  // Call the showCalendar function initially to display the calendar
-  showCalendar(currentMonth, currentYear);
+  
 
   const modal = document.getElementById("modal");
   const modalContent = document.getElementById("modal-content");
