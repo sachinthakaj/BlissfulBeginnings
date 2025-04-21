@@ -3,41 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blissful Beginnings - Home</title>
-    <link rel="stylesheet" href="/public/assets/css/Common.css">
-    <link rel="stylesheet" href="/public/assets/css/Index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Blissful Beginnings | Wedding Planning</title>
+    <link rel="stylesheet" href="../public/assets/css/Home.css">
+    <script src="../public/assets/js/Home.js" defer></script>
 </head>
 <body>
-    <header>
-        <div class="nav-bar-logo-container">
-            <img src="/public/assets/images/logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../public/assets/images/Home/blissful_beginnings_logo.png" alt="Blissful Beginnings Logo" class="logo-img">
         </div>
+        <ul class="nav-links">
+            <li><a href="/" class="nav-link active" data-section="home">Home</a></li>
+            <li><a href="/about" class="nav-link" data-section="about">About</a></li>
+            <li><a href="/services" class="nav-link" data-section="services">Services</a></li>
+            <li><a href="/contact" class="nav-link" data-section="contact">Contact</a></li>
+            <li><a href="http://vendors.blissfulbeginnings.com/register">Join Our Network</a></li>
+            <li><a href="/register">Sign Up</a></li>
+            <li><a href="/signin">Login</a></li>
+        </ul>
+    </nav>
 
-        <div class="top-right">
-            <ul>
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-                <li><a href="http://vendors.blissfulbeginnings.local/register">Join our Network</a></li>
-                <li><a href="/register" class="top-right-button">Sign Up</a></li>
-                <li><a href="/signin" class="top-right-button">Log in</a></li>
-            </ul>
+    <!-- Hero Section -->
+    <section id="home" class="parallax-container hero">
+        <div class="hero-content">
+            <h1>Blissful Beginnings Wedding Planning</h1>
+            <p class="tagline">Creating unforgettable memories for your special day</p>
         </div>
-    </header>
-
-    <section class="hero">
-        <h1>Plan your dream wedding now</h1>
-        <button class="book-now" href="/register">Book Now</button>
     </section>
 
-    <section class="about">
-        <h2>About <span>Blissful Beginnings</span></h2>
-        <p>Our wedding planning and events coordination services are designed for any sized budget, meaning anyone. Our wedding planning and events coordination services are designed.</p>
+    <!-- About Section -->
+    <section id="about" class="content-section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-grid">
+                <div class="about-img">
+                    <img src="../public/assets/images/Home/about_image.jpeg" alt="Wedding Planner Team">
+                </div>
+                <div class="about-text">
+                    <h3>Crafting Perfect Wedding Experiences</h3>
+                    <p>Founded in 2015, Blissful Beginnings has been creating magical wedding experiences that reflect each couple's unique love story. Our passion lies in transforming your vision into an extraordinary celebration.</p>
+                    <p>With our dedicated team of creative professionals, we handle every detail with precision and care, allowing you to fully immerse yourself in the joy of your special day without worry.</p>
+                    <p>From intimate gatherings to grand celebrations, we pride ourselves on personalized service that makes each wedding uniquely beautiful.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">500</div>
+                            <div class="stat-label">Weddings Planned</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98</div>
+                            <div class="stat-label">Happy Couples</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <!-- Services Section with Parallax -->
+    <section id="services" class="parallax-container services-parallax">
+        <div class="services-container">
+            <h2 class="services-title">Our Services</h2>
+            <div class="services-buttons">
+                <a href="/services/salons" class="service-btn"><img src="../public/assets/images/Home/salon.svg"><span>Salons</span></a>
+                <a href="/services/dress-designers" class="service-btn"><img src="../public/assets/images/Home/dress-designer.svg"><span>Dress Designers</span></a>
+                <a href="/services/photographers" class="service-btn"><img src="../public/assets/images/Home/camera.svg"><span>Photographers</span></a>
+                <a href="/services/florists" class="service-btn"><img src="../public/assets/images/Home/florist.svg"><span>Florists</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer/Contact Section -->
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-title">Contact Us</h3>
+                <div class="contact-info">
+                    📍<p>35 Reid Ave, Colombo 00700</p>
+                </div>
+                <div class="contact-info">
+                    📞<p>(+94) 112-729-729</p>
+                </div>
+                <div class="contact-info">
+                    ✉️<p>blissfulbeginnings@gmail.com</p>
+                </div>
+                <div class="contact-info">
+                    ⏰<p>Mon-Fri: 9AM - 6PM</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><img src="../public/assets/images/Home/facebook.svg"></a>
+                    <a href="#"><img src="../public/assets/images/Home/instagram.svg"></a>
+                    <a href="#"><img src="../public/assets/images/Home/pinterest.svg"></a>
+                    <a href="#"><img src="../public/assets/images/Home/x-logo.svg"></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Blissful Beginnings. All Rights Reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

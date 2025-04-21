@@ -56,3 +56,6 @@ $router->post("/customerPaymentData", "CustomerController@getPaymentData");
 
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+
+$router->post("/contact","MessageController@createMessage");
+
