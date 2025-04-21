@@ -4,7 +4,6 @@ const vendorID = pathParts[pathParts.length - 1];
 
 const mainContainer = document.querySelector(".main-container");
 const newPackage = document.querySelector(".add-package");
-const newGalleryImage = document.querySelector(".add-gallery-image");
 const cancelButton = document.querySelector(".cancel-button");
 const deleteButton = document.querySelector(".delete-button");
 const uploadModal = document.getElementById("open-modal-button");

@@ -17,15 +17,15 @@ class HomeController {
     }
 
     public function about() {
-        require_once '.\public\About.html';
+        require_once '.\public\Index.html';
     }
 
     public function contact() {
-        require_once '.\public\Contact.html';
+        require_once '.\public\Index.html';
     }
 
     public function services() {
-        require_once '.\public\Services.html';
+        require_once '.\public\Index.html';
     }
 
     public function salons() {
