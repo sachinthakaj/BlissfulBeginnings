@@ -38,28 +38,66 @@
                         <div class="input-group">
                             <label for="daynight">Day/Night<span class="required">*</span></label>
                             <select id="daynight" name="daynight" required>
-                                <option value="Day">Day</option>
-                                <option value="Night">Night</option>
+                                <option value="day">Day</option>
+                                <option value="night">Night</option>
                             </select>
                         </div>
+                        
+                        <div class="input-group">
+                            <label for="wedding-party-male">Number of Male people in the wedding party</label>
+                            <input type="number" id="wedding-party-male" name="wedding-party-male" required>
+                        </div>
+                        
                         <div class="input-group">
                             <label for="location">Location<span class="required">*</span></label>
                             <input type="text" id="location" name="location" required>
                         </div>
                     </div>
-                    
+
                     <div class="right">
                         <div class="input-group">
                             <label for="theme">Theme<span class="required">*</span></label>
                             <input type="text" id="theme" name="theme" required>
                         </div>
                         <div class="input-group">
-                            <label for="budget">Expected Budget<span class="required">*</span></label>
-                            <input type="number" id="budget" name="budget" required>
+                            <label for="wedding-party-female">Number of Female people in the wedding party</label>
+                            <input type="number" id="wedding-party-female" name="wedding-party-female" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="budget-range">Expected Budget<span class="required">*</span></label>
+                            <select id="budget-range" name="budget" onchange="handleRangeChange()" required>
+                                <option value="">Select a budget range</option>
+                                <option value="0-1000">$0 - $1,000</option>
+                                <option value="1000-5000">$1,000 - $5,000</option>
+                                <option value="5000-10000">$5,000 - $10,000</option>
+                                <option value="10000-25000">$10,000 - $25,000</option>
+                                <option value="25000-50000">$25,000 - $50,000</option>
+                                <option value="50000-100000">$50,000 - $100,000</option>
+                                <option value="100000+">Over $100,000</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+
+                            <!-- Custom range inputs (initially hidden) -->
+                            <div id="custom-range-container" style="display: none; margin-top: 10px;">
+                                <div class="custom-range-inputs">
+                                    <div class="custom-input">
+                                        <label for="min-budget">Minimum ($)</label>
+                                        <input type="number" id="min-budget" min="0" placeholder="0">
+                                    </div>
+                                    <div class="custom-input">
+                                        <label for="max-budget">Maximum ($)</label>
+                                        <input type="number" id="max-budget" min="0" placeholder="1000">
+                                    </div>
+                                </div>
+                                <div id="range-error" class="error-message" style="color: red; font-size: 0.85em; margin-top: 5px; display: none;">
+                                    Minimum value must be less than maximum value.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="checkbox-group">
                     <label><input type="checkbox" name="salon" id="sepSalons">Get the service of separate Salons for bride and groom</label>
                     <label><input type="checkbox" name="dressDesigners" id="sepDressDesigners">Get the service of separate Dress Makers for bride and groom</label>
@@ -84,7 +122,7 @@
                             <input type="tel" id="bride_contact" name="bride_contact" required>
                         </div>
                     </div>
-                    
+
                     <div class="right">
                         <div class="input-group">
                             <label for="bride_address">Address<span class="required">*</span></label>
@@ -129,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="submit-button">
                     <button type="submit">Submit</button>
                 </div>

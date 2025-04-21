@@ -151,17 +151,20 @@ class Wedding
             $this->db->startTransaction();
             $weddingID =  generateUUID($this->db);
             error_log($weddingID);
-            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, budget, sepSalons, sepDressDesigners, weddingstate)
-             VALUES (UNHEX(:weddingID), UNHEX(:userID), :date, :dayNight, :location, :theme, :budget, :sepSalons, :sepDressDesigners, 'new')");
+            $this->db->query("INSERT INTO wedding (weddingID, userID, date, dayNight, location, theme, sepSalons, sepDressDesigners, weddingstate, weddingPartyMale, weddingPartyFemale, budgetMin, budgetMax)
+             VALUES (UNHEX(:weddingID), UNHEX(:userID), :date, :dayNight, :location, :theme,  :sepSalons, :sepDressDesigners, 'new', :weddingPartyMale, :weddingPartyFemale, :budgetMin, :budgetMax)");
             $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
             $this->db->bind(':userID', $userID);
             $this->db->bind(':date', $weddingDetails['date']);
             $this->db->bind(':dayNight', $weddingDetails['time']);
             $this->db->bind(':location', $weddingDetails['location']);
             $this->db->bind(':theme', $weddingDetails['theme']);
-            $this->db->bind(':budget', $weddingDetails['budget']);
+            $this->db->bind(':budgetMin', $weddingDetails['budgetMin']);
+            $this->db->bind(':budgetMax', $weddingDetails['budgetMax']);
             $this->db->bind(':sepSalons', $weddingDetails['sepSalons']);
             $this->db->bind(':sepDressDesigners', $weddingDetails['sepDressDesigners']);
+            $this->db->bind(':weddingPartyMale', $weddingDetails['weddingPartyMale']);
+            $this->db->bind(':weddingPartyFemale', $weddingDetails['weddingPartyFemale']);
             $this->db->execute();
 
 

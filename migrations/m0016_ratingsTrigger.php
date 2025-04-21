@@ -40,7 +40,7 @@ class m0016_ratingsTrigger
     public function down()
     {
         $SQL = "
-      DROP TABLE gallery; ";
+      DROP TRIGGER update_vendor_rating_after_package_assignment_update; ";
         $this->dbh->exec($SQL);
     }
 }

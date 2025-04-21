@@ -69,7 +69,7 @@ class WeddingController
         } catch (Exception $e) {
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
-            echo json_encode(['error' => 'Registration failed']);
+            echo json_encode(['error' => 'Update failed']);
         }
     }
 }
