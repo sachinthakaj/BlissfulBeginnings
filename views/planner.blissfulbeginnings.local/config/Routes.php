@@ -21,6 +21,7 @@ $router->post("/plannerPaymentData","PlannerController@getPaymentData");
 
 $router->get("/fetch-for-budget-progress/{weddingID}", "PlannerController@getAmountToPayCustomer");
 $router->get("/fetch-for-wedding-progress/{weddingID}", "PlannerController@getTasksDetailsForWeddingProgress");
+$router->post("fetch_details_for_search","PlannerController@searchWedding");
 
 
 
@@ -80,3 +81,11 @@ $router->get("/vendor/vendor-details/{vendorID}","PlannerController@vendorProfil
 
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+$router->post("/set-unavailable", "CalendarController@PsetUnavailableDate");
+$router->get("/get-unavailable", "CalendarController@PgetUnavailableDates");
+
+
+
+$router->get("/complete-wedding/{weddingID}", "PlannerController@markWeddingAsComplete");
+$router->get("/get-vendor-ratings/{weddingID}", "PlannerController@getVendorRatings");
+

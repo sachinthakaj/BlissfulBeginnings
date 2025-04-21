@@ -21,30 +21,39 @@ document.addEventListener("DOMContentLoaded", function () {
     percentage.innerHTML = valueOfPercentage + "%";
 
     progressBar.style.width = `${valueOfPercentage}%`;
-    if (valueOfPercentage === 100) {
-      progressBar.style.backgroundColor = "#4caf50";
-    } else if (valueOfPercentage > 50) {
-      progressBar.style.backgroundColor = "#ffc107";
-    } else {
-      progressBar.style.backgroundColor = "#f44336";
-    }
-  }
 
-  function updateBudgetBar(totalTasks, completedTasks) {
-    const progressBar = document.getElementById("budgetBar");
-    const percentage = document.getElementById("budgetProgressPrecentage");
-    const valueOfPercentage = ((completedTasks / totalTasks) * 100).toFixed(1);
-    percentage.innerHTML = valueOfPercentage + "%";
+    // Convert valueOfPercentage to a number for proper comparison
+    const numericPercentage = parseFloat(valueOfPercentage);
 
-    progressBar.style.width = `${valueOfPercentage}%`;
-    if (valueOfPercentage === 100) {
-      progressBar.style.backgroundColor = "#4caf50";
-    } else if (valueOfPercentage > 50) {
-      progressBar.style.backgroundColor = "#ffc107";
-    } else {
-      progressBar.style.backgroundColor = "#f44336";
+    if (numericPercentage === 100) {
+        progressBar.style.backgroundColor = "#4caf50"; // Green
+    } else if (numericPercentage >= 50 && numericPercentage < 100) {
+        progressBar.style.backgroundColor = "#ffc107"; // Yellow
+    } else if (numericPercentage < 50) {
+        progressBar.style.backgroundColor = "#f44336"; // Red
     }
+}
+
+ 
+function updateBudgetBar(totalTasks, completedTasks) {
+  const progressBar = document.getElementById("budgetBar");
+  const percentage = document.getElementById("budgetProgressPrecentage");
+  const valueOfPercentage = ((completedTasks / totalTasks) * 100).toFixed(1);
+  percentage.innerHTML = valueOfPercentage + "%";
+
+  progressBar.style.width = `${valueOfPercentage}%`;
+
+  // Convert valueOfPercentage to a number for proper comparison
+  const numericPercentage = parseFloat(valueOfPercentage);
+
+  if (numericPercentage === 100) {
+      progressBar.style.backgroundColor = "#4caf50"; // Green
+  } else if (numericPercentage >= 50 && numericPercentage < 100) {
+      progressBar.style.backgroundColor = "#ffc107"; // Yellow
+  } else if (numericPercentage < 50) {
+      progressBar.style.backgroundColor = "#f44336"; // Red
   }
+}
 
 
 
@@ -74,6 +83,36 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch((error) => {
       console.error("Error fetching budget progress:", error);
     });
+
+
+
+    fetch(`/fetch-for-wedding-progress/${weddingID}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status == 401) { 
+          window.location.href = "/signin";
+        } else if (response.status == 500) {
+          throw new Error("Internal Server Error");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        
+        const taskCount = data.tasks.taskCount;
+        const finishedTaskCount= data.tasks.finishedTaskCount;
+        updateProgressBar(taskCount, finishedTaskCount);
+  
+  
+  
+      })
+      .catch((error) => {
+        console.error("Error fetching wedding progress:", error);
+      });
 
 });
 
@@ -1040,13 +1079,7 @@ const finished = (data) => {
                                   cardData.progress
                                 }%"></div>
                             </div>
-                            <h4 class="description">Wedding Budget: </h4> 
-                            <div class="progress-bar-container">
-                                <div class="progress-bar budget-progress-bar" style="width: ${
-                                  cardData.budget
-                                }%"></div>
-                            </div>
-                            <div class="stars">
+                            <div class="stars" data-assignmentID="${cardData.assignmentID}">
                             ${Array(5)
                               .fill(0)
                               .map(
@@ -1075,16 +1108,16 @@ const finished = (data) => {
                 }
               });
             });
-            star.addEventListener("click", () => {
+            star.addEventListener("click", (e) => {
               const value = Number(star.dataset.value);
-              fetch("/api/ratings", {
+              console.log(e);
+              fetch(`/rate-vendor/${e.target.parentElement.dataset.assignmentid}`, {
                 method: "POST",
                 headers: {
                   "Content-type": "application/json",
                   Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
                 body: JSON.stringify({
-                  vendorID: cardData.vendorID,
                   rating: value,
                 }),
               }).then((response) => {
@@ -1101,6 +1134,7 @@ const finished = (data) => {
     console.error(e);
   }
 };
+
 
 function render() {
   const loadingScreen = document.getElementById("loading-screen");
@@ -1160,6 +1194,8 @@ function render() {
           ongoing(data);
         } else if (data.weddingState === "unassigned") {
           unassigned(data);
+        } else if (data.weddingState === "finished") {
+          finished(data);
         }
 
         loadingScreen.style.display = "none";

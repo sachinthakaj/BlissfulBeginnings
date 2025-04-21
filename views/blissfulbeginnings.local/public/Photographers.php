@@ -27,7 +27,8 @@
             <div class="back-button">
                 <a href="/services" class="go-back"><img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Go back arrow" class="go-back-arrow" /><span>Back to Services</span></a>
                 <div class="search-container">
-                    <input type="text" placeholder="Search" class="search-input" />
+                    <input type="text"  id="search_id" placeholder="Search" class="search-input" />
+                    <button id="search_button_id" class="search_button">Search</button>
                 </div>
             </div>
             <div class="more-about-photographers more-content">

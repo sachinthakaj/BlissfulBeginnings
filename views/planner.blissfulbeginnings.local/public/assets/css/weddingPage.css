@@ -1,5 +1,6 @@
 @import url("http://cdn.blissfulbeginnings.com/common-css/Common.css");
 @import url("http://cdn.blissfulbeginnings.com/common-css/components/Aside.css");
+@import url("http://cdn.blissfulbeginnings.com/common-css/components/RatingCard.css");
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -304,4 +305,12 @@ main {
   color: black;
   font-size: large;
   font-family: serif;
+}
+
+.rating-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
 }

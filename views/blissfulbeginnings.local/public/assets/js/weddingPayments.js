@@ -69,8 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       confirmCheckoutButton.addEventListener("click", function () {
-
-
         fetch(`/fetch-hash-for-paymentGateway/${weddingID}`, {
           method: "GET",
           headers: {
@@ -97,8 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
             var payment = {
               sandbox: true,
               merchant_id: "1228991", // Replace your Merchant ID
-              return_url: `http://blissfulbeginnings.com/wedding/payment/${weddingID}`, 
-              cancel_url:`http://blissfulbeginnings.com/wedding/payment/${weddingID}`,
+              return_url: `http://blissfulbeginnings.com/wedding/payment/${weddingID}`,
+              cancel_url: `http://blissfulbeginnings.com/wedding/payment/${weddingID}`,
               notify_url: `https://blissfulbeginnings.loca.lt/customerPaymentData`,
               order_id: Response.orderID,
               items: "Wedding Payment",
@@ -118,18 +116,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Start payment
             payhere.startPayment(payment);
-
-           
           })
           .catch((error) => {
             console.error("Error fetching hash:", error);
             alert("Failed to fetch hash for payment. Please try again.");
           });
-          
       });
-
-
-    
 
       confirmCancelButton.addEventListener("click", function () {
         const isConfirmed = window.confirm(
@@ -211,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
       input.type = "number";
       input.id = "paymentAmount";
       input.classList.add("payment-input");
-      input.min = "0";
+      input.min = 0;
       input.max = amount.totalPackagesValue - amount.currentPaid;
       input.required = true;
 
@@ -221,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       inputContainer.appendChild(label);
       inputContainer.appendChild(input);
+
       paymentForm.appendChild(inputContainer);
       paymentForm.appendChild(payButton);
 
@@ -234,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if ((!amountToPay || amountToPay.trim() === "") && !isExist) {
           alert("Please enter an amount");
+          input.focus();
           return;
         }
 
@@ -245,15 +239,18 @@ document.addEventListener("DOMContentLoaded", function () {
           alert(
             "Please cancel the ongoing payment before proceeding with a new payment"
           );
-          window.location.reload();
+
           return;
         }
 
         if (
+          isNaN(amountToPay) ||
           amountToPay <= 0 ||
           amountToPay > amount.totalPackagesValue - amount.currentPaid
         ) {
           alert("Please enter a valid amount");
+          input.value = "";
+          input.focus();
           return;
         }
 
