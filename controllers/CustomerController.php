@@ -52,7 +52,9 @@ class CustomerController
                 header('HTTP/1.1 401 Unauthorized');
                 echo json_encode(['error' => 'Invalid UserID']);
             }
-        } catch (Exception) {
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
         }
     }
 

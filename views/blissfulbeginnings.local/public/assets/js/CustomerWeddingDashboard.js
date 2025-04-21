@@ -390,9 +390,16 @@ function newWedding(data) {
                                             </div>
                                             <div class="input-group">
                                                 <label for="daynight">Day/Night</label>
-                                                <input type="text" id="daynight" name="daynight" value=${
-                                                  data.dayNight
-                                                } required>
+                                                <select id="daynight" name="daynight" value=${data.daynight} required>
+                                                    <option value="Day">Day</option>
+                                                    <option value="Night">Night</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="wedding-party-male">Number of Male people in the wedding party</label>
+                                                <input type="number" id="wedding-party-male" name="wedding-party-male" value=${data.weddingPartyMale
+
+                                                } required >
                                             </div>
                                             <div class="input-group">
                                                 <label for="location">Location</label>
@@ -409,19 +416,38 @@ function newWedding(data) {
                                                 } required>
                                             </div>
                                             <div class="input-group">
-                                                <label for="budget">Expected Budget</label>
-                                                <input type="number" id="budget" name="budget" value=${
-                                                  data.budget
+                                                <label for="wedding-party-female">Number of Female people in the wedding party</label>
+                                                <input type="number" id="wedding-party-female" name="wedding-party-female" value=${data.weddingPartyFemale
+
                                                 } required>
+                                            </div>
+                                            
+                                            <div class="input-group">
+                                                <label for="budget-range">Expected Budget<span class="required">*</span></label>
+                                                <div id="budget-range"">
+                                                    <div class="custom-range-inputs">
+                                                        <div class="custom-input">
+                                                            <label for="min-budget">Minimum ($)</label>
+                                                            <input type="number" id="min-budget" min="0" placeholder="0" value=${data.budgetMin}>
+                                                        </div>
+                                                        <div class="custom-input">
+                                                            <label for="max-budget">Maximum ($)</label>
+                                                            <input type="number" id="max-budget" min="0" placeholder="1000" value=${data.budgetMax}>
+                                                        </div>
+                                                    </div>
+                                                    <div id="range-error" class="error-message" style="color: red; font-size: 0.85em; margin-top: 5px; display: none;">
+                                                        Minimum value must be less than maximum value.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="checkbox-group">
-                                        <label><input type="checkbox" name="salon" id="sepSalons" ${
+                                        <label><input type="checkbox" name="sepSalons" id="sepSalons" ${
                                           data.sepSalons ? "checked" : ""
                                         }     > Get the service of separate Salons for bride and groom</label>
-                                        <label><input type="checkbox" name="dressdesigner" id="sepDressDesigners" value=${
-                                          data.sepDressDesigners
+                                        <label><input type="checkbox" name="sepDressDesigners" id="sepDressDesigners" value=${
+                                          data.sepDressDesigners ? "checked" : ""
                                         } > Get the service of separate Dress Makers for bride and groom</label>
                                     </div>
                                     <button type="button" id="nextBtn">Next</button>
@@ -538,11 +564,19 @@ function newWedding(data) {
             .forEach((input) => {
               input.addEventListener("change", (event) => {
                 const { name, value } = event.target;
-                // Add changed fields to the object
                 changedWeddingFields[name] = value;
-                console.log(`${name} changed, new value: ${value}`);
               });
             });
+
+          weddingDetails.querySelector("#sepSalons").addEventListener("change", (event) => {
+            const { name, checked } = event.target;
+            changedWeddingFields[name] = checked;
+          });
+
+          weddingDetails.querySelector("#sepDressDesigners").addEventListener("change", (event) => { 
+            const { name, checked } = event.target;
+            changedWeddingFields[name] = checked;
+          });
 
           // Attach the 'change' event listener to each input field
           brideDetails
@@ -660,14 +694,14 @@ function newWedding(data) {
           // When the user clicks on <span> (x), close the modal
           span.onclick = function () {
             currentStep = 0;
-            modal.style.display = "none";
+            modal.remove();
           };
 
           // When the user clicks anywhere outside of the modal, close it
           window.onclick = function (event) {
             if (event.target == modal) {
               currentStep = 0;
-              modal.style.display = "none";
+              modal.remove();
             }
           };
         });

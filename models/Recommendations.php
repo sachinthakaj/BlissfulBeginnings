@@ -10,13 +10,22 @@ class Recommendations
     }
 
 
-    public function getBrideSalonRecommendations($allocatedBudget) {
+    public function getBrideSalonRecommendations($allocatedBudget, $numFemaleGroup, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName  FROM salonPackages 
+            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName,
+            packages.fixedCost + salonPackages.variableCostPerFemale * :numFemaleGroup as total_price
+            FROM salonPackages 
             JOIN Packages ON salonPackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic != 'Groom';");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost + salonPackages.variableCostPerFemale * :numFemaleGroup <= :allocatedBudget 
+            AND salonPackages.demographic != 'Groom'
+            AND unavailableDates.vendorID IS NULL
+            ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":numFemaleGroup", $numFemaleGroup);
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -25,13 +34,22 @@ class Recommendations
         }
     }
 
-    public function getGroomSalonRecommendations($allocatedBudget) {
+    public function getGroomSalonRecommendations($allocatedBudget, $numMaleGroup, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName  FROM salonPackages 
+            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName,
+            packages.fixedCost + salonPackages.variableCostPerFemale * :numFemaleGroup as total_price
+            FROM salonPackages 
             JOIN Packages ON salonPackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic != 'Bride';");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost + salonPackages.variableCostPerMale * :numMaleGroup <= :allocatedBudget 
+            AND salonPackages.demographic != 'Bride'
+            AND unavailableDates.vendorID IS NULL
+                ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":numMaleGroup", $numMaleGroup);
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -40,13 +58,23 @@ class Recommendations
         }
     }
 
-    public function getSalonRecommendations($allocatedBudget) {
+    public function getSalonRecommendations($allocatedBudget, $numMaleGroup, $numFemaleGroup, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName  FROM salonPackages 
+            $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName,
+            packages.fixedCost + salonPackages.variableCostPerFemale * :numFemaleGroup + salonPackages.variableCostPerMale * :numMaleGroup as total_price
+            FROM salonPackages 
             JOIN Packages ON salonPackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget AND salonPackages.demographic = 'Both';");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost + salonPackages.variableCostPerFemale * :numFemaleGroup + salonPackages.variableCostPerMale * :numMaleGroup <= :allocatedBudget 
+            AND salonPackages.demographic = 'Both'
+            AND unavailableDates.vendorID IS NULL
+            ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":numMaleGroup", $numMaleGroup);
+            $this->db->bind(":numFemaleGroup", $numFemaleGroup);
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -55,13 +83,18 @@ class Recommendations
         }
     }
 
-    public function getPhotographerRecommendations($allocatedBudget) {
+    public function getPhotographerRecommendations($allocatedBudget, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , photographyPackages.*, vendors.businessName  FROM photographyPackages 
+            $this->db->query("SELECT packages.* , photographyPackages.*, vendors.businessName, packages.fixedCost as total_price  FROM photographyPackages 
             JOIN Packages ON photographyPackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget;");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost <= :allocatedBudget
+            AND unavailableDates.vendorID IS NULL
+            ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -70,13 +103,22 @@ class Recommendations
         }
     }
 
-    public function getBrideDressDesignerRecommendations($allocatedBudget) {
+    public function getBrideDressDesignerRecommendations($allocatedBudget, $numFemaleGroup, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName  FROM dressDesignerPackages 
-            JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName,
+            packages.fixedCost + dressdesignerpackages.variableCostPerFemale * :numFemaleGroup as total_price
+            FROM dressdesignerpackages
+            JOIN Packages ON dressdesignerpackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic != 'Groom';");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost + dressdesignerpackages.variableCostPerFemale * :numFemaleGroup <= :allocatedBudget 
+            AND salonPackages.demographic != 'Groom'
+            AND unavailableDates.vendorID IS NULL
+            ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":numFemaleGroup", $numFemaleGroup);
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -85,13 +127,22 @@ class Recommendations
         }
     }
 
-    public function getGroomDressDesignerRecommendations($allocatedBudget) {
+    public function getGroomDressDesignerRecommendations($allocatedBudget, $numMaleGroup, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName  FROM dressDesignerPackages 
-            JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName,
+            packages.fixedCost + dressdesignerpackages.variableCostPerMale * :numMaleGroup as total_price
+            FROM dressdesignerpackages
+            JOIN Packages ON dressdesignerpackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic != 'Bride';");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost + dressdesignerpackages.variableCostPerMale * :numMaleGroup <= :allocatedBudget 
+            AND salonPackages.demographic != 'Bride'
+            AND unavailableDates.vendorID IS NULL;
+            ");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":numMaleGroup", $numMaleGroup);
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -100,13 +151,23 @@ class Recommendations
         }
     }
 
-    public function getDressDesignerRecommendations($allocatedBudget) {
+    public function getDressDesignerRecommendations($allocatedBudget, $numMaleGroup, $numFemaleGroup, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName  FROM dressDesignerPackages 
-            JOIN Packages ON dressDesignerPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , dressDesignerPackages.*, vendors.businessName,
+            packages.fixedCost + dressdesignerpackages.variableCostPerMale * :numMaleGroup + dressdesignerpackages.variableCostPerFemale * :numFemaleGroup as total_price
+            FROM dressdesignerpackages
+            JOIN Packages ON dressdesignerpackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget AND dressDesignerPackages.demographic = 'Both';");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost + dressdesignerpackages.variableCostPerMale * :numMaleGroup + dressdesignerpackages.variableCostPerFemale * :numFemaleGroup <= :allocatedBudget 
+            AND salonPackages.demographic != 'Bride'
+            AND unavailableDates.vendorID IS NULL
+            ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":numMaleGroup", $numMaleGroup);
+            $this->db->bind(":numFemaleGroup", $numFemaleGroup);    
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -115,13 +176,21 @@ class Recommendations
         }
     }
 
-    public function getFloristRecommendations($allocatedBudget) {
+    public function getFloristRecommendations($allocatedBudget, $numFemaleGroup, $weddingDate)
+    {
         try {
-            $this->db->query("SELECT packages.* , floristPackages.*, vendors.businessName FROM floristPackages 
-            JOIN Packages ON floristPackages.packageID = Packages.packageID 
+            $this->db->query("SELECT packages.* , floristPackages.*, vendors.businessName,
+            packages.fixedCost + floristpackages.variableCostPerFemale * :numFemaleGroup as total_price
+            FROM floristpackages
+            JOIN Packages ON floristpackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
-            WHERE packages.fixedCost <= :allocatedBudget ;");
+            LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
+            WHERE packages.fixedCost + floristpackages.variableCostPerFemale * :numFemaleGroup <= :allocatedBudget 
+            AND unavailableDates.vendorID IS NULL;
+            ");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
+            $this->db->bind(":numFemaleGroup", $numFemaleGroup);
+            $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -140,11 +209,11 @@ class Recommendations
             $result = 0;
             foreach ($selectedPackages as $typeID => $packages) {
                 foreach ($packages as $packageID) {
-                        $this->db->query('INSERT INTO recommendations (weddingID, packageID, typeID) VALUES (UNHEX(:weddingID), UNHEX(:packageID), :typeID)');
+                    $this->db->query('INSERT INTO recommendations (weddingID, packageID, typeID) VALUES (UNHEX(:weddingID), UNHEX(:packageID), :typeID)');
                     $this->db->bind(':weddingID', $weddingID);
                     $this->db->bind(':packageID', $packageID);
                     $this->db->bind(':typeID', $typeID);
-                    error_log("weddingID: ". $weddingID." packageID: ". $packageID." typeID: ". $typeID);
+                    error_log("weddingID: " . $weddingID . " packageID: " . $packageID . " typeID: " . $typeID);
                     $this->db->execute();
                     $result += $this->db->rowCount();
                     error_log($result);
