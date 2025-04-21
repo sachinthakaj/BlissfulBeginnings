@@ -152,18 +152,18 @@ document.addEventListener("DOMContentLoaded", function () {
     weddingPartyFemale = document.querySelector('#wedding-group-female');
   
 
-    if(weddingPartyMale) {
+    if(data.weddingPartyMale) {
       weddingPartyMale.value = data.weddingPartyMale;
       weddingPartyMale.disabled = true;
     } else {
-      weddingPartyMale = 3;
+      weddingPartyMale.value = 3;
     }
 
-    if(weddingPartyFemale) {
+    if(data.weddingPartyFemale) {
       weddingPartyFemale.value = data.weddingPartyFemale;
       weddingPartyFemale.disabled = true;
     } else {
-      weddingPartyFemale = 3;
+      weddingPartyFemale.value = 3;
     }
 
     const weddingDate = document.querySelector('#wedding-date');
@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     vendorBudgets.forEach(input => {
       input.addEventListener('input', updateTotalBudget);
+      input.addEventListener('input', updateRemainingBudget);
     });
     updateTotalBudget();
     document.querySelectorAll('.card').forEach(card => {
@@ -199,6 +200,12 @@ document.addEventListener("DOMContentLoaded", function () {
           showNotification("Please enter allocated budget", "red");
           return;
         }
+        const numMaleGroup = document.querySelector('#wedding-group-male').value;
+        const numFemaleGroup = document.querySelector('#wedding-group-female').value;
+        const weddingDate = document.querySelector('#wedding-date').textContent;
+
+        console.log(allocatedBudget, numMaleGroup, numFemaleGroup, weddingDate);
+
         fetch('/wedding/' + weddingID + '/get-packages/' + assignmentType, {
           method: 'POST',
           headers: {
@@ -206,7 +213,10 @@ document.addEventListener("DOMContentLoaded", function () {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            allocatedBudget
+            allocatedBudget,
+            numMaleGroup,
+            numFemaleGroup,
+            weddingDate
           }),
         }).then(response => {
           if (!response.ok) {
