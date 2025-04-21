@@ -112,21 +112,21 @@ INSERT INTO `packages` (`packageID`, `vendorID`, `packageName`, `feature1`, `fea
 
 
 
-INSERT INTO `dressdesignerpackages` (`packageID`, `variableCost`, `theme`, `demographic`) VALUES
-(0x1fdf1cdcad5f11ef849640c2ba135079, 40000, \'Kandyan\', \'Both\'),
-(0x3be1e9ecad5f11ef849640c2ba135079, 50000, \'Western\', \'\'),
-(0x46add449ad6011ef849640c2ba135079, 50000, \'Western\', \'\'),
-(0x4fa7d5d6aa3f11ef8612cc153136262a, 50000, \'Kandyan\', \'Both\'),
-(0x5c44de6cad5d11ef849640c2ba135079, 40000, \'Western\', \'\'),
-(0x6014cc41ad5f11ef849640c2ba135079, 60000, \'Western\', \'\'),
-(0x66963c6dad6011ef849640c2ba135079, 200000, \'Western\', \'Both\'),
-(0x7da01591aa3f11ef8612cc153136262a, 25000, \'Kandyan\', \'Both\'),
-(0x95994369aa3f11ef8612cc153136262a, 50000, \'Kandyan\', \'Both\'),
-(0x97207b50ad5d11ef849640c2ba135079, 55000, \'Kandyan\', \'\'),
-(0xc975c707ad5d11ef849640c2ba135079, 60000, \'Western\', \'Both\'),
-(0xd685e489ad5f11ef849640c2ba135079, 40000, \'Western\', \'\');
+INSERT INTO `dressdesignerpackages` (`packageID`, `variableCostPerMale`, `variableCostPerFemale`, `theme`, `demographic`) VALUES
+(0x1fdf1cdcad5f11ef849640c2ba135079, 40000, 40000, \'Kandyan\', \'Both\'),
+(0x3be1e9ecad5f11ef849640c2ba135079, 50000, 50000, \'Western\', \'\'),
+(0x46add449ad6011ef849640c2ba135079, 50000, 50000, \'Western\', \'\'),
+(0x4fa7d5d6aa3f11ef8612cc153136262a, 50000, 50000, \'Kandyan\', \'Both\'),
+(0x5c44de6cad5d11ef849640c2ba135079, 40000, 40000, \'Western\', \'\'),
+(0x6014cc41ad5f11ef849640c2ba135079, 60000, 60000, \'Western\', \'\'),
+(0x66963c6dad6011ef849640c2ba135079, 200000, 200000, \'Western\', \'Both\'),
+(0x7da01591aa3f11ef8612cc153136262a, 25000, 25000, \'Kandyan\', \'Both\'),
+(0x95994369aa3f11ef8612cc153136262a, 50000, 50000, \'Kandyan\', \'Both\'),
+(0x97207b50ad5d11ef849640c2ba135079, 55000, 55000, \'Kandyan\', \'\'),
+(0xc975c707ad5d11ef849640c2ba135079, 60000, 60000, \'Western\', \'Both\'),
+(0xd685e489ad5f11ef849640c2ba135079, 40000, 40000, \'Western\', \'\');
 
-INSERT INTO `floristpackages` (`packageID`, `variableCost`, `flowerType`) VALUES
+INSERT INTO `floristpackages` (`packageID`, `variableCostPerFemale`, `flowerType`) VALUES
 (0x04513d46ad5511ef849640c2ba135079, 10000, \'Fresh\'),
 (0x189eec2faa3f11ef8612cc153136262a, 9000, \'Fresh\'),
 (0x807584e7ad5511ef849640c2ba135079, 15000, \'Fresh\'),
@@ -146,17 +146,17 @@ INSERT INTO `photographypackages` (`packageID`, `cameraCoverage`) VALUES
 (0xbc3bbc70ad6811efa5ba0a0027000004, 1),
 (0xeef69d94ad6611efa5ba0a0027000004, 1);
 
-INSERT INTO `salonpackages` (`packageID`, `variableCost`, `demographic`) VALUES
-(0x2a309042a98d11ef8612cc153136262a, 40000, \'Bride\'),
-(0x2e10326ead6a11efa5ba0a0027000004, 0, \'Both\'),
-(0x4eabbe7ead6911efa5ba0a0027000004, 0, \'Bride\'),
-(0x6574a1d6aa3d11ef8612cc153136262a, 100, \'Bride\'),
-(0x908e3736ad6a11efa5ba0a0027000004, 0, \'Both\'),
-(0x92b09544ad6911efa5ba0a0027000004, 0,\'\'),
-(0xb438a7d5a98111ef8612cc153136262a, 10000, \'Both\'),
-(0xbabdb1fdad6a11efa5ba0a0027000004, 0, \'Bride\'),
-(0xc12e48adad6911efa5ba0a0027000004, 0, \'Bride\'),
-(0xc6f94118a98111ef8612cc153136262a, 1300, \'Bride\');
+INSERT INTO `salonpackages` (`packageID`, `variableCostPerMale`, `variableCostPerFemale`, `demographic`) VALUES
+(0x2a309042a98d11ef8612cc153136262a, 40000, 40000, \'Bride\'),
+(0x2e10326ead6a11efa5ba0a0027000004, 0, 0, \'Both\'),
+(0x4eabbe7ead6911efa5ba0a0027000004, 0, 0, \'Bride\'),
+(0x6574a1d6aa3d11ef8612cc153136262a, 100, 100, \'Bride\'),
+(0x908e3736ad6a11efa5ba0a0027000004, 0, 0, \'Both\'),
+(0x92b09544ad6911efa5ba0a0027000004, 0, 0,\'\'),
+(0xb438a7d5a98111ef8612cc153136262a, 10000, 10000, \'Both\'),
+(0xbabdb1fdad6a11efa5ba0a0027000004, 0, 0, \'Bride\'),
+(0xc12e48adad6911efa5ba0a0027000004, 0, 0, \'Bride\'),
+(0xc6f94118a98111ef8612cc153136262a, 1300, 1300, \'Bride\');
 
 
 INSERT INTO `newvendornotifications` (`notificationID`, `title`, `message`, `reference`) VALUES

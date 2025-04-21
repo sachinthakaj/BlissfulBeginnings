@@ -28,7 +28,8 @@ class m0007_packages {
 
       CREATE TABLE `dressDesignerPackages` (
         `packageID` BINARY(16)  PRIMARY KEY,
-        `variableCost` int(10) NOT NULL,
+        `variableCostPerMale` int(10) NOT NULL,
+        `variableCostPerFemale` int(10) NOT NULL,
         `theme` varchar(255) NOT NULL,
         `demographic` ENUM('Bride', 'Groom', 'Both') NOT NULL,
 
@@ -38,7 +39,8 @@ class m0007_packages {
 
       CREATE TABLE `salonPackages` (
         `packageID` BINARY(16)  PRIMARY KEY,
-        `variableCost` int(10) NOT NULL,
+        `variableCostPerMale` int(10) NOT NULL,
+        `variableCostPerFemale` int(10) NOT NULL,
         `demographic` ENUM('Bride', 'Groom', 'Both') NOT NULL,
 
   CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -46,7 +48,7 @@ class m0007_packages {
 
       CREATE TABLE `floristPackages` (
         `packageID` BINARY(16)  PRIMARY KEY,
-        `variableCost` int(10) NOT NULL,
+        `variableCostPerFemale` int(10) NOT NULL,
         `flowerType` ENUM('Fresh', 'Artificial') NOT NULL,
 
   CONSTRAINT  FOREIGN KEY (packageID) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE

@@ -498,8 +498,12 @@ const createDressDesignerPackage = (modalContent) => {
             <input type="text" id="theme" name="theme"  required>
         </div>
         <div class="input-group specific">
-            <label for="variableCost">Cost per Group Member</label>
-            <input type="text" id="variableCost" name="variableCost" required>
+            <label for="variableCostPerMale">Cost per Male Group Member</label>
+            <input type="text" id="variableCostPerMale" name="variableCostPerMale" required>
+        </div>
+        <div class="input-group specific">
+            <label for="variableCostPerFemale">Cost per Female Group Member</label>
+            <input type="text" id="variableCostPerFemale" name="variableCostPerFemale" required>
         </div>
         <div class="input-group specific">
             <label for="dempgraphic">Demographic</label>
@@ -511,6 +515,18 @@ const createDressDesignerPackage = (modalContent) => {
         </div>
         </div>
         </form > `;
+        div.querySelector("#demographic").addEventListener("change", (event) => {
+          console.log(event.target.value);
+          const selectedValue = event.target.value;
+          if(selectedValue === "Male") {
+            console.log(event.target.parent.parent.querySelector("#variableCostPerFemale"));
+            event.target.parent.parent.querySelector("#variableCostPerFemale").style.disabled = true;
+            event.target.parent.parent.querySelector("#variableCostPerFemale").value = "";
+          } else if (selectedValue === "Female") {
+            event.target.parent.parent.querySelector("#variableCostPerMale").style.disabled = true;
+            event.target.parent.parent.querySelector("#variableCostPerMale").value = "";
+          }
+        });
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);

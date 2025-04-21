@@ -446,7 +446,7 @@ function newWedding(data) {
                                         <label><input type="checkbox" name="sepSalons" id="sepSalons" ${
                                           data.sepSalons ? "checked" : ""
                                         }     > Get the service of separate Salons for bride and groom</label>
-                                        <label><input type="checkbox" name="sepDressdesigners" id="sepDressDesigners" value=${
+                                        <label><input type="checkbox" name="sepDressDesigners" id="sepDressDesigners" value=${
                                           data.sepDressDesigners ? "checked" : ""
                                         } > Get the service of separate Dress Makers for bride and groom</label>
                                     </div>
@@ -564,12 +564,19 @@ function newWedding(data) {
             .forEach((input) => {
               input.addEventListener("change", (event) => {
                 const { name, value } = event.target;
-                console.log(`${name} changed, new value: ${value}`);
-                // Add changed fields to the object
                 changedWeddingFields[name] = value;
-                console.log(`${name} changed, new value: ${value}`);
               });
             });
+
+          weddingDetails.querySelector("#sepSalons").addEventListener("change", (event) => {
+            const { name, checked } = event.target;
+            changedWeddingFields[name] = checked;
+          });
+
+          weddingDetails.querySelector("#sepDressDesigners").addEventListener("change", (event) => { 
+            const { name, checked } = event.target;
+            changedWeddingFields[name] = checked;
+          });
 
           // Attach the 'change' event listener to each input field
           brideDetails

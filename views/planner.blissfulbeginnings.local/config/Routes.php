@@ -14,7 +14,7 @@ $router->post("/update-tasks/{taskID}", "PlannerController@updateOfTasks");
 $router->delete("/delete-tasks/{taskID}","PlannerController@deleteOfTasks");
 
 
-$router->get("/wedding/{weddingID}/{assignmentID}","PlannerController@makePayments");
+$router->get("/wedding/{weddingID}/payments/{assignmentID}","PlannerController@makePayments");
 $router->get("/fetch-pakageData-to-pay/{assignmentID}","PlannerController@getDataToPay");
 $router->get("/fetch-hash-for-paymentGateway/{assignmentID}","PlannerController@generateHashForPaymentGateway");
 $router->post("/plannerPaymentData","PlannerController@getPaymentData");
@@ -36,7 +36,7 @@ $router->post("/planner-logout","PlannerAuthController@logout");
 $router->get("/wedding/{weddingID}", "PlannerController@plannerWedding");
 $router->get("/selectPackages/{weddingID}","PlannerController@selectPackages");
 
-$router->get("/wedding/data/{weddingID}", "customerController@fetchData");
+$router->get("/wedding/data/{weddingID}", "CustomerController@fetchData");
 
 
 $router->get("/salons", "PlannerController@salonsList");

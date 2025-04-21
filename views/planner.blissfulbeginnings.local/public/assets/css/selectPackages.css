@@ -1,3 +1,6 @@
+@import url('http://cdn.blissfulbeginnings.com/common-css/Common.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/Aside.css');
+
 #loading-screen {
   position: fixed;
   top: 0;
@@ -41,41 +44,42 @@ body {
   overflow: auto;
 }
 
+
 header {
-  font-family: "Gwendolyn";
-  background-color: #ddd;
-  height: 10vh;
-  padding: 10px;
-  display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-}
-
-.nav-bar-logo-container {
-  height: 100%;
-  margin-right: auto;
-
-}
-.wedding-title-container{
-  margin-right: auto;
-
-}
-
-.nav-bar-logo {
-  max-height: 100%;
-  max-width: auto;
-}
-
-.wedding-title {
-  font-family: "Gwendolyn";
-  font-size: 40px;
-  color: #c1a42e;
+  position: static;
 }
 
 .above-main {
   background-color: #fff;
 }
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+main {
+  flex-grow: 1;
+  padding: 20px;
+  overflow: auto;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+#proceed-button {
+  margin-left:auto;
+}
+
 
 .main-body {
   background-color: #fff;
@@ -108,19 +112,20 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  
+
 }
 
-.budget-info {
+.wedding-group-info {
+  width: 100%;
+}
+
+.wedding-group-info-table {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  margin-left: 20px;
 }
 
-.budget-info label {
-  margin-right: 10px;
-  /* Adds space between label and input */
-}
 
 #proceed-button {
   padding: 10px;
@@ -137,6 +142,7 @@ header {
 #proceed-button:hover {
   transform: scale(1.05);
 }
+
 .card {
   background-color: #f0f0f0;
   color: #c1a42e;
@@ -184,11 +190,6 @@ header {
   background-color: #ddd;
 }
 
-.content-wrapper {
-  display: flex;
-  flex: 1;
-  background-color: #4a5d23;
-}
 
 #modal {
   display: none;
@@ -249,7 +250,8 @@ header {
   position: relative;
 }
 
-.package-card:hover, .package-card.selected {
+.package-card:hover,
+.package-card.selected {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   background-color: #c1a42e;
@@ -269,5 +271,3 @@ header {
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
-
-

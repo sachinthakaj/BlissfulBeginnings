@@ -68,6 +68,9 @@ class Router
 
         $controller = $result['controller'];
         $function = $result['method'];
+
+        error_log($controller);
+        error_log($function);
         if(class_exists($controller)) {
 
             $controllerInstance = new $controller();
