@@ -19,9 +19,10 @@ class Package
 
     public function createDressDesignerPackage($packageID, $packageDetails)
     {
-        $this->db->query("INSERT INTO dressDesignerPackages (packageID, variableCost, theme, demographic) VALUES (UNHEX(:packageID), :variableCost, :theme, :demographic);");
+        $this->db->query("INSERT INTO dressDesignerPackages (packageID, variableCostPerMale, variableCostPerFemale, theme, demographic) VALUES (UNHEX(:packageID), :variableCostPerMale, :variableCostPerFemale, :theme, :demographic);");
         $this->db->bind(':packageID', $packageID);
-        $this->db->bind(':variableCost', $packageDetails['variableCost']);
+        $this->db->bind(':variableCostPerMale', $packageDetails['variableCostPerMale']);
+        $this->db->bind(':variableCostPerFemale', $packageDetails['variableCostPerFemale']);
         $this->db->bind(':demographic', $packageDetails['demographic']);
         $this->db->bind(':theme', $packageDetails['theme']);
         $this->db->execute();
@@ -29,18 +30,19 @@ class Package
 
     public function createSalonPackage($packageID, $packageDetails)
     {
-        $this->db->query("INSERT INTO salonPackages (packageID, variableCost, demographic) VALUES (UNHEX(:packageID), :variableCost, :demographic);");
+        $this->db->query("INSERT INTO salonPackages (packageID, variableCostPerMale, variableCostPerFemale, demographic) VALUES (UNHEX(:packageID), :variableCostPerMale, :variableCostPerFemale, :demographic);");
         $this->db->bind(':packageID', $packageID);
-        $this->db->bind(':variableCost', $packageDetails['variableCost']);
+        $this->db->bind(':variableCostPerMale', $packageDetails['variableCostPerMale']);
+        $this->db->bind(':variableCostPerFemale', $packageDetails['variableCostPerFemale']);
         $this->db->bind(':demographic', $packageDetails['demographic']);
         $this->db->execute();
     }
 
     public function createFloristPackage($packageID, $packageDetails)
     {
-        $this->db->query("INSERT INTO floristPackages (packageID, variableCost, flowerType) VALUES (UNHEX(:packageID), :variableCost, :flowerType);");
+        $this->db->query("INSERT INTO floristPackages (packageID, variableCostPerFemale, flowerType) VALUES (UNHEX(:packageID), :variableCostPerFemale, :flowerType);");
         $this->db->bind(':packageID', $packageID);
-        $this->db->bind(':variableCost', $packageDetails['variableCost']);
+        $this->db->bind(':variableCostPerFemale', $packageDetails['variableCostPerFemale']);
         $this->db->bind(':flowerType', $packageDetails['flowerType']);
         $this->db->execute();
         error_log("Package ID in Florist: " . $packageID);
