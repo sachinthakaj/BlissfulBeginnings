@@ -38,7 +38,7 @@ class Recommendations
     {
         try {
             $this->db->query("SELECT packages.* , salonPackages.*, vendors.businessName,
-            packages.fixedCost + salonPackages.variableCostPerFemale * :numFemaleGroup as total_price
+            packages.fixedCost + salonPackages.variableCostPerMale * :numMaleGroup as total_price
             FROM salonPackages 
             JOIN Packages ON salonPackages.packageID = Packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
@@ -113,7 +113,7 @@ class Recommendations
             JOIN vendors ON packages.vendorID = vendors.vendorID
             LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
             WHERE packages.fixedCost + dressdesignerpackages.variableCostPerFemale * :numFemaleGroup <= :allocatedBudget 
-            AND salonPackages.demographic != 'Groom'
+            AND dressDesignerPackages.demographic != 'Groom'
             AND unavailableDates.vendorID IS NULL
             ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
@@ -137,7 +137,7 @@ class Recommendations
             JOIN vendors ON packages.vendorID = vendors.vendorID
             LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
             WHERE packages.fixedCost + dressdesignerpackages.variableCostPerMale * :numMaleGroup <= :allocatedBudget 
-            AND salonPackages.demographic != 'Bride'
+            AND dressDesignerPackages.demographic != 'Bride'
             AND unavailableDates.vendorID IS NULL;
             ");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
@@ -161,7 +161,7 @@ class Recommendations
             JOIN vendors ON packages.vendorID = vendors.vendorID
             LEFT JOIN unavailableDates ON vendors.vendorID = unavailableDates.vendorID AND unavailableDates.unavailable_date = :weddingDate
             WHERE packages.fixedCost + dressdesignerpackages.variableCostPerMale * :numMaleGroup + dressdesignerpackages.variableCostPerFemale * :numFemaleGroup <= :allocatedBudget 
-            AND salonPackages.demographic != 'Bride'
+            AND dressDesignerPackages.demographic != 'Bride'
             AND unavailableDates.vendorID IS NULL
             ;");
             $this->db->bind(":allocatedBudget", $allocatedBudget);
@@ -173,6 +173,7 @@ class Recommendations
             return $result;
         } catch (Exception $e) {
             error_log($e);
+            throw $e;
         }
     }
 
