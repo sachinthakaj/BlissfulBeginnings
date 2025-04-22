@@ -16,12 +16,17 @@ class m0002_weddings {
         location varchar(255) NOT NULL,
         theme varchar(255) NOT NULL,
         budget int,
+        budgetMin INT,
+        budgetMax INT,
         currentPaid int DEFAULT 0,
         numTasks int,
         currentCompleted int,
         sepSalons BOOLEAN, 
         sepDressDesigners BOOLEAN,
         weddingState ENUM('new', 'unassigned', 'ongoing', 'finished') NOT NULL,
+        weddingPartyMale INT,
+        weddingPartyFemale INT,
+        
 
         CONSTRAINT fk_weds_ref_users FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE ON UPDATE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";

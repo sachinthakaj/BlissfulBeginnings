@@ -31,7 +31,7 @@ let selectedPackages = {};
 document.addEventListener("DOMContentLoaded", function () {
 
   const loadingScreen = document.getElementById("loading-screen");
-  const mainContent = document.getElementById("main-content");
+  const mainContent = document.getElementById(".content-wrapper");
   fetch('/wedding/data/' + weddingID, {
     method: 'GET',
     headers: {
@@ -131,18 +131,61 @@ document.addEventListener("DOMContentLoaded", function () {
                                   </div>`
 
     const vendorBudgets = document.querySelectorAll('.vendor-budget');
-    const totalBudgetElement = document.querySelector('.budget-info span');
+    const totalBudgetElement = document.querySelector('#total-budget');
     const updateTotalBudget = () => {
       const totalBudget = Array.from(vendorBudgets).reduce((total, input) => total + Number(input.value), 0);
       totalBudgetElement.textContent = totalBudget;
-      if (totalBudget > data.budget) {
+      if (totalBudget > data.budgetMax) {
         totalBudgetElement.style.color = "red";
       } else {
         totalBudgetElement.style.color = "";
       }
     }
+
+    const budgetMin = document.querySelector('#min-budget');
+    const budgetMax = document.querySelector('#max-budget');
+
+    budgetMin.textContent = data.budgetMin;
+    budgetMax.textContent = data.budgetMax;
+
+    weddingPartyMale = document.querySelector('#wedding-group-male');
+    weddingPartyFemale = document.querySelector('#wedding-group-female');
+  
+
+    if(data.weddingPartyMale) {
+      weddingPartyMale.value = data.weddingPartyMale;
+      weddingPartyMale.disabled = true;
+    } else {
+      weddingPartyMale.value = 3;
+    }
+
+    if(data.weddingPartyFemale) {
+      weddingPartyFemale.value = data.weddingPartyFemale;
+      weddingPartyFemale.disabled = true;
+    } else {
+      weddingPartyFemale.value = 3;
+    }
+
+    const weddingDate = document.querySelector('#wedding-date');
+    weddingDate.textContent = data.date;
+
+    const ceremonyTime = document.querySelector('#ceremony-time');
+    ceremonyTime.textContent = data.dayNight;
+
+    const remainingBudgetElement = document.querySelector('#remaining-budget');
+    const updateRemainingBudget = () => {
+      const remainingBudget = data.budgetMax - totalBudgetElement.textContent;
+      remainingBudgetElement.textContent = remainingBudget;
+      if (remainingBudget < 0) {
+        remainingBudgetElement.style.color = "red";
+      } else {
+        remainingBudgetElement.style.color = "";
+      }
+    }
+
     vendorBudgets.forEach(input => {
       input.addEventListener('input', updateTotalBudget);
+      input.addEventListener('input', updateRemainingBudget);
     });
     updateTotalBudget();
     document.querySelectorAll('.card').forEach(card => {
@@ -157,6 +200,12 @@ document.addEventListener("DOMContentLoaded", function () {
           showNotification("Please enter allocated budget", "red");
           return;
         }
+        const numMaleGroup = document.querySelector('#wedding-group-male').value;
+        const numFemaleGroup = document.querySelector('#wedding-group-female').value;
+        const weddingDate = document.querySelector('#wedding-date').textContent;
+
+        console.log(allocatedBudget, numMaleGroup, numFemaleGroup, weddingDate);
+
         fetch('/wedding/' + weddingID + '/get-packages/' + assignmentType, {
           method: 'POST',
           headers: {
@@ -164,7 +213,10 @@ document.addEventListener("DOMContentLoaded", function () {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            allocatedBudget
+            allocatedBudget,
+            numMaleGroup,
+            numFemaleGroup,
+            weddingDate
           }),
         }).then(response => {
           if (!response.ok) {

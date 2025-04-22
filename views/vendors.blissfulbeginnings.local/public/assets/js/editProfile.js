@@ -4,7 +4,6 @@ const vendorID = pathParts[pathParts.length - 1];
 
 const mainContainer = document.querySelector(".main-container");
 const newPackage = document.querySelector(".add-package");
-const newGalleryImage = document.querySelector(".add-gallery-image");
 const cancelButton = document.querySelector(".cancel-button");
 const deleteButton = document.querySelector(".delete-button");
 const uploadModal = document.getElementById("open-modal-button");
@@ -70,16 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div>What's Included:</div>
                         <ul>
                             <li>${package.feature1}</li>
-                            ${
-                              package.feature2
-                                ? `<li>${package.feature2}</li>`
-                                : ""
-                            }
-                            ${
-                              package.feature3
-                                ? `<li>${package.feature3}</li>`
-                                : ""
-                            }
+                            ${package.feature2
+            ? `<li>${package.feature2}</li>`
+            : ""
+          }
+                            ${package.feature3
+            ? `<li>${package.feature3}</li>`
+            : ""
+          }
                         </ul>
                         <div class="price">${package.fixedCost} LKR</div>
                     </div>
@@ -162,16 +159,14 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div>What's Included:</div>
                                 <ul>
                                     <li>${package.feature1}</li>
-                                    ${
-                                      package.feature2
-                                        ? `<li>${package.feature2}</li>`
-                                        : ""
-                                    }
-                                    ${
-                                      package.feature3
-                                        ? `<li>${package.feature3}</li>`
-                                        : ""
-                                    }
+                                    ${package.feature2
+                    ? `<li>${package.feature2}</li>`
+                    : ""
+                  }
+                                    ${package.feature3
+                    ? `<li>${package.feature3}</li>`
+                    : ""
+                  }
                                 </ul>
                                 <div class="price">${package.fixedCost}</div>
                             </div >
@@ -474,6 +469,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+const demographyToggleHandler = (event) => {
+  const selectedValue = event.target.value;
+  if (selectedValue === "Male") {
+    event.target.parentNode.parentNode.querySelector("#variableCostPerFemale").disabled = true;
+    event.target.parentNode.parentNode.querySelector("#variableCostPerFemale").value = "";
+  } else if (selectedValue === "Female") {
+    event.target.parentNode.parentNode.querySelector("#variableCostPerMale").disabled = true;
+    event.target.parentNode.parentNode.querySelector("#variableCostPerMale").value = "";
+  }
+}
+
 const createPhotographerPackage = (modalContent) => {
   const div = document.createElement("div");
   div.innerHTML = `
@@ -498,8 +504,12 @@ const createDressDesignerPackage = (modalContent) => {
             <input type="text" id="theme" name="theme"  required>
         </div>
         <div class="input-group specific">
-            <label for="variableCost">Cost per Group Member</label>
-            <input type="text" id="variableCost" name="variableCost" required>
+            <label for="variableCostPerMale">Cost per Male Group Member</label>
+            <input type="text" id="variableCostPerMale" name="variableCostPerMale" required>
+        </div>
+        <div class="input-group specific">
+            <label for="variableCostPerFemale">Cost per Female Group Member</label>
+            <input type="text" id="variableCostPerFemale" name="variableCostPerFemale" required>
         </div>
         <div class="input-group specific">
             <label for="dempgraphic">Demographic</label>
@@ -511,6 +521,7 @@ const createDressDesignerPackage = (modalContent) => {
         </div>
         </div>
         </form > `;
+  div.querySelector("#demographic").addEventListener("change", (event) => demographyToggleHandler);
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -521,19 +532,24 @@ const createSalonPackage = (modalContent) => {
   div.innerHTML = `
         <div class="right">
                 <div class="input-group specific">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" required>
-                            </div>
-                            <div class="input-group specific">
-                                <label for="dempgraphic">Demographic</label>
-                                <select id="demographic" name="demographic" required>
-                                    <option value="Bride">Female</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                            </div>
-                            </div>
-                            </form > `;
+                            <label for="variableCostPerMale">Cost per Male Group Member</label>
+                            <input type="text" id="variableCostPerMale" name="variableCostPerMale" required>
+                </div>
+                <div class="input-group specific">
+                            <label for="variableCostPerFemale">Cost per Female Group Member</label>
+                            <input type="text" id="variableCostPerFemale" name="variableCostPerFemale" required>
+                </div>
+                <div class="input-group specific">
+                    <label for="dempgraphic">Demographic</label>
+                    <select id="demographic" name="demographic" required>
+                        <option value="Bride">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+        </div>
+    </form > `;
+  div.querySelector("#demographic").addEventListener("change", (event) => demographyToggleHandler);
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -544,18 +560,19 @@ const createFloristPackage = (modalContent) => {
   div.innerHTML += `
         <div class="right">
                 <div class="input-group specific">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" required>
-                            </div>
-                            <div class="input-group specific">
-                                <label for="flowerType">Type of Flowers</label>
-                                <select id="flowerType" name="flowerType" required>
-                                    <option value="Artificial">Artificial</option>
-                                    <option value="Fresh">Fresh</option>
-                                </select>
-                            </div>
-                            </div>
-                            </form > `;
+                                <label for="variableCostPerFemale">Cost per Female Group Member</label>
+                                <input type="text" id="variableCostPerFemale" name="variableCostPerFemale" required>
+                </div>
+                <div class="input-group specific">
+                    <label for="flowerType">Type of Flowers</label>
+                    <select id="flowerType" name="flowerType" required>
+                        <option value="Artificial">Artificial</option>
+                        <option value="Fresh">Fresh</option>
+                    </select>
+                </div>
+        </div>
+    </form > `;
+    div.querySelector('#demographic').addEventListener('change', demographyToggleHandler);
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -571,10 +588,10 @@ const vendorCreatePackageFunctions = {
 const displayPhotographerPackage = (packageDetails, modalContent) => {
   const div = document.createElement("div");
   div.innerHTML = `<div class="input-group specific">
-                                <label for="cameraCoverage">Camera Coverage</label>
-                                <input type="text" id="cameraCoverage" name="cameraCoverage" value=${packageDetails.cameraCoverage} required>
-                            </div>
-                            </form > `;
+                      <label for="cameraCoverage">Camera Coverage</label>
+                      <input type="text" id="cameraCoverage" name="cameraCoverage" value=${packageDetails.cameraCoverage} required>
+                  </div>
+              </form > `;
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -582,22 +599,26 @@ const displayPhotographerPackage = (packageDetails, modalContent) => {
 const displayDressDesignerPackage = (packageDetails, modalContent) => {
   const div = document.createElement("div");
   div.innerHTML = `<div class="input-group specific">
-                                <label for="theme">Theme</label>
-                                <input type="text" id="theme" name="theme" value=${packageDetails.theme} required>
-                            </div>
-                            <div class="input-group specific">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
-                            </div>
-                            <div class="input-group specific">
-                                <label for="dempgraphic">Demographic</label>
-                                <select id="demographic" name="demographic" value="${packageDetails.demographic}" required>
-                                    <option value="Female">Female</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                            </div>
-                            </form > `;
+                        <label for="theme">Theme</label>
+                        <input type="text" id="theme" name="theme" value=${packageDetails.theme} required>
+                    </div>
+                    <div class="input-group specific">
+                        <label for="variableCostPerMale">Cost per Male Group Member</label>
+                        <input type="text" id="variableCostPerMale" name="variableCostPerMale" value=${packageDetails.variableCostPerMale} required>
+                    </div>
+                    <div class="input-group specific">
+                      <label for="variableCostPerFemale">Cost per Female Group Member</label>
+                      <input type="text" id="variableCostPerFemale" name="variableCostPerFemale" value=${packageDetails.variableCostPerFemale} required>
+                    </div>
+                    <div class="input-group specific">
+                        <label for="dempgraphic">Demographic</label>
+                        <select id="demographic" name="demographic" value="${packageDetails.demographic}" required>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Both">Both</option>
+                        </select>
+                    </div>
+                    </form > `;
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -606,18 +627,22 @@ const displaySalonPackage = (packageDetails, modalContent) => {
   const div = document.createElement("div");
   div.innerHTML = `
                 <div class="input-group specific">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
-                            </div>
-                            <div class="input-group specific">
-                                <label for="dempgraphic">Demographic</label>
-                                <select id="demographic" name="demographic" value="${packageDetails.demographic}" required>
-                                    <option value="Bride">Female</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                            </div>
-                            </form > `;
+                    <label for="variableCostPerMale">Cost per Male Group Member</label>
+                    <input type="text" id="variableCostPerMale" name="variableCostPerMale" value=${packageDetails.variableCostPerMale} required>
+                </div>
+                <div class="input-group specific">
+                    <label for="variableCostPerFemale">Cost per Female Group Member</label>
+                    <input type="text" id="variableCostPerFemale" name="variableCostPerFemale" value=${packageDetails.variableCostPerFemale} required>
+                </div>
+                <div class="input-group specific">
+                    <label for="dempgraphic">Demographic</label>
+                    <select id="demographic" name="demographic" value="${packageDetails.demographic}" required>
+                        <option value="Bride">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+                </form > `;
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -626,17 +651,17 @@ const displayFloristPackage = (packageDetails, modalContent) => {
   const div = document.createElement("div");
   div.innerHTML = `
                 <div class="input-group specific">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
-                            </div>
-                            <div class="input-group specific">
-                                <label for="flowerType">Type of Flowers</label>
-                                <select id="flowerType" name="flowerType" value="${packageDetails.flowerType}" required>
-                                    <option value="Artificial">Artificial</option>
-                                    <option value="Fresh">Fresh</option>
-                                </select>
-                            </div>
-                            </form > `;
+                    <label for="variableCostPerFemale">Cost per Group Member</label>
+                    <input type="text" id="variableCostPerFemale" name="variableCostPerFemale" value=${packageDetails.variableCostPerFemale} required>
+                </div>
+                <div class="input-group specific">
+                    <label for="flowerType">Type of Flowers</label>
+                    <select id="flowerType" name="flowerType" value="${packageDetails.flowerType}" required>
+                        <option value="Artificial">Artificial</option>
+                        <option value="Fresh">Fresh</option>
+                    </select>
+                </div>
+                </form > `;
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);

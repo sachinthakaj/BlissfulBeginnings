@@ -41,6 +41,7 @@ body {
 /* Header and Navigation */
 header {
     display: flex;
+  font-family: "Gwendolyn";
     justify-content: space-between;
     align-items: center;
     background-color: var(--header-background-color);

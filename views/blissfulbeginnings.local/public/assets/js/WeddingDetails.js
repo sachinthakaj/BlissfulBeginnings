@@ -2,21 +2,98 @@ const path = window.location.pathname;
 const pathParts = path.split('/');
 const userID = pathParts[pathParts.length - 1];
 
+function handleRangeChange() {
+    const selectElement = document.getElementById('budget-range');
+    const customRangeContainer = document.getElementById('custom-range-container');
+    const minBudget = document.getElementById('min-budget');
+    const maxBudget = document.getElementById('max-budget');
+
+    // Parse the selected range and fill min/max fields regardless of the selection
+    if (selectElement.value && selectElement.value !== 'custom') {
+        if (selectElement.value === '100000+') {
+            minBudget.value = 100000;
+            maxBudget.value = 0;  // No upper bound
+        } else {
+            const range = selectElement.value.split('-');
+            minBudget.value =Number(range[0]);
+            maxBudget.value = Number(range[1]);
+        }
+        customRangeContainer.style.display = 'none';
+        selectElement.setAttribute('name', 'budget');
+        minBudget.required = false;
+        maxBudget.required = false;
+    }
+
+    if (selectElement.value === 'custom') {
+        customRangeContainer.style.display = 'block';
+        selectElement.removeAttribute('name');
+        minBudget.required = true;
+        maxBudget.required = true;
+
+        if (!minBudget.value && !maxBudget.value) {
+            minBudget.value = '';
+            maxBudget.value = '';
+        }
+
+    } else {
+        customRangeContainer.style.display = 'none';
+        selectElement.setAttribute('name', 'budget');
+        minBudget.required = false;
+        maxBudget.required = false;
+    }
+}
+
+function validateMinMax() {
+    const minBudget = document.getElementById('min-budget');
+    const maxBudget = document.getElementById('max-budget');
+    const errorMessage = document.getElementById('range-error');
+
+    // Only validate if both fields have values
+    if (minBudget.value && maxBudget.value) {
+        const minVal = parseInt(minBudget.value, 10);
+        const maxVal = parseInt(maxBudget.value, 10);
+
+        if (minVal >= maxVal) {
+            // Show error message
+            errorMessage.style.display = 'block';
+            return false;
+        } else {
+            // Hide error message
+            errorMessage.style.display = 'none';
+            return true;
+        }
+    } else {
+        // If one or both fields are empty, hide error
+        errorMessage.style.display = 'none';
+        return true;
+    }
+}
+
+// Initialize the custom range inputs and add event listeners
+document.addEventListener('DOMContentLoaded', function () {
+    const minBudget = document.getElementById('min-budget');
+    const maxBudget = document.getElementById('max-budget');
+
+    minBudget.addEventListener('change', validateMinMax);
+    maxBudget.addEventListener('change', validateMinMax);
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/validate-userID/' + userID , {
+    fetch('/validate-userID/' + userID, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         }
-      })
-      .then(response => {
-        if (response.ok) {
-          return
-        } else {
-          window.location.href = '/register';
-        }
-      });
+    })
+        .then(response => {
+            if (response.ok) {
+                return
+            } else {
+                window.location.href = '/register';
+            }
+        });
     // Multi-Step Form Logic
     const steps = document.querySelectorAll('.step');
     const nextBtn = document.querySelectorAll('#nextBtn');
@@ -119,9 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
             time: document.getElementById('daynight').value,
             location: document.getElementById('location').value,
             theme: document.getElementById('theme').value,
-            budget: document.getElementById('budget').value,
             sepSalons: document.getElementById('sepSalons').checked,
             sepDressDesigners: document.getElementById('sepDressDesigners').checked,
+            weddingPartyMale: document.getElementById('wedding-party-male').value,
+            weddingPartyFemale: document.getElementById('wedding-party-female').value,
+            budgetMax: document.getElementById('max-budget').value,
+            budgetMin: document.getElementById('min-budget').value,
         };
         const brideDetails = {
             name: document.getElementById('bride_name').value,
@@ -130,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             address: document.getElementById('bride_address').value,
             age: document.getElementById('bride_age').value,
         };
-        
+
         const groomDetails = {
             name: document.getElementById('groom_name').value,
             email: document.getElementById('groom_email').value,
@@ -156,34 +236,34 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify(formData),
         })
-        .then(response => {
-            console.log(response);
-            
+            .then(response => {
+                console.log(response);
+
                 if (response.status == 409) {
                     alert("Email is already registered");
                     return;
-                } else if(response.status == 401) {
+                } else if (response.status == 401) {
                     window.location.href = '/signin';
-                } else if(response.status == 201) {
+                } else if (response.status == 201) {
                     console.log(response);
                     return response.json();
                 }
-                else  {
+                else {
                     throw new Error('Network response was not ok');
                 }
-            
-           
-        })
-        .then(data => {
-            // Handle success (e.g., show a success message or redirect)
-            console.log('Success:', data);
-            localStorage.setItem('authToken', data.token); // Store token securely
-            window.location.href = "/wedding/" + data.weddingID;
-        })
-        .catch(error => {
-            // Handle error (e.g., show an error message)
-            console.error('Error registering:', error);
-            alert('Registration failed, please try again.');
-        });
+
+
+            })
+            .then(data => {
+                // Handle success (e.g., show a success message or redirect)
+                console.log('Success:', data);
+                localStorage.setItem('authToken', data.token); // Store token securely
+                window.location.href = "/wedding/" + data.weddingID;
+            })
+            .catch(error => {
+                // Handle error (e.g., show an error message)
+                console.error('Error registering:', error);
+                alert('Registration failed, please try again.');
+            });
     });
 });
