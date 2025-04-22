@@ -12,6 +12,7 @@ $router->post("/tasks-create-for-vendors/{assignmentID}", "PlannerController@cre
 $router->get("/fetch-all-tasks", "PlannerController@getAllTasksForVendor");
 $router->post("/update-tasks/{taskID}", "PlannerController@updateOfTasks");
 $router->delete("/delete-tasks/{taskID}","PlannerController@deleteOfTasks");
+$router->get("/fetch-wedding-date-to-validate/{weddingID}", "PlannerController@getWeddingDate");
 
 
 $router->get("/wedding/{weddingID}/{assignmentID}","PlannerController@makePayments");

@@ -149,6 +149,23 @@ class PlannerController
             return;
         }
         $taskDetails = json_decode(file_get_contents("php://input"), true);
+        $wedding = new Wedding();
+        $weddingDate = $wedding->getWeddingDate($taskDetails['weddingID']);
+        $today = date('Y-m-d');
+        $dateToFinish = $taskDetails['dateToFinish'];
+
+        if ($dateToFinish <= $today) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(['status'=>'unsuccess','error' => 'The finish date must be in the future']);
+            return;
+        }
+
+        if ($dateToFinish >= $weddingDate) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(['status'=>'unsuccess','error' => 'The finish date must be before the wedding date']);
+            return;
+        }
+
         $taskModel = new Task();
         $taskModel->createTask($taskDetails);
         header('Content-Type:application/json');
@@ -716,6 +733,38 @@ class PlannerController
             error_log($e);
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error getting vendor ratings']);
+        }
+    }
+
+    public function getWeddingDate($parameters)
+    {
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            exit;
+        };
+        try {
+            if (!isset($parameters['weddingID']) || empty($parameters['weddingID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: weddingID is required']);
+                return;
+            }
+
+            $wedding = new Wedding();
+            $date = $wedding->getWeddingDate($parameters['weddingID']);
+
+
+            if (!empty($date)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'date' => $date]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No date found for the specified wedding']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error getting wedding date']);
         }
     }
 }

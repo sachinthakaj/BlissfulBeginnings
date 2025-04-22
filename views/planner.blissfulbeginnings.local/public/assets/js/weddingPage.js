@@ -595,25 +595,26 @@ document.addEventListener("DOMContentLoaded", function () {
     ).value;
     console.log(assignmentID);
 
-    const today = new Date();
-    const formattedToday = today.toISOString().split("T")[0];
+    // const today = new Date();
+    // const formattedToday = today.toISOString().split("T")[0];
 
-    const nextMonthToday = new Date(today);
-    nextMonthToday.setMonth(today.getMonth()+1);
+    // const nextMonthToday = new Date(today);
+    // nextMonthToday.setMonth(today.getMonth()+1);
 
-    if(nextMonthToday.getDate() !== today.getDate()){
-      nextMonthToday.setDate(0);
-    }
-    const formattedNextMonthToday = nextMonthToday.toISOString().split("T")[0];
-    if (dateToFinish <= formattedToday || dateToFinish > formattedNextMonthToday ) {
-      alert("Please select a date in the future within a month.");
-      return;
+    // if(nextMonthToday.getDate() !== today.getDate()){
+    //   nextMonthToday.setDate(0);
+    // }
+    // const formattedNextMonthToday = nextMonthToday.toISOString().split("T")[0];
+    // if (dateToFinish <= formattedToday || dateToFinish > formattedNextMonthToday ) {
+    //   alert("Please select a date in the future within a month.");
+    //   return;
 
-    }
+    // }
     const taskDetails = {
       description: taskDescription,
       dateToFinish: dateToFinish,
-      assignmentID,
+      assignmentID:assignmentID,
+      weddingID: weddingID,
     };
 
     fetch("/tasks-create-for-vendors/" + assignmentID, {
