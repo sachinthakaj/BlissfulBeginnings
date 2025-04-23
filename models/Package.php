@@ -324,7 +324,19 @@ class Package
         }
     }
 
-    
+    public function getImageForPackage($packageID){
+        try{
+            $this->db->query("SELECT path FROM gallery WHERE packageID = UNHEX(:packageID) LIMIT 1");
+            $this->db->bind(':packageID', $packageID);
+            $this->db->execute();
+
+            $results = $this->db->fetch(PDO::FETCH_ASSOC);
+            return $results ? $results['path'] : null;
+        }catch(PDOException $e){
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
 
     public function getAssignedPackagesForPayments($weddingID){
         try{

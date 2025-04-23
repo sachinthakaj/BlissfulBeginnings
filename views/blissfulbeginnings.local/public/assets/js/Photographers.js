@@ -1,42 +1,39 @@
 function create(data) {
     const scrollContainer = document.querySelector(".more-about-photographers");
   
-    scrollContainer.innerHTML = "";
-  
-    data.forEach((photographer) => {
-      const card = document.createElement("div");
-      card.classList.add("container");
-  
+    scrollContainer.innerHTML='';
+    function createCard(data){
+      const card=document.createElement('div');
+      card.classList.add('container');
+
       const cardHTML = `
           <div class="image-container">
-            <img src="${photographer.imgSrc}" alt="photographer Image" class="image">
+              <img src="${data.imgSrc}" alt="Image here" class="image">
           </div>
           <div class="text-container">
-            <div class="heading">${photographer.businessName}</div>
-            <div class="stars">
-              ${Array(5)
-                .fill(0)
-                .map(
-                  (_, i) => `
-                  <span class="star ${
-                    i < photographer.rating ? "selected" : ""
-                  }" data-value="${i + 1}">&#9734;</span>
-                `
-                )
-                .join("")}
-            </div>
-            <div class="description">${photographer.description}</div>
+              <div class="heading">${data.businessName}</div>
+              <div class="stars">
+                  ${Array(5).fill(0).map((_, i) => `
+                      <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
+                  `).join('')}
+              </div>
+              <div class="description">${data.description}</div>
           </div>
-        `;
+      `;
       card.innerHTML = cardHTML;
-  
-      card.querySelector(".heading").addEventListener("click", () => {
-        window.location.href = `/vendor/${photographer.id}`;
-      });
-  
-      scrollContainer.appendChild(card);
-    });
-  }
+      card.id=data.vendorID;
+         
+// Append card to the container
+scrollContainer.appendChild(card);
+}
+  // Render all cards
+  data.forEach(createCard);
+  document.querySelectorAll('.container').forEach(card => {
+      card.addEventListener('click', () => {
+          window.location.href = `/vendor/${card.id}`;
+      })
+  })
+}
   
   async function notFund() {
     const notFund = document.createElement("div");

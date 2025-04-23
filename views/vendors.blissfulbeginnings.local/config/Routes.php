@@ -31,6 +31,7 @@ $router->delete("/delete-profile/vendor-details/{vendorID}","vendorController@de
 
 $router->post("/vendor/set-unavailable/{vendorID}", "CalendarController@setUnavailableDate");
 $router->get("/vendor/get-unavailable/{vendorID}", "CalendarController@getUnavailableDates");
+$router->delete("/vendor/remove-unavailable/{vendorID}", "CalendarController@removeUnavailableDate");
 
 
 $router->post("/task_state_update/{vendorID}","vendorController@updateOfTasks");
@@ -39,5 +40,4 @@ $router->post("/task_state_update/{vendorID}","vendorController@updateOfTasks");
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-wedding-id", "vendorController@getWeddingIDbyAssignmentID");
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
-// $router->post("/vendor/upload-profile-photo/{vendorID}","vendorAuthController@uploadProfilePhoto");
 
