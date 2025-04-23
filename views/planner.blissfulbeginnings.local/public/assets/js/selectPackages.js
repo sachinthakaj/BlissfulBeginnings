@@ -3,6 +3,198 @@ const path = window.location.pathname;
 const pathParts = path.split('/');
 const weddingID = pathParts[pathParts.length - 1];
 
+function renderMessages() {
+  const chatContainer = document.querySelector(".chat-show-area");
+  chatContainer.innerHTML = "";
+
+  const wsUrl = "ws://localhost:8080/";
+
+  const socket = new WebSocket(wsUrl);
+  const messageInput = document.getElementById("chat-type-field");
+  const sendBtn = document.getElementById("send-button");
+
+  socket.onopen = () => {
+    socket.send(
+      JSON.stringify({
+        weddingID: weddingID,
+      })
+    );
+  };
+
+  socket.onmessage = (event) => {
+    const messages = JSON.parse(event.data);
+    console.log(messages);
+    messages.forEach((message) => {
+      sender = message.role === "planner" ? "me" : message.role;
+      if (!message) {
+        return;
+      }
+      if (message.relativePath) {
+        appendImageMessage(message.relativePath, message.timestamp, sender);
+        return;
+      } else {
+        appendTextMessage(message.message, message.timestamp, sender);
+      }
+    });
+  };
+
+  socket.onerror = (error) => {
+    console.error("WebSocket error:", error);
+    chatContainer.innerHTML = "<p>Unexpected error occured</p>";
+  };
+
+  socket.onclose = () => {
+    console.log("WebSocket connection closed.");
+  };
+
+  function appendTextMessage(message, timestamp, sender) {
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("message");
+    messageElement.innerHTML =
+      `<div class="sender ${sender}">` +
+      sender +
+      ": </div><p class=message-text>" +
+      message +
+      "</p>";
+    messageElement.dataset.timestamp = timestamp;
+    chatContainer.appendChild(messageElement);
+  }
+  function appendImageMessage(imageReference, timestamp, sender) {
+    const imageElement = document.createElement("div");
+    imageElement.classList.add("message", "image");
+    imageElement.dataset.timestamp = timestamp;
+    imageElement.style.display = "flex";
+    imageElement.style.flexDirection = "column";
+
+    const senderElement = document.createElement("div");
+    senderElement.classList.add("sender", sender);
+    senderElement.innerHTML = '<h4">' + sender + "</h4>";
+    imageElement.appendChild(senderElement);
+    const img = document.createElement('img');
+    img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
+    img.alt = "Uploaded Image";
+    img.classList.add('chat-image');
+
+    imageElement.appendChild(img);
+    chatContainer.appendChild(imageElement);
+  }
+
+  sendBtn.addEventListener("click", () => {
+    timestamp = new Date().toISOString();
+    timestamp = timestamp.replace("T", " ").split(".")[0];
+    const message = messageInput.value.trim();
+    if (message) {
+      chatMessage = {
+        sender: "planner",
+        message: message,
+        timestamp: timestamp,
+      };
+      socket.send(JSON.stringify(chatMessage));
+      console.log(chatMessage);
+      appendTextMessage(message, timestamp, "me");
+      messageInput.value = "";
+    }
+  });
+
+  messageInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      sendBtn.click();
+    }
+  });
+
+  document
+    .getElementById("imageUpload")
+    .addEventListener("change", async function (event) {
+      const file = event.target.files[0]; // Get the selected file
+
+      // Ensure a file was selected
+      if (!file) {
+        alert("No file selected.");
+        return;
+      }
+
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF).");
+        return;
+      }
+
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert("File size must be less than 2 MB.");
+        return;
+      }
+
+      const metaWithImage = {
+        timestamp: formData.timestamp,
+        role: "planner",
+        relativePath: imageReference,
+        Image: "image_reference",
+      };
+
+      try {
+        const response = await fetch("/chat/upload-image/" + weddingID, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to upload image. Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.storagePath) {
+          throw new Error(
+            "Invalid response from server. No storage path provided."
+          );
+        }
+
+        const imageReference = data.storagePath;
+
+        const metaWithImage = {
+          timestamp: formData.timestamp,
+          sender: "planner",
+          imageReference: imageReference,
+          Image: "image_reference",
+        };
+
+        socket.send(JSON.stringify(metaWithImage));
+
+        appendImageMessage(
+          imageReference,
+          metaWithImage.timestamp,
+          metaWithImage.sender
+        );
+        alert("Image sent successfully!");
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while uploading the image.");
+      }
+    });
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+document.addEventListener("DOMContentLoaded", renderMessages);
+
+
+function createPackageCard(package) {
+  packageCard = document.createElement('div');
+  packageCard.classList.add('package-card');
+  packageCard.id = package.packageID;
+  packageCard.innerHTML = `
+    <h3>${package.packageName}</h3>
+    <h2>${package.businessName}</h2>
+    <p>${package.feature1}</p>
+    <p>${package.feature2}</p>
+    <p>${package.feature3}</p>
+    <p>Total Price: <span id=total-price>${package.total_price}</span>LKR</p>
+
+  `;
+  return packageCard;
+}
+
 function showNotification(message, color) {
   // Create notification element
   const notification = document.createElement("div");
@@ -150,16 +342,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     weddingPartyMale = document.querySelector('#wedding-group-male');
     weddingPartyFemale = document.querySelector('#wedding-group-female');
-  
 
-    if(data.weddingPartyMale) {
+
+    if (data.weddingPartyMale) {
       weddingPartyMale.value = data.weddingPartyMale;
       weddingPartyMale.disabled = true;
     } else {
       weddingPartyMale.value = 3;
     }
 
-    if(data.weddingPartyFemale) {
+    if (data.weddingPartyFemale) {
       weddingPartyFemale.value = data.weddingPartyFemale;
       weddingPartyFemale.disabled = true;
     } else {
@@ -225,6 +417,8 @@ document.addEventListener("DOMContentLoaded", function () {
           if (response.status == 204) {
             showNotification("No packages available for this budget", "red");
             return;
+          } else if (response.status == 401) {
+            window.href='/signin';  
           }
           return response.json();
         }).then(data => {
@@ -238,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <span class="close-button">&times;</span>
               <h2>${vendorType.parentNode.id} Packages</h2>
               <div class="search-container">
-                    <input type="text" placeholder="Search" class="search-input" />
+                    <input type="text" placeholder="Search" class="search-input" id="search-reccs" />
                 </div>
               <div class="package-grid">
                 <!-- Vendor information will be populated here -->
@@ -246,32 +440,52 @@ document.addEventListener("DOMContentLoaded", function () {
               <button class="submit-button">Reccomend Packages</button>
             
           `;
+          modalContent.querySelector('#search-reccs').addEventListener('input', (event) => {
+            const query = event.target.value.trim().toLowerCase();
+            const filtered = data.filter(package => package.packageName.toLowerCase().includes(query) || package.businessName.toLowerCase().includes(query) ||
+              package.feature1.toLowerCase().includes(query) || package.feature2.toLowerCase().includes(query) || package.feature3.toLowerCase().includes(query));
+            packageGrid.innerHTML = '';
+            filtered.forEach(package => {
+              const packageCard = createPackageCard(package);
+              if (selectedPackages[assignmentType].some(sPackage => sPackage.id === packageCard.id)) {
+                packageCard.classList.add('selected');
+              }
+              packageCard.addEventListener('click', () => {
+                if (selectedPackages[assignmentType].some(sPackage => sPackage.id === packageCard.id)) {
+                  packageCard.classList.remove('selected');
+                  selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(sPackage => sPackage.id !== packageCard.id);
+                  console.log(selectedPackages);
+                } else {
+                  packageCard.classList.add('selected');
+                  selectedPackages[assignmentType].push({
+                    id: packageCard.id,
+                    price: packageCard.querySelector('#total-price').textContent
+                  });
+                  console.log(selectedPackages);
+                }
+              })
+              packageGrid.appendChild(packageCard);
+            })
+          })
 
           const packageGrid = modalContent.querySelector('.package-grid');
 
           data.forEach(package => {
-            const packageCard = document.createElement('div');
-            packageCard.classList.add('package-card');
-            packageCard.id = package.packageID;
-            packageCard.innerHTML = `
-              <h3>${package.packageName}</h3>
-              <h2>${package.businessName}</h2>
-              <p>${package.feature1}</p>
-              <p>${package.feature2}</p>
-              <p>${package.feature3}</p>
-
-            `;
+            const packageCard = createPackageCard(package)
             if (selectedPackages[assignmentType].includes(packageCard.id)) {
               packageCard.classList.add('selected');
             }
             packageCard.addEventListener('click', () => {
-              if (selectedPackages[assignmentType].includes(packageCard.id)) {
+              if (selectedPackages[assignmentType].some(package => package.id === packageCard.id)) {
                 packageCard.classList.remove('selected');
-                selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(id => id !== packageCard.id);
+                selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(package => package.id !== packageCard.id);
                 console.log(selectedPackages);
               } else {
                 packageCard.classList.add('selected');
-                selectedPackages[assignmentType].push(packageCard.id);
+                selectedPackages[assignmentType].push({
+                  id: packageCard.id,
+                  price: packageCard.querySelector('#total-price').textContent  
+                });
                 console.log(selectedPackages);
               }
             })
@@ -291,10 +505,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
           modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-              document.body.removeChild(modal);
+              modal.querySelector('.modal-content').innerHTML = '';
+              modal.style.display = 'none';
             }
           });
-         
+
         }).catch(error => {
           console.error('Error fetching vendor data:', error);
           showNotification("Error loading vendor data. Please try again later.", 'red');
@@ -319,6 +534,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }).then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
+        }else if (response.status == 401) {
+          window.location.href = '/signin';
         }
         window.location.href = '/wedding/' + weddingID;
       }).catch(error => {

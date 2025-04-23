@@ -19,6 +19,7 @@ class m0008_packageAssignment
         `progress` decimal(5, 1) NOT NULL,
         `isPaid` BOOLEAN DEFAULT FALSE,
         `rating` INT DEFAULT 0,
+        `price` INT NOT NULL,
 
         CONSTRAINT CHECK (`rating` <= 5 AND `rating` >= 0),
 

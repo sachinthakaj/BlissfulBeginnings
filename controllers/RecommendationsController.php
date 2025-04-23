@@ -254,10 +254,6 @@ class RecommendationsController
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
-        if(!Authenticate('planner', 123)) {
-            header('HTTP/1.1 401 Unauthorized');
-            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
-        }
         try {
             $data = file_get_contents('php://input');
             $parsed_data = json_decode($data, true);

@@ -958,7 +958,6 @@ const unassigned = (data) => {
               Object.keys(selectedPackages).length ===
               currentStepCounter + 1
             ) {
-              const packages = Object.values(selectedPackages);
               fetch("/assign-packages/" + weddingID, {
                 method: "POST",
                 headers: {
@@ -1028,8 +1027,8 @@ const unassigned = (data) => {
                                         : ""
                                     }
                                 </ul>
-                                <h4 class="description price">Charge: ${
-                                  package.fixedCost
+                                <h4 class="description price">Price: ${
+                                  package.price
                                 }</h4>
                                 <a class="visit">View Vendor Profile</a>
                             </div>
@@ -1049,12 +1048,14 @@ const unassigned = (data) => {
                     console.log(packageDiv.parentElement);
                     packageDiv.parentElement
                       .querySelector(
-                        "#" + selectedPackages[packageDiv.parentElement.id]
+                        "#" + selectedPackages[packageDiv.parentElement.id].packageID
                       )
                       .classList.toggle("active");
                   }
-                  selectedPackages[packageDiv.parentElement.id] =
-                    package.packageID;
+                  selectedPackages[packageDiv.parentElement.id] = {
+                    packageID: package.packageID,
+                    price: package.price
+                  }
                 }
                 packageDiv.classList.toggle("active");
                 console.log(selectedPackages);
