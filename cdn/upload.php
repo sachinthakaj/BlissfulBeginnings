@@ -14,8 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+try {
+    
 $galleryModel = new Gallery();
-
 $vendorID = preg_replace("/[^a-zA-Z0-9_-]/", "", $_GET['vendorID']); // Sanitize input
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
@@ -56,9 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
     
     $path = $data['path'];
     $description = $data['description'];
+    $packageID = $data['packageID'];
 
     try {
-        if ($galleryModel->updateImageDescription($path, $vendorID, $description)) {
+        if ($galleryModel->updateImageDescription($path, $vendorID, $description, $packageID)) {
             http_response_code(200);
             echo json_encode(["success" => "Image description updated successfully"]);
         } else {
@@ -114,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
 
     $filename = uniqid('img_') . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
     $description = isset($_POST['description']) ? trim($_POST['description']) : "";
+    $packageID = isset($_POST['associatedPackage']) ? $_POST['associatedPackage'] : "";
     $filePath = $uploadDir . DIRECTORY_SEPARATOR . $filename;
 
     if (!move_uploaded_file($file['tmp_name'], $filePath)) {
@@ -126,8 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
     $relativePath = "/vendorGalleries/{$vendorID}/{$filename}";
     $imageContent = file_get_contents($filePath);
     $mimeType = $file['type'];
-    
-    $imageID = $galleryModel->createGallery($vendorID, $filename, $relativePath, $description, $imageContent, $mimeType);
+    $imageID = $galleryModel->createGallery($vendorID, $filename, $relativePath, $description, $imageContent, $mimeType, $packageID);
 
     if (!$imageID) {
         http_response_code(500);
@@ -139,5 +141,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['vendorID'])) {
 } else {
     http_response_code(400);
     echo json_encode(["error" => "Invalid request"]);
+}
+
+
+} catch (Exception $e) {
+    error_log($e);
 }
 ?>

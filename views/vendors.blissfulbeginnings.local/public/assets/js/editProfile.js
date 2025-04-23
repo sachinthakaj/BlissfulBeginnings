@@ -59,6 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const packagesContainer = document.getElementById("packages-container");
 
       Object.entries(vendorData.packages).forEach(([packageID, package]) => {
+        document.getElementById('associatedPackageInsert').innerHTML += `<option value="${packageID}">${package.packageName}</option>`
+        document.getElementById('associatedPackageUpdate').innerHTML += `<option value="${packageID}">${package.packageName}</option>`
         const packageDiv = document.createElement("div");
         packageDiv.classList.add("package");
         packageDiv.setAttribute("id", packageID);
@@ -69,16 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div>What's Included:</div>
                         <ul>
                             <li>${package.feature1}</li>
-                            ${
-                              package.feature2
-                                ? `<li>${package.feature2}</li>`
-                                : ""
-                            }
-                            ${
-                              package.feature3
-                                ? `<li>${package.feature3}</li>`
-                                : ""
-                            }
+                            ${package.feature2
+            ? `<li>${package.feature2}</li>`
+            : ""
+          }
+                            ${package.feature3
+            ? `<li>${package.feature3}</li>`
+            : ""
+          }
                         </ul>
                         <div class="price">${package.fixedCost} LKR</div>
                     </div>
@@ -148,6 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
               })
               .then((response) => {
                 vendorData["packages"][response.packageID] = package;
+                document.getElementById('associatedPackageInsert').innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`
+                document.getElementById('associatedPackageUpdate').innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`
+
                 const packagesContainer =
                   document.getElementById("packages-container");
                 const packageDiv = document.createElement("div");
@@ -161,16 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div>What's Included:</div>
                                 <ul>
                                     <li>${package.feature1}</li>
-                                    ${
-                                      package.feature2
-                                        ? `<li>${package.feature2}</li>`
-                                        : ""
-                                    }
-                                    ${
-                                      package.feature3
-                                        ? `<li>${package.feature3}</li>`
-                                        : ""
-                                    }
+                                    ${package.feature2
+                    ? `<li>${package.feature2}</li>`
+                    : ""
+                  }
+                                    ${package.feature3
+                    ? `<li>${package.feature3}</li>`
+                    : ""
+                  }
                                 </ul>
                                 <div class="price">${package.fixedCost}</div>
                             </div >
@@ -402,7 +403,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const description = document
         .getElementById("image-description")
         .value.trim();
-
+      const associatedPackage = document.getElementById("associatedPackageInsert").value;
+      console.log(`packageID: ${associatedPackage}`);
       // Ensure a file was selected
       if (!file || !description) {
         alert("No file selected or no description provided.");
@@ -424,6 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = new FormData();
       formData.append("image", file);
       formData.append("description", description);
+      formData.append("associatedPackage", associatedPackage);
 
       fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
         method: "POST",
@@ -437,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
           }
           alert("Image sent successfully!");
-
+          alert(`packageID: ${associatedPackage}`);
           setTimeout(() => {
             window.location.reload();
           }, 1000); // 1 second delay
@@ -744,6 +747,10 @@ function fetchVendorGallery() {
         ".update-image-modal-content-left"
       );
 
+      const updateImagePackage = document.querySelector(
+        "#associatedPackageUpdate"
+      )
+
       // Variables to store the current image data
       let currentImageToDelete = null;
       let currentImageToUpdate = null;
@@ -771,6 +778,7 @@ function fetchVendorGallery() {
         imgElement.src = "http://cdn.blissfulbeginnings.com/" + image.path;
         imgElement.alt = image.description;
         imgElement.classList.add("gallery-img");
+        imgDiv.dataset.packageid = image.packageID ? image.packageID : "";
 
         const desc = document.createElement("p");
         desc.textContent = image.description;
@@ -816,6 +824,7 @@ function fetchVendorGallery() {
           currentImageToUpdate = {
             path: image.path,
             description: image.description,
+            packageID: image.packageID,
             created_at: image.created_at || formatDatetime(new Date()),
           };
           console.log(currentImageToUpdate);
@@ -868,8 +877,10 @@ function fetchVendorGallery() {
         // Set field values
         // updateImageIDInput.value = imageData.imageID;
         // updateVendorIDInput.value = imageData.vendorID;
+        
         updateDateTimeInput.value = imageData.created_at;
         updateDescriptionInput.value = imageData.description;
+        updateImagePackage.value = imageData.packageID
 
         // Show modal
         updateImageModalContainer.classList.add("show");
@@ -957,6 +968,7 @@ function fetchVendorGallery() {
         updateButton.addEventListener("click", () => {
           if (currentImageToUpdate) {
             const newDescription = updateDescriptionInput.value.trim();
+            const newPackageID = updateImagePackage.value;
 
             if (newDescription) {
               // Update the description in the DOM
@@ -984,6 +996,7 @@ function fetchVendorGallery() {
                   body: JSON.stringify({
                     description: newDescription,
                     path: currentImageToUpdate.path,
+                    packageID: newPackageID,
                   }),
                 }
               )
@@ -995,6 +1008,17 @@ function fetchVendorGallery() {
                 })
                 .then((data) => {
                   showNotification("Image description updated", "green");
+                  document.querySelectorAll('.gallery-image').forEach((item) => {
+                    if(item.src === currentImageToUpdate.path) {
+                      item.description = newDescription,
+                      data.forEach((item) => {
+                        if(item.path === currentImageToUpdate.path) {
+                          item.description = newDescription
+                          item.packageID = newPackageID
+                        }
+                      })
+                    }
+                  })
                 })
                 .catch((error) => {
                   console.error("Error updating image:", error);
