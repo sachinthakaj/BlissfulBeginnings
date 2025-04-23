@@ -15,14 +15,13 @@ function updateProgressBar(totalTasks, completedTasks) {
   const numericPercentage = parseFloat(valueOfPercentage);
 
   if (numericPercentage === 100) {
-      progressBar.style.backgroundColor = "#4caf50"; // Green
+    progressBar.style.backgroundColor = "#4caf50"; // Green
   } else if (numericPercentage >= 50 && numericPercentage < 100) {
-      progressBar.style.backgroundColor = "#ffc107"; // Yellow
+    progressBar.style.backgroundColor = "#ffc107"; // Yellow
   } else if (numericPercentage < 50) {
-      progressBar.style.backgroundColor = "#f44336"; // Red
+    progressBar.style.backgroundColor = "#f44336"; // Red
   }
 }
-
 
 fetch(`/fetch_for_progress/${vendorID}/${assignmentID}`, {
   method: "GET",
@@ -32,7 +31,7 @@ fetch(`/fetch_for_progress/${vendorID}/${assignmentID}`, {
   },
 })
   .then((response) => {
-    if (response.status == 401) { 
+    if (response.status == 401) {
       window.location.href = "/signin";
     } else if (response.status == 500) {
       throw new Error("Internal Server Error");
@@ -41,27 +40,23 @@ fetch(`/fetch_for_progress/${vendorID}/${assignmentID}`, {
   })
   .then((data) => {
     console.log(data);
-    
+
     const taskCount = data.tasks.taskCount;
-    const finishedTaskCount= data.tasks.finishedTaskCount;
+    const finishedTaskCount = data.tasks.finishedTaskCount;
     updateProgressBar(taskCount, finishedTaskCount);
-
-
-
   })
   .catch((error) => {
     console.error("Error fetching wedding progress:", error);
   });
 
-
 function render() {
-  const scrollContainer = document.querySelector('.slide-content');
-  const backBtn = document.getElementById('backBtn');
-  const nextBtn = document.getElementById('nextBtn');
+  const scrollContainer = document.querySelector(".slide-content");
+  const backBtn = document.getElementById("backBtn");
+  const nextBtn = document.getElementById("nextBtn");
 
-  document.querySelector('.go-back').addEventListener('click', () => {
+  document.querySelector(".go-back").addEventListener("click", () => {
     window.location.href = `/vendor/${vendorID}`;
-  })
+  });
 
   fetch(`/vendor/${vendorID}/assignment/${assignmentID}/get-tasks`, {
     method: "GET",
@@ -108,40 +103,40 @@ function render() {
           taskStateBtn.classList.add("doneButton");
         }
 
-        
         taskStateBtn.addEventListener("click", () => {
-
-          const conformed= confirm("Are you sure you want to mark this task as done?");
-          if(conformed){  
-          fetch(`/task_state_update/${vendorID}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-            body: JSON.stringify({
-              taskID: cardData.taskID,
-            }),
-          })
-          .then((response) => {
-            if (response.status === 401) {
-              window.location.href = "/signin";
-            } else {
-              return response.json();
-            }
-          })
-            .then((data) => {
-              if (data.status === "success") {
-                alert(data.message);
-                window.location.reload();
-              } else {
-                alert("Error: " + data.error);
-              }
+          const conformed = confirm(
+            "Are you sure you want to mark this task as done?"
+          );
+          if (conformed) {
+            fetch(`/task_state_update/${vendorID}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              },
+              body: JSON.stringify({
+                taskID: cardData.taskID,
+              }),
             })
-            .catch((error) => {
-              console.error("Error updating Task:", error);
-            });
-        }
+              .then((response) => {
+                if (response.status === 401) {
+                  window.location.href = "/signin";
+                } else {
+                  return response.json();
+                }
+              })
+              .then((data) => {
+                if (data.status === "success") {
+                  alert(data.message);
+                  window.location.reload();
+                } else {
+                  alert("Error: " + data.error);
+                }
+              })
+              .catch((error) => {
+                console.error("Error updating Task:", error);
+              });
+          }
         });
 
         card.appendChild(taskStateBtn);
@@ -216,35 +211,35 @@ function render() {
 }
 
 function renderMessages() {
-  const chatContainer = document.querySelector('.chat-show-area');
-  chatContainer.innerHTML = '';
+  const chatContainer = document.querySelector(".chat-show-area");
+  chatContainer.innerHTML = "";
 
-  const wsUrl = 'ws://localhost:8080/';
+  const wsUrl = "ws://localhost:8080/";
 
   const socket = new WebSocket(wsUrl);
-  const messageInput = document.getElementById('chat-type-field');
-  const sendBtn = document.getElementById('send-button');
+  const messageInput = document.getElementById("chat-type-field");
+  const sendBtn = document.getElementById("send-button");
 
   console.log(weddingID);
   socket.onopen = async () => {
-    weddingID.then(data => {
+    weddingID.then((data) => {
       handshake = JSON.stringify({
-        weddingID: data
-      })
-      console.log('WebSocket connection opened. Sending wedding ID...');
+        weddingID: data,
+      });
+      console.log("WebSocket connection opened. Sending wedding ID...");
       console.log(handshake);
       socket.send(handshake);
-    })
+    });
   };
 
   socket.onmessage = (event) => {
     const messages = JSON.parse(event.data);
     console.log(messages);
-    messages.forEach(message => {
+    messages.forEach((message) => {
       if (!message) {
         return;
       }
-      const sender = (message.role === 'planner') ? 'me' : message.role;
+      const sender = message.role === "planner" ? "me" : message.role;
       if (message.relativePath) {
         appendImageMessage(message.relativePath, message.timestamp, sender);
         return;
@@ -255,116 +250,121 @@ function renderMessages() {
   };
 
   socket.onerror = (error) => {
-    console.error('WebSocket error:', error);
-    chatContainer.innerHTML = "<p>Unexpected error occured</p>"
+    console.error("WebSocket error:", error);
+    chatContainer.innerHTML = "<p>Unexpected error occured</p>";
   };
 
   socket.onclose = () => {
-    console.log('WebSocket connection closed.');
+    console.log("WebSocket connection closed.");
   };
 
   function appendTextMessage(message, timestamp, sender) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message');
-    messageElement.innerHTML = `<div class="sender ${sender}">` + sender + ': </div><p class=message-text>' + message + '</p>';
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("message");
+    messageElement.innerHTML =
+      `<div class="sender ${sender}">` +
+      sender +
+      ": </div><p class=message-text>" +
+      message +
+      "</p>";
     messageElement.dataset.timestamp = timestamp;
     chatContainer.appendChild(messageElement);
   }
   function appendImageMessage(imageReference, timestamp, sender) {
-    const imageElement = document.createElement('div');
-    imageElement.classList.add('message', 'image');
+    const imageElement = document.createElement("div");
+    imageElement.classList.add("message", "image");
     imageElement.dataset.timestamp = timestamp;
-    imageElement.style.display = 'flex';
-    imageElement.style.flexDirection = 'column';
+    imageElement.style.display = "flex";
+    imageElement.style.flexDirection = "column";
 
-    const senderElement = document.createElement('div');
+    const senderElement = document.createElement("div");
     senderElement.classList.add(sender);
-    senderElement.classList.add('sender');
-    senderElement.innerHTML = '<h4">' + sender + '</h4>';
+    senderElement.classList.add("sender");
+    senderElement.innerHTML = '<h4">' + sender + "</h4>";
     imageElement.appendChild(senderElement);
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.src = "http://cdn.blissfulbeginnings.com" + imageReference;
     img.alt = "Uploaded Image";
-    img.classList.add('chat-image');
+    img.classList.add("chat-image");
 
     imageElement.appendChild(img);
     chatContainer.appendChild(imageElement);
   }
 
-
-  sendBtn.addEventListener('click', () => {
-    timestamp = new Date().toISOString()
-    timestamp = timestamp.replace('T', ' ').split('.')[0];
+  sendBtn.addEventListener("click", () => {
+    timestamp = new Date().toISOString();
+    timestamp = timestamp.replace("T", " ").split(".")[0];
     const message = messageInput.value.trim();
     if (message) {
       chatMessage = {
-        role: 'planner',
+        role: "planner",
         message: message,
         timestamp: timestamp,
       };
       socket.send(JSON.stringify(chatMessage));
       console.log(chatMessage);
-      appendTextMessage(message, timestamp, 'me');
-      messageInput.value = '';
+      appendTextMessage(message, timestamp, "me");
+      messageInput.value = "";
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
   });
 
-  messageInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
+  messageInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
       sendBtn.click();
     }
   });
 
+  document
+    .getElementById("imageUpload")
+    .addEventListener("change", async function (event) {
+      const file = event.target.files[0]; // Get the selected file
 
-  document.getElementById('imageUpload').addEventListener('change', async function (event) {
-    const file = event.target.files[0]; // Get the selected file
+      // Ensure a file was selected
+      if (!file) {
+        alert("No file selected.");
+        return;
+      }
 
-    // Ensure a file was selected
-    if (!file) {
-      alert("No file selected.");
-      return;
-    }
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF).");
+        return;
+      }
 
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert("File size must be less than 2 MB.");
+        return;
+      }
 
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-    if (!validImageTypes.includes(file.type)) {
-      alert("Please upload a valid image file (JPEG, PNG, GIF).");
-      return;
-    }
+      timestamp = new Date().toISOString();
+      timestamp = timestamp.replace("T", " ").split(".")[0];
+      sender = "planner";
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("timestamp", timestamp);
+      formData.append("sender", JSON.stringify(sender));
 
-
-    const maxSize = 2 * 1024 * 1024;
-    if (file.size > maxSize) {
-      alert("File size must be less than 2 MB.");
-      return;
-    }
-
-
-    timestamp = new Date().toISOString()
-    timestamp = timestamp.replace('T', ' ').split('.')[0];
-    sender = "planner"
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("timestamp", timestamp);
-    formData.append("sender", JSON.stringify(sender));
-
-    try {
-      weddingID.then(
-        async _data => {
+      try {
+        weddingID.then(async (_data) => {
           const response = await fetch("/chat/upload-image/" + _data, {
             method: "POST",
             body: formData,
           });
 
           if (!response.ok) {
-            throw new Error(`Failed to upload image. Status: ${response.status}`);
+            throw new Error(
+              `Failed to upload image. Status: ${response.status}`
+            );
           }
 
           const data = await response.json();
 
           if (!data.storagePath) {
-            throw new Error("Invalid response from server. No storage path provided.");
+            throw new Error(
+              "Invalid response from server. No storage path provided."
+            );
           }
 
           const imageReference = data.storagePath;
@@ -378,19 +378,325 @@ function renderMessages() {
 
           socket.send(JSON.stringify(metaWithImage));
 
-          appendImageMessage(imageReference, metaWithImage.timestamp, metaWithImage.sender);
+          appendImageMessage(
+            imageReference,
+            metaWithImage.timestamp,
+            metaWithImage.sender
+          );
           alert("Image sent successfully!");
-        }
-      )
-
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while uploading the image.");
-    }
-  });
+        });
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while uploading the image.");
+      }
+    });
 
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 document.addEventListener("DOMContentLoaded", renderMessages);
 
 document.addEventListener("DOMContentLoaded", render);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const scheduleButton = document.getElementById("scheduleButtonId");
+  const scheduleListContainer = document.getElementById(
+    "scheduleListContainer"
+  );
+  const closeButton = document.getElementById("closeModalButton");
+  const model = document.getElementById("eventModal");
+  const eventForm = document.getElementById("eventForm");
+  const addEventButton = document.getElementById("addEventButton");
+  const scheduleList = document.getElementById("scheduleList");
+
+  function showEventsOnEventContainer() {
+    fetch(`/get-events/${vendorID}/${assignmentID}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status == 401) {
+          window.location.href = "/signin";
+        } else if (res.status == 200) {
+          return res.json();
+        } else {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        data.events.forEach((event) => {
+          if (event.state == "scheduled") {
+            const scheduleItem = document.createElement("div");
+            scheduleItem.classList.add("schedule-item");
+            scheduleList.appendChild(scheduleItem);
+
+            const eventDetailsArea = document.createElement("div");
+            eventDetailsArea.classList.add("eventDetailsArea");
+            scheduleItem.appendChild(eventDetailsArea);
+            eventDetailsArea.innerHTML = `${event.date}: ${event.description}`;
+
+            const eventActionArea = document.createElement("div");
+            eventActionArea.classList.add("eventActionArea");
+            scheduleItem.appendChild(eventActionArea);
+
+            const eventEditButton = document.createElement("button");
+            eventEditButton.classList.add("eventEditButton");
+            eventEditButton.innerHTML = "&#9998";
+            eventActionArea.appendChild(eventEditButton);
+
+            const eventDeleteButton = document.createElement("button");
+            eventDeleteButton.classList.add("eventDeleteButton");
+            eventDeleteButton.innerHTML = "&#128465";
+            eventActionArea.appendChild(eventDeleteButton);
+
+            const eventFinishedButton = document.createElement("button");
+            eventFinishedButton.classList.add("eventFinishedButton");
+            eventFinishedButton.innerHTML = "&#10003;";
+            eventActionArea.appendChild(eventFinishedButton);
+
+            eventEditButton.dataset.eventID = event.eventID;
+            eventDeleteButton.dataset.eventID = event.eventID;
+            eventFinishedButton.dataset.eventID = event.eventID;
+
+            eventEditButton.addEventListener("click", function (event) {
+              scheduleList.innerHTML = "";
+              scheduleListContainer.style.display = "none";
+              model.style.display = "block";
+
+              const eventID = event.target.dataset.eventID;
+              const selectedEvent = data.events.find(
+                (ev) => ev.eventID === eventID
+              );
+
+              document.getElementById("eventDescription").value =
+                selectedEvent.description;
+              document.getElementById("eventDate").value = selectedEvent.date;
+              document.getElementById("eventForm").dataset.eventID = eventID;
+
+              document.getElementById("eventForm").onsubmit = updateEvent;
+            });
+
+            eventDeleteButton.addEventListener("click", function (event) {
+              deleteEvent(event);
+            });
+
+            eventFinishedButton.addEventListener("click", function (event) {
+              finishedEvent(event);
+            });
+          } else {
+            const scheduleItem = document.createElement("div");
+            scheduleItem.classList.add("schedule-item");
+            scheduleItem.innerHTML = `${event.date}: ${event.description}`;
+            scheduleList.appendChild(scheduleItem);
+
+            
+            const showDone = document.createElement("div");
+            showDone.classList.add("showDone");
+            scheduleItem.appendChild(showDone);
+            showDone.innerHTML = "Done";
+            showDone.style.color = "green";
+          }
+        });
+      })
+
+      .catch((error) => {
+        console.error("Error fetching events", error);
+      });
+  }
+
+  scheduleButton.addEventListener("click", () => {
+    if (
+      scheduleListContainer.style.display === "none" ||
+      !scheduleListContainer.style.display
+    ) {
+      scheduleListContainer.style.display = "block"; // Show the container
+      scheduleListContainer.scrollIntoView({ behavior: "smooth" });
+      // Smooth scroll to the container
+      showEventsOnEventContainer();
+    } else {
+      scheduleListContainer.style.display = "none"; // Hide the container
+      scheduleList.innerHTML = ""; // Clear the list
+    }
+  });
+
+  addEventButton.addEventListener("click", () => {
+    scheduleList.innerHTML = "";
+    scheduleListContainer.style.display = "none";
+    model.style.display = "block";
+    eventForm.reset();
+    document.getElementById("eventForm").onsubmit = createEvent;
+  });
+
+  closeButton.addEventListener("click", () => {
+    model.style.display = "none";
+    eventForm.reset();
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === model) {
+      model.style.display = "none";
+    }
+  });
+
+  function createEvent(e) {
+    e.preventDefault();
+
+    const eventDescription = document
+      .getElementById("eventDescription")
+      .value.trim();
+    const eventDate = document.getElementById("eventDate").value;
+
+    const eventDetails = {
+      eventDescription: eventDescription,
+      eventDate: eventDate,
+      assignmentID: assignmentID,
+    };
+
+    fetch(`/event-creation/${vendorID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: JSON.stringify(eventDetails),
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          window.location.href = "/signin";
+          return;
+        }
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error(`Failed to create event. Status: ${res.status}`);
+      })
+      .then((data) => {
+        if (data.status === "success") {
+          alert(data.message);
+          window.location.reload();
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error Creating Event:", error);
+        alert("An error occurred while creating the event. Please try again.");
+      });
+
+    model.style.display = "none";
+    eventForm.reset();
+  }
+
+  function updateEvent(e) {
+    e.preventDefault();
+
+    const eventDescription = document
+      .getElementById("eventDescription")
+      .value.trim();
+    const eventDate = document.getElementById("eventDate").value;
+    const eventID = document.getElementById("eventForm").dataset.eventID;
+
+    const eventDetails = {
+      eventDescription: eventDescription,
+      eventDate: eventDate,
+      eventID: eventID,
+    };
+
+    fetch(`/update-event/${vendorID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: JSON.stringify(eventDetails),
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          window.location.href = "/signin";
+          return;
+        }
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error(`Failed to update event. Status: ${res.status}`);
+      })
+      .then((data) => {
+        if (data.status === "success") {
+          alert(data.message);
+          window.location.reload();
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error Creating Event:", error);
+        alert("An error occurred while updating the event. Please try again.");
+      });
+
+    model.style.display = "none";
+    eventForm.reset();
+  }
+
+  function deleteEvent(event) {
+    const confirmed = confirm("Are you sure you want to delete?");
+    if (confirmed) {
+      const eventID = event.target.dataset.eventID;
+      const eventDetails= {
+        eventID: eventID,
+      };
+      fetch(`/delete-event/${vendorID}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventDetails),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+            alert(data.message);
+            window.location.reload();
+          } else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error Deleting Event:", error);
+        });
+    }
+  }
+
+  function finishedEvent(event) {
+    const confirmed = confirm("Are you sure you want to save this event as finished?");
+    if (confirmed) {
+      const eventID = event.target.dataset.eventID;
+      const eventDetails= {
+        eventID: eventID,
+      };
+      fetch(`/state-finished-events/${vendorID}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventDetails),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+            alert(data.message);
+            window.location.reload();
+          } else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error changing state of Event:", error);
+        });
+    }
+  }
+});
