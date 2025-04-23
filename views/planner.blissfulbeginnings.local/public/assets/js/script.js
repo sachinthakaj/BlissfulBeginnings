@@ -28,10 +28,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const calendarModalContainer = document.querySelector(
     ".calendar-modal-container"
   );
+  const calendarModalContainer2 = document.querySelector('.calendar-modal2-container');
   const cancelBtn = document.querySelector(".calendar-modal .cancel-button");
   const confirmBtn = document.querySelector(".calendar-modal .confirm-button");
+  const cancelBtn2 = document.querySelector(".calendar-modal2 .cancel-button");
+  const confirmBtn2 = document.querySelector(".calendar-modal2 .confirm-button");
 
-// Update CSS to style unavailable days
+
+// CSS to style unavailable days
 const styleId = 'unavailable-day-style';
 if (!document.getElementById(styleId)) {
     const style = document.createElement('style');
@@ -251,7 +255,7 @@ async function fetchUnavailableDates() {
 
   //modal for calendar
   function openCalendarModal(clickedCell) {
-    calendarModalContainer.classList.add("show");
+  
 
     const date = clickedCell.getAttribute("data-date");
     const month = clickedCell.getAttribute("data-month");
@@ -271,6 +275,14 @@ async function fetchUnavailableDates() {
         month: "long",
         day: "numeric",
       });
+      const isUnavailable=clickedCell.classList.contains('unavailable-day');
+        // Update modal text based on availability status
+        if (isUnavailable) {
+          calendarModalContainer2.classList.add('show');
+            
+      } else {
+          calendarModalContainer.classList.add('show');
+      }
 
       return selectedDate;
     }
@@ -278,6 +290,10 @@ async function fetchUnavailableDates() {
   function closeCalendarModal() {
     calendarModalContainer.classList.remove("show");
   }
+  function closeCalendarModal2() {
+    calendarModalContainer2.classList.remove('show');
+    
+}
 
   // Event Listeners
   if (calendarModalContainer && cancelBtn) {
@@ -328,6 +344,58 @@ async function fetchUnavailableDates() {
         });
     });
   }
+   // For re-availability popup
+   if (calendarModalContainer2&&cancelBtn2) {
+
+    // Close modal when clicking cancel button
+    cancelBtn2.addEventListener('click', closeCalendarModal2);
+}
+if (calendarModalContainer2 && confirmBtn2) {
+    confirmBtn2.addEventListener('click', () => {  
+        if (!selectedDate) {
+            showNotification("Please select a date first", "red");
+            return;
+        }
+        fetch(`/remove-unavailable`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            },
+            body: JSON.stringify({ date: selectedDate })
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 404) {
+                    closeCalendarModal2();
+                    showNotification("Date not found or already available", "red");
+                    return Promise.reject('Not Found - Date already available');
+                }
+
+                throw new Error('Failed to remove unavailable date');
+            }
+            return response.json();
+        })
+        .then(data => {
+            showNotification("Date marked as available", "green");
+            closeCalendarModal2();
+            // Refresh calendar to show the date is now available
+            showCalendar(currentMonth, currentYear);
+        })
+        .catch(error => {
+            if (error !== 'Not Found - Date already available') {
+                closeCalendarModal2();
+                showNotification("Failed to make date available", "red");
+            }
+        });
+
+
+});
+}
+
+
+
+
 
   // Function to create an event tooltip
   function createEventTooltip(date, month, year) {
