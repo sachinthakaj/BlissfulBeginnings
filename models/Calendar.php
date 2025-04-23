@@ -175,4 +175,33 @@ public function PgetUnavailableDates()
 
     return $this->db->resultSet(); // Returns all unavailable dates from all vendors
 }
+
+public function PremoveUnavailableDate($date)
+    {
+        try {
+            $this->db->startTransaction();
+        
+            $this->db->query("
+                DELETE FROM p_unavailabledates 
+                WHERE unavailable_date = :date
+            ");
+            $this->db->bind(":date", $date, PDO::PARAM_STR);
+            $this->db->execute();
+        
+            $deletedRows = $this->db->rowCount();
+        
+            if ($deletedRows > 0) {
+                $this->db->commit();
+                return true; // Successfully deleted
+            } else {
+                $this->db->rollbackTransaction();
+                error_log("No matching date found to remove");
+                return false; // No matching date found
+            }
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log("Delete Error: " . $e->getMessage());
+            throw $e;
+        }
+    }
 }
