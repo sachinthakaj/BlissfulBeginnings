@@ -28,12 +28,13 @@
                 <!-- Profile Photo Upload -->
                 <div class="form-group">
                     <label for="photo">Upload Profile Photo</label>
-                    <div class="drop-zone" id="drop-zone">
+                    <input type="file" id="photo" name="photo" accept="image/*">
+                    <!-- <div class="drop-zone" id="drop-zone">
                         <img src="/public/assets/images/upload.png" alt="Upload Icon">
                         <h3>Upload File</h3>
                         <p>Drag & Drop your file here or click to select</p>
                         <input type="file" id="photo" name="photo" accept="image/*">
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Business Name -->
                 <div class="form-group">
@@ -91,18 +92,6 @@
                     </div>
                 </div>
 
-                <div class="vendor-bottom">
-                    <!-- Photos of past events -->
-                    <div class="form-group">
-                        <label for="photos"><h2>Photos of Past Events</h2></label>
-                        <div class="drop-zone" id="drop-zone-multiple">
-                            <img src="/public/assets/images/upload.png" alt="Upload Icon">
-                            <h3>Upload Files</h3>
-                            <p>Drag & Drop your files here or click to select</p>
-                            <input type="file" id="photos" name="photos" accept="image/*" multiple>
-                        </div>
-                    </div>
-                </div>
                 <button type="submit" class="submit-button">Sign Up</button>
 
             </div>

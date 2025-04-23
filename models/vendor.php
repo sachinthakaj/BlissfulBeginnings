@@ -18,6 +18,7 @@ class Vendor
         return $this->db->fetchColumn() > 0;
     }
 
+    
 
     public function createVendor($email, $password, $businessName, $type, $contact, $address, $description, $websiteLink)
     {
@@ -26,10 +27,20 @@ class Vendor
             error_log($imageLink);
             $this->db->startTransaction();
             $UUID = generateUUID($this->db);
+            // $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'cdn' . DIRECTORY_SEPARATOR . 'profilePhotos';
+            // if (!is_dir($uploadDir) && !mkdir($uploadDir, 0777, true)) {
+            //     http_response_code(500);
+            //     echo json_encode(["error" => "Failed to create directory"]);
+            //     return;
+            // }
+            // $file = $_FILES['image'] ?? null;
+            // $filename = 'img_' . $UUID . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+            // $path = $uploadDir . DIRECTORY_SEPARATOR . $filename;
             $this->db->query("INSERT INTO vendors (vendorID,email,password,businessName,typeID,contact,address, description, vendorstate,imgSrc, websiteLink) VALUES (UNHEX(:uuid),:email,:password,:businessName,:type,:contact,:address,:description, :vendorstate,:imgSrc, :websiteLink);");
             $this->db->bind(':uuid', $UUID, PDO::PARAM_LOB);
             $this->db->bind(':email', $email, PDO::PARAM_STR);
             $this->db->bind(':password', $password, PDO::PARAM_STR);
+            // $this->db->bind(':path', $path, PDO::PARAM_STR);
             $this->db->bind(':businessName', $businessName, PDO::PARAM_STR);
             $this->db->bind(':type', $type, PDO::PARAM_STR);
             $this->db->bind(':contact', $contact, PDO::PARAM_STR);

@@ -41,6 +41,16 @@ class vendorAuthController
             $description = $parsed_data['description'];
             $websiteLink = $parsed_data['websiteLink'];
 
+            // $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'cdn' . DIRECTORY_SEPARATOR . 'profilePhotos';
+
+            // if (!is_dir($uploadDir) && !mkdir($uploadDir, 0777, true)) {
+            //     http_response_code(500);
+            //     echo json_encode(["error" => "Failed to create directory"]);
+            //     return;
+            // }
+
+            // $filename = 'img_' . $vendorID . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+
             if (empty($email) || empty($password) || empty($businessName) || empty($type) || empty($contact) || empty($address) || empty($description)) {
                 header('HTTP/1.1 400 Bad Request');
                 echo json_encode(['error' => 'All details are required']);
