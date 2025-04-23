@@ -205,7 +205,7 @@ class Package
     public function fetchRecommendations($weddingID)
     {
         try {
-            $this->db->query('SELECT p.*, r.typeID as typeID
+            $this->db->query('SELECT p.*, r.price, r.typeID as typeID
             FROM recommendations AS r JOIN packages AS p ON r.packageID=p.packageID WHERE r.weddingID=UNHEX(:weddingID);');
             $this->db->bind(':weddingID', $weddingID);
             $this->db->execute();
@@ -226,16 +226,17 @@ class Package
     {
         try {
             $this->db->startTransaction();
-            foreach ($packages as $typeID => $packageID) {
+            foreach ($packages as $typeID => $package) {
                 $assignmentID = generateUUID($this->db);
-                $this->db->query('INSERT INTO packageAssignment (assignmentID, weddingID, packageID, typeID, assignmentState, progress) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, :assignmentState, :progress);');
-                error_log($typeID . " " . $packageID . " " . $weddingID . " " . $assignmentID);
+                $this->db->query('INSERT INTO packageAssignment (assignmentID, weddingID, packageID, typeID, assignmentState, progress, price) VALUES (UNHEX(:assignmentID), UNHEX(:weddingID), UNHEX(:packageID), :typeID, :assignmentState, :progress, :price);');
+                error_log($typeID . " " . $package['packageID'] . " " . $weddingID . " " . $assignmentID);
                 $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_LOB);
                 $this->db->bind(':weddingID', $weddingID, PDO::PARAM_LOB);
-                $this->db->bind(':packageID', $packageID, PDO::PARAM_LOB);
+                $this->db->bind(':packageID', $package['packageID'], PDO::PARAM_LOB);
                 $this->db->bind(':typeID', $typeID, PDO::PARAM_STR);
                 $this->db->bind(':assignmentState', 'Unagreed', PDO::PARAM_STR);
                 $this->db->bind(':progress', '0', PDO::PARAM_INT);
+                $this->db->bind(':price', $package['price'], PDO::PARAM_INT);
                 $this->db->execute();
             }
             $this->db->query('UPDATE wedding SET weddingstate = "ongoing" WHERE weddingID = UNHEX(:weddingID);');

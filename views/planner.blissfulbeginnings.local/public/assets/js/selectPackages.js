@@ -189,7 +189,7 @@ function createPackageCard(package) {
     <p>${package.feature1}</p>
     <p>${package.feature2}</p>
     <p>${package.feature3}</p>
-    <p>Total Price: ${package.total_price}</p>
+    <p>Total Price: <span id=total-price>${package.total_price}</span>LKR</p>
 
   `;
   return packageCard;
@@ -342,16 +342,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     weddingPartyMale = document.querySelector('#wedding-group-male');
     weddingPartyFemale = document.querySelector('#wedding-group-female');
-  
 
-    if(data.weddingPartyMale) {
+
+    if (data.weddingPartyMale) {
       weddingPartyMale.value = data.weddingPartyMale;
       weddingPartyMale.disabled = true;
     } else {
       weddingPartyMale.value = 3;
     }
 
-    if(data.weddingPartyFemale) {
+    if (data.weddingPartyFemale) {
       weddingPartyFemale.value = data.weddingPartyFemale;
       weddingPartyFemale.disabled = true;
     } else {
@@ -417,6 +417,8 @@ document.addEventListener("DOMContentLoaded", function () {
           if (response.status == 204) {
             showNotification("No packages available for this budget", "red");
             return;
+          } else if (response.status == 401) {
+            window.href='/signin';  
           }
           return response.json();
         }).then(data => {
@@ -440,22 +442,25 @@ document.addEventListener("DOMContentLoaded", function () {
           `;
           modalContent.querySelector('#search-reccs').addEventListener('input', (event) => {
             const query = event.target.value.trim().toLowerCase();
-            const filtered = data.filter(package => package.packageName.toLowerCase().includes(query) || package.businessName.toLowerCase().includes(query) || 
-            package.feature1.toLowerCase().includes(query) || package.feature2.toLowerCase().includes(query) || package.feature3.toLowerCase().includes(query));
+            const filtered = data.filter(package => package.packageName.toLowerCase().includes(query) || package.businessName.toLowerCase().includes(query) ||
+              package.feature1.toLowerCase().includes(query) || package.feature2.toLowerCase().includes(query) || package.feature3.toLowerCase().includes(query));
             packageGrid.innerHTML = '';
             filtered.forEach(package => {
               const packageCard = createPackageCard(package);
-              if (selectedPackages[assignmentType].includes(packageCard.id)) {
+              if (selectedPackages[assignmentType].some(sPackage => sPackage.id === packageCard.id)) {
                 packageCard.classList.add('selected');
               }
               packageCard.addEventListener('click', () => {
-                if (selectedPackages[assignmentType].includes(packageCard.id)) {
+                if (selectedPackages[assignmentType].some(sPackage => sPackage.id === packageCard.id)) {
                   packageCard.classList.remove('selected');
-                  selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(id => id !== packageCard.id);
+                  selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(sPackage => sPackage.id !== packageCard.id);
                   console.log(selectedPackages);
                 } else {
                   packageCard.classList.add('selected');
-                  selectedPackages[assignmentType].push(packageCard.id);
+                  selectedPackages[assignmentType].push({
+                    id: packageCard.id,
+                    price: packageCard.querySelector('#total-price').textContent
+                  });
                   console.log(selectedPackages);
                 }
               })
@@ -471,13 +476,16 @@ document.addEventListener("DOMContentLoaded", function () {
               packageCard.classList.add('selected');
             }
             packageCard.addEventListener('click', () => {
-              if (selectedPackages[assignmentType].includes(packageCard.id)) {
+              if (selectedPackages[assignmentType].some(package => package.id === packageCard.id)) {
                 packageCard.classList.remove('selected');
-                selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(id => id !== packageCard.id);
+                selectedPackages[assignmentType] = selectedPackages[assignmentType].filter(package => package.id !== packageCard.id);
                 console.log(selectedPackages);
               } else {
                 packageCard.classList.add('selected');
-                selectedPackages[assignmentType].push(packageCard.id);
+                selectedPackages[assignmentType].push({
+                  id: packageCard.id,
+                  price: packageCard.querySelector('#total-price').textContent  
+                });
                 console.log(selectedPackages);
               }
             })
@@ -498,10 +506,10 @@ document.addEventListener("DOMContentLoaded", function () {
           modal.addEventListener('click', (e) => {
             if (e.target === modal) {
               modal.querySelector('.modal-content').innerHTML = '';
-              modal.style.display = 'none'; 
+              modal.style.display = 'none';
             }
           });
-         
+
         }).catch(error => {
           console.error('Error fetching vendor data:', error);
           showNotification("Error loading vendor data. Please try again later.", 'red');
@@ -526,6 +534,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }).then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
+        }else if (response.status == 401) {
+          window.location.href = '/signin';
         }
         window.location.href = '/wedding/' + weddingID;
       }).catch(error => {
