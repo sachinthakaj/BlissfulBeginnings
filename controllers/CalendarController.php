@@ -250,6 +250,39 @@ class CalendarController
         echo json_encode(["error" => "Failed to retrieve unavailable dates"]);
     }
 }
+public function PremoveUnavailableDate()
+    {
+        try {
+            // Get JSON input
+            $input = json_decode(file_get_contents('php://input'), true);
+            
+            if (empty($input['date'])) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Date is required']);
+                return;
+            }
+            $date = $input['date'];
+
+            $success = $this->calendarModel->PremoveUnavailableDate($date);
+
+            if (!$success) {
+                http_response_code(404);
+                echo json_encode(['error' => 'Date not found or already available']);
+                return;
+            }
+
+            echo json_encode([
+                "status" => "OK",
+                "message" => "Date marked as available"
+            ]);
+
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            http_response_code(500);
+            echo json_encode(["error" => "Failed to remove unavailable date"]);
+        }
+    }
+
 
 
 }

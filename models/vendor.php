@@ -18,7 +18,12 @@ class Vendor
         return $this->db->fetchColumn() > 0;
     }
 
-    
+    public function createProfilePhoto($vendorID, $relativePath) {
+        $this->db->query('UPDATE vendors SET path = :path WHERE vendorID = :vendorID');
+        $this->db->bind(':path', $relativePath);
+        $this->db->bind(':vendorID', $vendorID);
+        return $this->db->execute();
+    }   
 
     public function createVendor($email, $password, $businessName, $type, $contact, $address, $description, $websiteLink)
     {
@@ -248,4 +253,6 @@ class Vendor
             throw $e;
         }
     }
+
+    
 }

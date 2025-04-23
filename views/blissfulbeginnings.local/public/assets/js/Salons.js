@@ -1,42 +1,43 @@
 function create(data) {
   const scrollContainer = document.querySelector(".more-about-salons");
 
-  scrollContainer.innerHTML = "";
+  // Clear the container first
+  scrollContainer.innerHTML = '';
+        
+  // Function to create and append a card
+  function createCard(data) {
+      const card = document.createElement('div');
+      card.classList.add('container');
 
-  data.forEach((salon) => {
-    const card = document.createElement("div");
-    card.classList.add("container");
-
-    const cardHTML = `
-        <div class="image-container">
-          <img src="${salon.imgSrc}" alt="Salon Image" class="image">
-        </div>
-        <div class="text-container">
-          <div class="heading">${salon.businessName}</div>
-          <div class="stars">
-            ${Array(5)
-              .fill(0)
-              .map(
-                (_, i) => `
-                <span class="star ${
-                  i < salon.rating ? "selected" : ""
-                }" data-value="${i + 1}">&#9734;</span>
-              `
-              )
-              .join("")}
+      const cardHTML = `
+          <div class="image-container">
+              <img src="${data.imgSrc}" alt="Image here" class="image">
           </div>
-          <div class="description">${salon.description}</div>
-        </div>
+          <div class="text-container">
+              <div class="heading">${data.businessName}</div>
+              <div class="stars">
+                  ${Array(5).fill(0).map((_, i) => `
+                      <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
+                  `).join('')}
+              </div>
+              <div class="description">${data.description}</div>
+          </div>
       `;
-    card.innerHTML = cardHTML;
-
-    card.querySelector(".heading").addEventListener("click", () => {
-      window.location.href = `/vendor/${salon.id}`;
-    });
-
-    scrollContainer.appendChild(card);
-  });
+      card.innerHTML = cardHTML;
+      card.id=data.vendorID;
+         
+// Append card to the container
+scrollContainer.appendChild(card);
 }
+  // Render all cards
+  data.forEach(createCard);
+  document.querySelectorAll('.container').forEach(card => {
+      card.addEventListener('click', () => {
+          window.location.href = `/vendor/${card.id}`;
+      })
+  })
+}
+
 
 async function notFund() {
   const notFund = document.createElement("div");

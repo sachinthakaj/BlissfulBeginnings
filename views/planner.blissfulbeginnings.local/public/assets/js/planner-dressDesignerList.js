@@ -1,79 +1,137 @@
-function render() {
-    try {
-        fetch('/get-dressdesignerslist/', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                'Content-Type': 'application/json'
-            },
-        }).then(response => {
-            if (!response.ok) {
-                if (response.status === 403) {
-                    console.log("No dress designers Found");
-                } else if (response.status === 401) {
-                    window.location.href = '/signin';
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            }
-            return response.json();
-
-        }).then(data => {
-            const scrollContainer = document.querySelector('.more-about-dress');
-
-            // Clear the container first
-            scrollContainer.innerHTML = '';
-
-            // Function to create and append a card
-            function createCard(data) {
-                const card = document.createElement('div');
-                card.classList.add('container');
-                card.id = data.vendorID;
-                const cardHTML = `
-                    <div class="image-container">
-                        <img src="${data.imgSrc}" alt="Image here" class="image">
-                    </div>
-                    <div class="text-container">
-                        <div class="heading">${data.businessName}</div>
-                        <div class="stars">
-                            ${Array(5).fill(0).map((_, i) => `
-                                <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
-                            `).join('')}
-                        </div>
-                        <div class="description">${data.description}</div>
-                    </div>
-                      <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
-                `;
-                card.innerHTML = cardHTML;
-                card.id=data.vendorID;
-                // Add delete functionality
-                const deleteIcon = card.querySelector('.delete-icon');
-                deleteIcon.addEventListener('click', () => {
-                    card.remove();
-                });
-
-                // Append card to the container
-                scrollContainer.appendChild(card);
-            }
-            // Render all cards
-            data.forEach(createCard);
-            document.querySelectorAll('.container').forEach(card => {
-                card.addEventListener('click', () => {
-                    window.location.href = `/vendor/${card.id}`;
-                })
-            })
+function create(data) {
+    const scrollContainer = document.querySelector(".more-about-dress");
+  
+    // Clear the container first
+    scrollContainer.innerHTML = '';
+          
+    // Function to create and append a card
+    function createCard(data) {
+        const card = document.createElement('div');
+        card.classList.add('container');
+  
+        const cardHTML = `
+            <div class="image-container">
+                <img src="${data.imgSrc}" alt="Image here" class="image">
+            </div>
+            <div class="text-container">
+                <div class="heading">${data.businessName}</div>
+                <div class="stars">
+                    ${Array(5).fill(0).map((_, i) => `
+                        <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
+                    `).join('')}
+                </div>
+                <div class="description">${data.description}</div>
+            </div>
+             <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
+        `;
+        card.innerHTML = cardHTML;
+        card.id=data.vendorID;
+         // Add delete functionality
+         const deleteIcon = card.querySelector('.delete-icon');
+         deleteIcon.addEventListener('click', () => {
+             card.remove();
+            });
+           
+  // Append card to the container
+  scrollContainer.appendChild(card);
+  }
+    // Render all cards
+    data.forEach(createCard);
+    document.querySelectorAll('.container').forEach(card => {
+        card.addEventListener('click', () => {
+            window.location.href = `/vendor/${card.id}`;
         })
-    } catch (error) {
-
+    })
+  }
+    
+    async function notFund() {
+      const notFund = document.createElement("div");
+      notFund.classList.add("not-found");
+      notFund.innerHTML = `<h2 class="not-found-text">No dress designer found</h2>`;
+      const scrollContainer = document.querySelector(".more-about-dress");
+    
+      scrollContainer.innerHTML = "";
+      scrollContainer.appendChild(notFund);
+    
+      return;
     }
-
-}
-
-
-
-
-
-
-// Run the render function when the page loads
-document.addEventListener('DOMContentLoaded', render);
-
+    
+    async function fetchSalons() {
+      try {
+        const response = await fetch("/get-dressdesignerslist/", {
+          method: "GET",
+          headers: {
+           'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                'Content-Type': 'application/json'
+          },
+        });
+    
+        if (!response.ok) {
+          if (response.status === 403) {
+            console.error("No dressdesigners found.");
+            return [];
+          }
+          throw new Error("Failed to fetch dressdesigners.");
+        }
+    
+        return await response.json();
+      } catch (error) {
+        console.error("Error fetching dressdesigners:", error);
+        return [];
+      }
+    }
+    
+    async function render() {
+      const data = await fetchSalons();
+      if (data.length === 0) {
+        notFund();
+        return;
+      } else {
+        create(data);
+      }
+    }
+    
+    async function searchSalons() {
+      const searchInput = document.getElementById("search_id");
+      const searchValue = searchInput.value.trim().toLowerCase();
+    
+      if (!searchValue) {
+        alert("Please enter a search term.");
+        return;
+      }
+    
+      const data = await fetchSalons();
+      const filteredData = data.filter((dressdesigner) =>
+          dressdesigner.businessName.toLowerCase().includes(searchValue)
+      );
+      if (filteredData.length === 0) {
+        notFund();
+        return;
+      } else {
+        create(filteredData);
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("search_id");
+      const searchButton = document.getElementById("search_button_id");
+    
+      if (searchButton) {
+        searchButton.addEventListener("click", searchSalons);
+      } else {
+        console.error("Search button not found in the DOM.");
+      }
+    
+      if (searchInput) {
+        searchInput.addEventListener("keyup", (event) => {
+          if (event.key === "Enter") {
+            searchSalons();
+          }
+        });
+      } else {
+        console.error("Search input not found in the DOM.");
+      }
+    
+      render();
+    });
+    

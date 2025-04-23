@@ -146,6 +146,22 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
             </div>
         </div>
     </div>
+
+    <!--calendar modal-delete unavailable dates-->
+    <div class="calendar-modal2-container" id="calendar-modal2-container">
+        <div class=" calendar-modal2">
+            <div class="calendar-modal2-header">
+                <h2>Check Re-availability</h2>
+            </div>
+            <div class="calendar-modal2-body">
+                <p>Are you sure that you  are re-available on this day? </p>
+            </div>
+            <div class="calendar-modal2-footer">
+                <button  class="cancel-button">Cancel</button>
+                <button class="confirm-button">Confirm</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

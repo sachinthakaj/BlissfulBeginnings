@@ -147,15 +147,23 @@ document.addEventListener('DOMContentLoaded', () => {
         let valid = true;
 
         inputs.forEach(input => {
-            if (input.id === 'date') {
-                // Date validation
-                const today = new Date();
-                const selectedDate = new Date(input.value);
-                if (selectedDate < today.setHours(0, 0, 0, 0)) {
-                    alert('Date cannot be in the past.');
-                    valid = false;
-                }
-            }
+            inputs.forEach(input => {
+                if (input.id === 'date') {
+                    // Date validation
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); 
+                    
+                    const selectedDate = new Date(input.value);
+                    const maxDate = new Date('2027-12-31T23:59:59'); 
+                    
+                    if (selectedDate < today) {
+                        alert('Date cannot be in the past');
+                        valid = false;
+                    } else if (selectedDate > maxDate) {
+                        alert('Date cannot be beyond the year 2027');
+                        valid = false;
+                    }
+        }})
 
             if (input.id === 'bride_age' || input.id === 'groom_age') {
                 // Age validation

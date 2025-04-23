@@ -9,105 +9,41 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Handle single file drag and drop
-  // const dropZone = document.getElementById("drop-zone");
   const fileInput = document.getElementById("photo");
+  const nextButtons = document.querySelectorAll("#next-button");
+  const prevButtons = document.querySelectorAll("#prev-button");
+  const sections = document.querySelectorAll(".modal-section");
+  const steps = document.querySelectorAll(".step");
 
-  // Highlight drop zone when file is dragged over it
-  // dropZone.addEventListener("dragover", (e) => {
-  //   e.preventDefault();
-  //   dropZone.classList.add("highlight");
-  // });
+  let currentStep = 0;
 
-  // Remove highlight when file is dragged away
-  // dropZone.addEventListener("dragleave", () => {
-  //   dropZone.classList.remove("highlight");
-  // });
+  function showStep(index) {
+    sections.forEach((section, i) => {
+      section.classList.toggle("active", i === index);
+      steps[i].classList.toggle("active", i === index);
+    });
+    currentStep = index;
+  }
 
-  // Handle dropped files
-  // dropZone.addEventListener("drop", (e) => {
-  //   e.preventDefault();
-  //   dropZone.classList.remove("highlight");
+  nextButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (currentStep < sections.length - 1) showStep(currentStep + 1);
+    });
+  });
 
-  //   const files = e.dataTransfer.files;
+  prevButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (currentStep > 0) showStep(currentStep - 1);
+    });
+  });
+
+  // Handle file selection through input field
+  // fileInput.addEventListener("change", (e) => {
+  //   const files = e.target.files;
   //   if (files.length) {
-  //     fileInput.files = files;
   //     displayFileName(files[0]);
   //   }
   // });
-
-  // Handle file selection through input field
-  fileInput.addEventListener("change", (e) => {
-    const files = e.target.files;
-    if (files.length) {
-      displayFileName(files[0]);
-    }
-  });
-
-  // function displayFileName(file) {
-  //   const dropZoneImage = dropZone.querySelector("img");
-  //   const dropZoneText = dropZone.querySelector("h3");
-  //   const dropZoneDesc = dropZone.querySelector("p");
-
-  //   dropZoneImage.src = URL.createObjectURL(file);
-  //   dropZoneImage.alt = file.name;
-  //   dropZoneText.textContent = file.name;
-  //   dropZoneDesc.textContent = "File selected";
-  // }
-
-  // Handle multiple file drag and drop
-  // const dropZoneMultiple = document.getElementById("drop-zone-multiple");
-  // const fileInputMultiple = document.getElementById("photos");
-
-  // Highlight drop zone when files are dragged over it
-  // dropZoneMultiple.addEventListener("dragover", (e) => {
-  //   e.preventDefault();
-  //   dropZoneMultiple.classList.add("highlight");
-  // });
-
-  // Remove highlight when files are dragged away
-  // dropZoneMultiple.addEventListener("dragleave", () => {
-  //   dropZoneMultiple.classList.remove("highlight");
-  // });
-
-  // Handle dropped files
-  // dropZoneMultiple.addEventListener("drop", (e) => {
-  //   e.preventDefault();
-  //   dropZoneMultiple.classList.remove("highlight");
-
-  //   const files = e.dataTransfer.files;
-  //   if (files.length) {
-  //     fileInputMultiple.files = files;
-  //     displayFileNames(files);
-  //   }
-  // });
-
-  // Handle file selection through input field
-  // fileInputMultiple.addEventListener("change", (e) => {
-  //   const files = e.target.files;
-  //   if (files.length) {
-  //     displayFileNames(files);
-  //   }
-  // });
-
-  // function displayFileNames(files) {
-  //   dropZoneMultiple.innerHTML = ""; // Clear the drop zone content
-
-  //   Array.from(files).forEach(file => {
-  //     const fileElement = document.createElement("div");
-  //     fileElement.classList.add("file-details");
-
-  //     const dropZoneImage = document.createElement("img");
-  //     dropZoneImage.src = URL.createObjectURL(file);
-  //     dropZoneImage.alt = file.name;
-
-  //     const fileName = document.createElement("h4");
-  //     fileName.textContent = file.name;
-
-  //     fileElement.appendChild(dropZoneImage);
-  //     fileElement.appendChild(fileName);
-  //     dropZoneMultiple.appendChild(fileElement);
-  //   });
-  // }
 
   // Form validation (optional)
   const signupForm = document.getElementById("signup-form");
@@ -154,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then((response) => {
         console.log(response);
+        alert("in here");
         if (!response.ok) {
           if (response.status == 409) {
             alert("Email is already registered");
@@ -168,10 +105,45 @@ document.addEventListener("DOMContentLoaded", () => {
         // Handle success (e.g., show a success message or redirect)
         alert("Registration successful!");
         console.log("Success:", data);
-        window.location.href = "/vendor/" + data.vendorID;
+
+        // next modal step
+        showStep(2);
+
+        const saveButton = document.querySelector("#save-button");
+        saveButton.addEventListener("click", () => {
+          const file = document.getElementById("photo").files[0];
+
+          if (!file) {
+            alert("Please select a file before submitting.");
+            return;
+          }
+
+          const uploadFormData = new FormData();
+          uploadFormData.append("image", file);
+
+          fetch(
+            "http://cdn.blissfulbeginnings.com/vendor/upload-profile-photo/" +
+              data.vendorID,
+            {
+              method: "POST",
+              body: uploadFormData,
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (!data.status) {
+                throw new Error("Invalid response from server.");
+              }
+              alert("Image sent successfully!");
+              window.location.href = "/signin";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("An error occurred while uploading the image.");
+            });
+        });
       })
       .catch((error) => {
-        // Handle error (e.g., show an error message)
         console.error("Error registering:", error);
         alert("Registration failed, please try again.");
       });
