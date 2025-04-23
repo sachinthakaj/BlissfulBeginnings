@@ -1,12 +1,8 @@
 <?php
 
-require_once '../models/vendor.php';
-require_once '../core/Database.php';
-require_once '../core/helpers.php';
-
 // Allow requests from 'vendors.blissfulbeginnings.local'
 header("Access-Control-Allow-Origin: http://vendors.blissfulbeginnings.com");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Methods: POST, GET, DELETE, PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -14,13 +10,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+require_once '../models/vendor.php';
+require_once '../core/Database.php';
+require_once '../core/helpers.php';
+
 $profilePhotoModel = new Vendor();
 
 $vendorID = preg_replace("/[^a-zA-Z0-9_-]/", "", $_GET['vendorID']); // Sanitize input
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
     $vendorID = preg_replace("/[^a-fA-F0-9]/", "", $_GET['vendorID']); // Ensure only valid hex characters
-    $imagesData = $profilePhotoModel->getProfilePhotoByVendorID($vendorID);
+    $imagesData = $profilePhotoModel->getProfileDetails($vendorID);
 
 
     if ($imagesData) {

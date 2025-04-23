@@ -39,4 +39,5 @@ $router->post("/task_state_update/{vendorID}","vendorController@updateOfTasks");
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-wedding-id", "vendorController@getWeddingIDbyAssignmentID");
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+// $router->post("/vendor/upload-profile-photo/{vendorID}","vendorAuthController@uploadProfilePhoto");
 
