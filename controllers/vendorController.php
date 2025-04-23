@@ -317,8 +317,6 @@ class vendorController
 
     }
 
-    
-
     public function getWeddingIDbyAssignmentID($parameters) {
         if(!Authenticate('vendor', $parameters['vendorID'])){
             header("HTTP/1.1 401 Unauthorized");

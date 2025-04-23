@@ -3,7 +3,7 @@ const pathParts = path.split("/");
 const vendorID = pathParts[pathParts.length - 1];
 
 const mainContainer = document.querySelector(".main-container");
-const newPackage = document.querySelector(".add-package");
+const newPackage = document.querySelector(".add-package-image");
 const cancelButton = document.querySelector(".cancel-button");
 const deleteButton = document.querySelector(".delete-button");
 const uploadModal = document.getElementById("open-modal-button");
@@ -64,19 +64,21 @@ document.addEventListener("DOMContentLoaded", () => {
         packageDiv.setAttribute("id", packageID);
         packageDiv.innerHTML = `
                 <div class="details">
-                <span class="delete-icon">🗑️</span>
+                <span class="delete-icon">❌</span>
                             <div>${package.packageName}</div>
                         <div>What's Included:</div>
                         <ul>
                             <li>${package.feature1}</li>
-                            ${package.feature2
-            ? `<li>${package.feature2}</li>`
-            : ""
-          }
-                            ${package.feature3
-            ? `<li>${package.feature3}</li>`
-            : ""
-          }
+                            ${
+                              package.feature2
+                                ? `<li>${package.feature2}</li>`
+                                : ""
+                            }
+                            ${
+                              package.feature3
+                                ? `<li>${package.feature3}</li>`
+                                : ""
+                            }
                         </ul>
                         <div class="price">${package.fixedCost} LKR</div>
                     </div>
@@ -159,14 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div>What's Included:</div>
                                 <ul>
                                     <li>${package.feature1}</li>
-                                    ${package.feature2
-                    ? `<li>${package.feature2}</li>`
-                    : ""
-                  }
-                                    ${package.feature3
-                    ? `<li>${package.feature3}</li>`
-                    : ""
-                  }
+                                    ${
+                                      package.feature2
+                                        ? `<li>${package.feature2}</li>`
+                                        : ""
+                                    }
+                                    ${
+                                      package.feature3
+                                        ? `<li>${package.feature3}</li>`
+                                        : ""
+                                    }
                                 </ul>
                                 <div class="price">${package.fixedCost}</div>
                             </div >
@@ -472,13 +476,21 @@ document.addEventListener("DOMContentLoaded", () => {
 const demographyToggleHandler = (event) => {
   const selectedValue = event.target.value;
   if (selectedValue === "Male") {
-    event.target.parentNode.parentNode.querySelector("#variableCostPerFemale").disabled = true;
-    event.target.parentNode.parentNode.querySelector("#variableCostPerFemale").value = "";
+    event.target.parentNode.parentNode.querySelector(
+      "#variableCostPerFemale"
+    ).disabled = true;
+    event.target.parentNode.parentNode.querySelector(
+      "#variableCostPerFemale"
+    ).value = "";
   } else if (selectedValue === "Female") {
-    event.target.parentNode.parentNode.querySelector("#variableCostPerMale").disabled = true;
-    event.target.parentNode.parentNode.querySelector("#variableCostPerMale").value = "";
+    event.target.parentNode.parentNode.querySelector(
+      "#variableCostPerMale"
+    ).disabled = true;
+    event.target.parentNode.parentNode.querySelector(
+      "#variableCostPerMale"
+    ).value = "";
   }
-}
+};
 
 const createPhotographerPackage = (modalContent) => {
   const div = document.createElement("div");
@@ -521,7 +533,9 @@ const createDressDesignerPackage = (modalContent) => {
         </div>
         </div>
         </form > `;
-  div.querySelector("#demographic").addEventListener("change", (event) => demographyToggleHandler);
+  div
+    .querySelector("#demographic")
+    .addEventListener("change", (event) => demographyToggleHandler);
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -549,7 +563,9 @@ const createSalonPackage = (modalContent) => {
                 </div>
         </div>
     </form > `;
-  div.querySelector("#demographic").addEventListener("change", (event) => demographyToggleHandler);
+  div
+    .querySelector("#demographic")
+    .addEventListener("change", (event) => demographyToggleHandler);
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);
@@ -572,7 +588,9 @@ const createFloristPackage = (modalContent) => {
                 </div>
         </div>
     </form > `;
-    div.querySelector('#demographic').addEventListener('change', demographyToggleHandler);
+  div
+    .querySelector("#demographic")
+    .addEventListener("change", demographyToggleHandler);
   modalContent
     .querySelector(".submit-button")
     .insertAdjacentElement("beforebegin", div);

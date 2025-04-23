@@ -1,42 +1,39 @@
-const businessType = ["Photographer", "Dress Designer", "Salon", "Florist"]
-
+const businessType = ["Photographer", "Dress Designer", "Salon", "Florist"];
 
 document.addEventListener("DOMContentLoaded", () => {
-
-
   // options for business type
   const businessType_list = document.getElementById("businessType");
 
-  businessType.forEach(element => {
+  businessType.forEach((element) => {
     businessType_list.innerHTML += `<option value="${element}">${element}</option>`;
   });
 
   // Handle single file drag and drop
-  const dropZone = document.getElementById("drop-zone");
+  // const dropZone = document.getElementById("drop-zone");
   const fileInput = document.getElementById("photo");
 
   // Highlight drop zone when file is dragged over it
-  dropZone.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    dropZone.classList.add("highlight");
-  });
+  // dropZone.addEventListener("dragover", (e) => {
+  //   e.preventDefault();
+  //   dropZone.classList.add("highlight");
+  // });
 
   // Remove highlight when file is dragged away
-  dropZone.addEventListener("dragleave", () => {
-    dropZone.classList.remove("highlight");
-  });
+  // dropZone.addEventListener("dragleave", () => {
+  //   dropZone.classList.remove("highlight");
+  // });
 
   // Handle dropped files
-  dropZone.addEventListener("drop", (e) => {
-    e.preventDefault();
-    dropZone.classList.remove("highlight");
+  // dropZone.addEventListener("drop", (e) => {
+  //   e.preventDefault();
+  //   dropZone.classList.remove("highlight");
 
-    const files = e.dataTransfer.files;
-    if (files.length) {
-      fileInput.files = files;
-      displayFileName(files[0]);
-    }
-  });
+  //   const files = e.dataTransfer.files;
+  //   if (files.length) {
+  //     fileInput.files = files;
+  //     displayFileName(files[0]);
+  //   }
+  // });
 
   // Handle file selection through input field
   fileInput.addEventListener("change", (e) => {
@@ -46,71 +43,71 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  function displayFileName(file) {
-    const dropZoneImage = dropZone.querySelector("img");
-    const dropZoneText = dropZone.querySelector("h3");
-    const dropZoneDesc = dropZone.querySelector("p");
+  // function displayFileName(file) {
+  //   const dropZoneImage = dropZone.querySelector("img");
+  //   const dropZoneText = dropZone.querySelector("h3");
+  //   const dropZoneDesc = dropZone.querySelector("p");
 
-    dropZoneImage.src = URL.createObjectURL(file);
-    dropZoneImage.alt = file.name;
-    dropZoneText.textContent = file.name;
-    dropZoneDesc.textContent = "File selected";
-  }
+  //   dropZoneImage.src = URL.createObjectURL(file);
+  //   dropZoneImage.alt = file.name;
+  //   dropZoneText.textContent = file.name;
+  //   dropZoneDesc.textContent = "File selected";
+  // }
 
   // Handle multiple file drag and drop
-  const dropZoneMultiple = document.getElementById("drop-zone-multiple");
-  const fileInputMultiple = document.getElementById("photos");
+  // const dropZoneMultiple = document.getElementById("drop-zone-multiple");
+  // const fileInputMultiple = document.getElementById("photos");
 
   // Highlight drop zone when files are dragged over it
-  dropZoneMultiple.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    dropZoneMultiple.classList.add("highlight");
-  });
+  // dropZoneMultiple.addEventListener("dragover", (e) => {
+  //   e.preventDefault();
+  //   dropZoneMultiple.classList.add("highlight");
+  // });
 
   // Remove highlight when files are dragged away
-  dropZoneMultiple.addEventListener("dragleave", () => {
-    dropZoneMultiple.classList.remove("highlight");
-  });
+  // dropZoneMultiple.addEventListener("dragleave", () => {
+  //   dropZoneMultiple.classList.remove("highlight");
+  // });
 
   // Handle dropped files
-  dropZoneMultiple.addEventListener("drop", (e) => {
-    e.preventDefault();
-    dropZoneMultiple.classList.remove("highlight");
+  // dropZoneMultiple.addEventListener("drop", (e) => {
+  //   e.preventDefault();
+  //   dropZoneMultiple.classList.remove("highlight");
 
-    const files = e.dataTransfer.files;
-    if (files.length) {
-      fileInputMultiple.files = files;
-      displayFileNames(files);
-    }
-  });
+  //   const files = e.dataTransfer.files;
+  //   if (files.length) {
+  //     fileInputMultiple.files = files;
+  //     displayFileNames(files);
+  //   }
+  // });
 
   // Handle file selection through input field
-  fileInputMultiple.addEventListener("change", (e) => {
-    const files = e.target.files;
-    if (files.length) {
-      displayFileNames(files);
-    }
-  });
+  // fileInputMultiple.addEventListener("change", (e) => {
+  //   const files = e.target.files;
+  //   if (files.length) {
+  //     displayFileNames(files);
+  //   }
+  // });
 
-  function displayFileNames(files) {
-    dropZoneMultiple.innerHTML = ""; // Clear the drop zone content
+  // function displayFileNames(files) {
+  //   dropZoneMultiple.innerHTML = ""; // Clear the drop zone content
 
-    Array.from(files).forEach(file => {
-      const fileElement = document.createElement("div");
-      fileElement.classList.add("file-details");
+  //   Array.from(files).forEach(file => {
+  //     const fileElement = document.createElement("div");
+  //     fileElement.classList.add("file-details");
 
-      const dropZoneImage = document.createElement("img");
-      dropZoneImage.src = URL.createObjectURL(file);
-      dropZoneImage.alt = file.name;
+  //     const dropZoneImage = document.createElement("img");
+  //     dropZoneImage.src = URL.createObjectURL(file);
+  //     dropZoneImage.alt = file.name;
 
-      const fileName = document.createElement("h4");
-      fileName.textContent = file.name;
+  //     const fileName = document.createElement("h4");
+  //     fileName.textContent = file.name;
 
-      fileElement.appendChild(dropZoneImage);
-      fileElement.appendChild(fileName);
-      dropZoneMultiple.appendChild(fileElement);
-    });
-  }
+  //     fileElement.appendChild(dropZoneImage);
+  //     fileElement.appendChild(fileName);
+  //     dropZoneMultiple.appendChild(fileElement);
+  //   });
+  // }
 
   // Form validation (optional)
   const signupForm = document.getElementById("signup-form");
@@ -134,51 +131,50 @@ document.addEventListener("DOMContentLoaded", () => {
     if (signupForm.email.value !== signupForm.confirmEmail.value) {
       alert("Email doesn't match");
       return;
-    }
-    else if (signupForm.password.value !== signupForm.confirmPassword.value) {
+    } else if (signupForm.password.value !== signupForm.confirmPassword.value) {
       alert("Password doesn't match");
       return;
     }
-    const formData={
-      email:signupForm.email.value,
-      password:signupForm.password.value,
-      businessName:businessName,
-      type:signupForm.businessType.value,
-      contact:contact,
-      address:signupForm.address.value,
-      description:signupForm.description.value,
-      websiteLink:websiteLink
-    }
-    fetch('/register', {
-      method: 'POST',
+    const formData = {
+      email: signupForm.email.value,
+      password: signupForm.password.value,
+      businessName: businessName,
+      type: signupForm.businessType.value,
+      contact: contact,
+      address: signupForm.address.value,
+      description: signupForm.description.value,
+      websiteLink: websiteLink,
+    };
+    fetch("/register", {
+      method: "POST",
       headers: {
-          'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
-  })
-  .then(response => {
-      console.log(response);
-      if (!response.ok) {
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
           if (response.status == 409) {
-              alert("Email is already registered");
-              return;
+            alert("Email is already registered");
+            return;
           } else {
-              throw new Error('Network response was not ok');
+            throw new Error("Network response was not ok");
           }
-      }
-      return response.json();
-  })
-  .then(data => {
-      // Handle success (e.g., show a success message or redirect)
-      alert('Registration successful!');
-      console.log('Success:', data);
-      window.location.href = '/vendor/' + data.vendorID
-  })
-  .catch(error => {
-      // Handle error (e.g., show an error message)
-      console.error('Error registering:', error);
-      alert('Registration failed, please try again.');
-  });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Handle success (e.g., show a success message or redirect)
+        alert("Registration successful!");
+        console.log("Success:", data);
+        window.location.href = "/vendor/" + data.vendorID;
+      })
+      .catch((error) => {
+        // Handle error (e.g., show an error message)
+        console.error("Error registering:", error);
+        alert("Registration failed, please try again.");
+      });
 
     // If validation passes, submit the form (could be an AJAX call or form submission)
     console.log("Form submitted successfully!");
