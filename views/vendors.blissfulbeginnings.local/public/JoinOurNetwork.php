@@ -184,7 +184,7 @@
 
                     <div class="navigation-buttons">
                         <button type="button" id="prev-button" class="nav-button" disabled>Previous</button>
-                        <button type="submit" id="save-button" class="save-button">Save</button>
+                        <button id="save-button" class="save-button">Save</button>
                         <!-- <button type="submit" id="submit-button" class="submit-button">Sign Up</button> -->
                     </div>
                 </div>

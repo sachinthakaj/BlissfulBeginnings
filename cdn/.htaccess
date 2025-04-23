@@ -1,5 +1,6 @@
 RewriteEngine On
-
 # Allow vendorID to contain letters (a-z, A-Z), numbers (0-9), underscores (_), and hyphens (-)
 RewriteRule ^gallery/upload/([a-zA-Z0-9_-]+)$ upload.php?vendorID=$1 [L,QSA]
-RewriteRule ^vendor/upload-profile-photo/([a-zA-Z0-9_-]+)$ profilePhotos.php?vendorID=$1 [L, QSA]
+
+# Allow vendorID to contain letters (a-z, A-Z) and numbers (0-9) only
+RewriteRule ^vendor/profile/([a-zA-Z0-9]+)$ profilePhotos.php?vendorID=$1 [L,QSA]

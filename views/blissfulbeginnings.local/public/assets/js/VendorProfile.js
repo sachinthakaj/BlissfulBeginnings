@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // update title and description
         document.getElementById('name').textContent = vendorData.businessName;
         document.getElementById('description').textContent = vendorData.description;
-        document.getElementById("profile-image").setAttribute("src", vendorData.img);
+        document.getElementById("profile-image").setAttribute("src", "http://cdn.blissfulbeginnings.com" +vendorData.imgSrc);
 
        
 

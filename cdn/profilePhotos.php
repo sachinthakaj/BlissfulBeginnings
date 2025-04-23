@@ -16,6 +16,7 @@ require_once '../core/helpers.php';
 
 $profilePhotoModel = new Vendor();
 
+
 $vendorID = preg_replace("/[^a-zA-Z0-9_-]/", "", $_GET['vendorID']); // Sanitize input
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
@@ -76,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
     // $imageContent = file_get_contents($filePath);
     // $mimeType = $file['type'];
     
-    $imageID = $galleryModel->createProfilePhoto($vendorID, $relativePath);
+    $imageID = $profilePhotoModel->createProfilePhoto($vendorID, $relativePath);
 
     if (!$imageID) {
         http_response_code(500);

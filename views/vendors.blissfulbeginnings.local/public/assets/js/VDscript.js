@@ -424,13 +424,12 @@ console.log('Unavailable dates array:', unavailableDatesArray);
         let cardWrappersHTML = "";
 
         // 3 cards in card-wrapper and appending the rest
-        for (let i = 0; i < cards.length; i += 3) {
+   
             const cardsInGroup = cards
-                .slice(i, i + 3)
                 .map((card) => createCard(card))
                 .join("");
-            cardWrappersHTML += `<div class="card-wrapper">${cardsInGroup}</div>`;
-        }
+            cardWrappersHTML += cardsInGroup;
+        
 
         // inserting into slide-content
         scrollContainer.innerHTML = cardWrappersHTML;
@@ -440,6 +439,18 @@ console.log('Unavailable dates array:', unavailableDatesArray);
     // loadCards(cardsData);
 
     initializeCards();
+    document.getElementById('search_id').addEventListener('keyup', (event) => {
+        const searchQuery = event.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card) => {
+            const weddingTitle = card.querySelector('.name').textContent.toLowerCase();
+            if (weddingTitle.includes(searchQuery)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
 
   //modal for calendar
   function openCalendarModal(clickedCell) {
