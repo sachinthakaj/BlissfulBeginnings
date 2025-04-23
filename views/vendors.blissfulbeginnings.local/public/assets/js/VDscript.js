@@ -397,7 +397,7 @@ console.log('Unavailable dates array:', unavailableDatesArray);
                 <div class="image-content">
                     <span class="overlay"></span>
                     <div class="card-image">
-                        <img src="${cardData.imgSrc}" alt="" class="card-img">
+                        <img src="http://cdn.blissfulbeginnings.com/random-images/${cardData.assignmentID[0]}.jpg" alt="" class="card-img">
                     </div>
                 </div>
                 <div class="card-content">
@@ -411,9 +411,6 @@ console.log('Unavailable dates array:', unavailableDatesArray);
                             <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
                         </div>
                         <h4 class="description">Wedding Budget: </h4> 
-                        <div class="progress-bar-container">
-                             <div class="progress-bar budget-progress-bar" style="width: ${cardData.budget}%"></div>
-                        </div>
                     </div>
                 </div>
             </div>

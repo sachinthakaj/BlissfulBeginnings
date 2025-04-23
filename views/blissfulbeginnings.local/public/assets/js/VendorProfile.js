@@ -208,4 +208,42 @@ const vendorDisplayFunctions = {
 
 
 
+document.addEventListener("DOMContentLoaded", fetchVendorGallery);
+
+function fetchVendorGallery() {
+  fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        console.error("Error fetching images:", data.error);
+        return;
+      }
+
+      const galleryContainer = document.getElementById("gallery-container");
+
+      
+      data.forEach((image) => {
+        const imgDiv = document.createElement("div");
+        imgDiv.path = image.path;
+        imgDiv.classList.add("gallery-item");
+        imgDiv.style.position = "relative"; // Ensure relative positioning for absolute child elements
+
+        const imgElement = document.createElement("img");
+        imgElement.src = "http://cdn.blissfulbeginnings.com/" + image.path;
+        imgElement.alt = image.description;
+        imgElement.classList.add("gallery-img");
+        imgDiv.dataset.packageid = image.packageID ? image.packageID : "";
+
+        const desc = document.createElement("p");
+        desc.textContent = image.description;
+        imgDiv.appendChild(imgElement);
+        imgDiv.appendChild(desc);
+        galleryContainer.appendChild(imgDiv);
+      });
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
 
