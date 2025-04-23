@@ -4,8 +4,15 @@ require_once '../models/Gallery.php';
 require_once '../core/Database.php';
 require_once '../core/helpers.php';
 
+$http_origin = $_SERVER['HTTP_ORIGIN'];
+
+if ($http_origin == "http://vendors.blissfulbeginnings.com" || $http_origin == "http://planner.blissfulbeginnings.com" || $http_origin == "http://blissfulbeginnings.com")
+{  
+    header("Access-Control-Allow-Origin: $http_origin");
+}
+
 // Allow requests from 'vendors.blissfulbeginnings.local'
-header("Access-Control-Allow-Origin: http://vendors.blissfulbeginnings.com");
+// header("Access-Control-Allow-Origin: http://vendors.blissfulbeginnings.com, http://planner.blissfulbeginnings.com, http://blissfulbeginnings.com");
 header("Access-Control-Allow-Methods: POST, GET, DELETE, PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 

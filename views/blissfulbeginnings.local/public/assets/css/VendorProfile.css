@@ -3,6 +3,7 @@
   } */
 
   @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfilePic.css');
+  @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfileCommon.css');
 
   #loading-screen {
     position: fixed;
