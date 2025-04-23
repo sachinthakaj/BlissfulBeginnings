@@ -11,6 +11,7 @@ class m0009_Recommendations {
     `weddingID` BINARY(16) NOT NULL,
     `packageID` BINARY(16) NOT NULL,
     `typeID` ENUM('photographer', 'salon', 'bride-salon', 'groom-salon', 'florist', 'bride-dress-designer', 'groom-dress-designer', 'dress-designer') NOT NULL,
+    `price` INT NOT NULL,
     
     PRIMARY KEY (`weddingID`, `packageID`, `typeID`),
 

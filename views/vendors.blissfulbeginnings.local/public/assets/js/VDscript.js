@@ -7,8 +7,11 @@ function render() {
     const deleteProfile = document.querySelector('.delete-profile');
     const modalContainer = document.querySelector('.modal-container');
     const calendarModalContainer = document.querySelector('.calendar-modal-container');
+    const calendarModalContainer2 = document.querySelector('.calendar-modal2-container');
     const cancelBtn = document.querySelector(".calendar-modal .cancel-button");
     const confirmBtn = document.querySelector(".calendar-modal .confirm-button");
+    const cancelBtn2 = document.querySelector(".calendar-modal2 .cancel-button");
+    const confirmBtn2 = document.querySelector(".calendar-modal2 .confirm-button");
 
     const cancelButton = document.querySelector('.cancel-button');
     const deleteButton = document.querySelector('.delete-button');
@@ -440,7 +443,7 @@ console.log('Unavailable dates array:', unavailableDatesArray);
 
   //modal for calendar
   function openCalendarModal(clickedCell) {
-    calendarModalContainer.classList.add('show');
+   
     
     const date = clickedCell.getAttribute('data-date');
     const month = clickedCell.getAttribute('data-month');
@@ -457,12 +460,27 @@ console.log('Unavailable dates array:', unavailableDatesArray);
                 month: 'long', 
                 day: 'numeric' 
             });
+            const isUnavailable = clickedCell.classList.contains('unavailable-day');
+        
+            console.log(isUnavailable)
+            console.log(clickedCell)
+            // Update modal text based on availability status
+            if (isUnavailable) {
+                calendarModalContainer2.classList.add('show');
+                  
+            } else {
+                calendarModalContainer.classList.add('show');
+            }
 
         return selectedDate;
     }
 }
     function closeCalendarModal() {
         calendarModalContainer.classList.remove('show');
+        
+    }
+    function closeCalendarModal2() {
+        calendarModalContainer2.classList.remove('show');
         
     }
    
@@ -473,7 +491,7 @@ console.log('Unavailable dates array:', unavailableDatesArray);
         cancelBtn.addEventListener('click', closeCalendarModal);
 
     }
-   if (calendarModalContainer && confirmBtn) {
+    if (calendarModalContainer && confirmBtn) {
         confirmBtn.addEventListener('click', () => {
             
             
@@ -512,13 +530,59 @@ console.log('Unavailable dates array:', unavailableDatesArray);
             })
         
             .catch(error => {
-                if (error !== 'Conflict - Date already marked') {
+                if(error !== 'Conflict - Date already marked') {
                     closeCalendarModal();
                 showNotification("Failed to set unavailable date", "red");
             }});
 
         });
     }
+    // For re-availability popup
+    if (calendarModalContainer2&&cancelBtn2) {
+
+        // Close modal when clicking cancel button
+        cancelBtn2.addEventListener('click', closeCalendarModal2);
+    }
+    if (calendarModalContainer2 && confirmBtn2) {
+        confirmBtn2.addEventListener('click', () => {  
+            if (!selectedDate) {
+                showNotification("Please select a date first", "red");
+                return;
+            }
+            fetch(`/vendor/remove-unavailable/${vendorID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                },
+                body: JSON.stringify({ date: selectedDate })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        closeCalendarModal2();
+                        showNotification("Date not found or already available", "red");
+                        return Promise.reject('Not Found - Date already available');
+                    }
+                    throw new Error('Failed to remove unavailable date');
+                }
+                return response.json();
+            })
+            .then(data => {
+                showNotification("Date marked as available", "green");
+                closeCalendarModal2();
+                // Refresh calendar to show the date is now available
+                showCalendar(currentMonth, currentYear);
+            })
+            .catch(error => {
+                if (error !== 'Not Found - Date already available') {
+                    closeCalendarModal2();
+                    showNotification("Failed to make date available", "red");
+                }
+            });
+
+
+    });
 
     // modal for delete profile
     function openModal() {
@@ -714,6 +778,6 @@ console.log('Unavailable dates array:', unavailableDatesArray);
 
 
 }
-
+}
 
 document.addEventListener('DOMContentLoaded', render);

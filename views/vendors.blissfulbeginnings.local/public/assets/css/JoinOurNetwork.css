@@ -1,4 +1,4 @@
-@import url('/public/assets/css/common.css');
+@import url('/public/assets/css/Common.css');
 
 body {
   font-family: var(--primary-font-family);
@@ -8,6 +8,10 @@ body {
 /* Header Styles */
 header {
   justify-content: flex-start;
+}
+
+.main-content {
+  padding-top: 40vh;
 }
 
 form {

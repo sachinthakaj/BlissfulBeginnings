@@ -3,6 +3,30 @@ const pathParts = path.split("/");
 const vendorID = pathParts[pathParts.length - 3];
 const assignmentID = pathParts[pathParts.length - 1];
 
+const weddingID = getWeddingIdFRomAssignmentID(assignmentID);
+let vendorName = 'vendor'
+
+async function getWeddingIdFRomAssignmentID(assignmentID) {
+  try {
+    const response = await fetch(`/vendor/${vendorID}/assignment/${assignmentID}/get-wedding-id`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    });
+    if (response.status == 401) {
+      // window.location.href = '/signin';
+    }
+    data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error)
+    // window.location.href = '/signin';
+  }
+}
+
+
 function updateProgressBar(totalTasks, completedTasks) {
   const progressBar = document.getElementById("progressBar");
   const percentage = document.getElementById("weddingProgressPrecentage");
@@ -224,12 +248,13 @@ function renderMessages() {
   socket.onopen = async () => {
     weddingID.then((data) => {
       handshake = JSON.stringify({
-        weddingID: data,
-      });
-      console.log("WebSocket connection opened. Sending wedding ID...");
+        weddingID: data['weddingID']
+      })
+      console.log('WebSocket connection opened. Sending wedding ID...');
       console.log(handshake);
       socket.send(handshake);
-    });
+      vendorName = data['businessName'];
+    })
   };
 
   socket.onmessage = (event) => {
@@ -239,7 +264,7 @@ function renderMessages() {
       if (!message) {
         return;
       }
-      const sender = message.role === "planner" ? "me" : message.role;
+      const sender = (message.role === vendorName) ? 'me' : message.role;
       if (message.relativePath) {
         appendImageMessage(message.relativePath, message.timestamp, sender);
         return;
@@ -297,7 +322,7 @@ function renderMessages() {
     const message = messageInput.value.trim();
     if (message) {
       chatMessage = {
-        role: "planner",
+        role: vendorName,
         message: message,
         timestamp: timestamp,
       };
@@ -332,7 +357,7 @@ function renderMessages() {
         return;
       }
 
-      const maxSize = 2 * 1024 * 1024;
+      let maxSize = 2 * 1024 * 1024;
       if (file.size > maxSize) {
         alert("File size must be less than 2 MB.");
         return;
@@ -341,13 +366,30 @@ function renderMessages() {
       timestamp = new Date().toISOString();
       timestamp = timestamp.replace("T", " ").split(".")[0];
       sender = "planner";
-      const formData = new FormData();
+      let formData = new FormData();
       formData.append("image", file);
       formData.append("timestamp", timestamp);
       formData.append("sender", JSON.stringify(sender));
 
-      try {
-        weddingID.then(async (_data) => {
+
+    maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert("File size must be less than 2 MB.");
+      return;
+    }
+
+
+    timestamp = new Date().toISOString()
+    timestamp = timestamp.replace('T', ' ').split('.')[0];
+    role = vendorName;
+    formData = new FormData();
+    formData.append("image", file);
+    formData.append("timestamp", timestamp);
+    formData.append("role", JSON.stringify(role));
+
+    try {
+      weddingID.then(
+        async _data => {
           const response = await fetch("/chat/upload-image/" + _data, {
             method: "POST",
             body: formData,
@@ -371,7 +413,7 @@ function renderMessages() {
 
           const metaWithImage = {
             timestamp: formData.timestamp,
-            role: "Vendor",
+            role: vendorName,
             relativePath: imageReference,
             Image: "image_reference",
           };
