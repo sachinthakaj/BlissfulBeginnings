@@ -138,7 +138,7 @@ function renderMessages() {
         const messages = JSON.parse(event.data);
         console.log(messages);
         messages.forEach(message => {
-            sender = (message.role === 'Customer') ? 'me' : 'other';
+            let sender = (message.role === 'Customer') ? 'me' : message.role;
             if (!message) {
                 return;
             }
