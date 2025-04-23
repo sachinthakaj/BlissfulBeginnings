@@ -223,11 +223,15 @@ class Vendor
 
     public function getWeddingIDbyAssignmentID($assignmentID) {
         try{
-            $this->db->query('SELECT weddingID FROM packageassignment WHERE assignmentID = UNHEX(:assignmentID);');
+            $this->db->query('SELECT weddingID, v.businessName FROM packageassignment
+            JOIN Packages p ON p.packageID = packageAssignment.packageID 
+            JOIN Vendors v ON p.vendorID = v.vendorID 
+            WHERE assignmentID = UNHEX(:assignmentID);');
             $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
             $this->db->execute();
             $result = $this->db->single();
-            return bin2hex($result->weddingID);
+            $result->weddingID   = bin2hex($result->weddingID);
+            return $result;
         } catch( Exception $e) {
             error_log($e);
             throw $e;

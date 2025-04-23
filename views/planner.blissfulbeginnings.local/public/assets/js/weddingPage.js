@@ -25,15 +25,15 @@ function renderMessages() {
     const messages = JSON.parse(event.data);
     console.log(messages);
     messages.forEach((message) => {
-      sender = message.role === "planner" ? "me" : message.role;
+      role = message.role === "planner" ? "me" : message.role;
       if (!message) {
         return;
       }
       if (message.relativePath) {
-        appendImageMessage(message.relativePath, message.timestamp, sender);
+        appendImageMessage(message.relativePath, message.timestamp, role);
         return;
       } else {
-        appendTextMessage(message.message, message.timestamp, sender);
+        appendTextMessage(message.message, message.timestamp, role);
       }
     });
   };
@@ -85,7 +85,7 @@ function renderMessages() {
     const message = messageInput.value.trim();
     if (message) {
       chatMessage = {
-        sender: "planner",
+        role: "planner",
         message: message,
         timestamp: timestamp,
       };
