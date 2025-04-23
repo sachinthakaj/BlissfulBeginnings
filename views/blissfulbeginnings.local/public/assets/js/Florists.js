@@ -1,42 +1,42 @@
 function create(data) {
-    const scrollContainer = document.querySelector(".more-about-florists");
-  
-    scrollContainer.innerHTML = "";
-  
-    data.forEach((florist) => {
-      const card = document.createElement("div");
-      card.classList.add("container");
-  
+  const scrollContainer = document.querySelector(".more-about-florists");
+
+  // Clear the container first
+  scrollContainer.innerHTML = '';
+        
+  // Function to create and append a card
+  function createCard(data) {
+      const card = document.createElement('div');
+      card.classList.add('container');
+
       const cardHTML = `
           <div class="image-container">
-            <img src="${florist.imgSrc}" alt="florist Image" class="image">
+              <img src="${data.imgSrc}" alt="Image here" class="image">
           </div>
           <div class="text-container">
-            <div class="heading">${florist.businessName}</div>
-            <div class="stars">
-              ${Array(5)
-                .fill(0)
-                .map(
-                  (_, i) => `
-                  <span class="star ${
-                    i < florist.rating ? "selected" : ""
-                  }" data-value="${i + 1}">&#9734;</span>
-                `
-                )
-                .join("")}
-            </div>
-            <div class="description">${florist.description}</div>
+              <div class="heading">${data.businessName}</div>
+              <div class="stars">
+                  ${Array(5).fill(0).map((_, i) => `
+                      <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
+                  `).join('')}
+              </div>
+              <div class="description">${data.description}</div>
           </div>
-        `;
+      `;
       card.innerHTML = cardHTML;
-  
-      card.querySelector(".heading").addEventListener("click", () => {
-        window.location.href = `/vendor/${florist.id}`;
-      });
-  
-      scrollContainer.appendChild(card);
-    });
-  }
+      card.id=data.vendorID;
+         
+// Append card to the container
+scrollContainer.appendChild(card);
+}
+  // Render all cards
+  data.forEach(createCard);
+  document.querySelectorAll('.container').forEach(card => {
+      card.addEventListener('click', () => {
+          window.location.href = `/vendor/${card.id}`;
+      })
+  })
+}
   
   async function notFund() {
     const notFund = document.createElement("div");
