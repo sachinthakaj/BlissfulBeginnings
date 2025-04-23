@@ -337,4 +337,17 @@ class Wedding
             throw $e;
         }
     }
+    public function getWeddingDate($weddingID)
+    {
+        try {
+            $this->db->query("SELECT date from wedding WHERE weddingID=UNHEX(:weddingID)");
+            $this->db->bind(":weddingID", $weddingID);
+            $this->db->execute();
+            $result = $this->db->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }
