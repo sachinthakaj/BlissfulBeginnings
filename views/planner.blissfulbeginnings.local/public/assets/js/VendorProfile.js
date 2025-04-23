@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   })
     .then((response) => {
-      if(response.status == 401) {
+      if (response.status == 401) {
         window.location.href = "/signin";
-      } else if(response.status == 200) {
+      } else if (response.status == 200) {
         return response.json();
       } else {
         throw new Error("Network response was not ok");
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button class="accept-button">Accept</button>
                 <button class="reject-button">Reject</button>
             `;
-        
+
         document.body.appendChild(bar);
         document
           .querySelector(".accept-button")
@@ -53,11 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (response.status == 401) {
                   window.location.href = "/signin";
                   throw error;
-                } else if(response.status == 200) {
+                } else if (response.status == 200) {
                   alert("Vendor accepted successfully");
                   bar.remove();
                 }
-              })          
+              })
               .catch((error) => {
                 console.error("Error accepting vendor:", error);
                 alert("Error accepting vendor");
@@ -92,9 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // update title and description
       document.getElementById("description").textContent =
         vendorData.description;
-      document
-        .getElementById("profile-image")
-        .setAttribute("src", vendorData.image);
+      document.getElementById("profile-image").setAttribute("src", "http://cdn.blissfulbeginnings.com" + vendorData.imgSrc);
 
       console.log(vendorData.packages);
       const packagesContainer = document.getElementById("packages-container");
@@ -109,16 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div>What's Included:</div>
                       <ul>
                           <li>${package.feature1}</li>
-                              ${
-                                package.feature2
-                                  ? `<li>${package.feature2}</li>`
-                                  : ""
-                              }
-                              ${
-                                package.feature3
-                                  ? `<li>${package.feature3}</li>`
-                                  : ""
-                              }
+                              ${package.feature2
+            ? `<li>${package.feature2}</li>`
+            : ""
+          }
+                              ${package.feature3
+            ? `<li>${package.feature3}</li>`
+            : ""
+          }
                       </ul>
                     <div class="price">${package.fixedCost} LKR</div>
                 </div>

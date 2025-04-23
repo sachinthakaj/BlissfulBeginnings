@@ -52,9 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("name").textContent = vendorData.businessName;
       document.getElementById("description").textContent =
         vendorData.description;
-      document
-        .getElementById("profile-image")
-        .setAttribute("src", vendorData.image);
+      document.getElementById("profile-image").setAttribute("src", "http://cdn.blissfulbeginnings.com" + vendorData.imgSrc);
 
       const packagesContainer = document.getElementById("packages-container");
 
@@ -877,7 +875,7 @@ function fetchVendorGallery() {
         // Set field values
         // updateImageIDInput.value = imageData.imageID;
         // updateVendorIDInput.value = imageData.vendorID;
-        
+
         updateDateTimeInput.value = imageData.created_at;
         updateDescriptionInput.value = imageData.description;
         updateImagePackage.value = imageData.packageID
@@ -1009,14 +1007,14 @@ function fetchVendorGallery() {
                 .then((data) => {
                   showNotification("Image description updated", "green");
                   document.querySelectorAll('.gallery-image').forEach((item) => {
-                    if(item.src === currentImageToUpdate.path) {
+                    if (item.src === currentImageToUpdate.path) {
                       item.description = newDescription,
-                      data.forEach((item) => {
-                        if(item.path === currentImageToUpdate.path) {
-                          item.description = newDescription
-                          item.packageID = newPackageID
-                        }
-                      })
+                        data.forEach((item) => {
+                          if (item.path === currentImageToUpdate.path) {
+                            item.description = newDescription
+                            item.packageID = newPackageID
+                          }
+                        })
                     }
                   })
                 })

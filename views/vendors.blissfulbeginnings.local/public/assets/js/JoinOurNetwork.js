@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then((response) => {
         console.log(response);
-        alert("in here");
         if (!response.ok) {
           if (response.status == 409) {
             alert("Email is already registered");
@@ -103,14 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((data) => {
         // Handle success (e.g., show a success message or redirect)
-        alert("Registration successful!");
         console.log("Success:", data);
 
         // next modal step
         showStep(2);
 
         const saveButton = document.querySelector("#save-button");
-        saveButton.addEventListener("click", () => {
+        saveButton.addEventListener("click", (event) => {
+          event.preventDefault();
           const file = document.getElementById("photo").files[0];
 
           if (!file) {
@@ -122,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
           uploadFormData.append("image", file);
 
           fetch(
-            "http://cdn.blissfulbeginnings.com/vendor/upload-profile-photo/" +
+            "http://cdn.blissfulbeginnings.com/vendor/profile/" +
               data.vendorID,
             {
               method: "POST",
@@ -134,8 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
               if (!data.status) {
                 throw new Error("Invalid response from server.");
               }
-              alert("Image sent successfully!");
-              window.location.href = "/signin";
+              window.location.href = "/vendor/" + data.vendorID;
             })
             .catch((error) => {
               console.error("Error:", error);
