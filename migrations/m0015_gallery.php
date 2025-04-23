@@ -16,7 +16,9 @@ class m0015_gallery {
         `path` varchar(255) NOT NULL,
         `description` varchar(255) NOT NULL,    
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   
+        `associatedPackage` BINARY(16),
 
+        CONSTRAINT fk_gallery_ref_package FOREIGN KEY (associatedPackage) REFERENCES packages(packageID) ON DELETE CASCADE ON UPDATE CASCADE, 
         CONSTRAINT fk_gallery_ref_vendor FOREIGN KEY (vendorID) REFERENCES vendors(vendorID) ON DELETE CASCADE ON UPDATE CASCADE
       )";
       $this->dbh->exec($SQL);

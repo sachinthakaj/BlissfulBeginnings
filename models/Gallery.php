@@ -9,15 +9,15 @@ class Gallery
         $this->db = Database::getInstance();
     }
 
-    public function createGallery($vendorID, $image, $path, $description, $display, $mime_type)
+    public function createGallery($vendorID, $image, $path, $description, $display, $mime_type, $packageID)
     {
         try {
             error_log("Create gallery function runs");
             $this->db->startTransaction();
             // $imageID = generateUUID($this->db);
 
-            $sql = "INSERT INTO gallery (vendorID, image, path, description, display, mime_type) 
-                    VALUES (UNHEX(:vendorID), :image, :path, :description, :display, :mime_type)";
+            $sql = "INSERT INTO gallery (vendorID, image, path, description, display, mime_type, packageID) 
+                    VALUES (UNHEX(:vendorID), :image, :path, :description, :display, :mime_type, UNHEX(:packageID))";
 
             $this->db->query($sql);
             // $this->db->bind(':imageID', $imageID, PDO::PARAM_STR);
@@ -27,6 +27,7 @@ class Gallery
             $this->db->bind(':description', $description, PDO::PARAM_STR);
             $this->db->bind(':display', $display, PDO::PARAM_LOB);
             $this->db->bind(':mime_type', $mime_type, PDO::PARAM_STR);
+            $this->db->bind(':packageID', $packageID, PDO::PARAM_STR);
             $this->db->execute();
 
             $this->db->commit();
@@ -41,13 +42,14 @@ class Gallery
     public function getImagesByVendorID($vendorID)
     {
         try {
-            $sql = "SELECT path, description FROM gallery WHERE vendorID = UNHEX(:vendorID)";
+            $sql = "SELECT path, description, packageID FROM gallery WHERE vendorID = UNHEX(:vendorID)";
             $this->db->query($sql);
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
-        
             $this->db->execute();
             $images = $this->db->fetchAll(PDO::FETCH_ASSOC);
-        
+            for($i = 0; $i < count($images); $i++) {
+                $images[$i]['packageID'] = bin2hex($images[$i]['packageID']);
+            }
             return $images;
         } catch (PDOException $e) {
             error_log("Database Error: " . $e->getMessage());
@@ -107,13 +109,13 @@ class Gallery
         }
     }
 
-    public function updateImageDescription($path, $vendorID, $description)
+    public function updateImageDescription($path, $vendorID, $description, $packageID)
     {
         try {
             $this->db->startTransaction();
 
             // SQL query to update the image description (ensuring vendorID match)
-            $sql = "UPDATE gallery SET description = :description 
+            $sql = "UPDATE gallery SET description = :description, packageID = UNHEX(:packageID) 
                     WHERE path = :path AND vendorID = UNHEX(:vendorID)";
 
             error_log("Executing SQL: " . $sql);
@@ -123,6 +125,7 @@ class Gallery
             $this->db->bind(':description', $description);
             $this->db->bind(':path', $path);  // image name
             $this->db->bind(':vendorID', $vendorID); 
+            $this->db->bind(':packageID', $packageID); 
             $this->db->execute();
 
             if ($this->db->rowCount() > 0) {
