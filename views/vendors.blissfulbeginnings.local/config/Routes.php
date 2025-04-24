@@ -40,4 +40,10 @@ $router->post("/task_state_update/{vendorID}","vendorController@updateOfTasks");
 $router->get("/vendor/{vendorID}/assignment/{assignmentID}/get-wedding-id", "vendorController@getWeddingIDbyAssignmentID");
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
+$router->get("/get-events/{vendorID}/{assignmentID}","vendorController@getEventsForAnAssignment");
+$router->post("/event-creation/{vendorID}","vendorController@createEvent");
+$router->post("/update-event/{vendorID}","vendorController@updateEvent");
+$router->post("/state-finished-events/{vendorID}","vendorController@saveFinishedEvents");
+$router->post("/delete-event/{vendorID}","vendorController@deleteEvent");
+
 
