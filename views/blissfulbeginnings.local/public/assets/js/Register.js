@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();  // Prevent the form from submitting the default way
 
         const email = document.getElementById('email').value.toLowerCase();
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
+
+        if (!emailPattern.test(email)) {
+            alert('Please enter a valid email address ending with .com');
+            return;
+        }
         const password = passwordField.value;
         const confirmPassword = confirmPasswordField.value;
         const agree = document.getElementById('agree').checked;
