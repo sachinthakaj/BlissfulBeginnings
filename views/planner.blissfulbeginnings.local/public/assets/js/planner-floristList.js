@@ -1,6 +1,31 @@
 function create(data) {
     const scrollContainer = document.querySelector(".more-about-florists");
   
+    const ModalContainer = document.querySelector(".modal-container");
+    const cancelButton = document.querySelector('.cancel-button');
+    const deleteButton = document.querySelector('.delete-button');
+    function showNotification(message, color) {
+      // Create notification element
+      const notification = document.createElement("div");
+      notification.textContent = message;
+      notification.style.position = "fixed";
+      notification.style.bottom = "20px";
+      notification.style.left = "20px";
+      notification.style.backgroundColor = color;
+      notification.style.color = "white";
+      notification.style.padding = "10px 20px";
+      notification.style.borderRadius = "5px";
+      notification.style.zIndex = 1000;
+      notification.style.fontSize = "16px";
+
+      // Append to body
+      document.body.appendChild(notification);
+
+      // Remove after 3 seconds
+      setTimeout(() => {
+          notification.remove();
+      }, 3000);
+  }
     // Clear the container first
     scrollContainer.innerHTML = '';
           
@@ -26,12 +51,56 @@ function create(data) {
         `;
         card.innerHTML = cardHTML;
         card.id=data.vendorID;
-        // Add delete functionality
+            // Add delete functionality
         const deleteIcon = card.querySelector('.delete-icon');
         deleteIcon.addEventListener('click', () => {
-            card.remove();
+          ModalContainer.classList.add('show');
+            //card.remove();
         });
-           
+        function closeModal(){
+          ModalContainer.classList.remove('show');
+         }
+
+  if(deleteIcon&&cancelButton){
+    cancelButton.addEventListener('click',closeModal);
+  }
+  deleteButton.addEventListener('click', () => {
+    fetch(`/vendor-delete/${card.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+      },
+    })
+    .then(response => {
+      if (response.status === 200) {
+        showNotification("Vendor deleted successfully", "green");
+        closeModal();
+        // Refresh the list after successful deletion
+        setTimeout(() => window.location.href = '/plannerDashboard', 1000);
+      } 
+      else if (response.status === 409) {
+        closeModal();
+        showNotification("This vendor has assigned weddings", "red");
+      }
+     
+      else if (response.status === 401) {
+        showNotification("Unauthorized - please login again", "red");
+        closeModal();
+      }
+      else {
+        throw new Error('Failed to delete vendor');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification("Failed to delete vendor", "red");
+      closeModal();
+    });
+  });
+
+
+
   // Append card to the container
   scrollContainer.appendChild(card);
   }
@@ -39,22 +108,10 @@ function create(data) {
     data.forEach(createCard);
     document.querySelectorAll('.container').forEach(card => {
         card.addEventListener('click', () => {
-            window.location.href = `/vendor/${card.id}`;
+          //  window.location.href = `/vendor/${card.id}`;
         })
     })
   }
-    
-    async function notFund() {
-      const notFund = document.createElement("div");
-      notFund.classList.add("not-found");
-      notFund.innerHTML = `<h2 class="not-found-text">No florists found</h2>`;
-      const scrollContainer = document.querySelector(".more-about-florists");
-    
-      scrollContainer.innerHTML = "";
-      scrollContainer.appendChild(notFund);
-    
-      return;
-    }
     
     async function fetchSalons() {
       try {

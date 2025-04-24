@@ -719,13 +719,13 @@ class PlannerController
         }
     }
 
-    public function deleteVendors($vendorID) // Changed parameter name
+    public function deleteVendors($parameters) // Changed parameter name
 {
     try {
         $vendorModel = new Vendor(); // Fixed variable name
-        error_log("Vendor ID: " . $vendorID);
+        error_log("Vendor ID: " . $parameters['vendorID']);
         
-        $result = $vendorModel->deleteVendor($vendorID);
+        $result = $vendorModel->deleteVendor( $parameters['vendorID']);
 
         if ($result > 0) {
             header("Content-Type: application/json");

@@ -72,7 +72,7 @@ function create(data) {
       },
     })
     .then(response => {
-      if (response.status === 204) {
+      if (response.status === 200) {
         showNotification("Vendor deleted successfully", "green");
         closeModal();
         // Refresh the list after successful deletion
