@@ -1,3 +1,4 @@
+@import url('/public/assets/css/PModal.css');
 * {
     margin: 0;
     padding: 0;
@@ -301,3 +302,72 @@ header {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+/* Modal content */
+#modal-content {
+    background-color: #fff;
+    margin-top: 100px;
+    margin-left: 10%;
+    margin-bottom: 10%;
+    margin-right: 10%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 70%;
+  }
+  
+  .cancel-button, .delete-button, .upload-button,.confirm-button {
+    padding: 8px 16px;
+    border-radius: 24px;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+  }
+  
+  .cancel-button {
+    background-color: var(--vendorcard-background-color);
+    color: var(--tertiary-color);
+  }
+  
+  .delete-button, .upload-button {
+    background-color: var(--secondary-color);
+    color: var(--primary-white-color);
+  }
+  .confirm-button {
+    background-color: var(--vendorcard-background-color);
+    color: var(--tertiary-color);
+  }
+  
+  .cancel-button:hover {
+    background-color: var(--cancel-button-hover-color);
+  }
+  .confirm-button:hover {
+    background-color: var(--cancel-button-hover-color);
+  }
+  
+  :root {
+    --primary-color: #c1a42e;
+    --secondary-color: #656233;
+    --tertiary-color: #333;
+    --primary-dark-color: #444223;
+    --secondary-dark-color: #444223;
+    --star-selected-color: #f1c40f;
+    --header-background-color: #ddd;
+    --primary-white-color: #fff;
+    --semi-transparent-white-color: rgba(255, 255, 255, 0.9);
+    --modal-background-color: rgba(0, 0, 0, 0.5);
+    --scrollbar-background-color: #e0dcdc;
+    --vendorcard-background-color: #e0e0e0;
+    --spinner-border-color: #f3f3f3;
+    --cancel-button-color: #e0e0e0;
+    --cancel-button-hover-color: #d0d0d0;
+    --prev-background-color: #eee;
+    --prev-font-color: #666;
+    --prev-disabled-font-color: #999;
+    --primary-font-family: 'Inter', sans-serif;
+    --secondary-font-family: 'Poppins', sans-serif;
+    --tertiary-font-family: Arial, sans-serif;
+    --heading-font-family: 'Gwendolyn', cursive;
+  }
+  
+  
+  

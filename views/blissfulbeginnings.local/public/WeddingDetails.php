@@ -44,7 +44,7 @@
                         </div>
                         
                         <div class="input-group">
-                            <label for="wedding-party-male">Number of Male people in the wedding party</label>
+                            <label for="wedding-party-male">Number of groomsmens in the wedding</label>
                             <input type="number" id="wedding-party-male" name="wedding-party-male" required>
                         </div>
                         
@@ -60,7 +60,7 @@
                             <input type="text" id="theme" name="theme" required>
                         </div>
                         <div class="input-group">
-                            <label for="wedding-party-female">Number of Female people in the wedding party</label>
+                            <label for="wedding-party-female">Number of bridesmaids in the wedding</label>
                             <input type="number" id="wedding-party-female" name="wedding-party-female" required>
                         </div>
                         

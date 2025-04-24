@@ -18,12 +18,17 @@ class Vendor
         return $this->db->fetchColumn() > 0;
     }
 
-    
+    public function createProfilePhoto($vendorID, $relativePath) {
+        $this->db->query('UPDATE vendors SET imgSrc = :path WHERE vendorID = UNHEX(:vendorID)');
+        $this->db->bind(':path', $relativePath);
+        $this->db->bind(':vendorID', $vendorID);
+        return $this->db->execute();
+    }   
 
     public function createVendor($email, $password, $businessName, $type, $contact, $address, $description, $websiteLink)
     {
         try {
-            $imageLink = '/public/assets/images/img' . rand(1, 15) . '.jpg';
+            $imageLink = '/random-images/' . dechex(rand(0, 15)) . '.jpg';
             error_log($imageLink);
             $this->db->startTransaction();
             $UUID = generateUUID($this->db);
@@ -248,4 +253,38 @@ class Vendor
             throw $e;
         }
     }
+
+    public function deleteVendor($vendorID) {
+    try {
+
+        // Check for assigned weddings
+        $this->db->query('SELECT COUNT(*) as numweddings FROM packageassignment 
+                         INNER JOIN packages ON packageassignment.packageID = packages.packageID 
+                         INNER JOIN vendors ON packages.vendorID = vendors.vendorID 
+                         WHERE vendors.vendorID = UNHEX(:vendorID)');
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+        $result = $this->db->fetch(PDO::FETCH_ASSOC);
+
+        if ($result['numweddings'] > 0) {
+            return -1; // Vendor has weddings
+        }
+
+        // Proceed with deletion
+        $this->db->query("DELETE FROM vendors WHERE vendorID = UNHEX(:vendorID)");
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+
+        // Verify deletion
+        $this->db->query('SELECT 1 FROM vendors WHERE vendorID = UNHEX(:vendorID)');
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+        
+        return $this->db->rowCount() === 0 ? 1 : 0;
+    } catch (Exception $e) {
+        error_log('Delete Vendor Error: ' . $e->getMessage());
+        throw new Exception("Database operation failed");
+    }
+}
+
 }

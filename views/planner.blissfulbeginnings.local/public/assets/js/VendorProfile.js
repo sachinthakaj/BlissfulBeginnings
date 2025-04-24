@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   })
     .then((response) => {
-      if(response.status == 401) {
+      if (response.status == 401) {
         window.location.href = "/signin";
-      } else if(response.status == 200) {
+      } else if (response.status == 200) {
         return response.json();
       } else {
         throw new Error("Network response was not ok");
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button class="accept-button">Accept</button>
                 <button class="reject-button">Reject</button>
             `;
-        
+
         document.body.appendChild(bar);
         document
           .querySelector(".accept-button")
@@ -53,11 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (response.status == 401) {
                   window.location.href = "/signin";
                   throw error;
-                } else if(response.status == 200) {
+                } else if (response.status == 200) {
                   alert("Vendor accepted successfully");
                   bar.remove();
                 }
-              })          
+              })
               .catch((error) => {
                 console.error("Error accepting vendor:", error);
                 alert("Error accepting vendor");
@@ -92,9 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // update title and description
       document.getElementById("description").textContent =
         vendorData.description;
-      document
-        .getElementById("profile-image")
-        .setAttribute("src", vendorData.image);
+      document.getElementById("profile-image").setAttribute("src", "http://cdn.blissfulbeginnings.com" + vendorData.imgSrc);
 
       console.log(vendorData.packages);
       const packagesContainer = document.getElementById("packages-container");
@@ -109,16 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div>What's Included:</div>
                       <ul>
                           <li>${package.feature1}</li>
-                              ${
-                                package.feature2
-                                  ? `<li>${package.feature2}</li>`
-                                  : ""
-                              }
-                              ${
-                                package.feature3
-                                  ? `<li>${package.feature3}</li>`
-                                  : ""
-                              }
+                              ${package.feature2
+            ? `<li>${package.feature2}</li>`
+            : ""
+          }
+                              ${package.feature3
+            ? `<li>${package.feature3}</li>`
+            : ""
+          }
                       </ul>
                     <div class="price">${package.fixedCost} LKR</div>
                 </div>
@@ -200,3 +196,42 @@ const vendorDisplayFunctions = {
   Salon: displaySalonPackage,
   Florist: displayFloristPackage,
 };
+
+
+document.addEventListener("DOMContentLoaded", fetchVendorGallery);
+
+function fetchVendorGallery() {
+  fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        console.error("Error fetching images:", data.error);
+        return;
+      }
+
+      const galleryContainer = document.getElementById("gallery-container");
+
+      
+      data.forEach((image) => {
+        const imgDiv = document.createElement("div");
+        imgDiv.path = image.path;
+        imgDiv.classList.add("gallery-item");
+        imgDiv.style.position = "relative"; // Ensure relative positioning for absolute child elements
+
+        const imgElement = document.createElement("img");
+        imgElement.src = "http://cdn.blissfulbeginnings.com/" + image.path;
+        imgElement.alt = image.description;
+        imgElement.classList.add("gallery-img");
+        imgDiv.dataset.packageid = image.packageID ? image.packageID : "";
+
+        const desc = document.createElement("p");
+        desc.textContent = image.description;
+        imgDiv.appendChild(imgElement);
+        imgDiv.appendChild(desc);
+        galleryContainer.appendChild(imgDiv);
+      });
+    })
+    .catch((error) => console.error("Error:", error));
+}

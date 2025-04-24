@@ -79,10 +79,13 @@ $router->get("/notifications", "PlannerController@notifications");
 $router->get("/vendor/{vendorID}","PlannerController@vendorProfilePage");
 $router->get("/vendor/vendor-details/{vendorID}","PlannerController@vendorProfile");
 
+$router->delete("/vendor-delete/{vendorID}","PlannerController@deleteVendors");
+
 
 $router->post("/chat/upload-image/{weddingID}","ChatController@uploadImage");
 $router->post("/set-unavailable", "CalendarController@PsetUnavailableDate");
 $router->get("/get-unavailable", "CalendarController@PgetUnavailableDates");
+$router->delete("/remove-unavailable", "CalendarController@PremoveUnavailableDate");
 
 
 

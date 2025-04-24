@@ -1,4 +1,4 @@
-.calendar-modal-container {
+.calendar-modal-container,.calendar-modal2-container {
     display: none;
     position: fixed;
     top: 0;
@@ -11,11 +11,11 @@
     align-items: center;
 }
 
-.calendar-modal-container.show {
+.calendar-modal-container.show ,.calendar-modal2-container.show{
     display: flex;
 }
 
-.calendar-modal {
+.calendar-modal,.calendar-modal2 {
     background-color: var(--primary-white-color);
     padding: 20px;
     border-radius: 8px;
@@ -36,23 +36,23 @@
     }
 }
 
-.calendar-modal-header {
+.calendar-modal-header,.calendar-modal2-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.calendar-modal-header h2 {
+.calendar-modal-header h2,.calendar-modal2-header h2 {
     margin: 0;
     color: var(--tertiary-color);
 }
 
-.calendar-modal-body {
+.calendar-modal-body,.calendar-modal2-body {
     margin-bottom: 20px;
 }
 
-.calendar-modal-footer {
+.calendar-modal-footer,.calendar-modal2-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;

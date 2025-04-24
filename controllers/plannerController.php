@@ -735,4 +735,33 @@ class PlannerController
             echo json_encode(['error' => 'Error getting vendor ratings']);
         }
     }
+
+    public function deleteVendors($parameters) // Changed parameter name
+{
+    try {
+        $vendorModel = new Vendor(); // Fixed variable name
+        error_log("Vendor ID: " . $parameters['vendorID']);
+        
+        $result = $vendorModel->deleteVendor( $parameters['vendorID']);
+
+        if ($result > 0) {
+            header("Content-Type: application/json");
+            http_response_code(200); // Success
+            echo json_encode(['success' => true, 'message' => 'Vendor deleted successfully']);
+        } else if ($result === -1) {
+            header("Content-Type: application/json");
+            http_response_code(409); // Conflict
+            echo json_encode(['error' => 'Vendor has ongoing weddings']);
+        } else if ($result === 0) {
+            header("Content-Type: application/json");
+            http_response_code(404); // Not Found
+            echo json_encode(['error' => 'Vendor not found']);
+        }
+    } catch (Exception $e) {
+        error_log($e);
+        header("Content-Type: application/json");
+        http_response_code(500); // Server Error
+        echo json_encode(['error' => 'Server error while deleting vendor']);
+    }
+}
 }
