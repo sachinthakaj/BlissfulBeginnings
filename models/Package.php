@@ -108,10 +108,13 @@ class Package
                 throw new Exception("Data Integrity Violated", 1);
         }
         $packageDetails = [];
-        while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
-            $packageID = bin2hex($row['packageID']);
+        $packageDetails = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($packageDetails as &$row) {
+            $packageID = bin2hex($row["packageID"]);
             unset($row['packageID'], $row['vendorID']);
-            $packageDetails[$packageID] = $row;
+            $controller = new packageController();
+            $image = $controller->getImageForPackage($packageID);
+            $row['path'] = $image['path'];
         }
         return $packageDetails;
     }
@@ -155,20 +158,43 @@ class Package
 
     public function updatePackage($vendorID, $packageID, $updatedPackageDetails)
     {
+        $tableName = [
+            "Photographer" => "photographyPackages",
+            "Dress Designer" => "dressDesignerPackages",
+            "Salon" => "salonPackages",
+            "Florist" => "floristPackages"];
         try {
             $this->db->startTransaction();
-            $setPart = [];
-            $params = [];
-            foreach ($updatedPackageDetails["changedGeneralFields"] as $column => $value) {
-                $setPart[] = "$column = :$column";
-                $params[":$column"] = $value;
+            if (!empty($updatedPackageDetails["changedGeneralFields"])) {
+                $setPart = [];
+                $params = [];
+                foreach ($updatedPackageDetails["changedGeneralFields"] as $column => $value) {
+                    $setPart[] = "$column = :$column";
+                    $params[":$column"] = $value;
+                }
+                $params[':packageID'] = hex2bin($packageID);
+                $setPartString = implode(', ', $setPart);
+                $sql = "UPDATE packages SET $setPartString WHERE packageID = :packageID";
+                error_log($sql);
+                $this->db->query($sql);
+                $this->db->execute($params);
             }
-            $params[':packageID'] = hex2bin($packageID);
-            $setPartString = implode(', ', $setPart);
-            $sql = "UPDATE packages SET $setPartString WHERE packageID = :packageID";
-            error_log($sql);
-            $this->db->query($sql);
-            $this->db->execute($params);
+            if (!empty($updatedPackageDetails["changedSpecificFields"])) {
+                $setPart = [];
+                $params = [];
+                foreach ($updatedPackageDetails["changedSpecificFields"] as $column => $value) {
+                    $setPart[] = "$column = :$column";
+                    $params[":$column"] = $value;
+                }
+                $params[':packageID'] = hex2bin($packageID);
+                $setPartString = implode(', ', $setPart);
+                $table = $tableName[$updatedPackageDetails['typeID']];
+                $sql = "UPDATE $table SET $setPartString WHERE packageID = :packageID";
+                error_log($sql);
+                $this->db->query($sql);
+                $result = $this->db->execute($params);
+                error_log($result);
+            }
             $this->db->commit();
             return $packageID;
         } catch (PDOException $e) {
@@ -279,7 +305,7 @@ class Package
     {
         try {
             $this->db->startTransaction();
-            $this->db->query("SELECT COUNT(*) AS weddingCount FROM packageassignments JOIN packages ON packageassignments.packageID = packages.packageID WHERE packages.packageID = UNHEX(:packageID);");
+            $this->db->query("SELECT COUNT(*) AS weddingCount FROM packageassignment JOIN packages ON packageassignment.packageID = packages.packageID WHERE packages.packageID = UNHEX(:packageID);");
             $this->db->bind(":packageID", $packageID, PDO::PARAM_LOB);
             $this->db->execute();
             $state = $this->db->fetch(PDO::FETCH_ASSOC);

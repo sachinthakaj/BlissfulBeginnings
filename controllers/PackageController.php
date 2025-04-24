@@ -61,6 +61,21 @@ class PackageController
         }
     }
 
+    public function getImageForPackage($packageID) {
+        try {
+            $package = new Package();
+            $result = $package->getImageForPackage($packageID);
+            if ($result) {
+                return ['path' => $result];
+            } else {
+                $path = '/random-images/'. $packageID[0]. '.jpg';
+                return ['path' => $path];
+            }
+        } catch (Exception $e) {
+            error_log($e);
+        }
+    }
+
     public function deletePackage($parameters) {
         if (!Authenticate('vendor', $parameters['packageID'])) {
             header('HTTP/1.1 401 Unauthorized');

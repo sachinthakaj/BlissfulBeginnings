@@ -3,6 +3,7 @@
 @import url('/public/assets/css/components/Modal.css');
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfilePic.css');
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfileCommon.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/PackageCard.css');
 
 #loading-screen {
     background: var(--semi-transparent-white-color); 
