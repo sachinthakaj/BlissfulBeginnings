@@ -45,25 +45,25 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
         <div class="image-links-container">
           <a href="/salons">
             <img
-              src="/public/assets/images/desk-chair_341178 1 copy.png"
+              src="http://cdn.blissfulbeginnings.com/services-icons/salon.svg"
               alt="Wedding Planner Background"
               class="image-link" />
           </a>
           <a href="/photographers">
             <img
-              src="/public/assets/images/camera_1361782 1 copy.png"
+              src="http://cdn.blissfulbeginnings.com/services-icons/photographer.svg"
               alt="Photographer Background"
               class="image-link" />
           </a>
           <a href="/dress-designers">
             <img
-              src="/public/assets/images/dress_14383759 1 copy.png"
+              src="http://cdn.blissfulbeginnings.com/services-icons/dress-designer.svg"
               alt="Dress Designer Background"
               class="image-link" />
           </a>
           <a href="/florists">
             <img
-              src="/public/assets/images/nature_10601927 1 copy.png"
+              src="http://cdn.blissfulbeginnings.com/services-icons/florist.svg"
               alt="Vendor Background"
               class="image-link" />
           </a>
