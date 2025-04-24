@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmPassword = confirmPasswordField.value;
         const agree = document.getElementById('agree').checked;
         const newsletter = document.getElementById('newsletter').checked;
+
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
+
+        if (!emailPattern.test(email)) {
+            alert('Please enter a valid email address ending with .com (e.g., example@domain.com)');
+            return;
+        }
         form.reset();
         // Check if the passwords match
         if (password !== confirmPassword) {
@@ -25,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Form data to send
         const formData = {
             email: email,
+            
             password: password,
             subscribeNewsletter: newsletter
         };

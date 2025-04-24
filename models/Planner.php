@@ -132,4 +132,7 @@ class Planner
         $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    
+    
 }

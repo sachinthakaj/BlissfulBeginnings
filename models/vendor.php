@@ -248,4 +248,45 @@ class Vendor
             throw $e;
         }
     }
+
+    public function deleteVendor($vendorID) {
+    try {
+        // First check if vendor exists
+        $this->db->query('SELECT 1 FROM vendors WHERE vendorID = UNHEX(:vendorID)');
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+        
+        if ($this->db->rowCount() === 0) {
+            return 0; // Vendor not found
+        }
+
+        // Check for assigned weddings
+        $this->db->query('SELECT COUNT(*) as numweddings FROM packageassignment 
+                         INNER JOIN packages ON packageassignment.packageID = packages.packageID 
+                         INNER JOIN vendors ON packages.vendorID = vendors.vendorID 
+                         WHERE vendors.vendorID = UNHEX(:vendorID)');
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+        $result = $this->db->fetch(PDO::FETCH_ASSOC);
+
+        if ($result['numweddings'] > 0) {
+            return -1; // Vendor has weddings
+        }
+
+        // Proceed with deletion
+        $this->db->query("DELETE FROM vendors WHERE vendorID = UNHEX(:vendorID)");
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+
+        // Verify deletion
+        $this->db->query('SELECT 1 FROM vendors WHERE vendorID = UNHEX(:vendorID)');
+        $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
+        $this->db->execute();
+        
+        return $this->db->rowCount() === 0 ? 1 : 0;
+    } catch (Exception $e) {
+        error_log('Delete Vendor Error: ' . $e->getMessage());
+        throw new Exception("Database operation failed");
+    }
+}
 }
