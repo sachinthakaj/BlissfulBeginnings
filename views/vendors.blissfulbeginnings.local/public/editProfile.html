@@ -36,9 +36,9 @@
             <main>
                 <div class="box">
                     <section class="about">
-                        <div class="profile-image">
-                            <img src="../public/assets/images/img13.jpg" id="profile-image" alt="Profile Image"> 
-                        </div>
+                        <div class="profile-picture">
+                            <img src="profile.jpg" alt="Profile Picture" id="profile-image">
+                          </div>
                         <p class="description" id="description">
                             <!-- Placeholder for description -->
                         </p>
@@ -52,7 +52,8 @@
                             <!-- Packages will be dynamically generated here -->
                             <div class="package">
                                 <div class="details add-package">
-                                    <img src="/public/assets/images/Plus.png" id="plus" alt="Package Image" class="add-package-image">
+                                    <img src="/public/assets/images/Plus.png" id="plus" alt="Package Image"
+                                        class="add-package-image">
                                 </div>
                             </div>
                         </div>
@@ -84,6 +85,10 @@
                                 <input type="file" id="image-upload" accept="image/*">
                                 <label for="image-description">Description:</label>
                                 <input type="text" id="image-description" placeholder="Enter description" required>
+                                <label for="associatedPackageInsert">Associated Package:</label>
+                                <select id="associatedPackageInsert" name="associatedPackageInsert">
+                                    <option value="">Select Package</option>
+                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button class="cancel-button">Cancel</button>
@@ -141,7 +146,12 @@
                                 <label for="update-image-datetime update-image-label">Date and Time:</label>
                                 <input type="text" id="update-image-datetime" disabled>
                                 <label for="update-image-description update-image-label">Description:</label>
-                                <input type="text" id="update-image-description" placeholder="Enter description" required>
+                                <input type="text" id="update-image-description" placeholder="Enter description"
+                                    required>
+                                <label for="associatedPackageUpdate">Associated Package:</label>
+                                <select id="associatedPackageUpdate" name="associatedPackageUpdate">
+                                    <option value="">Select Package</option>
+                                </select>
                             </div>
                             <div class="update-image-modal-footer">
                                 <button class="update-image-cancel-button">Cancel</button>

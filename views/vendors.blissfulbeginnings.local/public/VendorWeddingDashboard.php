@@ -19,7 +19,11 @@
         <header>
             <div class="nav-bar-logo-container">
                 <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
+
             </div>
+            <button class="scheduleButton" id="scheduleButtonId">
+                <img src="https://static.vecteezy.com/system/resources/previews/005/261/230/original/event-schedule-icon-free-vector.jpg" alt="Schedule Icon" title="Schedule" class="scheduleIcon" />
+            </button>
 
 
         </header>
@@ -59,6 +63,36 @@
                     <button id="nextBtn">
                         <img src="/public/assets/images/right-arrow-svgrepo-com.svg" alt="Right arrow" />
                     </button>
+                </div>
+
+
+                <div id="eventModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button" id="closeModalButton">&times;</span>
+                        <h2>Add Event</h2>
+                        <form id="eventForm">
+                            <label for="eventDescription">Event Description:</label>
+                            <input type="text" id="eventDescription" name="eventDescription" placeholder="Enter event description" required>
+
+                            <label for="eventDate">Event Date:</label>
+                            <input type="date" id="eventDate" name="eventDate" required>
+
+                            <button type="submit" class="submitButton">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="schedule-list-container" id="scheduleListContainer">
+                    <div class="schedule-header">
+                        <h3>Scheduled Events</h3>
+                        <button id="addEventButton" class="add-event-button">&#x2795;</button>
+                        
+                    </div>
+                    <div class="schedule-list" id="scheduleList">
+                        <!-- Dynamic schedule items will be inserted here -->
+                       
+                        
+                    </div>
                 </div>
             </main>
 

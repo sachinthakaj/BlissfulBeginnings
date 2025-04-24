@@ -52,37 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("name").textContent = vendorData.businessName;
       document.getElementById("description").textContent =
         vendorData.description;
-      document
-        .getElementById("profile-image")
-        .setAttribute("src", vendorData.image);
+      document.getElementById("profile-image").setAttribute("src", "http://cdn.blissfulbeginnings.com" + vendorData.imgSrc);
 
       const packagesContainer = document.getElementById("packages-container");
 
       Object.entries(vendorData.packages).forEach(([packageID, package]) => {
-        const packageDiv = document.createElement("div");
-        packageDiv.classList.add("package");
-        packageDiv.setAttribute("id", packageID);
-        packageDiv.innerHTML = `
-                <div class="details">
-                <span class="delete-icon">❌</span>
-                            <div>${package.packageName}</div>
-                        <div>What's Included:</div>
-                        <ul>
-                            <li>${package.feature1}</li>
-                            ${
-                              package.feature2
-                                ? `<li>${package.feature2}</li>`
-                                : ""
-                            }
-                            ${
-                              package.feature3
-                                ? `<li>${package.feature3}</li>`
-                                : ""
-                            }
-                        </ul>
-                        <div class="price">${package.fixedCost} LKR</div>
-                    </div>
-                `;
+        document.getElementById('associatedPackageInsert').innerHTML += `<option value="${packageID}">${package.packageName}</option>`
+        document.getElementById('associatedPackageUpdate').innerHTML += `<option value="${packageID}">${package.packageName}</option>`
+        const packageDiv = createPackageCard(packageID, package);
+        
         packageDiv.addEventListener("click", (event) =>
           openUpdateModal(event.currentTarget.id)
         );
@@ -148,33 +126,16 @@ document.addEventListener("DOMContentLoaded", () => {
               })
               .then((response) => {
                 vendorData["packages"][response.packageID] = package;
+                document.getElementById('associatedPackageInsert').innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`
+                document.getElementById('associatedPackageUpdate').innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`
+
                 const packagesContainer =
                   document.getElementById("packages-container");
-                const packageDiv = document.createElement("div");
-                packageDiv.classList.add("package");
                 console.log(response);
-                packageDiv.setAttribute("id", response.packageID);
-                packageDiv.innerHTML = `
-                            <div class="details">
-                                <span class="delete-icon">🗑️</span>
-                                <div>${package.packageName}</div>
-                                <div>What's Included:</div>
-                                <ul>
-                                    <li>${package.feature1}</li>
-                                    ${
-                                      package.feature2
-                                        ? `<li>${package.feature2}</li>`
-                                        : ""
-                                    }
-                                    ${
-                                      package.feature3
-                                        ? `<li>${package.feature3}</li>`
-                                        : ""
-                                    }
-                                </ul>
-                                <div class="price">${package.fixedCost}</div>
-                            </div >
-                        `;
+                const packageDiv = createPackageCard(
+                  response.packageID,
+                  package
+                )
                 modal.style.display = "none";
                 packageDiv.addEventListener("click", (event) =>
                   openUpdateModal(event.currentTarget.id)
@@ -199,13 +160,16 @@ document.addEventListener("DOMContentLoaded", () => {
         };
       });
 
-      const deleteProfile = document.querySelectorAll(".delete-icon");
+      const deletePackage = document.querySelectorAll(".delete-icon");
       const modalContainer = document.querySelector(".delete-modal-container");
 
       // delete package confirmation modal
       function openModal(event) {
         event.stopPropagation(); // prevents bubbling the parent element
         modalContainer.classList.add("show");
+        console.log(event.currentTarget)
+        console.log(modalContainer)
+        modalContainer.id = event.currentTarget.dataset.packageid;
         console.log("Delete button clicked");
       }
 
@@ -214,15 +178,19 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Close button clicked");
       }
 
-      if (deleteProfile && modalContainer) {
-        deleteProfile.forEach((button) => {
-          button.addEventListener("click", openModal);
+      if (deletePackage && modalContainer) {
+        deletePackage.forEach((button) => {
+          button.addEventListener("click", (event) => {
+            openModal(event);
+          });
         });
 
         // Close modal when clicking cancel button
         cancelButton.addEventListener("click", closeModal);
 
-        deleteButton.addEventListener("click", (packageID) => {
+        deleteButton.addEventListener("click", (event) => {
+          console.log("here");
+          let packageID = event.target.parentNode.parentNode.parentNode.id;
           fetch("/packages/delete/" + packageID, {
             method: "DELETE",
             headers: {
@@ -243,10 +211,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
               }
             }
+            if (response.ok) {
+              showNotification("Package deleted", "red");
+              document.querySelectorAll('.web-package-card').forEach((card) => {
+                if(card.id == packageID){
+                  card.remove();
+                }
+              })
+              closeModal();
+            }
           });
-
-          showNotification("Profile deleted", "red");
-          window.location.href = "/register";
           closeModal();
         });
 
@@ -312,7 +286,6 @@ document.addEventListener("DOMContentLoaded", () => {
           input.addEventListener("change", (event) => {
             const { name, value } = event.target;
             changedGeneralFields[name] = value;
-            console.log(`changedPackageFields`);
           });
         });
 
@@ -320,7 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
           input.addEventListener("change", (event) => {
             const { name, value } = event.target;
             changedSpecificFields[name] = value;
-            console.log(changedPackageFields);
           });
         });
 
@@ -346,6 +318,11 @@ document.addEventListener("DOMContentLoaded", () => {
                   throw new Error("Network response was not ok");
                 } else {
                   return response.json();
+                }
+              }).then((data) => {
+                if(data.packageID) {
+                  showNotification("Package updated successfully", "green");
+                  modal.style.display = "none";
                 }
               })
               .catch((error) => {
@@ -387,6 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeGalleryModal() {
     uploadModalContainer.classList.remove("show");
   }
+  
 
   // Event Listeners
   if (uploadModal && uploadModalContainer) {
@@ -402,7 +380,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const description = document
         .getElementById("image-description")
         .value.trim();
-
+      const associatedPackage = document.getElementById("associatedPackageInsert").value;
+      console.log(`packageID: ${associatedPackage}`);
       // Ensure a file was selected
       if (!file || !description) {
         alert("No file selected or no description provided.");
@@ -424,6 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = new FormData();
       formData.append("image", file);
       formData.append("description", description);
+      formData.append("associatedPackage", associatedPackage);
 
       fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
         method: "POST",
@@ -437,7 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
           }
           alert("Image sent successfully!");
-
+          alert(`packageID: ${associatedPackage}`);
           setTimeout(() => {
             window.location.reload();
           }, 1000); // 1 second delay
@@ -472,6 +452,97 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+function createPackageCard(packageID, packageData) {
+  // Create main container
+  const cardElement = document.createElement('div');
+  cardElement.className = 'wed-package-card';
+  cardElement.id = `${packageID}`;
+  cardElement.dataset.packageId = packageID; // Add data attribute for easy selection
+  
+  // Create delete button
+  const deleteButton = document.createElement('button');
+  deleteButton.className = 'wed-package-delete-btn delete-icon';
+  deleteButton.setAttribute('aria-label', 'Delete package');
+  deleteButton.dataset.packageid = packageID;
+  cardElement.appendChild(deleteButton);
+  
+  // Create package header
+  const headerElement = document.createElement('div');
+  headerElement.className = 'wed-package-header';
+  
+  const nameElement = document.createElement('h3');
+  nameElement.className = 'wed-package-name';
+  nameElement.textContent = packageData.packageName;
+  headerElement.appendChild(nameElement);
+  
+  
+  // Create business section
+  const businessElement = document.createElement('div');
+  businessElement.className = 'wed-package-business';
+  
+  const iconElement = document.createElement('img');
+  iconElement.className = 'wed-package-icon';
+  iconElement.src = "http://cdn.blissfulbeginnings.com/" + packageData.path;
+  iconElement.alt = `${packageData.businessName} Icon`;
+  businessElement.appendChild(iconElement);
+  
+  // Create features list
+  const featuresElement = document.createElement('ul');
+  featuresElement.className = 'wed-package-features';
+  
+  // Add feature1 (required)
+  if (packageData.feature1) {
+      const featureItem = document.createElement('li');
+      featureItem.className = 'wed-package-feature-item';
+      featureItem.textContent = packageData.feature1;
+      featuresElement.appendChild(featureItem);
+  }
+  
+  // Add feature2 (optional)
+  if (packageData.feature2) {
+      const featureItem = document.createElement('li');
+      featureItem.className = 'wed-package-feature-item';
+      featureItem.textContent = packageData.feature2;
+      featuresElement.appendChild(featureItem);
+  }
+  
+  // Add feature3 (optional)
+  if (packageData.feature3) {
+      const featureItem = document.createElement('li');
+      featureItem.className = 'wed-package-feature-item';
+      featureItem.textContent = packageData.feature3;
+      featuresElement.appendChild(featureItem);
+  }
+  
+  // Create cost section
+  const costElement = document.createElement('div');
+  costElement.className = 'wed-package-cost';
+  
+  const priceElement = document.createElement('p');
+  priceElement.className = 'wed-package-price';
+  
+  // Format price in LKR
+  const price = typeof packageData.fixedCost === 'number' 
+      ? `LKR ${packageData.fixedCost.toLocaleString()}` 
+      : `LKR ${packageData.fixedCost}`;
+      
+  priceElement.textContent = price;
+  costElement.appendChild(priceElement);
+  
+  const labelElement = document.createElement('p');
+  labelElement.className = 'wed-package-label';
+  labelElement.textContent = 'Fixed Package Price';
+  costElement.appendChild(labelElement);
+  
+  // Assemble the card
+  cardElement.appendChild(headerElement);
+  cardElement.appendChild(businessElement);
+  cardElement.appendChild(featuresElement);
+  cardElement.appendChild(costElement);
+  
+  return cardElement;
+}
 
 const demographyToggleHandler = (event) => {
   const selectedValue = event.target.value;
@@ -744,6 +815,10 @@ function fetchVendorGallery() {
         ".update-image-modal-content-left"
       );
 
+      const updateImagePackage = document.querySelector(
+        "#associatedPackageUpdate"
+      )
+
       // Variables to store the current image data
       let currentImageToDelete = null;
       let currentImageToUpdate = null;
@@ -771,6 +846,7 @@ function fetchVendorGallery() {
         imgElement.src = "http://cdn.blissfulbeginnings.com/" + image.path;
         imgElement.alt = image.description;
         imgElement.classList.add("gallery-img");
+        imgDiv.dataset.packageid = image.packageID ? image.packageID : "";
 
         const desc = document.createElement("p");
         desc.textContent = image.description;
@@ -816,6 +892,7 @@ function fetchVendorGallery() {
           currentImageToUpdate = {
             path: image.path,
             description: image.description,
+            packageID: image.packageID,
             created_at: image.created_at || formatDatetime(new Date()),
           };
           console.log(currentImageToUpdate);
@@ -868,8 +945,10 @@ function fetchVendorGallery() {
         // Set field values
         // updateImageIDInput.value = imageData.imageID;
         // updateVendorIDInput.value = imageData.vendorID;
+
         updateDateTimeInput.value = imageData.created_at;
         updateDescriptionInput.value = imageData.description;
+        updateImagePackage.value = imageData.packageID
 
         // Show modal
         updateImageModalContainer.classList.add("show");
@@ -957,6 +1036,7 @@ function fetchVendorGallery() {
         updateButton.addEventListener("click", () => {
           if (currentImageToUpdate) {
             const newDescription = updateDescriptionInput.value.trim();
+            const newPackageID = updateImagePackage.value;
 
             if (newDescription) {
               // Update the description in the DOM
@@ -984,6 +1064,7 @@ function fetchVendorGallery() {
                   body: JSON.stringify({
                     description: newDescription,
                     path: currentImageToUpdate.path,
+                    packageID: newPackageID,
                   }),
                 }
               )
@@ -995,6 +1076,17 @@ function fetchVendorGallery() {
                 })
                 .then((data) => {
                   showNotification("Image description updated", "green");
+                  document.querySelectorAll('.gallery-image').forEach((item) => {
+                    if (item.src === currentImageToUpdate.path) {
+                      item.description = newDescription,
+                        data.forEach((item) => {
+                          if (item.path === currentImageToUpdate.path) {
+                            item.description = newDescription
+                            item.packageID = newPackageID
+                          }
+                        })
+                    }
+                  })
                 })
                 .catch((error) => {
                   console.error("Error updating image:", error);

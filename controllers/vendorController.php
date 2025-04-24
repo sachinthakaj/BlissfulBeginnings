@@ -169,7 +169,6 @@ class vendorController
                     $results['weddings'][$i]['weddingID'] = bin2hex($results['weddings'][$i]['weddingID']);
                     $results['weddings'][$i]['assignmentID'] = bin2hex($results['weddings'][$i]['assignmentID']);
                     unset($results['weddings'][$i]['userID']);
-
                 }
                 header("HTTP/1.1 200 Okay");
                 header("Content-Type: application/json; charset=utf-8");
@@ -229,38 +228,40 @@ class vendorController
     }
 
 
-    public function getTasks($parameters){
-        if(!Authenticate('vendor', $parameters['vendorID'])){
+    public function getTasks($parameters)
+    {
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
         }
-        try{
+        try {
             $task = new Task();
             $tasks = $task->getAllTasks($parameters['assignmentID']);
-            if($tasks) {
+            if ($tasks) {
                 header("HTTP/1.1 200 Okay");
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($tasks);
             } else {
                 header('HTTP/1.1 204 No Content');
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
         }
     }
 
-    public function updateOfTasks($parameters){
-        if(!Authenticate('vendor', $parameters['vendorID'])){
+    public function updateOfTasks($parameters)
+    {
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
             return;
         }
-        try{
-            $data = json_decode(file_get_contents('php://input'),true);
+        try {
+            $data = json_decode(file_get_contents('php://input'), true);
             //var_dump($data);
 
-            if(!isset($data['taskID'])|| empty($data['taskID'])){
+            if (!isset($data['taskID']) || empty($data['taskID'])) {
                 header('HTTP/1.1 400 Bad Request');
                 echo json_encode(['error' => 'Bad Request: taskID is required']);
                 return;
@@ -270,29 +271,29 @@ class vendorController
 
             $isUpdated = $task->saveFinishedTasks($data['taskID']);
 
-            if($isUpdated) {
+            if ($isUpdated) {
                 header("HTTP/1.1 200 Okay");
                 header("Content-Type: application/json; charset=utf-8");
-                echo json_encode(['status' => 'success','message' => 'Task updated successfully']);
+                echo json_encode(['status' => 'success', 'message' => 'Task updated successfully']);
             } else {
                 header('HTTP/1.1 500 Internal Server Error');
-                echo json_encode(['status'=>'error','error' => 'Error updating task']);
+                echo json_encode(['status' => 'error', 'error' => 'Error updating task']);
             }
-
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
         }
     }
 
-    public function getForProgress($parameters){
-        if(!Authenticate('vendor', $parameters['vendorID'])){
+    public function getForProgress($parameters)
+    {
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
             header('HTTP/1.1 401 Unauthorized');
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
             return;
         }
-        try{
-            if(!isset($parameters['assignmentID']) || empty($parameters['assignmentID'])) {
+        try {
+            if (!isset($parameters['assignmentID']) || empty($parameters['assignmentID'])) {
                 header('HTTP/1.1 400 Bad Request');
                 echo json_encode(['error' => 'Bad Request: assignmentID is required']);
                 return;
@@ -300,7 +301,7 @@ class vendorController
 
             $task = new Task();
             $taskCount = $task->getForTaskProgressOfAVendor($parameters['assignmentID']);
-           
+
 
             if (!empty($taskCount)) {
                 header("Content-Type: application/json; charset=utf-8");
@@ -309,28 +310,234 @@ class vendorController
                 header('HTTP/1.1 404 Not Found');
                 echo json_encode(['error' => 'No tasks found for the specified assignment']);
             }
-
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data']);
         }
-
     }
 
-    public function getWeddingIDbyAssignmentID($parameters) {
-        if(!Authenticate('vendor', $parameters['vendorID'])){
+    public function getWeddingIDbyAssignmentID($parameters)
+    {
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
             header("HTTP/1.1 401 Unauthorized");
             echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
             return;
         }
         try {
             $weddingID = $this->vendorModel->getWeddingIDbyAssignmentID($parameters['assignmentID']);
-            header("HTTP/1.1 200 Okay");
-            echo json_encode($weddingID);
+            echo json_encode(["weddingID" => $weddingID]);
         } catch(Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
             echo json_encode(['error' => 'Error fetching Data', "error" => $e->getMessage()]);
         }
+    }
 
+
+    public function createEvent($parameters)
+    {
+
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+
+
+        $eventDetails = json_decode(file_get_contents("php://input"), true);
+
+
+
+        if (empty($eventDetails['assignmentID']) || empty($eventDetails['eventDescription']) || empty($eventDetails['eventDate'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['error' => 'Bad Request: Missing required fields (assignmentID, description, or date)']);
+            return;
+        }
+
+        try {
+
+            $event = new Event();
+
+
+            $isCreated = $event->createEvent($eventDetails);
+
+
+            if ($isCreated) {
+                header('Content-Type: application/json');
+                echo json_encode(["status" => "success", "message" => "Event Successfully Scheduled"]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Failed to create the event. Please try again later.']);
+            }
+        } catch (Exception $e) {
+
+            error_log("Error creating event: " . $e->getMessage());
+
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'An unexpected error occurred while creating the event.']);
+        }
+    }
+
+
+    public function getEventsForAnAssignment($parameters)
+    {
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try {
+            if (!isset($parameters['assignmentID']) || empty($parameters['assignmentID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: assignmentID is required']);
+                return;
+            }
+
+            $event = new Event();
+            $events = $event->getEventsForAnAssignment($parameters['assignmentID']);
+
+
+            if (!empty($events)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'events' => $events]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No events found for the specified assignment']);
+            }
+        } catch (Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+    public function updateEvent($parameters)
+    {
+
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+
+
+        $eventDetails = json_decode(file_get_contents("php://input"), true);
+
+
+
+        if (empty($eventDetails['eventDescription']) || empty($eventDetails['eventDate']) || empty($eventDetails['eventID'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['error' => 'Bad Request: Missing required fields (eventID, description, or date)']);
+            return;
+        }
+
+        try {
+
+            $event = new Event();
+
+
+            $isUpdated = $event->updateEvent($eventDetails);
+
+
+            if ($isUpdated) {
+                header('Content-Type: application/json');
+                echo json_encode(["status" => "success", "message" => "Event Successfully Updated"]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Failed to update the event. Please try again later.']);
+            }
+        } catch (Exception $e) {
+
+            error_log("Error updating event: " . $e->getMessage());
+
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'An unexpected error occurred while updating the event.']);
+        }
+    }
+
+    public function deleteEvent($parameters)
+    {
+
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+
+
+        $eventDetails = json_decode(file_get_contents("php://input"), true);
+
+
+
+        if (empty($eventDetails['eventID'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['error' => 'Bad Request: Missing required fields (eventID)']);
+            return;
+        }
+
+        try {
+
+            $event = new Event();
+
+
+            $isDeleted = $event->deleteEvent($eventDetails);
+
+
+            if ($isDeleted) {
+                header('Content-Type: application/json');
+                echo json_encode(["status" => "success", "message" => "Event Successfully Deleted"]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Failed to delete the event. Please try again later.']);
+            }
+        } catch (Exception $e) {
+
+            error_log("Error deleting event: " . $e->getMessage());
+
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'An unexpected error occurred while deleting the event.']);
+        }
+    }
+
+    public function saveFinishedEvents($parameters)
+    {
+
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+
+
+        $eventDetails = json_decode(file_get_contents("php://input"), true);
+
+
+
+        if (empty($eventDetails['eventID'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['error' => 'Bad Request: Missing required fields (eventID)']);
+            return;
+        }
+
+        try {
+
+            $event = new Event();
+
+
+            $isDeleted = $event->saveFinishedEvents($eventDetails);
+
+
+            if ($isDeleted) {
+                header('Content-Type: application/json');
+                echo json_encode(["status" => "success", "message" => "Event Successfully Saved as finished"]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Failed to change the state of the event. Please try again later.']);
+            }
+        } catch (Exception $e) {
+
+            error_log("Error changing the state of the event: " . $e->getMessage());
+
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'An unexpected error occurred while change the state of the event.']);
+        }
     }
 }

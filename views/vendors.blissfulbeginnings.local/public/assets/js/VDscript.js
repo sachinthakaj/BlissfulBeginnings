@@ -397,7 +397,7 @@ console.log('Unavailable dates array:', unavailableDatesArray);
                 <div class="image-content">
                     <span class="overlay"></span>
                     <div class="card-image">
-                        <img src="${cardData.imgSrc}" alt="" class="card-img">
+                        <img src="http://cdn.blissfulbeginnings.com/random-images/${cardData.assignmentID[0]}.jpg" alt="" class="card-img">
                     </div>
                 </div>
                 <div class="card-content">
@@ -411,9 +411,6 @@ console.log('Unavailable dates array:', unavailableDatesArray);
                             <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
                         </div>
                         <h4 class="description">Wedding Budget: </h4> 
-                        <div class="progress-bar-container">
-                             <div class="progress-bar budget-progress-bar" style="width: ${cardData.budget}%"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -424,13 +421,12 @@ console.log('Unavailable dates array:', unavailableDatesArray);
         let cardWrappersHTML = "";
 
         // 3 cards in card-wrapper and appending the rest
-        for (let i = 0; i < cards.length; i += 3) {
+   
             const cardsInGroup = cards
-                .slice(i, i + 3)
                 .map((card) => createCard(card))
                 .join("");
-            cardWrappersHTML += `<div class="card-wrapper">${cardsInGroup}</div>`;
-        }
+            cardWrappersHTML += cardsInGroup;
+        
 
         // inserting into slide-content
         scrollContainer.innerHTML = cardWrappersHTML;
@@ -440,6 +436,18 @@ console.log('Unavailable dates array:', unavailableDatesArray);
     // loadCards(cardsData);
 
     initializeCards();
+    document.getElementById('search_id').addEventListener('keyup', (event) => {
+        const searchQuery = event.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card) => {
+            const weddingTitle = card.querySelector('.name').textContent.toLowerCase();
+            if (weddingTitle.includes(searchQuery)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
 
   //modal for calendar
   function openCalendarModal(clickedCell) {

@@ -18,12 +18,17 @@ class Vendor
         return $this->db->fetchColumn() > 0;
     }
 
-    
+    public function createProfilePhoto($vendorID, $relativePath) {
+        $this->db->query('UPDATE vendors SET imgSrc = :path WHERE vendorID = UNHEX(:vendorID)');
+        $this->db->bind(':path', $relativePath);
+        $this->db->bind(':vendorID', $vendorID);
+        return $this->db->execute();
+    }   
 
     public function createVendor($email, $password, $businessName, $type, $contact, $address, $description, $websiteLink)
     {
         try {
-            $imageLink = '/public/assets/images/img' . rand(1, 15) . '.jpg';
+            $imageLink = '/random-images/' . dechex(rand(0, 15)) . '.jpg';
             error_log($imageLink);
             $this->db->startTransaction();
             $UUID = generateUUID($this->db);
@@ -281,4 +286,5 @@ class Vendor
         throw new Exception("Database operation failed");
     }
 }
+
 }

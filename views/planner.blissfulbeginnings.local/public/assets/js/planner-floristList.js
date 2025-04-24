@@ -36,7 +36,7 @@ function create(data) {
   
         const cardHTML = `
             <div class="image-container">
-                <img src="${data.imgSrc}" alt="Image here" class="image">
+                <img src="http://cdn.blissfulbeginnings.com${data.imgSrc}" alt="Image here" class="image">
             </div>
             <div class="text-container">
                 <div class="heading">${data.businessName}</div>

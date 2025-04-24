@@ -1,6 +1,10 @@
 /* * {
     outline: 1px solid red;
   } */
+@import url('http://cdn.blissfulbeginnings.com/common-css/Common.css');
+  @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfilePic.css');
+  @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfileCommon.css');
+  @import url('http://cdn.blissfulbeginnings.com/common-css/components/PackageCard.css');
 
   #loading-screen {
     position: fixed;
@@ -15,6 +19,7 @@
     align-items: center;
     z-index: 9999; /* Ensures it's on top */
 }
+
 
 
 .go-back {
@@ -113,6 +118,7 @@ main {
 }
 
 .box {
+    padding: 40px;
     background-color: #ddd;
     width: 100%;
     border-radius: 8px;

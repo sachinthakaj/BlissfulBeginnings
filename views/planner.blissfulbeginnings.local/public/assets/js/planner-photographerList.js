@@ -20,6 +20,7 @@ function create(data) {
       // Append to body
       document.body.appendChild(notification);
 
+
       // Remove after 3 seconds
       setTimeout(() => {
           notification.remove();
@@ -51,6 +52,7 @@ function create(data) {
         card.innerHTML = cardHTML;
         card.id=data.vendorID;
             // Add delete functionality
+
         const deleteIcon = card.querySelector('.delete-icon');
         deleteIcon.addEventListener('click', () => {
           ModalContainer.classList.add('show');
