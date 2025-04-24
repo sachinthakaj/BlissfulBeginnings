@@ -1,0 +1,170 @@
+.wed-package-card {
+    font-family: var(--secondary-font-family);
+    background-color: var(--primary-white-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 20px;
+    width: 300px;
+    position: relative;
+}
+
+.wed-package-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.wed-package-header {
+    background-color: var(--header-background-color);
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.wed-package-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    opacity: 0.85;
+}
+
+.wed-package-name {
+    font-family: var(--heading-font-family);
+    color: var(--primary-white-color);
+    font-size: 28px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.wed-package-business {
+    background-color: var(--semi-transparent-white-color);
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.wed-package-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 2px solid var(--primary-color);
+}
+
+.wed-package-business-name {
+    font-size: 16px;
+    color: var(--tertiary-color);
+    font-weight: 600;
+    margin: 0;
+}
+
+.wed-package-features {
+    padding: 16px;
+    background-color: var(--primary-white-color);
+    list-style-type: none;
+    margin: 0;
+}
+
+.wed-package-feature-item {
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--tertiary-color);
+}
+
+.wed-package-feature-item::before {
+    content: "❀";
+    color: var(--primary-color);
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.wed-package-cost {
+    text-align: center;
+    padding: 16px;
+    background-color: var(--primary-white-color);
+    border-top: 1px solid #eee;
+}
+
+.wed-package-price {
+    font-size: 24px;
+    color: var(--primary-dark-color);
+    font-weight: 600;
+    margin: 0;
+}
+
+.wed-package-label {
+    font-size: 12px;
+    color: var(--secondary-color);
+    margin-top: 4px;
+}
+
+.wed-package-ribbon {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    transform: rotate(45deg);
+    background-color: var(--primary-color);
+    color: var(--primary-white-color);
+    padding: 5px 30px;
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+/* Delete Button Styles */
+.wed-package-delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    background-color: var(--cancel-button-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    z-index: 3;
+    border: none;
+    color: var(--tertiary-color);
+}
+
+.wed-package-delete-btn::before,
+.wed-package-delete-btn::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background-color: var(--tertiary-color);
+}
+
+.wed-package-delete-btn::before {
+    transform: rotate(45deg);
+}
+
+.wed-package-delete-btn::after {
+    transform: rotate(-45deg);
+}
+
+.wed-package-delete-btn:hover {
+    background-color: var(--cancel-button-hover-color);
+}
+
+.wed-package-card:hover .wed-package-delete-btn {
+    opacity: 1;
+}

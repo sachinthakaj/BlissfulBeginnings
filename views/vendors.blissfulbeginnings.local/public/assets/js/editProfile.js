@@ -59,28 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.entries(vendorData.packages).forEach(([packageID, package]) => {
         document.getElementById('associatedPackageInsert').innerHTML += `<option value="${packageID}">${package.packageName}</option>`
         document.getElementById('associatedPackageUpdate').innerHTML += `<option value="${packageID}">${package.packageName}</option>`
-        const packageDiv = document.createElement("div");
-        packageDiv.classList.add("package");
-        packageDiv.setAttribute("id", packageID);
-        packageDiv.innerHTML = `
-                <div class="details">
-                <span class="delete-icon">❌</span>
-                            <div>${package.packageName}</div>
-                        <div>What's Included:</div>
-                        <ul>
-                            <li>${package.feature1}</li>
-                            ${package.feature2
-            ? `<li>${package.feature2}</li>`
-            : ""
-          }
-                            ${package.feature3
-            ? `<li>${package.feature3}</li>`
-            : ""
-          }
-                        </ul>
-                        <div class="price">${package.fixedCost} LKR</div>
-                    </div>
-                `;
+        const packageDiv = createPackageCard(packageID, package);
+        
         packageDiv.addEventListener("click", (event) =>
           openUpdateModal(event.currentTarget.id)
         );
@@ -151,29 +131,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const packagesContainer =
                   document.getElementById("packages-container");
-                const packageDiv = document.createElement("div");
-                packageDiv.classList.add("package");
                 console.log(response);
-                packageDiv.setAttribute("id", response.packageID);
-                packageDiv.innerHTML = `
-                            <div class="details">
-                                <span class="delete-icon">🗑️</span>
-                                <div>${package.packageName}</div>
-                                <div>What's Included:</div>
-                                <ul>
-                                    <li>${package.feature1}</li>
-                                    ${package.feature2
-                    ? `<li>${package.feature2}</li>`
-                    : ""
-                  }
-                                    ${package.feature3
-                    ? `<li>${package.feature3}</li>`
-                    : ""
-                  }
-                                </ul>
-                                <div class="price">${package.fixedCost}</div>
-                            </div >
-                        `;
+                const packageDiv = createPackageCard(
+                  response.packageID,
+                  package
+                )
                 modal.style.display = "none";
                 packageDiv.addEventListener("click", (event) =>
                   openUpdateModal(event.currentTarget.id)
@@ -198,13 +160,16 @@ document.addEventListener("DOMContentLoaded", () => {
         };
       });
 
-      const deleteProfile = document.querySelectorAll(".delete-icon");
+      const deletePackage = document.querySelectorAll(".delete-icon");
       const modalContainer = document.querySelector(".delete-modal-container");
 
       // delete package confirmation modal
       function openModal(event) {
         event.stopPropagation(); // prevents bubbling the parent element
         modalContainer.classList.add("show");
+        console.log(event.currentTarget)
+        console.log(modalContainer)
+        modalContainer.id = event.currentTarget.dataset.packageid;
         console.log("Delete button clicked");
       }
 
@@ -213,15 +178,19 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Close button clicked");
       }
 
-      if (deleteProfile && modalContainer) {
-        deleteProfile.forEach((button) => {
-          button.addEventListener("click", openModal);
+      if (deletePackage && modalContainer) {
+        deletePackage.forEach((button) => {
+          button.addEventListener("click", (event) => {
+            openModal(event);
+          });
         });
 
         // Close modal when clicking cancel button
         cancelButton.addEventListener("click", closeModal);
 
-        deleteButton.addEventListener("click", (packageID) => {
+        deleteButton.addEventListener("click", (event) => {
+          console.log("here");
+          let packageID = event.target.parentNode.parentNode.parentNode.id;
           fetch("/packages/delete/" + packageID, {
             method: "DELETE",
             headers: {
@@ -245,7 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           showNotification("Profile deleted", "red");
-          window.location.href = "/register";
           closeModal();
         });
 
@@ -311,7 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
           input.addEventListener("change", (event) => {
             const { name, value } = event.target;
             changedGeneralFields[name] = value;
-            console.log(`changedPackageFields`);
           });
         });
 
@@ -319,7 +286,6 @@ document.addEventListener("DOMContentLoaded", () => {
           input.addEventListener("change", (event) => {
             const { name, value } = event.target;
             changedSpecificFields[name] = value;
-            console.log(changedPackageFields);
           });
         });
 
@@ -345,6 +311,11 @@ document.addEventListener("DOMContentLoaded", () => {
                   throw new Error("Network response was not ok");
                 } else {
                   return response.json();
+                }
+              }).then((data) => {
+                if(data.packageID) {
+                  showNotification("Package updated successfully", "green");
+                  modal.style.display = "none";
                 }
               })
               .catch((error) => {
@@ -386,6 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeGalleryModal() {
     uploadModalContainer.classList.remove("show");
   }
+  
 
   // Event Listeners
   if (uploadModal && uploadModalContainer) {
@@ -473,6 +445,97 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+function createPackageCard(packageID, packageData) {
+  // Create main container
+  const cardElement = document.createElement('div');
+  cardElement.className = 'wed-package-card';
+  cardElement.id = `${packageID}`;
+  cardElement.dataset.packageId = packageID; // Add data attribute for easy selection
+  
+  // Create delete button
+  const deleteButton = document.createElement('button');
+  deleteButton.className = 'wed-package-delete-btn delete-icon';
+  deleteButton.setAttribute('aria-label', 'Delete package');
+  deleteButton.dataset.packageid = packageID;
+  cardElement.appendChild(deleteButton);
+  
+  // Create package header
+  const headerElement = document.createElement('div');
+  headerElement.className = 'wed-package-header';
+  
+  const nameElement = document.createElement('h3');
+  nameElement.className = 'wed-package-name';
+  nameElement.textContent = packageData.packageName;
+  headerElement.appendChild(nameElement);
+  
+  
+  // Create business section
+  const businessElement = document.createElement('div');
+  businessElement.className = 'wed-package-business';
+  
+  const iconElement = document.createElement('img');
+  iconElement.className = 'wed-package-icon';
+  iconElement.src = packageData.imageUrl;
+  iconElement.alt = `${packageData.businessName} Icon`;
+  businessElement.appendChild(iconElement);
+  
+  // Create features list
+  const featuresElement = document.createElement('ul');
+  featuresElement.className = 'wed-package-features';
+  
+  // Add feature1 (required)
+  if (packageData.feature1) {
+      const featureItem = document.createElement('li');
+      featureItem.className = 'wed-package-feature-item';
+      featureItem.textContent = packageData.feature1;
+      featuresElement.appendChild(featureItem);
+  }
+  
+  // Add feature2 (optional)
+  if (packageData.feature2) {
+      const featureItem = document.createElement('li');
+      featureItem.className = 'wed-package-feature-item';
+      featureItem.textContent = packageData.feature2;
+      featuresElement.appendChild(featureItem);
+  }
+  
+  // Add feature3 (optional)
+  if (packageData.feature3) {
+      const featureItem = document.createElement('li');
+      featureItem.className = 'wed-package-feature-item';
+      featureItem.textContent = packageData.feature3;
+      featuresElement.appendChild(featureItem);
+  }
+  
+  // Create cost section
+  const costElement = document.createElement('div');
+  costElement.className = 'wed-package-cost';
+  
+  const priceElement = document.createElement('p');
+  priceElement.className = 'wed-package-price';
+  
+  // Format price in LKR
+  const price = typeof packageData.fixedCost === 'number' 
+      ? `LKR ${packageData.fixedCost.toLocaleString()}` 
+      : `LKR ${packageData.fixedCost}`;
+      
+  priceElement.textContent = price;
+  costElement.appendChild(priceElement);
+  
+  const labelElement = document.createElement('p');
+  labelElement.className = 'wed-package-label';
+  labelElement.textContent = 'Fixed Package Price';
+  costElement.appendChild(labelElement);
+  
+  // Assemble the card
+  cardElement.appendChild(headerElement);
+  cardElement.appendChild(businessElement);
+  cardElement.appendChild(featuresElement);
+  cardElement.appendChild(costElement);
+  
+  return cardElement;
+}
 
 const demographyToggleHandler = (event) => {
   const selectedValue = event.target.value;
