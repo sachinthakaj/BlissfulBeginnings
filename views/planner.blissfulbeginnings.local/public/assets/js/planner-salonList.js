@@ -1,9 +1,11 @@
 function create(data) {
-    const scrollContainer = document.querySelector(".more-about-salons");
-    const ModalContainer = document.querySelector(".modal-container");
-    const cancelButton = document.querySelector('.cancel-button');
-    const deleteButton = document.querySelector('.delete-button');
-    function showNotification(message, color) {
+  const scrollContainer = document.querySelector(".more-about-salons");
+  const ModalContainer = document.querySelector(".modal-container");
+  const cancelButton = document.querySelector('.cancel-button');
+  const deleteButton = document.querySelector('.delete-button');
+  let currentVendorToDelete = null;
+
+  function showNotification(message, color) {
       // Create notification element
       const notification = document.createElement("div");
       notification.textContent = message;
@@ -25,187 +27,190 @@ function create(data) {
           notification.remove();
       }, 3000);
   }
-    // Clear the container first
-    scrollContainer.innerHTML = '';
-          
-    // Function to create and append a card
-    function createCard(data) {
-        const card = document.createElement('div');
-        card.classList.add('container');
-  
-        const cardHTML = `
-            <div class="image-container">
-                <img src="http://cdn.blissfulbeginnings.com${data.imgSrc}" alt="Image here" class="image">
-            </div>
-            <div class="text-container">
-                <div class="heading">${data.businessName}</div>
-                <div class="stars">
-                    ${Array(5).fill(0).map((_, i) => `
-                        <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
-                    `).join('')}
-                </div>
-                <div class="description">${data.description}</div>
-            </div>
-            <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
-        `;
-        card.innerHTML = cardHTML;
-        card.id=data.vendorID;
-            // Add delete functionality
-        const deleteIcon = card.querySelector('.delete-icon');
-        deleteIcon.addEventListener('click', () => {
-          ModalContainer.classList.add('show');
-            //card.remove();
-        });
-        function closeModal(){
-          ModalContainer.classList.remove('show');
-         }
 
-  if(deleteIcon&&cancelButton){
-    cancelButton.addEventListener('click',closeModal);
+  // Clear the container first
+  scrollContainer.innerHTML = '';
+  
+  function closeModal() {
+      ModalContainer.classList.remove('show');
+      currentVendorToDelete = null;
   }
+
+  // Set up delete button listener (only once)
   deleteButton.addEventListener('click', () => {
-    fetch(`/vendor-delete/${card.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-      },
-    })
-    .then(response => {
-      if (response.status === 200) {
-        showNotification("Vendor deleted successfully", "green");
-        closeModal();
-        // Refresh the list after successful deletion
-        setTimeout(() => window.location.href = '/plannerDashboard', 1000);
-      } 
-      else if (response.status === 409) {
-        closeModal();
-        showNotification("This vendor has assigned weddings", "red");
-      }
-      else if (response.status === 404) {
-        showNotification("Vendor not found", "red");
-        closeModal();
-      }
-      else if (response.status === 401) {
-        showNotification("Unauthorized - please login again", "red");
-        closeModal();
-      }
-      else {
-        throw new Error('Failed to delete vendor');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      showNotification("Failed to delete vendor", "red");
-      closeModal();
-    });
+      if (!currentVendorToDelete) return;
+      
+      fetch(`/vendor-delete/${currentVendorToDelete}`, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+          },
+      })
+      .then(response => {
+          if (response.status === 200) {
+              showNotification("Vendor deleted successfully", "green");
+              closeModal();
+              setTimeout(() => window.location.href = '/salons', 1000);
+          } 
+          else if (response.status === 409) {
+              showNotification("This vendor has assigned weddings", "red");
+              closeModal();
+          }
+          else if (response.status === 404) {
+              showNotification("Vendor not found", "red");
+              closeModal();
+          }
+          else if (response.status === 401) {
+              showNotification("Unauthorized - please login again", "red");
+              closeModal();
+          }
+          else {
+              throw new Error('Failed to delete vendor');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          showNotification("Failed to delete vendor", "red");
+          closeModal();
+      });
   });
 
+  // Set up cancel button listener (only once)
+  if (cancelButton) {
+      cancelButton.addEventListener('click', closeModal);
+  }
 
+  // Function to create and append a card
+  function createCard(data) {
+      const card = document.createElement('div');
+      card.classList.add('container');
+      card.id = data.vendorID;
 
-  // Append card to the container
-  scrollContainer.appendChild(card);
-  }
-    // Render all cards
-    data.forEach(createCard);
-    document.querySelectorAll('.container').forEach(card => {
-        card.addEventListener('click', () => {
-          //  window.location.href = `/vendor/${card.id}`;
-        })
-    })
-  }
-  
-  
-  async function notFund() {
-    const notFund = document.createElement("div");
-    notFund.classList.add("not-found");
-    notFund.innerHTML = `<h2 class="not-found-text">No salons found</h2>`;
-    const scrollContainer = document.querySelector(".more-about-salons");
-  
-    scrollContainer.innerHTML = "";
-    scrollContainer.appendChild(notFund);
-  
-    return;
-  }
-   
-  
-  async function fetchSalons() {
-    try {
-      const response = await fetch("/get-salonslist", {
-        method: "GET",
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-          "Content-Type": "application/json",
-        },
+      const cardHTML = `
+          <div class="image-container">
+              <img src="http://cdn.blissfulbeginnings.com${data.imgSrc}" alt="Image here" class="image">
+          </div>
+          <div class="text-container">
+              <div class="heading">${data.businessName}</div>
+              <div class="stars">
+                  ${Array(5).fill(0).map((_, i) => `
+                      <span class="star ${i < data.rating ? 'selected' : ''}" data-value="${i + 1}">&#9734;</span>
+                  `).join('')}
+              </div>
+              <div class="description">${data.description}</div>
+          </div>
+          <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
+      `;
+      card.innerHTML = cardHTML;
+
+      // Add delete functionality
+      const deleteIcon = card.querySelector('.delete-icon');
+      deleteIcon.addEventListener('click', (e) => {
+          e.stopPropagation(); 
+          currentVendorToDelete = card.id;
+          ModalContainer.classList.add('show');
       });
+
+      // Append card to the container
+      scrollContainer.appendChild(card);
+  }
+
+  // Render all cards
+  data.forEach(createCard);
   
+  document.querySelectorAll('.container').forEach(card => {
+      card.addEventListener('click', () => {
+          window.location.href = `/vendor/${card.id}`;
+      });
+  });
+}
+
+async function notFund() {
+  const notFund = document.createElement("div");
+  notFund.classList.add("not-found");
+  notFund.innerHTML = `<h2 class="not-found-text">No salons found</h2>`;
+  const scrollContainer = document.querySelector(".more-about-salons");
+
+  scrollContainer.innerHTML = "";
+  scrollContainer.appendChild(notFund);
+}
+
+async function fetchSalons() {
+  try {
+      const response = await fetch("/get-salonslist", {
+          method: "GET",
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+              "Content-Type": "application/json",
+          },
+      });
+
       if (!response.ok) {
-        if (response.status === 403) {
-          console.error("No salons found.");
-          return [];
-        }
-        throw new Error("Failed to fetch salons.");
+          if (response.status === 403) {
+              console.error("No salons found.");
+              return [];
+          }
+          throw new Error("Failed to fetch salons.");
       }
-  
+
       return await response.json();
-    } catch (error) {
+  } catch (error) {
       console.error("Error fetching salons:", error);
       return [];
-    }
   }
-  
-  async function render() {
-    const data = await fetchSalons();
-    if (data.length === 0) {
+}
+
+async function render() {
+  const data = await fetchSalons();
+  if (data.length === 0) {
       notFund();
       return;
-    } else {
+  } else {
       create(data);
-    }
   }
-  
-  async function searchSalons() {
-    const searchInput = document.getElementById("search_id");
-    const searchValue = searchInput.value.trim().toLowerCase();
-  
-    if (!searchValue) {
+}
+
+async function searchSalons() {
+  const searchInput = document.getElementById("search_id");
+  const searchValue = searchInput.value.trim().toLowerCase();
+
+  if (!searchValue) {
       alert("Please enter a search term.");
       return;
-    }
-  
-    const data = await fetchSalons();
-    const filteredData = data.filter((salon) =>
+  }
+
+  const data = await fetchSalons();
+  const filteredData = data.filter((salon) =>
       salon.businessName.toLowerCase().includes(searchValue)
-    );
-    if (filteredData.length === 0) {
+  );
+  if (filteredData.length === 0) {
       notFund();
       return;
-    } else {
+  } else {
       create(filteredData);
-    }
   }
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("search_id");
-    const searchButton = document.getElementById("search_button_id");
-    
-  
-    if (searchButton) {
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search_id");
+  const searchButton = document.getElementById("search_button_id");
+
+  if (searchButton) {
       searchButton.addEventListener("click", searchSalons);
-    } else {
+  } else {
       console.error("Search button not found in the DOM.");
-    }
-  
-    if (searchInput) {
+  }
+
+  if (searchInput) {
       searchInput.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-          searchSalons();
-        }
+          if (event.key === "Enter") {
+              searchSalons();
+          }
       });
-    } else {
+  } else {
       console.error("Search input not found in the DOM.");
-    }
-  
-    render();
-  });
-  
+  }
+
+  render();
+});

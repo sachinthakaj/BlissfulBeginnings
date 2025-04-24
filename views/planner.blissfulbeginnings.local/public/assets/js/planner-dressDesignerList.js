@@ -4,35 +4,89 @@ function create(data) {
     const ModalContainer = document.querySelector(".modal-container");
     const cancelButton = document.querySelector('.cancel-button');
     const deleteButton = document.querySelector('.delete-button');
+    let currentVendorToDelete = null;
+  
     function showNotification(message, color) {
-      // Create notification element
-      const notification = document.createElement("div");
-      notification.textContent = message;
-      notification.style.position = "fixed";
-      notification.style.bottom = "20px";
-      notification.style.left = "20px";
-      notification.style.backgroundColor = color;
-      notification.style.color = "white";
-      notification.style.padding = "10px 20px";
-      notification.style.borderRadius = "5px";
-      notification.style.zIndex = 1000;
-      notification.style.fontSize = "16px";
-
-      // Append to body
-      document.body.appendChild(notification);
-
-      // Remove after 3 seconds
-      setTimeout(() => {
-          notification.remove();
-      }, 3000);
-  }
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.textContent = message;
+        notification.style.position = "fixed";
+        notification.style.bottom = "20px";
+        notification.style.left = "20px";
+        notification.style.backgroundColor = color;
+        notification.style.color = "white";
+        notification.style.padding = "10px 20px";
+        notification.style.borderRadius = "5px";
+        notification.style.zIndex = 1000;
+        notification.style.fontSize = "16px";
+  
+        // Append to body
+        document.body.appendChild(notification);
+  
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+  
     // Clear the container first
     scrollContainer.innerHTML = '';
-          
+    
+    function closeModal() {
+        ModalContainer.classList.remove('show');
+        currentVendorToDelete = null;
+    }
+  
+    // Set up delete button listener (only once)
+    deleteButton.addEventListener('click', () => {
+        if (!currentVendorToDelete) return;
+        
+        fetch(`/vendor-delete/${currentVendorToDelete}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            },
+        })
+        .then(response => {
+            if (response.status === 200) {
+                showNotification("Vendor deleted successfully", "green");
+                closeModal();
+                setTimeout(() => window.location.href = '/dress-designers', 1000);
+            } 
+            else if (response.status === 409) {
+                showNotification("This vendor has assigned weddings", "red");
+                closeModal();
+            }
+            else if (response.status === 404) {
+                showNotification("Vendor not found", "red");
+                closeModal();
+            }
+            else if (response.status === 401) {
+                showNotification("Unauthorized - please login again", "red");
+                closeModal();
+            }
+            else {
+                throw new Error('Failed to delete vendor');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification("Failed to delete vendor", "red");
+            closeModal();
+        });
+    });
+  
+    // Set up cancel button listener (only once)
+    if (cancelButton) {
+        cancelButton.addEventListener('click', closeModal);
+    }
+  
     // Function to create and append a card
     function createCard(data) {
         const card = document.createElement('div');
         card.classList.add('container');
+        card.id = data.vendorID;
   
         const cardHTML = `
             <div class="image-container">
@@ -50,67 +104,27 @@ function create(data) {
             <img src="/public/assets/images/delete.jpeg" alt="Delete" class="delete-icon">
         `;
         card.innerHTML = cardHTML;
-        card.id=data.vendorID;
-            // Add delete functionality
+  
+        // Add delete functionality
         const deleteIcon = card.querySelector('.delete-icon');
-        deleteIcon.addEventListener('click', () => {
-          ModalContainer.classList.add('show');
-            //card.remove();
+        deleteIcon.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            currentVendorToDelete = card.id;
+            ModalContainer.classList.add('show');
         });
-        function closeModal(){
-          ModalContainer.classList.remove('show');
-         }
-
-  if(deleteIcon&&cancelButton){
-    cancelButton.addEventListener('click',closeModal);
-  }
-  deleteButton.addEventListener('click', () => {
-    fetch(`/vendor-delete/${card.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-      },
-    })
-    .then(response => {
-      if (response.status === 200) {
-        showNotification("Vendor deleted successfully", "green");
-        closeModal();
-        // Refresh the list after successful deletion
-        setTimeout(() => window.location.href = '/plannerDashboard', 1000);
-      } 
-      else if (response.status === 409) {
-        closeModal();
-        showNotification("This vendor has assigned weddings", "red");
-      }
-     
-      else if (response.status === 401) {
-        showNotification("Unauthorized - please login again", "red");
-        closeModal();
-      }
-      else {
-        throw new Error('Failed to delete vendor');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      showNotification("Failed to delete vendor", "red");
-      closeModal();
-    });
-  });
-
-
-
-  // Append card to the container
-  scrollContainer.appendChild(card);
-  }
+  
+        // Append card to the container
+        scrollContainer.appendChild(card);
+    }
+  
     // Render all cards
     data.forEach(createCard);
+    
     document.querySelectorAll('.container').forEach(card => {
         card.addEventListener('click', () => {
-          //  window.location.href = `/vendor/${card.id}`;
-        })
-    })
+            window.location.href = `/vendor/${card.id}`;
+        });
+    });
   }
     
     async function notFund() {
@@ -125,7 +139,7 @@ function create(data) {
       return;
     }
     
-    async function fetchSalons() {
+    async function fetchDresses() {
       try {
         const response = await fetch("/get-dressdesignerslist/", {
           method: "GET",
@@ -151,7 +165,7 @@ function create(data) {
     }
     
     async function render() {
-      const data = await fetchSalons();
+      const data = await fetchDresses();
       if (data.length === 0) {
         notFund();
         return;
@@ -160,7 +174,7 @@ function create(data) {
       }
     }
     
-    async function searchSalons() {
+    async function searchDresses() {
       const searchInput = document.getElementById("search_id");
       const searchValue = searchInput.value.trim().toLowerCase();
     
@@ -169,7 +183,7 @@ function create(data) {
         return;
       }
     
-      const data = await fetchSalons();
+      const data = await fetchDresses();
       const filteredData = data.filter((dressdesigner) =>
           dressdesigner.businessName.toLowerCase().includes(searchValue)
       );
@@ -186,7 +200,7 @@ function create(data) {
       const searchButton = document.getElementById("search_button_id");
     
       if (searchButton) {
-        searchButton.addEventListener("click", searchSalons);
+        searchButton.addEventListener("click",  searchDresses);
       } else {
         console.error("Search button not found in the DOM.");
       }
@@ -194,7 +208,7 @@ function create(data) {
       if (searchInput) {
         searchInput.addEventListener("keyup", (event) => {
           if (event.key === "Enter") {
-            searchSalons();
+            searchDresses();
           }
         });
       } else {
