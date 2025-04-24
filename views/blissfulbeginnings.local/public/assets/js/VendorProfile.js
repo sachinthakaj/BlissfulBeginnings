@@ -5,6 +5,99 @@ const vendorID = pathParts[pathParts.length - 1];
 
 const mainContainer = document.querySelector('.main-container');
 
+
+function createPackageCard(packageID, packageData) {
+    // Create main container
+    const cardElement = document.createElement('div');
+    cardElement.className = 'wed-package-card';
+    cardElement.id = `${packageID}`;
+    cardElement.dataset.packageId = packageID; // Add data attribute for easy selection
+    
+    // Create delete button
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'wed-package-delete-btn delete-icon';
+    deleteButton.setAttribute('aria-label', 'Delete package');
+    deleteButton.dataset.packageid = packageID;
+    cardElement.appendChild(deleteButton);
+    
+    // Create package header
+    const headerElement = document.createElement('div');
+    headerElement.className = 'wed-package-header';
+    
+    const nameElement = document.createElement('h3');
+    nameElement.className = 'wed-package-name';
+    nameElement.textContent = packageData.packageName;
+    headerElement.appendChild(nameElement);
+    
+    
+    // Create business section
+    const businessElement = document.createElement('div');
+    businessElement.className = 'wed-package-business';
+    
+    const iconElement = document.createElement('img');
+    iconElement.className = 'wed-package-icon';
+    iconElement.src = "http://cdn.blissfulbeginnings.com/" + packageData.path;
+    iconElement.alt = `${packageData.businessName} Icon`;
+    businessElement.appendChild(iconElement);
+    
+    // Create features list
+    const featuresElement = document.createElement('ul');
+    featuresElement.className = 'wed-package-features';
+    
+    // Add feature1 (required)
+    if (packageData.feature1) {
+        const featureItem = document.createElement('li');
+        featureItem.className = 'wed-package-feature-item';
+        featureItem.textContent = packageData.feature1;
+        featuresElement.appendChild(featureItem);
+    }
+    
+    // Add feature2 (optional)
+    if (packageData.feature2) {
+        const featureItem = document.createElement('li');
+        featureItem.className = 'wed-package-feature-item';
+        featureItem.textContent = packageData.feature2;
+        featuresElement.appendChild(featureItem);
+    }
+    
+    // Add feature3 (optional)
+    if (packageData.feature3) {
+        const featureItem = document.createElement('li');
+        featureItem.className = 'wed-package-feature-item';
+        featureItem.textContent = packageData.feature3;
+        featuresElement.appendChild(featureItem);
+    }
+    
+    // Create cost section
+    const costElement = document.createElement('div');
+    costElement.className = 'wed-package-cost';
+    
+    const priceElement = document.createElement('p');
+    priceElement.className = 'wed-package-price';
+    
+    // Format price in LKR
+    const price = typeof packageData.fixedCost === 'number' 
+        ? `LKR ${packageData.fixedCost.toLocaleString()}` 
+        : `LKR ${packageData.fixedCost}`;
+        
+    priceElement.textContent = price;
+    costElement.appendChild(priceElement);
+    
+    const labelElement = document.createElement('p');
+    labelElement.className = 'wed-package-label';
+    labelElement.textContent = 'Fixed Package Price';
+    costElement.appendChild(labelElement);
+    
+    // Assemble the card
+    cardElement.appendChild(headerElement);
+    cardElement.appendChild(businessElement);
+    cardElement.appendChild(featuresElement);
+    cardElement.appendChild(costElement);
+    
+    return cardElement;
+  }
+  
+
 document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.getElementById("loading-screen");
     const mainContent = document.getElementById("main-content");
@@ -29,29 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const packagesContainer = document.getElementById('packages-container');
 
         Object.entries(vendorData.packages).forEach(([packageID, package]) => {
-            const packageDiv = document.createElement('div');
-            packageDiv.classList.add('package');
-            packageDiv.setAttribute("id", packageID);
-            packageDiv.innerHTML = `
-                <div class="details">
-                    <div>${package.packageName}</div>
-                    <div>What's Included:</div>
-                    <ul>
-                         <li>${package.feature1}</li>
-                            ${
-                              package.feature2
-                                ? `<li>${package.feature2}</li>`
-                                : ""
-                            }
-                            ${
-                              package.feature3
-                                ? `<li>${package.feature3}</li>`
-                                : ""
-                            }
-                    </ul>
-                    <div class="price">${package.fixedCost} LKR</div>
-                </div>
-                `;
+            const packageDiv = createPackageCard(packageID, package);
             packagesContainer.appendChild(packageDiv);
         });
 
@@ -67,144 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-const createPhotographerPackage = (modalContent) => {
-    modalContent.innerHTML += `
-        <div class="input-group">
-            <label for="cameraCoverage">Camera Coverage</label>
-            <input type="text" id="cameraCoverage" name="cameraCoverage"  required>
-        </div>
-        </form>`;
-};
-
-const createDressDesignerPackage = (modalContent) => {
-    modalContent.innerHTML += `
-        <div class="input-group">
-            <label for="theme">Theme</label>
-            <input type="text" id="theme" name="theme"  required>
-        </div>
-        <div class="input-group">
-            <label for="variableCost">Cost per Group Member</label>
-            <input type="text" id="variableCost" name="variableCost" required>
-        </div>
-        <div class="input-group">
-            <label for="dempgraphic">Demographic</label>
-            <select id="demographic" name="demographic"  required>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Both">Both</option>
-            </select>
-        </div>
-        </form>`;
-};
-
-const createSalonPackage = (modalContent) => {
-    modalContent.innerHTML += `
-                            <div class="input-group">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="dempgraphic">Demographic</label>
-                                <select id="demographic" name="demographic" required>
-                                    <option value="Bride">Female</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                            </div>
-                            </form>`;
-
-};
-
-const createFloristPackage = (modalContent) => {
-    modalContent.innerHTML += `
-                            <div class="input-group">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="flowerType">Type of Flowers</label>
-                                <select id="flowerType" name="flowerType" required>
-                                    <option value="Artificial">Artificial</option>
-                                    <option value="Fresh">Fresh</option>
-                                </select>
-                            </div>
-                            </form>`;
-
-};
-
-const vendorCreatePackageFunctions = {
-    'Photographer': createPhotographerPackage,
-    'Dress Designer': createDressDesignerPackage,
-    'Salon': createSalonPackage,
-    'Florist': createFloristPackage
-}
-
-
-
-const displayPhotographerPackage = (packageDetails, modalContent) => {
-    modalContent.innerHTML += `<div class="input-group">
-                                <label for="cameraCoverage">Camera Coverage</label>
-                                <input type="text" id="cameraCoverage" name="cameraCoverage" value=${packageDetails.cameraCoverage} required>
-                            </div>
-                            </form>`;
-}
-const displayDressDesignerPackage = (packageDetails, divElement) => {
-    modalContent.innerHTML += `<div class="input-group">
-                                <label for="theme">Theme</label>
-                                <input type="text" id="theme" name="theme" value=${packageDetails.theme} required>
-                            </div>
-                            <div class="input-group">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
-                            </div>
-                            <div class="input-group">
-                                <label for="dempgraphic">Demographic</label>
-                                <select id="demographic" name="demographic" value="${packageDetails.demographic}" required>
-                                    <option value="Female">Female</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                            </div>
-                            </form>`;
-}
-const displaySalonPackage = (packageDetails, divElement) => {
-    modalContent.innerHTML += `
-                            <div class="input-group">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
-                            </div>
-                            <div class="input-group">
-                                <label for="dempgraphic">Demographic</label>
-                                <select id="demographic" name="demographic" value="${packageDetails.demographic}" required>
-                                    <option value="Bride">Female</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                            </div>
-                            </form>`;
-}
-const displayFloristPackage = (packageDetails, divElement) => {
-    modalContent.innerHTML += `
-                            <div class="input-group">
-                                <label for="variableCost">Cost per Group Member</label>
-                                <input type="text" id="variableCost" name="variableCost" value=${packageDetails.variableCost} required>
-                            </div>
-                            <div class="input-group">
-                                <label for="flowerType">Type of Flowers</label>
-                                <select id="flowerType" name="flowerType" value="${packageDetails.flowerType}" required>
-                                    <option value="Artificial">Artificial</option>
-                                    <option value="Fresh">Fresh</option>
-                                </select>
-                            </div>
-                            </form>`;
-}
-
-const vendorDisplayFunctions = {
-    'Photographer': displayPhotographerPackage,
-    'Dress Designer': displayDressDesignerPackage,
-    'Salon': displaySalonPackage,
-    'Florist': displayFloristPackage
-}
 
 
 

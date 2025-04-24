@@ -108,10 +108,13 @@ class Package
                 throw new Exception("Data Integrity Violated", 1);
         }
         $packageDetails = [];
-        while ($row = $this->db->fetch(PDO::FETCH_ASSOC)) {
-            $packageID = bin2hex($row['packageID']);
+        $packageDetails = $this->db->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($packageDetails as &$row) {
+            $packageID = bin2hex($row["packageID"]);
             unset($row['packageID'], $row['vendorID']);
-            $packageDetails[$packageID] = $row;
+            $controller = new packageController();
+            $image = $controller->getImageForPackage($packageID);
+            $row['path'] = $image['path'];
         }
         return $packageDetails;
     }

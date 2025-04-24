@@ -211,9 +211,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
               }
             }
+            if (response.ok) {
+              showNotification("Package deleted", "red");
+              document.querySelectorAll('.web-package-card').forEach((card) => {
+                if(card.id == packageID){
+                  card.remove();
+                }
+              })
+              closeModal();
+            }
           });
-
-          showNotification("Profile deleted", "red");
           closeModal();
         });
 
@@ -476,7 +483,7 @@ function createPackageCard(packageID, packageData) {
   
   const iconElement = document.createElement('img');
   iconElement.className = 'wed-package-icon';
-  iconElement.src = packageData.imageUrl;
+  iconElement.src = "http://cdn.blissfulbeginnings.com/" + packageData.path;
   iconElement.alt = `${packageData.businessName} Icon`;
   businessElement.appendChild(iconElement);
   
