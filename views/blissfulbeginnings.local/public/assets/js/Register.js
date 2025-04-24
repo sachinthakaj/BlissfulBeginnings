@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();  // Prevent the form from submitting the default way
 
         const email = document.getElementById('email').value.toLowerCase();
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
 
         if (!emailPattern.test(email)) {
             alert('Please enter a valid email address ending with .com');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const agree = document.getElementById('agree').checked;
         const newsletter = document.getElementById('newsletter').checked;
 
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
+         emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
 
         if (!emailPattern.test(email)) {
             alert('Please enter a valid email address ending with .com (e.g., example@domain.com)');
