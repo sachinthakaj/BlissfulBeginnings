@@ -1,4 +1,4 @@
-emaidocument.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.form');
     const passwordField = document.getElementById('password');
 
