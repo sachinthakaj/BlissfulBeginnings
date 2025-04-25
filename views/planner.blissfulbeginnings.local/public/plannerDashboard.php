@@ -43,29 +43,33 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
     <div class="content-wrapper">
       <main>
         <div class="image-links-container">
-          <a href="/salons">
+          <a href="/salons" class="service-btn">
             <img
               src="http://cdn.blissfulbeginnings.com/services-icons/salon.svg"
               alt="Wedding Planner Background"
               class="image-link" />
+            <span>Salons</span>
           </a>
-          <a href="/photographers">
+          <a href="/photographers" class="service-btn">
             <img
               src="http://cdn.blissfulbeginnings.com/services-icons/photographer.svg"
               alt="Photographer Background"
               class="image-link" />
+            <span>Photographers</span>
           </a>
-          <a href="/dress-designers">
+          <a href="/dress-designers" class="service-btn">
             <img
               src="http://cdn.blissfulbeginnings.com/services-icons/dress-designer.svg"
               alt="Dress Designer Background"
               class="image-link" />
+            <span>Dress Designers</span>
           </a>
-          <a href="/florists">
+          <a href="/florists" class="service-btn">
             <img
               src="http://cdn.blissfulbeginnings.com/services-icons/florist.svg"
               alt="Vendor Background"
               class="image-link" />
+            <span>Florists</span>
           </a>
         </div>
         <div class="wedding-search-and-cards">
@@ -75,7 +79,7 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
               type="text"
               id="search_id"
               placeholder="Search Weddings"
-              class="search-bar" />
+              class="search-bar search-input" />
             <button type="button" class="search-button">Search</button>
           </div>
 

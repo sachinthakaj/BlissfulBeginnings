@@ -1,5 +1,6 @@
 
 @import url('/public/assets/css/PcalendarModal.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/Searchbar.css');
 
 #loading-screen {
   position: fixed;
@@ -99,11 +100,50 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 20px;
+  margin: 30px auto;
+  gap: 20px;
 }
 
-.image-links-container img {
+/* .image-links-container img {
   margin: 0px 20px;
+} */
+
+.service-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: rgba(193, 164, 46, 0.8);
+  color: #fff;
+  border: 2px solid #fff;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  transition: 0.3s;
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  text-align: center;
+  flex-direction: column;
+}
+      
+
+.service-btn:hover {
+  background: #656233;
+  color: #000;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border: 2px solid #c1a42e;
+}
+
+.service-btn img {
+  width: 40%;
+  height: 40%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
 }
 
 .main-container {
@@ -245,27 +285,37 @@ aside.calendar-container {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
+  flex-direction: row;
+  gap: 20px;
 }
 
-.search-bar {
+/* .search-bar {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 10px;
   flex-grow: 1;
-  margin-right: 10px;
+} */
+
+.search-input {
+  /* padding: 10px; */
+  /* font-size: 16px; */
+  /* border: 1px solid #ccc; */
+  /* border-radius: 10px; */
+  flex-grow: 0;
+  margin-left: 0;
+  margin-right: 0;
+  height: 20px;
+  width: 62vw;
 }
+
 
 .search-button {
   padding: 8px 12px;
-  background: linear-gradient(
-    90deg,
-    #5a6f2b,
-    #3f4e19
-  ); 
+  background: var(--primary-color); 
   color: white; 
   border: none; 
-  border-radius: 8px; 
+  border-radius: 30px; 
   cursor: pointer;
   font-size: 16px;
   font-family: "Roboto", sans-serif; 
@@ -273,12 +323,14 @@ aside.calendar-container {
   transition: all 0.3s ease; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); 
   margin-right: 5px;
+  height: 50px;
+  width: 90px;
 }
 
 .search-button:hover {
-  background: linear-gradient(90deg, #6b872f, #506622); 
+  background: var(--secondary-color); 
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08); 
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
 }
 
 .wedding-cards {
