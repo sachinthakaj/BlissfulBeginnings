@@ -1,87 +1,97 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  height: 100%;
-}
-
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-.image-section {
-  flex: 1;
-  background: url('https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?fit=crop&w=1350&q=80') no-repeat center center;
-  background-size: cover;
-  position: relative;
-}
-
-.overlay-text {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  color: #fff;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-}
-
-.overlay-text h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  color: gold;
-  margin: 0;
-}
-
-.overlay-text p {
-  font-size: 1.2rem;
-  color: white;
-}
-
-.form-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-  background: #fff8e7;
-}
-
-.form-section h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #c59d5f;
-}
-
-.form {
-  max-width: 400px;
-}
-
-.label {
-  font-weight: bold;
-  color: #6e4c1e;
-}
-
-.input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #c59d5f;
-  border-radius: 6px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-}
-
-#submit {
-  background-color: gold;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#submit:hover {
-  background-color: #e6be00;
-}
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #4a5d23;
+  }
+  
+  /* Header Styles */
+  header {
+    background-color: #ddd;
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav-bar-logo-container {
+    height: 100%;
+  
+  }
+  
+  .nav-bar-logo {
+    max-height: 100%;
+    max-width: auto;
+    margin-right: 30px;
+  }
+  
+  .wedding-title {
+    font-family: "Gwendolyn";
+    font-size: 40px;
+    color: #c1a42e;
+  }
+  
+  .box {
+    width: 60%;
+    height: 450px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 25vh auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #submit {
+    background-color:#4a5d23;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin: left 200px;
+    width: 100px;
+    font-size: 16px;
+    color: #ffffff;
+    position: center;
+    transition: all 0.35s;
+    outline: none;
+  }
+  
+  
+  #submit:hover {
+    background-color: #739e1b;
+  }
+  
+  #label {
+    color: #4a5d23;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  #input {
+    margin: 12px auto;
+    color: #4a5d23;
+    font-size: 20px;
+    width: 350px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 0.2px solid #4a5d23;
+    display: flex;
+  }
+  
+  @media screen and (max-width: 960px) {
+    #input, #submit, #label {
+      width: 100%;
+    }
+  }

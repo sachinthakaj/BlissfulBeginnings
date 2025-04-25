@@ -377,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.appendChild(payButton);
 
                 payButton.addEventListener("click", function (event) {
-                  window.location.href = `/wedding/${weddingID}/payments/${vendor.assignmentID}`;
+                  window.location.href = `/wedding/${weddingID}/${vendor.assignmentID}`;
                 });
               } else {
                 payButton.innerHTML = "Paid";
