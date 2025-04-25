@@ -55,7 +55,7 @@ $router->get("/get-floristlist","PlannerController@getFloristsList");
 $router->get("/get-photographerslist","PlannerController@getPhotographersList");
 $router->get("/get-dressdesignerslist","PlannerController@getDressDesignersList");
 
-$router->get("/reset-password", "PlannerController@resetPassword");
+$router->get("/resetpassword", "PlannerController@resetPassword");
 
 
 
