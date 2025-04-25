@@ -23,7 +23,7 @@ class m0002_weddings {
         currentCompleted int,
         sepSalons BOOLEAN, 
         sepDressDesigners BOOLEAN,
-        weddingState ENUM('new', 'unassigned', 'ongoing', 'finished') NOT NULL,
+        weddingState ENUM('new', 'unassigned', 'ongoing', 'finished', 'rejected') NOT NULL,
         weddingPartyMale INT,
         weddingPartyFemale INT,
         

@@ -1,5 +1,6 @@
 @import url('http://cdn.blissfulbeginnings.com/common-css/Common.css');
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/Aside.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/PackageCard.css');
 
 #loading-screen {
   position: fixed;
@@ -240,24 +241,6 @@ main {
   padding: 20px;
   overflow-y: scroll;
 }
-
-.package-card {
-  height: auto;
-  background-color: #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  cursor: pointer;
-  position: relative;
-}
-
-.package-card:hover,
-.package-card.selected {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  background-color: #c1a42e;
-  color: #fff;
-}
-
 
 
 .submit-button {

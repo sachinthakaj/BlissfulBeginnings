@@ -237,28 +237,27 @@ class Wedding
         $this->db->execute();
     }
 
-    public function deleteFromPlannerDashboard($weddingID)
+    public function rejectWedding($weddingID, $reason)
     {
-        $this->db->query("DELETE FROM bridegrooms 
-        WHERE brideGroomsID IN (SELECT brideID FROM weddingbridegrooms WHERE weddingID=UNHEX(:weddingID))
-        OR brideGroomsID IN (SELECT groomID FROM weddingbridegrooms WHERE weddingID=UNHEX(:weddingID))");
-        $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
-        $this->db->execute();
-
-        $this->db->query("DELETE FROM weddingbridegrooms WHERE weddingID=UNHEX(:weddingID)");
-        $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
-        $this->db->execute();
-
-        $this->db->query("DELETE FROM wedding WHERE weddingID=UNHEX(:weddingID)");
-        $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
-        $this->db->execute();
+        try {
+            $this->db->query("UPDATE wedding SET weddingState='rejected', location=:reason WHERE weddingID=UNHEX(:weddingID), reason=:reason");
+            $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+            $this->db->bind(":reason", $reason);
+            $this->db->execute();
+            $this->db->commit();
+            return $this->db->rowCount();
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log($e->getMessage());
+            return false;
+        }
     }
 
     public function deleteWedding($weddingID)
     {
         try {
             $this->db->startTransaction();
-            $this->db->query("SELECT weddingState FROM wedding WHERE weddingID=UNHEX(:weddingID)");
+            $this->db->query("SELECT weddingState, userID FROM wedding WHERE weddingID=UNHEX(:weddingID)");
             $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
             $this->db->execute();
             $state = $this->db->fetch(PDO::FETCH_ASSOC);
@@ -266,6 +265,10 @@ class Wedding
             if ($state['weddingState'] != "ongoing") {
                 $this->db->query("DELETE FROM wedding WHERE weddingID=UNHEX(:weddingID)");
                 $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
+                $this->db->execute();
+
+                $this->db->query("DELETE FROM users WHERE userID=UNHEX(:userID)");
+                $this->db->bind(":userID", bin2hex($state['userID']), PDO::PARAM_LOB);
                 $this->db->execute();
 
                 $this->db->commit();

@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const confirmBtn2 = document.querySelector(".calendar-modal2 .confirm-button");
 
 
-// CSS to style unavailable days
-const styleId = 'unavailable-day-style';
-if (!document.getElementById(styleId)) {
+  // CSS to style unavailable days
+  const styleId = 'unavailable-day-style';
+  if (!document.getElementById(styleId)) {
     const style = document.createElement('style');
     style.id = styleId;
     style.textContent = `
@@ -58,36 +58,36 @@ if (!document.getElementById(styleId)) {
 }
     `;
     document.head.appendChild(style);
-}
-async function fetchUnavailableDates() {
-  try {
+  }
+  async function fetchUnavailableDates() {
+    try {
       const response = await fetch(`/get-unavailable`, {
-          method: 'GET',
-          headers: {
-              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-          }
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
       });
-      
+
       if (!response.ok) throw new Error('Failed to fetch unavailable dates');
-      
+
       const data = await response.json();
-      
+
       // Convert object to array if needed
       if (Array.isArray(data)) {
-          return data; // Already an array
+        return data; // Already an array
       } else if (data && typeof data === 'object') {
-          // If it's an object, extract the keys (dates)
-          return Object.values(data);
+        // If it's an object, extract the keys (dates)
+        return Object.values(data);
       } else {
-          // If it's neither array nor object, return empty array
-          return [];
+        // If it's neither array nor object, return empty array
+        return [];
       }
-      
-  } catch (error) {
+
+    } catch (error) {
       console.error('Error fetching unavailable dates:', error);
       return []; // Return empty array on error
+    }
   }
-}
 
 
   // Define an array to store events
@@ -178,22 +178,22 @@ async function fetchUnavailableDates() {
   }
 
   // Function to display the calendar
-   async function showCalendar(month, year) {
+  async function showCalendar(month, year) {
     let firstDay = new Date(year, month, 1).getDay();
     tbl = document.getElementById("calendar-body");
     tbl.innerHTML = "";
     monthAndYear.innerHTML = months[month] + " " + year;
     selectYear.value = year;
     selectMonth.value = month;
-     // Fetch unavailable dates
-     const unavailableDates = await fetchUnavailableDates();
-     console.log('Unavailable dates:', unavailableDates);
-  
-    
-     // Ensure we have an array of dates to work with
-     const unavailableDatesArray = Array.isArray(unavailableDates)
-         ? unavailableDates
-         : Object.values(unavailableDates || {});
+    // Fetch unavailable dates
+    const unavailableDates = await fetchUnavailableDates();
+    console.log('Unavailable dates:', unavailableDates);
+
+
+    // Ensure we have an array of dates to work with
+    const unavailableDatesArray = Array.isArray(unavailableDates)
+      ? unavailableDates
+      : Object.values(unavailableDates || {});
 
     let date = 1;
     for (let i = 0; i < 6; i++) {
@@ -217,27 +217,27 @@ async function fetchUnavailableDates() {
           // Check if this date is unavailable
           const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
           if (unavailableDatesArray.includes(currentDateStr)) {
-              cell.classList.add("unavailable-day");
-          }
-          
-          cell.addEventListener("click", function() {
-              openCalendarModal(this);
-          });
-          
-          if (
-              date === today.getDate() &&
-              year === today.getFullYear() &&
-              month === today.getMonth()
-          ) {
-              cell.className = "date-picker selected";
-              // Ensure we don't lose the unavailable-day class if this day is also unavailable
-              const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
-              if (unavailableDatesArray.includes(currentDateStr)) {
-                  cell.classList.add("unavailable-day");
-              }
+            cell.classList.add("unavailable-day");
           }
 
-          
+          cell.addEventListener("click", function () {
+            openCalendarModal(this);
+          });
+
+          if (
+            date === today.getDate() &&
+            year === today.getFullYear() &&
+            month === today.getMonth()
+          ) {
+            cell.className = "date-picker selected";
+            // Ensure we don't lose the unavailable-day class if this day is also unavailable
+            const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+            if (unavailableDatesArray.includes(currentDateStr)) {
+              cell.classList.add("unavailable-day");
+            }
+          }
+
+
 
           // Check if there are events on this date
           if (hasEventOnDate(date, month, year)) {
@@ -255,7 +255,7 @@ async function fetchUnavailableDates() {
 
   //modal for calendar
   function openCalendarModal(clickedCell) {
-  
+
 
     const date = clickedCell.getAttribute("data-date");
     const month = clickedCell.getAttribute("data-month");
@@ -275,13 +275,13 @@ async function fetchUnavailableDates() {
         month: "long",
         day: "numeric",
       });
-      const isUnavailable=clickedCell.classList.contains('unavailable-day');
-        // Update modal text based on availability status
-        if (isUnavailable) {
-          calendarModalContainer2.classList.add('show');
-            
+      const isUnavailable = clickedCell.classList.contains('unavailable-day');
+      // Update modal text based on availability status
+      if (isUnavailable) {
+        calendarModalContainer2.classList.add('show');
+
       } else {
-          calendarModalContainer.classList.add('show');
+        calendarModalContainer.classList.add('show');
       }
 
       return selectedDate;
@@ -292,8 +292,8 @@ async function fetchUnavailableDates() {
   }
   function closeCalendarModal2() {
     calendarModalContainer2.classList.remove('show');
-    
-}
+
+  }
 
   // Event Listeners
   if (calendarModalContainer && cancelBtn) {
@@ -344,54 +344,54 @@ async function fetchUnavailableDates() {
         });
     });
   }
-   // For re-availability popup
-   if (calendarModalContainer2&&cancelBtn2) {
+  // For re-availability popup
+  if (calendarModalContainer2 && cancelBtn2) {
 
     // Close modal when clicking cancel button
     cancelBtn2.addEventListener('click', closeCalendarModal2);
-}
-if (calendarModalContainer2 && confirmBtn2) {
-    confirmBtn2.addEventListener('click', () => {  
-        if (!selectedDate) {
-            showNotification("Please select a date first", "red");
-            return;
-        }
-        fetch(`/remove-unavailable`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-            },
-            body: JSON.stringify({ date: selectedDate })
-        })
+  }
+  if (calendarModalContainer2 && confirmBtn2) {
+    confirmBtn2.addEventListener('click', () => {
+      if (!selectedDate) {
+        showNotification("Please select a date first", "red");
+        return;
+      }
+      fetch(`/remove-unavailable`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+        body: JSON.stringify({ date: selectedDate })
+      })
         .then(response => {
-            if (!response.ok) {
-                if (response.status === 404) {
-                    closeCalendarModal2();
-                    showNotification("Date not found or already available", "red");
-                    return Promise.reject('Not Found - Date already available');
-                }
-
-                throw new Error('Failed to remove unavailable date');
+          if (!response.ok) {
+            if (response.status === 404) {
+              closeCalendarModal2();
+              showNotification("Date not found or already available", "red");
+              return Promise.reject('Not Found - Date already available');
             }
-            return response.json();
+
+            throw new Error('Failed to remove unavailable date');
+          }
+          return response.json();
         })
         .then(data => {
-            showNotification("Date marked as available", "green");
-            closeCalendarModal2();
-            // Refresh calendar to show the date is now available
-            showCalendar(currentMonth, currentYear);
+          showNotification("Date marked as available", "green");
+          closeCalendarModal2();
+          // Refresh calendar to show the date is now available
+          showCalendar(currentMonth, currentYear);
         })
         .catch(error => {
-            if (error !== 'Not Found - Date already available') {
-                closeCalendarModal2();
-                showNotification("Failed to make date available", "red");
-            }
+          if (error !== 'Not Found - Date already available') {
+            closeCalendarModal2();
+            showNotification("Failed to make date available", "red");
+          }
         });
 
 
-});
-}
+    });
+  }
 
 
 
@@ -437,7 +437,7 @@ if (calendarModalContainer2 && confirmBtn2) {
     return 32 - new Date(iYear, iMonth, 32).getDate();
   }
 
-  
+
 
   const modal = document.getElementById("modal");
   const modalContent = document.getElementById("modal-content");
@@ -551,18 +551,17 @@ if (calendarModalContainer2 && confirmBtn2) {
           rejectButton.classList.add("rejectButton");
           rejectButton.textContent = "Reject";
           rejectButton.addEventListener("click", (e) => {
-            const confirmed = confirm("Are you sure you want to delete?");
-            if (confirmed) {
+            const reason = prompt("Please enter the reason for rejection:");
+            if (reason) {
               e.stopPropagation();
-
-              fetch("/delete-wedding", {
+              fetch("/reject-wedding/" + wedding.weddingID, {
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
                 body: JSON.stringify({
-                  weddingID: wedding.weddingID,
+                  reason: reason,
                 }),
               })
                 .then((res) => {
@@ -607,18 +606,25 @@ if (calendarModalContainer2 && confirmBtn2) {
 
         if (wedding.weddingState == "ongoing") {
           card.innerHTML = `
-        <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-          <p><b>Date:</b>${wedding.date}</p>
-          <p><b>Day/Night</b>:${wedding.dayNight}</p>
-          <p><b>Location:</b>${wedding.location}</p>
-          <p><b>Theme:</b>${wedding.theme}</p>
-         
-     
-     `;
+            <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+            <p><b>Date:</b>${wedding.date}</p>
+            <p><b>Day/Night</b>:${wedding.dayNight}</p>
+            <p><b>Location:</b>${wedding.location}</p>
+            <p><b>Theme:</b>${wedding.theme}</p>`;
           card.classList.add("ongoing");
           card.addEventListener("click", (event) => {
             window.location.href = `/wedding/${wedding.weddingID}`;
           });
+        }
+
+        if (wedding.wedding === "rejected") {
+          card.innerHTML = `
+            <h3>${wedding.brideName} & ${wedding.groomName} </h3>
+            <p><b>Date:</b>${wedding.date}</p>
+            <p><b>Day/Night</b>:${wedding.dayNight}</p>
+            <p><b>Location:</b>${wedding.location}</p>
+            <p><b>Theme:</b>${wedding.theme}</p>`;
+          card.classList.add("rejected");
         }
 
         weddingCardsContainer.appendChild(card);

@@ -82,7 +82,7 @@ class PlannerController
         header('Content-Type:application/json');
         echo json_encode(["status" => "success", "message" => "Wedding State Successfully Update"]);
     }
-    public function deleteWeddingData()
+    public function deleteWeddingData($parameters)
     {
         if (!Authenticate('planner', 123)) {
             header('HTTP/1.1 401 Unauthorized');
@@ -92,14 +92,14 @@ class PlannerController
             ]);
             return;
         }
-        $data = json_decode(file_get_contents("php://input"), true);
-        if (isset($data['weddingID'])) {
-            $weddingID = $data['weddingID'];
+        if (isset($parameters['weddingID'])) {
+            $weddingID = $parameters['weddingID'];
+            $reason = $parameters['reason'];
             $weddingModel = new Wedding();
-            $weddingModel->deleteFromPlannerDashboard($weddingID);
+            $weddingModel->rejectWedding($weddingID, $reason);
 
             header('Content-Type:application/json');
-            echo json_encode(["status" => "success", "message" => "Wedding Successfully deleted"]);
+            echo json_encode(["status" => "success", "message" => "Wedding Successfully rejected"]);
         }
     }
 
