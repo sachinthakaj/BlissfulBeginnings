@@ -216,6 +216,8 @@ main {
   border: 1px solid #888;
   width: 80%;
   height: 70%;
+  overflow-y: auto;
+height: 500px;
 }
 
 
@@ -253,4 +255,9 @@ main {
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.package-grid {
+  grid-template-rows: auto auto;
+  height: auto;
 }

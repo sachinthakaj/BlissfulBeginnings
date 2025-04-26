@@ -503,7 +503,9 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="search-container">
                     <input type="text" placeholder="Search" class="search-input" id="search-reccs" />
                 </div>
+                <div class="package-grid-container">
               <div class="package-grid">
+              </div>
                 <!-- Vendor information will be populated here -->
               </div>
               <button class="submit-button">Reccomend Packages</button>
