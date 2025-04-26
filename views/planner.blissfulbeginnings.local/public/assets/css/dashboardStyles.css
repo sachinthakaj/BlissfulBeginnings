@@ -1,6 +1,7 @@
 
 @import url('/public/assets/css/PcalendarModal.css');
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/Searchbar.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/PackageCard.css');
 
 #loading-screen {
   position: fixed;
@@ -169,6 +170,7 @@ main {
   position: relative;
   min-width: 400px;
   min-height: 200px;
+  position: relative;
 }
 
 .wedding-card:hover {
@@ -199,7 +201,7 @@ main {
   border-radius: 3px;
 }
 .wedding-card.ongoing::after {
-  content: "ongoing";
+  content: "Ongoing";
   position: absolute;
   top: 10px;
   right: 10px;
@@ -552,6 +554,34 @@ body {
 .confirm-button:hover {
   background-color: var(--cancel-button-hover-color);
 }
+
+/* new */
+.wed-status-tag {
+  background-color: #eee;
+  color: #333;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.wed-package-card.new .wed-status-tag {
+  background-color: #d1f7c4;
+  color: #2e7d32;
+}
+
+.wed-package-card.Unassigned .wed-status-tag {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.wed-package-card.ongoing .wed-status-tag {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
 
 :root {
   --primary-color: #c1a42e;

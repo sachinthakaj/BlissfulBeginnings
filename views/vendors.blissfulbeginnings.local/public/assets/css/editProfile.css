@@ -4,6 +4,8 @@
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfilePic.css');
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/VendorProfileCommon.css');
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/PackageCard.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/Aside.css');
+
 
 #loading-screen {
     background: var(--semi-transparent-white-color); 
@@ -64,7 +66,7 @@ main {
 
 .package {
     position: relative; 
-    height: 30vh;
+    /* height: 30vh; */
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -76,11 +78,8 @@ main {
     font-size: 1.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-}
-
-.package {
     height: 60vh;
+    overflow: hidden;
 }
 
 .package:not(:first-of-type)::before {
@@ -103,7 +102,7 @@ main {
     opacity: 1;
 }
 
-.package:first-of-type {
+.package:first-of-type, .gallery-item:first-of-type {
     width: 250px;
     height: 250px;
     border-radius: 50%;
@@ -114,7 +113,12 @@ main {
     background-color: var(--secondary-color);
 }
 
-.package:first-of-type:hover {
+.gallery-item:first-of-type {
+    width: 200px;
+    height: 200px;
+}
+
+.package:first-of-type:hover, .gallery-item:first-of-type:hover {
     background-color: var(--secondary-dark-color);
     transition: background-color 0.3s ease;
 }
