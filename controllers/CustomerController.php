@@ -241,7 +241,7 @@ class CustomerController
             
 
             if ($amount) {
-                $upFrontAmount = $amount->totalPackagesValue / 8 ;
+                $upFrontAmount = $amount->totalPrice / 8 ;
                 header("Content-Type: application/json; charset=utf-8");
                 echo json_encode($upFrontAmount);
             } else {
@@ -434,7 +434,7 @@ class CustomerController
             $merchant_id = "1228991";
             $merchant_secret = $_ENV['PAYHERE_SECRET'];
             $currency = "LKR";
-            $amount = $result->totalPackagesValue / 8;
+            $amount = $result->totalPrice / 8;
             $order_id = $payment->createOrderIdForPaymentGateway();
 
 

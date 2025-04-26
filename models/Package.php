@@ -282,7 +282,7 @@ class Package
     public function getAssignedPackages($weddingID)
     {
         try {
-            $this->db->query('SELECT packageAssignment.*, packages.packageName, packages.fixedCost, vendors.businessName, vendors.imgSrc FROM packageAssignment 
+            $this->db->query('SELECT packageAssignment.*, packages.packageName, packageAssignment.price, vendors.businessName, vendors.imgSrc FROM packageAssignment 
             JOIN packages ON packageAssignment.packageID = packages.packageID 
             JOIN vendors ON packages.vendorID = vendors.vendorID
             WHERE packageAssignment.weddingID = UNHEX(:weddingID);');
@@ -331,7 +331,7 @@ class Package
     public function getPackageDataForPayments($assignmentID)
     {
         try {
-            $this->db->query("SELECT p.packageName,p.feature1,p.feature2,p.feature3,p.fixedCost
+            $this->db->query("SELECT p.packageName,p.feature1,p.feature2,p.feature3,pa.price
             FROM packageassignment pa 
             JOIN packages p ON pa.packageID=p.packageID
             WHERE pa.assignmentID=UNHEX(:assignmentID)");
@@ -366,7 +366,7 @@ class Package
 
     public function getAssignedPackagesForPayments($weddingID){
         try{
-            $this->db->query("SELECT p.packageName,p.fixedCost FROM packages p
+            $this->db->query("SELECT p.packageName,pa.price FROM packages p
             JOIN packageAssignment pa ON p.packageID = pa.packageID
             WHERE pa.weddingID = UNHEX(:weddingID)");
 

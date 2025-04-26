@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const checkoutCardDetails = document.createElement("div");
       checkoutCardDetails.classList.add("checkout_card_details");
       checkoutCardDetails.innerHTML = `<p><B>Total:LKR ${
-        amount.totalPackagesValue - amount.currentPaid
+        amount.totalPrice - amount.currentPaid
       }</B></p>`;
       checkoutCard.appendChild(checkoutCardDetails);
 
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
       input.id = "paymentAmount";
       input.classList.add("payment-input");
       input.min = 0;
-      input.max = amount.totalPackagesValue - amount.currentPaid;
+      input.max = amount.totalPrice - amount.currentPaid;
       input.required = true;
 
       const payButton = document.createElement("button");
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (
           isNaN(amountToPay) ||
           amountToPay <= 0 ||
-          amountToPay > amount.totalPackagesValue - amount.currentPaid
+          amountToPay > amount.totalPrice - amount.currentPaid
         ) {
           alert("Please enter a valid amount");
           input.value = "";
@@ -378,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-size: 14px;
                 color: #718096;
               ">Cost:</span>
-              LKR ${pkg.fixedCost.toLocaleString()}
+              LKR ${pkg.price.toLocaleString()}
             </span>
           </li>
         `

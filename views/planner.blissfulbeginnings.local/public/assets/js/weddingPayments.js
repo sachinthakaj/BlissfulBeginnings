@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const checkoutCardDetails = document.createElement("div");
       checkoutCardDetails.classList.add("checkout_card_details");
-      checkoutCardDetails.innerHTML = `<p><B>Total:LKR ${package.fixedCost}</B></p>`;
+      checkoutCardDetails.innerHTML = `<p><B>Total:LKR ${package.price}</B></p>`;
       checkoutCard.appendChild(checkoutCardDetails);
 
       const checkoutCardAction = document.createElement("div");

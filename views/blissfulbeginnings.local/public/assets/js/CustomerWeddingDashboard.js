@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
-      const totalBudget = data.totalPackagesValue;
+      const totalBudget = data.totalPrice;
       const paidValue = data.currentPaid;
       updateBudgetBar(totalBudget, paidValue);
 

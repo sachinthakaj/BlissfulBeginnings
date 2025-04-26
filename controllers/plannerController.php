@@ -514,7 +514,7 @@ class PlannerController
             $currency = "LKR";
             $packageData = $package->getPackageDataForPayments($parameters['assignmentID']);
             $temp = $packageData[0];
-            $amount = $temp['fixedCost'];
+            $amount = $temp['price'];
 
 
             $hash = strtoupper(
