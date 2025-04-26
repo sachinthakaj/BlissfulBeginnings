@@ -28,6 +28,10 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);
@@ -52,6 +56,10 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);
@@ -77,6 +85,10 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);
@@ -97,6 +109,10 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);
@@ -121,6 +137,10 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);
@@ -145,6 +165,10 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);
@@ -170,6 +194,10 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);
@@ -194,6 +222,11 @@ class Recommendations
             $this->db->bind(":weddingDate", $weddingDate);
             $this->db->execute();
             $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            $controller = new PackageController();
+            for ($i = 0; $i < count($result); $i++) {
+                error_log($result[$i]['packageID']);
+                $result[$i]['path'] = $controller->getImageForPackage(bin2hex($result[$i]['packageID']))["path"];
+            }
             return $result;
         } catch (Exception $e) {
             error_log($e);

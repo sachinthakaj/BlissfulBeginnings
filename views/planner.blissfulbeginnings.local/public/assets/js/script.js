@@ -498,6 +498,11 @@ document.addEventListener("DOMContentLoaded", function () {
           notificationDiv.addEventListener("click", () => {
             window.location.href = `/new-package/${notification.reference}`;
           });
+        } else if (notification.title === "New Message") {
+          notificationDiv.classList.add("type-new-message");
+          notificationDiv.addEventListener("click", () => {
+            window.location.href = `/vendor/${notification.reference}`;
+          });
         }
       });
     })

@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((data) => {
         // Handle success (e.g., show a success message or redirect)
         console.log("Success:", data);
+        localStorage.setItem('authToken', data.token); // Store token securely
 
         // next modal step
         showStep(2);
@@ -113,7 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const file = document.getElementById("photo").files[0];
 
           if (!file) {
-            alert("Please select a file before submitting.");
+            console.log("In here");
+            window.location.href = "/vendor/" + data.vendorID;
             return;
           }
 

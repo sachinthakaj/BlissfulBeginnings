@@ -61,7 +61,7 @@ class PackageController
         }
     }
 
-    public function getImageForPackage($packageID) {
+    public function getImageForPackage(String $packageID) {
         try {
             $package = new Package();
             $result = $package->getImageForPackage($packageID);
