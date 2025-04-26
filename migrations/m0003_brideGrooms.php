@@ -13,7 +13,7 @@ class m0003_brideGrooms {
         contact varchar(10) NOT NULL,
         address varchar(255) NOT NULL,
         gender ENUM('Male', 'Female') NOT NULL,
-        age INT NOT NULL
+        age INT NOT NULL CHECK (age BETWEEN 18 AND 60)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
       $this->dbh->exec($SQL);
     }

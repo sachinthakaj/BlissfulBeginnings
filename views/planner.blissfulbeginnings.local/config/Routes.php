@@ -6,7 +6,7 @@ $router->get("/fetch-wedding/{weddingID}", "PlannerController@fetchWedding");
 $router->get("/fetch-assigned-vendors/{weddingID}", "PlannerController@showAllVendorsForWedding");
 
 $router->post("/update-wedding-state","PlannerController@updateWeddingData");
-$router->delete("/delete-wedding","PlannerController@deleteWeddingData");
+$router->delete("/reject-wedding/{weddingID}","PlannerController@deleteWeddingData");
 $router->get("/tasks-for-assignments/{assignmentID}", "PlannerController@getTasksForAssignments");
 $router->post("/tasks-create-for-vendors/{assignmentID}", "PlannerController@createTasksForVendors");
 $router->get("/fetch-all-tasks", "PlannerController@getAllTasksForVendor");

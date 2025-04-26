@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['vendorID'])) {
         return;
     }
 
-    echo json_encode(["status" => "OK"]);
+    echo json_encode(["status" => "OK", "vendorID" => $vendorID]);
 } else {
     http_response_code(400);
     echo json_encode(["error" => "Invalid request"]);
