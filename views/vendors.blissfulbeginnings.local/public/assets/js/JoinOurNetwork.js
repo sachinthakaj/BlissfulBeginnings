@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
               if (!data.status) {
                 throw new Error("Invalid response from server.");
               }
+              console.log(data);
               window.location.href = "/vendor/" + data.vendorID;
             })
             .catch((error) => {

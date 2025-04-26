@@ -729,7 +729,7 @@ const ongoing = (data) => {
                     <div class="image-content">
                         <span class="overlay"></span>
                         <div class="card-image">
-                            <img src="${package.imgSrc}" alt="" class="card-img">
+                            <img src="http://cdn.blissfulbeginnings.com${package.imgSrc}" alt="" class="card-img">
                         </div>
                     </div>
                     <div class="card-content">
