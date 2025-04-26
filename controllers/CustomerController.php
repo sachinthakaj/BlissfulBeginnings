@@ -16,6 +16,11 @@ class CustomerController
         require_once './public/customerWeddingPayments.php';
     }
 
+    public function makeUpFrontPayment()
+    {
+        require_once './public/upfrontPayment.php';
+    }
+
 
     public function validateUserID($parameters)
     {
@@ -222,6 +227,34 @@ class CustomerController
         }
     }
 
+    public function getUpFrontAmountToPayCustomer($parameters)
+    {
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authentication failed']);
+            exit();
+        }
+        try {
+            $payment = new Payment();
+
+            $amount = $payment->getAmountToPayCustomer($parameters['weddingID']);
+            
+
+            if ($amount) {
+                $upFrontAmount = $amount->totalPackagesValue / 8 ;
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode($upFrontAmount);
+            } else {
+                header('HTTP/1.1 404 Resource Not Found');
+                echo json_encode(['error' => 'Resource not found']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error getting amount to pay']);
+        }
+    }
+
     public function getAssignedPackagesForPayments($parameters)
     {
         if (!Authenticate('customer', $parameters['weddingID'])) {
@@ -385,6 +418,55 @@ class CustomerController
     }
 
 
+    public function generateHashForUpFrontPaymentGateway($parameters)
+    {
+
+
+        if (!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authentication failed']);
+            exit();
+        }
+        try {
+
+            $payment = new Payment();
+            $result = $payment->getAmountToPayCustomer($parameters['weddingID']);
+            $merchant_id = "1228991";
+            $merchant_secret = $_ENV['PAYHERE_SECRET'];
+            $currency = "LKR";
+            $amount = $result->totalPackagesValue / 8;
+            $order_id = $payment->createOrderIdForPaymentGateway();
+
+
+            $hash = strtoupper(
+                md5(
+                    $merchant_id .
+                        $order_id .
+                        number_format($amount, 2, '.', '') .
+                        $currency .
+                        strtoupper(md5($merchant_secret))
+                )
+
+
+            );
+
+
+
+            if ($hash) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['orderID' => $order_id, 'hash' => $hash, 'amount' => $amount]);
+            } else {
+                header('HTTP/1.1 204 No Content');
+                echo json_encode(['error' => 'Hash ccould not create']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+
     public function getPaymentData()
     {
 
@@ -415,6 +497,54 @@ class CustomerController
             if (($local_md5sig === $md5sig) and ($status_code === "2")) {
                 $payment = new Payment();
                 $result = $payment->addFinalCustomerPaymentData($wedding_id,$payment_id, $order_id, $payhere_amount, $payhere_currency, $status_code);
+                if ($result == true) {
+                    header('Content-Type:application/json');
+                    echo json_encode(["status" => "success", "message" => "Payment Successfully Recorded"]);
+                } else {
+                    header('Content-Type:application/json');
+                    echo json_encode(["status" => "failed", "message" => "Payment Failed to  Record"]);
+                }
+            } else {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Invalid Payment Details or Signature']);
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
+
+
+    public function getUpFrontPaymentData()
+    {
+
+
+        try {
+            $merchant_id         = $_POST['merchant_id'];
+            $wedding_id          = $_POST['custom_1'];
+            $order_id            = $_POST['order_id'];
+            $payhere_amount      = $_POST['payhere_amount'];
+            $payhere_currency    = $_POST['payhere_currency'];
+            $status_code         = $_POST['status_code'];
+            $md5sig              = $_POST['md5sig'];
+
+            $merchant_secret = $_ENV['PAYHERE_SECRET']; // Replace with your Merchant Secret
+
+            $local_md5sig = strtoupper(
+                md5(
+                    $merchant_id .
+                        $order_id .
+                        $payhere_amount .
+                        $payhere_currency .
+                        $status_code .
+                        strtoupper(md5($merchant_secret))
+                )
+            );
+
+            if (($local_md5sig === $md5sig) and ($status_code === "2")) {
+                $payment = new Payment();
+                $result = $payment->addUpFrontPayment($wedding_id, $order_id, $payhere_amount, $payhere_currency, $status_code);
                 if ($result == true) {
                     header('Content-Type:application/json');
                     echo json_encode(["status" => "success", "message" => "Payment Successfully Recorded"]);

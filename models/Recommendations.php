@@ -262,4 +262,20 @@ class Recommendations
             error_log($e);
         }
     }
+
+    public function getTheValueOfUpfrontPayment($weddingID){
+        try {
+            $this->db->query("SELECT SUM(p.fixedCost) as totalRecomPackageCost,p.packageName from packages p 
+            JOIN recommendations r ON p.packageID = r.pacakgeID
+            WHERE r.weddingID = UNHEX(:weddingID);");
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
+            $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }

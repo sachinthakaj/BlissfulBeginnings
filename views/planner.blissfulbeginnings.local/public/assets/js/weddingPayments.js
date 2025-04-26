@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
               sandbox: true,
               merchant_id: "1228991", // Replace your Merchant ID
               return_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}`, // Important
-              cancel_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}/${assignmentID}`, // Important
+              cancel_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}/payments/${assignmentID}`, // Important
               // notify_url: `https://01jgnmtzfbspgkw5vx8ry3n7pf00-95b3dd672bc15808c447.requestinspector.com/wedding/${weddingID}/${assignmentID}/paymentData`,
               notify_url: `https://blissfulbeginnings.loca.lt/plannerPaymentData`,
               order_id: Response.orderID,
