@@ -246,6 +246,7 @@ function createPackageCard(packageData) {
       ? `LKR ${packageData.fixedCost.toLocaleString()}` 
       : `LKR ${packageData.fixedCost}`;
       
+  priceElement.dataset.price = packageData.fixedCost;
   priceElement.textContent = price;
   costElement.appendChild(priceElement);
   
@@ -555,7 +556,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 packageCard.classList.add('selected');
                 selectedPackages[assignmentType].push({
                   id: packageCard.id,
-                  price: packageCard.querySelector('#total-price').textContent  
+                  price: packageCard.querySelector('.wed-package-price').dataset.price  
                 });
                 console.log(selectedPackages);
               }
