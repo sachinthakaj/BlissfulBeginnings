@@ -708,7 +708,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
-                body: JSON.stringify({ weddingID: wedding.weddingID }),
+                body: JSON.stringify({ weddingID: wedding.weddingID, reason: reason }),
                 // body: JSON.stringify({
                 //   reason: reason,
                 // }),
