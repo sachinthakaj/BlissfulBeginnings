@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const progressBar = document.getElementById("progressBar");
     const percentage = document.getElementById("weddingProgressPrecentage");
     const valueOfPercentage = ((completedTasks / totalTasks) * 100).toFixed(1);
-    percentage.innerHTML = valueOfPercentage + "%";
+    percentage.innerHTML = isNaN(valueOfPercentage) ? "0.0%" : valueOfPercentage + "%";
 
     progressBar.style.width = `${valueOfPercentage}%`;
 
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const progressBar = document.getElementById("budgetBar");
     const percentage = document.getElementById("budgetProgressPrecentage");
     const valueOfPercentage = ((completedTasks / totalTasks) * 100).toFixed(1);
-    percentage.innerHTML = valueOfPercentage + "%";
+    percentage.innerHTML = isNaN(valueOfPercentage) ? "0.0%" : valueOfPercentage + "%";
 
     progressBar.style.width = `${valueOfPercentage}%`;
 
