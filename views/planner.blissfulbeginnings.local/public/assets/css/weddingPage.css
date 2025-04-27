@@ -53,6 +53,14 @@ main {
   display: flex;
 }
 
+
+.miscellanous {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 .left {
   flex: 1;
   padding: 20px;
