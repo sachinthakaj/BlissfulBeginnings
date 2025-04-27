@@ -26,6 +26,26 @@ class Event
             return false;
         }
     }
+    
+    public function getEventsForAnAssignment($assignmentID)
+    {
+        try {
+            $this->db->query("SELECT * FROM event WHERE assignmentID=UNHEX(:assignmentID) 
+            ORDER BY FIELD(state,'scheduled','finished'), date ASC;");
+            $this->db->bind(':assignmentID', $assignmentID, PDO::PARAM_STR);
+            $this->db->execute();
+            $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            for ($i = 0; $i < count($result); $i++) {
+                $result[$i]["eventID"] = bin2hex($result[$i]["eventID"]);
+                $result[$i]["assignmentID"] = bin2hex($result[$i]["assignmentID"]);
+            }
+            return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+}
    
     
     
@@ -33,6 +53,6 @@ class Event
 
 
     
-}
+
 
 
