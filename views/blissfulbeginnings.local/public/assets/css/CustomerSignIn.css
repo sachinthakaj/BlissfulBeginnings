@@ -1,4 +1,4 @@
-@import url('http://cdn.blissfulbeginnings.com/common-css/Common.css');
+@import url("http://cdn.blissfulbeginnings.com/common-css/Common.css");
 
 body {
   font-family: var(--primary-font-family);
@@ -39,7 +39,7 @@ header {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #f8f8f8; 
+  background-color: #f8f8f8;
 }
 
 .form-right {
@@ -134,3 +134,9 @@ h2 {
     font-size: 16px;
   }
 }
+
+.container {
+  display: grid;
+  gap: 10px;
+}
+
