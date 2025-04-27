@@ -11,21 +11,24 @@
 <body>
     <header>
         <div class="nav-bar-logo-container">
-            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
-        </div>
-        <div class="wedding-title-container">
-            <h1 class="wedding-title">Planner - Sign In</h1>
+            <img src="http://cdn.blissfulbeginnings.com/common-icons/blissful_beginnings_logo-nobg.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
     </header>
 
     <div class="box">
-        <form class="form">
-          <label class="label" for="email">Email</label><br>
-          <input class="input" type="email" id="email" name="email" placeholder="Enter email" required><br><br>
-          <label class="label" for="password">Password</label><br>
-          <input class="input" type="password" id="password" name="password" placeholder="Enter password" required><br><br>
-          <input type="submit" id="submit" value="Sign In">
-        </form>
+        <div class="image-left">
+            <!-- <img src="http://cdn.blissfulbeginnings.com/common-icons/blissful_beginnings_logo-nobg.png" alt="Blissful Beginnings Logo" class> -->
+        </div>
+        <div class="form-right">
+            <form class="form">
+                <h2>Planner - Sign In</h2>
+                <label class="label" for="email">Email</label><br>
+                <input class="input" type="email" id="email" name="email" placeholder="Enter email" required><br>
+                <label class="label" for="password">Password</label><br>
+                <input class="input" type="password" id="password" name="password" placeholder="Enter password" required><span><a href="" class="forgot-password">Forgot Password >>></a></span><br><br>
+                <input type="submit" id="submit" value="Sign In">
+            </form>
+        </div>
     </div>
 </body>
 </html>

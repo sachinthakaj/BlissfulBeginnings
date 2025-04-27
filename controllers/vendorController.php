@@ -332,7 +332,6 @@ class vendorController
         }
     }
 
-
     public function createEvent($parameters)
     {
 
@@ -376,7 +375,6 @@ class vendorController
             echo json_encode(['error' => 'An unexpected error occurred while creating the event.']);
         }
     }
-
 
     public function getEventsForAnAssignment($parameters)
     {

@@ -48,10 +48,9 @@ class Payment
     public function getAmountToPayCustomer($wedding_ID)
     {
         try {
-            $this->db->query("SELECT SUM(p.fixedCost) as totalPackagesValue,w.currentPaid
+            $this->db->query("SELECT SUM(price) as totalPrice,w.currentPaid
             FROM packageAssignment pa 
             JOIN wedding w ON pa.weddingID=w.weddingID
-            JOIN packages p ON pa.packageID=p.packageID
             WHERE pa.weddingID=UNHEX(:wedding_ID)
             GROUP BY pa.weddingID;");
 
@@ -70,7 +69,7 @@ class Payment
         try {
             $this->db->startTransaction();
     
-            // Check for existing ongoing payments
+            
             $this->db->query("SELECT COUNT(*) as count FROM customerPayment 
                              WHERE weddingID = UNHEX(:weddingID) AND statusCode = '0';");
             $this->db->bind(':weddingID', $weddingID);
@@ -78,10 +77,10 @@ class Payment
     
             if ($result->count > 0) {
                 $this->db->rollbackTransaction();
-                return false; // Existing ongoing payment found
+                return false; 
             }
     
-            // Proceed with insert if no ongoing payments
+            
             $paymentID = generateUUID($this->db);
             $this->db->query("INSERT INTO customerPayment(paymentID,weddingID,orderID,amount,currency,statusCode) 
                              VALUES (UNHEX(:paymentID),UNHEX(:weddingID),UNHEX(:orderID),:amount,:currency,:statusCode);");
@@ -158,4 +157,33 @@ public function addFinalCustomerPaymentData($wedding_id,$payment_id, $order_id, 
 
 
 }
+
+
+public function addUpFrontPayment($wedding_id, $order_id, $payhere_amount, $payhere_currency, $status_code)
+    {
+        try {
+            $paymentID = generateUUID($this->db);
+            $this->db->query("INSERT INTO customerPayment(paymentID,weddingID,orderID,amount,currency,statusCode) 
+                             VALUES (UNHEX(:paymentID),UNHEX(:weddingID),UNHEX(:orderID),:amount,:currency,:statusCode);");
+
+            $this->db->bind(':paymentID', $paymentID);
+            $this->db->bind(':weddingID', $wedding_id);
+            $this->db->bind(':orderID', $order_id);
+            $this->db->bind(':payhereAmount', $payhere_amount);
+            $this->db->bind(':payhereCurrency', $payhere_currency);
+            $this->db->bind(':statusCode', $status_code);
+
+            $this->db->execute();
+
+            
+
+            //update the wedding state to ongoing after the upfront payment
+
+
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }

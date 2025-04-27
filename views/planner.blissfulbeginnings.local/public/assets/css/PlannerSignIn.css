@@ -1,96 +1,148 @@
+@import url('http://cdn.blissfulbeginnings.com/common-css/Common.css');
+
 body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
+  font-family: var(--primary-font-family);
   padding: 0;
-  background-color: #fff;
-  color: #656233;
-}
-
-/* Header Styles */
-header {
-  background-color: #ddd;
-  height: 10vh;
-  padding: 10px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  border-radius: 8px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-bar-logo-container {
-  height: 100%;
-
-}
-
-.nav-bar-logo {
-  max-height: 100%;
-  max-width: auto;
-  margin-right: 30px;
-}
-
-.wedding-title {
-  font-family: "Gwendolyn";
-  font-size: 40px;
-  color: #c1a42e;
+  background-image: url("http://cdn.blissfulbeginnings.com/random-images/f.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;            /* Scales image to cover the whole background */
+  background-position: center;       /* Centers the image */
+  background-attachment: fixed; 
 }
 
 .box {
   width: 60%;
   height: 450px;
-  background-color: white;
+  background-color: var(--primary-white-color);
   border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  margin: 25vh auto; 
+  box-shadow: 0px 4px 15px var(--secondary-color);
+  margin: 19vh auto; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Left Image Section */
+.image-left {
+  background-color: #f8f8f8;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  width: 50%; /* Adjust width as needed */
+  background-image: url("http://cdn.blissfulbeginnings.com/common-icons/blissful_beginnings_logo-nobg.png"); 
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.image-left img {
+  max-width: 100%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+h2 {
+  color: var(--primary-color);
+  font-family: var(--heading-font-family);
+  font-size: 3rem;
+}
+
+/* Right Form Section */
+.form-right {
+  flex: 1;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Form Elements */
+.form {
+  width: 100%;
+}
+
+.label {
+  color: var(--secondary-color);
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+}
+
+.input:focus {
+  box-shadow: 0px 2px 8px var(--primary-color);
+  outline: none;
+  transition: all 0.35s;
 }
 
 #submit {
-  background-color: #656233;
+  background-color: var(--secondary-color);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
-  width: 350px;
-  font-size: 22px;
-  color: #ffffff;
-  position: relative;
-  transition: all 0.35s;
-  outline: none;
+  font-size: 18px;
+  color: var(--primary-white-color);
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
-
 
 #submit:hover {
-  background-color: #c1a42e;
+  background-color: var(--primary-color);
 }
 
-.label {
-  color: #656233;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.input {
-  margin: 12px auto;
-  color: #656233;
-  font-size: 20px;
-  width: 350px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 0.2px solid #656233;
+header {
   display: flex;
+  justify-content: flex-start;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
-@media screen and (max-width: 960px) {
-  #input, #submit, #label {
-    width: 100%;
+.forgot-password {
+  display: block;
+  text-align: right;
+  margin-top: -10px; 
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .box {
+      flex-direction: column;
+      height: auto;
+  }
+
+  .image-left, .form-right {
+      flex: none;
+      width: 100%;
+      height: auto;
+  }
+
+  .form-right {
+      padding: 20px;
+  }
+
+  .input, #submit {
+      font-size: 16px;
   }
 }

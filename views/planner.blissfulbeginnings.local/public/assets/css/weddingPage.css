@@ -1,17 +1,18 @@
 @import url("http://cdn.blissfulbeginnings.com/common-css/Common.css");
 @import url("http://cdn.blissfulbeginnings.com/common-css/components/Aside.css");
 @import url("http://cdn.blissfulbeginnings.com/common-css/components/RatingCard.css");
-body {
-  font-family: Arial, sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
-  background-color: #f9f9f9;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .dashboard {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow-y: hidden;
+  overflow-y: auto; /* CHANGED from hidden to auto to enable scrolling */
 }
 
 header {
@@ -45,6 +46,7 @@ header h1 {
 main {
   display: flex;
   flex: 1;
+  height: auto; /* ADDED to ensure main can expand with content */
 }
 
 .main-container {
@@ -62,6 +64,7 @@ main {
 .left {
   flex: 1;
   padding: 20px;
+  overflow-y: auto; /* ADDED to enable scrolling in left section */
 }
 
 .go-back {
@@ -197,7 +200,9 @@ main {
 .content-wrapper {
   display: flex;
   flex: 1;
-  height:10vh;
+  height: auto; /* CHANGED from 10vh to auto */
+  min-height: 80vh; /* ADDED to ensure adequate height */
+  overflow: visible; /* ADDED to allow content to flow naturally */
 }
 
 main {
@@ -206,13 +211,12 @@ main {
   background-color: #f0f0f0;
 }
 
-
-
 .vendor-search-and-cards {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  overflow-y: visible; /* ADDED to allow content to extend beyond container */
 }
 
 .vendor-cards {
@@ -238,7 +242,7 @@ main {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 350px;
 }
 
 .taskDescription {
@@ -299,8 +303,6 @@ main {
   transition: width 0.4s ease;
 }
 
-
-
 .Text {
   color: black;
   font-size: large;
@@ -313,4 +315,32 @@ main {
   gap: 20px;
   padding: 20px;
   justify-items: center;
+}
+
+.payButton{
+  
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-color: #5080c8;
+  
+}
+.paidButton{
+  
+  background-color: #50C878;
+  border: none;
+  border-radius: 8px;
+  
+}
+
+.completeButton{
+    
+    background-color: #C8A250;
+    border: none;
+    border-radius: 8px;
+    width: 150px;
+    height: 25px;
+    color: white;
+    
+
 }

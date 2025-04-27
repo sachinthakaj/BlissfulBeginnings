@@ -150,22 +150,22 @@ class PlannerController
         }
         $taskDetails = json_decode(file_get_contents("php://input"), true);
 
-        $wedding = new Wedding();
-        $weddingDate = $wedding->getWeddingDate($taskDetails['weddingID']);
-        $today = date('Y-m-d');
-        $dateToFinish = $taskDetails['dateToFinish'];
+        // $wedding = new Wedding();
+        // $weddingDate = $wedding->getWeddingDate($taskDetails['weddingID']);
+        // $today = date('Y-m-d');
+        // $dateToFinish = $taskDetails['dateToFinish'];
 
-        if ($dateToFinish <= $today) {
-            header('HTTP/1.1 400 Bad Request');
-            echo json_encode(['status'=>'unsuccess','error' => 'The finish date must be in the future']);
-            return;
-        }
+        // if ($dateToFinish <= $today) {
+        //     header('HTTP/1.1 400 Bad Request');
+        //     echo json_encode(['status'=>'unsuccess','error' => 'The finish date must be in the future']);
+        //     return;
+        // }
 
-        if ($dateToFinish >= $weddingDate) {
-            header('HTTP/1.1 400 Bad Request');
-            echo json_encode(['status'=>'unsuccess','error' => 'The finish date must be before the wedding date']);
-            return;
-        }
+        // if ($dateToFinish >= $weddingDate) {
+        //     header('HTTP/1.1 400 Bad Request');
+        //     echo json_encode(['status'=>'unsuccess','error' => 'The finish date must be before the wedding date']);
+        //     return;
+        // }
         $taskModel = new Task();
         $taskModel->createTask($taskDetails);
         header('Content-Type:application/json');
@@ -514,7 +514,7 @@ class PlannerController
             $currency = "LKR";
             $packageData = $package->getPackageDataForPayments($parameters['assignmentID']);
             $temp = $packageData[0];
-            $amount = $temp['fixedCost'];
+            $amount = $temp['price'];
 
 
             $hash = strtoupper(

@@ -8,6 +8,7 @@ class Event
     {
         $this->db = Database::getInstance();
     }
+
     public function createEvent($eventDetails)
     {
         try {
@@ -25,7 +26,7 @@ class Event
             return false;
         }
     }
-
+    
     public function getEventsForAnAssignment($assignmentID)
     {
         try {
@@ -44,6 +45,7 @@ class Event
             return false;
         }
     }
+
     public function updateEvent($eventDetails)
     {
         try {
@@ -84,9 +86,14 @@ class Event
             return false;
         }
     }
+}
+   
+    
+    
+
 
 
     
-}
+
 
 
