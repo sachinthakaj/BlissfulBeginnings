@@ -60,6 +60,20 @@ class Event
             return false;
         }
     }
+
+    public function deleteEvent($eventDetails)
+    {
+        try {
+
+            $this->db->query("DELETE FROM event WHERE eventID=UNHEX(:eventID)");
+            $this->db->bind(":eventID", $eventDetails['eventID']);
+            return $this->db->execute();
+        } catch (PDOException $e) {
+
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }
    
     
