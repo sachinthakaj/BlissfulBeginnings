@@ -45,6 +45,21 @@ class Event
             return false;
         }
     }
+
+    public function updateEvent($eventDetails)
+    {
+        try {
+
+            $this->db->query("UPDATE event SET description=:description, date=:date WHERE eventID=UNHEX(:eventID);");
+            $this->db->bind(':date', $eventDetails['eventDate']);
+            $this->db->bind(':description', $eventDetails['eventDescription']);
+            $this->db->bind(':eventID', $eventDetails['eventID']);
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }
    
     
