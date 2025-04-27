@@ -38,18 +38,11 @@ document.addEventListener("DOMContentLoaded", function () {
     ".calendar-modal2 .confirm-button"
   );
 
-<<<<<<< HEAD
-  // CSS to style unavailable days
-  const styleId = "unavailable-day-style";
-  if (!document.getElementById(styleId)) {
-    const style = document.createElement("style");
-=======
 
   // CSS to style unavailable days
   const styleId = 'unavailable-day-style';
   if (!document.getElementById(styleId)) {
     const style = document.createElement('style');
->>>>>>> master
     style.id = styleId;
     style.textContent = `
     .unavailable-day {
@@ -73,15 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
   async function fetchUnavailableDates() {
     try {
       const response = await fetch(`/get-unavailable`, {
-<<<<<<< HEAD
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to fetch unavailable dates");
-=======
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
@@ -89,31 +73,19 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (!response.ok) throw new Error('Failed to fetch unavailable dates');
->>>>>>> master
 
       const data = await response.json();
 
       // Convert object to array if needed
       if (Array.isArray(data)) {
         return data; // Already an array
-<<<<<<< HEAD
-      } else if (data && typeof data === "object") {
-=======
       } else if (data && typeof data === 'object') {
->>>>>>> master
         // If it's an object, extract the keys (dates)
         return Object.values(data);
       } else {
         // If it's neither array nor object, return empty array
         return [];
       }
-<<<<<<< HEAD
-    } catch (error) {
-      console.error("Error fetching unavailable dates:", error);
-      return []; // Return empty array on error
-    }
-  }
-=======
 
     } catch (error) {
       console.error('Error fetching unavailable dates:', error);
@@ -121,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
->>>>>>> master
 
   // Define an array to store events
   let events = [];
@@ -220,12 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
     selectMonth.value = month;
     // Fetch unavailable dates
     const unavailableDates = await fetchUnavailableDates();
-<<<<<<< HEAD
-    console.log("Unavailable dates:", unavailableDates);
-=======
     console.log('Unavailable dates:', unavailableDates);
 
->>>>>>> master
 
     // Ensure we have an array of dates to work with
     const unavailableDatesArray = Array.isArray(unavailableDates)
@@ -271,23 +238,13 @@ document.addEventListener("DOMContentLoaded", function () {
           ) {
             cell.className = "date-picker selected";
             // Ensure we don't lose the unavailable-day class if this day is also unavailable
-<<<<<<< HEAD
-            const currentDateStr = `${year}-${String(month + 1).padStart(
-              2,
-              "0"
-            )}-${String(date).padStart(2, "0")}`;
-=======
             const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
->>>>>>> master
             if (unavailableDatesArray.includes(currentDateStr)) {
               cell.classList.add("unavailable-day");
             }
           }
-<<<<<<< HEAD
-=======
 
 
->>>>>>> master
 
           // Check if there are events on this date
           if (hasEventOnDate(date, month, year)) {
@@ -305,11 +262,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //modal for calendar
   function openCalendarModal(clickedCell) {
-<<<<<<< HEAD
-=======
 
 
->>>>>>> master
     const date = clickedCell.getAttribute("data-date");
     const month = clickedCell.getAttribute("data-month");
     const year = clickedCell.getAttribute("data-year");
@@ -328,14 +282,6 @@ document.addEventListener("DOMContentLoaded", function () {
         month: "long",
         day: "numeric",
       });
-<<<<<<< HEAD
-      const isUnavailable = clickedCell.classList.contains("unavailable-day");
-      // Update modal text based on availability status
-      if (isUnavailable) {
-        calendarModalContainer2.classList.add("show");
-      } else {
-        calendarModalContainer.classList.add("show");
-=======
       const isUnavailable = clickedCell.classList.contains('unavailable-day');
       // Update modal text based on availability status
       if (isUnavailable) {
@@ -343,7 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       } else {
         calendarModalContainer.classList.add('show');
->>>>>>> master
       }
 
       return selectedDate;
@@ -353,12 +298,8 @@ document.addEventListener("DOMContentLoaded", function () {
     calendarModalContainer.classList.remove("show");
   }
   function closeCalendarModal2() {
-<<<<<<< HEAD
-    calendarModalContainer2.classList.remove("show");
-=======
     calendarModalContainer2.classList.remove('show');
 
->>>>>>> master
   }
 
   // Event Listeners
@@ -412,35 +353,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // For re-availability popup
   if (calendarModalContainer2 && cancelBtn2) {
-<<<<<<< HEAD
-    // Close modal when clicking cancel button
-    cancelBtn2.addEventListener("click", closeCalendarModal2);
-  }
-  if (calendarModalContainer2 && confirmBtn2) {
-    confirmBtn2.addEventListener("click", () => {
-=======
 
     // Close modal when clicking cancel button
     cancelBtn2.addEventListener('click', closeCalendarModal2);
   }
   if (calendarModalContainer2 && confirmBtn2) {
     confirmBtn2.addEventListener('click', () => {
->>>>>>> master
       if (!selectedDate) {
         showNotification("Please select a date first", "red");
         return;
       }
       fetch(`/remove-unavailable`, {
-<<<<<<< HEAD
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-        body: JSON.stringify({ date: selectedDate }),
-      })
-        .then((response) => {
-=======
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -449,21 +372,10 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify({ date: selectedDate })
       })
         .then(response => {
->>>>>>> master
           if (!response.ok) {
             if (response.status === 404) {
               closeCalendarModal2();
               showNotification("Date not found or already available", "red");
-<<<<<<< HEAD
-              return Promise.reject("Not Found - Date already available");
-            }
-
-            throw new Error("Failed to remove unavailable date");
-          }
-          return response.json();
-        })
-        .then((data) => {
-=======
               return Promise.reject('Not Found - Date already available');
             }
 
@@ -472,27 +384,17 @@ document.addEventListener("DOMContentLoaded", function () {
           return response.json();
         })
         .then(data => {
->>>>>>> master
           showNotification("Date marked as available", "green");
           closeCalendarModal2();
           // Refresh calendar to show the date is now available
           showCalendar(currentMonth, currentYear);
         })
-<<<<<<< HEAD
-        .catch((error) => {
-          if (error !== "Not Found - Date already available") {
-=======
         .catch(error => {
           if (error !== 'Not Found - Date already available') {
->>>>>>> master
             closeCalendarModal2();
             showNotification("Failed to make date available", "red");
           }
         });
-<<<<<<< HEAD
-    });
-  }
-=======
 
 
     });
@@ -501,7 +403,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
->>>>>>> master
 
   // Function to create an event tooltip
   function createEventTooltip(date, month, year) {
@@ -543,11 +444,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return 32 - new Date(iYear, iMonth, 32).getDate();
   }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> master
   const modal = document.getElementById("modal");
   const modalContent = document.getElementById("modal-content");
   modalContent.classList.add("modal-content");
@@ -689,23 +587,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const reason = prompt("Please enter the reason for rejection:");
             if (reason) {
               e.stopPropagation();
-<<<<<<< HEAD
-              fetch("/delete-wedding", {
-=======
               fetch("/reject-wedding/" + wedding.weddingID, {
->>>>>>> master
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
-<<<<<<< HEAD
-                body: JSON.stringify({ weddingID: wedding.weddingID }),
-=======
                 body: JSON.stringify({
                   reason: reason,
                 }),
->>>>>>> master
               })
                 .then((res) => {
                   if (res.status === 401) {
@@ -743,10 +633,6 @@ document.addEventListener("DOMContentLoaded", function () {
           card.appendChild(business);
           card.appendChild(features);
 
-<<<<<<< HEAD
-          // Add click event to go to wedding details
-          card.addEventListener("click", () => {
-=======
         if (wedding.weddingState == "ongoing") {
           card.innerHTML = `
             <h3>${wedding.brideName} & ${wedding.groomName} </h3>
@@ -756,7 +642,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <p><b>Theme:</b>${wedding.theme}</p>`;
           card.classList.add("ongoing");
           card.addEventListener("click", (event) => {
->>>>>>> master
             window.location.href = `/wedding/${wedding.weddingID}`;
           });
         }
@@ -772,7 +657,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         weddingCardsContainer.appendChild(card);
-      });
+    }});
 
       loadingScreen.style.display = "none";
       mainContent.style.display = "flex";
