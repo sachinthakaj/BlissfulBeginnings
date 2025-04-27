@@ -74,6 +74,18 @@ class Event
             return false;
         }
     }
+
+    public function saveFinishedEvents($eventDetails)
+    {
+        try {
+            $this->db->query("UPDATE event SET state='finished' WHERE eventID=UNHEX(:eventID);");
+            $this->db->bind(':eventID', $eventDetails['eventID']);
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }
    
     

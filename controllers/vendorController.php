@@ -494,4 +494,48 @@ class vendorController
             echo json_encode(['error' => 'An unexpected error occurred while deleting the event.']);
         }
     }
+
+    public function saveFinishedEvents($parameters)
+    {
+
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+
+
+        $eventDetails = json_decode(file_get_contents("php://input"), true);
+
+
+
+        if (empty($eventDetails['eventID'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['error' => 'Bad Request: Missing required fields (eventID)']);
+            return;
+        }
+
+        try {
+
+            $event = new Event();
+
+
+            $isDeleted = $event->saveFinishedEvents($eventDetails);
+
+
+            if ($isDeleted) {
+                header('Content-Type: application/json');
+                echo json_encode(["status" => "success", "message" => "Event Successfully Saved as finished"]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Failed to change the state of the event. Please try again later.']);
+            }
+        } catch (Exception $e) {
+
+            error_log("Error changing the state of the event: " . $e->getMessage());
+
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'An unexpected error occurred while change the state of the event.']);
+        }
+    }
 }
