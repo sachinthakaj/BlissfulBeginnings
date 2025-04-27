@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
-      const totalBudget = data.totalPackagesValue;
+      const totalBudget = data.totalPrice;
       const paidValue = data.currentPaid;
       updateBudgetBar(totalBudget, paidValue);
 
@@ -975,6 +975,7 @@ const unassigned = (data) => {
             recGrid = packagesDiv.querySelector(".reccomendation-grid");
             console.log(recGrid.id);
             response[recGrid.id].forEach((package) => {
+              const packageDiv = document.createElement("div");
               packageDiv.classList.add("package");
               packageDiv.setAttribute("id", package.packageID);
               packageDiv.innerHTML += `

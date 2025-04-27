@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Handle single file drag and drop
-  const fileInput = document.getElementById("photo");
   const nextButtons = document.querySelectorAll("#next-button");
   const prevButtons = document.querySelectorAll("#prev-button");
   const sections = document.querySelectorAll(".modal-section");
@@ -103,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((data) => {
         // Handle success (e.g., show a success message or redirect)
         console.log("Success:", data);
+        localStorage.setItem("authToken", data.token); // Store token securely
 
         // next modal step
         showStep(2);
@@ -113,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const file = document.getElementById("photo").files[0];
 
           if (!file) {
-            alert("Please select a file before submitting.");
+            console.log("In here");
+            window.location.href = "/vendor/" + data.vendorID;
             return;
           }
 
@@ -121,8 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
           uploadFormData.append("image", file);
 
           fetch(
-            "http://cdn.blissfulbeginnings.com/vendor/profile/" +
-              data.vendorID,
+            "http://cdn.blissfulbeginnings.com/vendor/profile/" + data.vendorID,
             {
               method: "POST",
               body: uploadFormData,

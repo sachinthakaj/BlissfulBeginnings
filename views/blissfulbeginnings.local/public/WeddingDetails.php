@@ -14,18 +14,15 @@
 <body>
     <header>
         <div class="nav-bar-logo-container">
-            <img src="/public/assets/images/Logo.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
-        </div>
-        <div class="wedding-title-container">
-            <h1 class="wedding-title">Create an account</h1>
+            <img src="http://cdn.blissfulbeginnings.com/common-icons/blissful_beginnings_logo-nobg.png" alt="Blissful Beginnings Logo" class="nav-bar-logo" />
         </div>
     </header>
     <div class="box">
         <form id="multiStepForm">
             <div class="form-progress-bar">
-                <div id="step1-progress" class="active"></div>
-                <div id="step2-progress"></div>
-                <div id="step3-progress"></div>
+                <div id="step1-progress" class="step-progress active"></div>
+                <div id="step2-progress" class="step-progress"></div>
+                <div id="step3-progress" class="step-progress"></div>
             </div>
             <section class="wedding-details step active">
                 <h2>Wedding Details</h2>
@@ -68,13 +65,13 @@
                             <label for="budget-range">Expected Budget<span class="required">*</span></label>
                             <select id="budget-range" name="budget" onchange="handleRangeChange()" required>
                                 <option value="">Select a budget range</option>
-                                <option value="0-1000">$0 - $1,000</option>
-                                <option value="1000-5000">$1,000 - $5,000</option>
-                                <option value="5000-10000">$5,000 - $10,000</option>
-                                <option value="10000-25000">$10,000 - $25,000</option>
-                                <option value="25000-50000">$25,000 - $50,000</option>
-                                <option value="50000-100000">$50,000 - $100,000</option>
-                                <option value="100000+">Over $100,000</option>
+                                <option value="0-1000">LKR 0 - LKR 1,000</option>
+                                <option value="1000-5000">LKR 1,000 - LKR 5,000</option>
+                                <option value="5000-10000">LKR 5,000 - LKR 10,000</option>
+                                <option value="10000-25000">LKR 10,000 - LKR 25,000</option>
+                                <option value="25000-50000">LKR 25,000 - LKR 50,000</option>
+                                <option value="50000-100000">LKR50,000 - LKR 100,000</option>
+                                <option value="100000+">Over LKR 100,000</option>
                                 <option value="custom">Custom Range</option>
                             </select>
 
@@ -82,11 +79,11 @@
                             <div id="custom-range-container" style="display: none; margin-top: 10px;">
                                 <div class="custom-range-inputs">
                                     <div class="custom-input">
-                                        <label for="min-budget">Minimum ($)</label>
+                                        <label for="min-budget">Minimum (LKR)</label>
                                         <input type="number" id="min-budget" min="0" placeholder="0">
                                     </div>
                                     <div class="custom-input">
-                                        <label for="max-budget">Maximum ($)</label>
+                                        <label for="max-budget">Maximum (LKR)</label>
                                         <input type="number" id="max-budget" min="0" placeholder="1000">
                                     </div>
                                 </div>
@@ -102,7 +99,10 @@
                     <label><input type="checkbox" name="salon" id="sepSalons">Get the service of separate Salons for bride and groom</label>
                     <label><input type="checkbox" name="dressDesigners" id="sepDressDesigners">Get the service of separate Dress Makers for bride and groom</label>
                 </div>
-                <button type="button" id="nextBtn">Next</button>
+                <div class="button-group">
+                    <button type="button" id="prevBtn" disabled>Previous</button>
+                    <button type="button" id="nextBtn">Next</button>
+                </div>
             </section>
 
             <div class="bride-details step">
@@ -134,8 +134,10 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" id="prevBtn">Previous</button>
-                <button type="button" id="nextBtn">Next</button>
+                <div class="button-group">
+                    <button type="button" id="prevBtn">Previous</button>
+                    <button type="button" id="nextBtn">Next</button>
+                </div>
             </div>
 
             <div class="groom-details step">
