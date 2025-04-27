@@ -272,5 +272,7 @@ class RecommendationsController
             echo json_encode(['error' => 'Error Submitting Data']);
         }
     }
+
+   
   
 }
