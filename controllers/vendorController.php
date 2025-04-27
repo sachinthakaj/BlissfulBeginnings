@@ -450,4 +450,48 @@ class vendorController
             echo json_encode(['error' => 'An unexpected error occurred while updating the event.']);
         }
     }
+
+    public function deleteEvent($parameters)
+    {
+
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+
+
+        $eventDetails = json_decode(file_get_contents("php://input"), true);
+
+
+
+        if (empty($eventDetails['eventID'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['error' => 'Bad Request: Missing required fields (eventID)']);
+            return;
+        }
+
+        try {
+
+            $event = new Event();
+
+
+            $isDeleted = $event->deleteEvent($eventDetails);
+
+
+            if ($isDeleted) {
+                header('Content-Type: application/json');
+                echo json_encode(["status" => "success", "message" => "Event Successfully Deleted"]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(['error' => 'Failed to delete the event. Please try again later.']);
+            }
+        } catch (Exception $e) {
+
+            error_log("Error deleting event: " . $e->getMessage());
+
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'An unexpected error occurred while deleting the event.']);
+        }
+    }
 }
