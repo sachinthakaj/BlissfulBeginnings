@@ -375,4 +375,35 @@ class vendorController
             echo json_encode(['error' => 'An unexpected error occurred while creating the event.']);
         }
     }
+
+    public function getEventsForAnAssignment($parameters)
+    {
+        if (!Authenticate('vendor', $parameters['vendorID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try {
+            if (!isset($parameters['assignmentID']) || empty($parameters['assignmentID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: assignmentID is required']);
+                return;
+            }
+
+            $event = new Event();
+            $events = $event->getEventsForAnAssignment($parameters['assignmentID']);
+
+
+            if (!empty($events)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'events' => $events]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No events found for the specified assignment']);
+            }
+        } catch (Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
+    }
 }
