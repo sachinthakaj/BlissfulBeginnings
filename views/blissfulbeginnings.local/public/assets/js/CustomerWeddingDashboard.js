@@ -1143,7 +1143,7 @@ const rejected = (data) => {
   const rejectedMessage = document.createElement("div");
   rejectedMessage.innerHTML += `
     <p>Your wedding has been rejected, because of</p>
-    <p>${data.reason}</p>
+    <p>${data.location}</p>
   `;
   document.querySelector(".vendor-grid").appendChild(rejectedMessage);
 }
