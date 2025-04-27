@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
-      const totalBudget = data.totalPackagesValue;
+      const totalBudget = data.totalPrice;
       const paidValue = data.currentPaid;
       updateBudgetBar(totalBudget, paidValue);
     })
@@ -310,6 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
           completeButton = document.createElement("button");
           completeButton.classList.add("completeButton");
           completeButton.innerHTML = "Mark as Completed";
+          completeButton.classList.add("completeButton");
           completeButton.addEventListener("click", () => {
             fetch(`/complete-wedding/${weddingID}`, {
               method: "GET",
@@ -374,13 +375,16 @@ document.addEventListener("DOMContentLoaded", function () {
               payButton.classList.add("payButton");
               if (vendor.isPaid == 0) {
                 payButton.innerHTML = "Pay";
+                payButton.classList.add("payButton");
                 card.appendChild(payButton);
 
                 payButton.addEventListener("click", function (event) {
-                  window.location.href = `/wedding/${weddingID}/${vendor.assignmentID}`;
+                  window.location.href = `/wedding/${weddingID}/payments/${vendor.assignmentID}`;
                 });
               } else {
                 payButton.innerHTML = "Paid";
+                payButton.classList.add("paidButton");
+                
                 card.appendChild(payButton);
               }
 
@@ -407,7 +411,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       const taskDetailsArea = document.createElement("div");
                       taskDetailsArea.classList.add("taskDetailsArea");
                       taskDetailsArea.innerHTML = `
-                    <div class="taskCSS">${task.description} before ${task.dateToFinish}</div>
+                    <div class="taskCSS">${task.description} <br>Complete before:  ${task.dateToFinish}</div>
                   `;
 
                       const taskActionArea = document.createElement("div");

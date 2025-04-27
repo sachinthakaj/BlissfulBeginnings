@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const checkoutCardDetails = document.createElement("div");
       checkoutCardDetails.classList.add("checkout_card_details");
-      checkoutCardDetails.innerHTML = `<p><B>Total:LKR ${package.fixedCost}</B></p>`;
+      checkoutCardDetails.innerHTML = `<p><B>Total:LKR ${package.price}</B></p>`;
       checkoutCard.appendChild(checkoutCardDetails);
 
       const checkoutCardAction = document.createElement("div");
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
               sandbox: true,
               merchant_id: "1228991", // Replace your Merchant ID
               return_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}`, // Important
-              cancel_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}/${assignmentID}`, // Important
+              cancel_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}/payments/${assignmentID}`, // Important
               // notify_url: `https://01jgnmtzfbspgkw5vx8ry3n7pf00-95b3dd672bc15808c447.requestinspector.com/wedding/${weddingID}/${assignmentID}/paymentData`,
               notify_url: `https://blissfulbeginnings.loca.lt/plannerPaymentData`,
               order_id: Response.orderID,

@@ -18,7 +18,7 @@ class Planner
     }
 
     public function getNotifications() {
-        $this->db->query('SELECT * FROM newvendornotifications UNION SELECT * FROM newpackagenotifications;');
+        $this->db->query('SELECT * FROM newvendornotifications UNION SELECT * FROM newpackagenotifications UNION SELECT * FROM newmessagenotifications;');
         $this->db->execute();
         $results = $this->db->fetchAll(PDO::FETCH_ASSOC);
         foreach($results as $key => $notification) {
