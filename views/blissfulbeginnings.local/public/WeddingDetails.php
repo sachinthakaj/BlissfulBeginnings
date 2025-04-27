@@ -68,9 +68,9 @@
                                 <option value="0-1000">LKR 0 - LKR 1,000</option>
                                 <option value="1000-5000">LKR 1,000 - LKR 5,000</option>
                                 <option value="5000-10000">LKR 5,000 - LKR 10,000</option>
-                                <option value="10000-25000">LKR 10,000 - LKR25,000</option>
-                                <option value="25000-50000">LKR 25,000 - LKR50,000</option>
-                                <option value="50000-100000">LKR50,000 - LKR100,000</option>
+                                <option value="10000-25000">LKR 10,000 - LKR 25,000</option>
+                                <option value="25000-50000">LKR 25,000 - LKR 50,000</option>
+                                <option value="50000-100000">LKR50,000 - LKR 100,000</option>
                                 <option value="100000+">Over LKR 100,000</option>
                                 <option value="custom">Custom Range</option>
                             </select>
@@ -99,7 +99,10 @@
                     <label><input type="checkbox" name="salon" id="sepSalons">Get the service of separate Salons for bride and groom</label>
                     <label><input type="checkbox" name="dressDesigners" id="sepDressDesigners">Get the service of separate Dress Makers for bride and groom</label>
                 </div>
-                <button type="button" id="nextBtn">Next</button>
+                <div class="button-group">
+                    <button type="button" id="prevBtn" disabled>Previous</button>
+                    <button type="button" id="nextBtn">Next</button>
+                </div>
             </section>
 
             <div class="bride-details step">
@@ -131,8 +134,10 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" id="prevBtn">Previous</button>
-                <button type="button" id="nextBtn">Next</button>
+                <div class="button-group">
+                    <button type="button" id="prevBtn">Previous</button>
+                    <button type="button" id="nextBtn">Next</button>
+                </div>
             </div>
 
             <div class="groom-details step">
