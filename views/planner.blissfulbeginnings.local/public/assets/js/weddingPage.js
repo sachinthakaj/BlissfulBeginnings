@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const remainingDays = Math.ceil(
           differenceInTime / (1000 * 60 * 60 * 24)
         );
-        if(remainingDays < 0) {
+        if (remainingDays < 0) {
           console.log("Wedding is over");
           completeButton = document.createElement("button");
           completeButton.classList.add("completeButton");
@@ -363,6 +363,11 @@ document.addEventListener("DOMContentLoaded", function () {
               addButton.classList.add("addButton");
               addButton.innerHTML = "&#x2795;";
               taskArea.appendChild(addButton);
+
+              const savedTaskButton = document.createElement("button");
+              savedTaskButton.classList.add("savedTaskButton");
+              savedTaskButton.innerHTML = "&#x23ee;";
+              taskArea.appendChild(savedTaskButton);
 
               const taskShowArea = document.createElement("div");
               taskShowArea.classList.add("taskShowArea");
@@ -521,30 +526,30 @@ document.addEventListener("DOMContentLoaded", function () {
           const ratingElement = document.createElement('div');
           ratingElement.classList.add('vendor-rating');
           for (let i = 1; i <= 5; i++) {
-              const star = document.createElement('span');
-              star.classList.add('star');
-              star.innerHTML = '&#9733;';  // Unicode star
-              if (i > rating) {
-                  star.classList.add('unfilled');
-              }
-              ratingElement.appendChild(star);
+            const star = document.createElement('span');
+            star.classList.add('star');
+            star.innerHTML = '&#9733;';  // Unicode star
+            if (i > rating) {
+              star.classList.add('unfilled');
+            }
+            ratingElement.appendChild(star);
           }
-      
+
           card.appendChild(nameElement);
           card.appendChild(typeElement);
           card.appendChild(ratingElement);
-      
+
           return card;
-      }
+        }
 
         fetch(
-          `/get-vendor-ratings/${weddingID}`,{
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              "Content-Type": "application/json",
-            },
-          }
+          `/get-vendor-ratings/${weddingID}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
         ).then((res) => {
           if (res.status == 401) {
             window.location.href = "/signin";
@@ -582,6 +587,8 @@ document.addEventListener("DOMContentLoaded", function () {
       taskForm.querySelector("input[name='assignmentID']").value = assignmentID;
       modal.classList.add("show");
       document.getElementById("taskForm").onsubmit = createFunction;
+    } else if (event.target === "savedTaskButton") {
+      const assignmentID = event.target.parentNode.id;
     }
   });
 
