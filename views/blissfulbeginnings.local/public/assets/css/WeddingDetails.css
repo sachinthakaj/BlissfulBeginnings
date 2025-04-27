@@ -1,15 +1,31 @@
 @import url('/public/assets/css/common.css');
 @import url('/public/assets/css/components/MainButtons.css');
 
+body {
+  font-family: var(--primary-font-family);
+  background-image: url("http://cdn.blissfulbeginnings.com/random-images/f.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 
-/* Main Container Styles */
+header {
+  display: flex;
+  justify-content: flex-start;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
 .box {
   width: 60%;
-  min-height: 500px;
-  background-color: white;
+  background-color: var(--primary-white-color);
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  margin: 14vh auto;
+  box-shadow: 0px 4px 15px var(--secondary-color);
+  margin: 5.5vh auto;
+  display: flex;
+  overflow: hidden;
   padding: 2rem;
 }
 
@@ -72,7 +88,7 @@ input, select {
 }
 
 .form-progress-bar div.active {
-  background-color: #c1a42e;
+  background-color: var(--secondary-color);
 }
 
 /* Button Styles */
@@ -81,7 +97,7 @@ button {
   font-size: 1rem;
   color: white;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -110,9 +126,10 @@ button:hover {
 
 /* Section Headers */
 h2 {
-  color: #656233;
-  margin-bottom: 1.5rem;
-  font-size: 1.75rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-family: var(--heading-font-family);
 }
 
 /* Responsive Design */
