@@ -125,12 +125,13 @@ function renderMessages() {
         return;
       }
 
-      const metaWithImage = {
-        timestamp: formData.timestamp,
-        role: "planner",
-        relativePath: imageReference,
-        Image: "image_reference",
-      };
+      timestamp = new Date().toISOString();
+      timestamp = timestamp.replace("T", " ").split(".")[0];
+      sender = "planner";
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("timestamp", timestamp);
+      formData.append("sender", JSON.stringify(sender));
 
       try {
         const response = await fetch("/chat/upload-image/" + weddingID, {
@@ -154,8 +155,8 @@ function renderMessages() {
 
         const metaWithImage = {
           timestamp: formData.timestamp,
-          sender: "planner",
-          imageReference: imageReference,
+          role: "planner",
+          relativePath: imageReference,
           Image: "image_reference",
         };
 

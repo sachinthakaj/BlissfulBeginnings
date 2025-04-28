@@ -48,4 +48,17 @@ class Message
         }
     }
 
+    public function getMessage($messageID) {
+        try {
+            $sql = "SELECT * FROM message WHERE messageID = UNHEX(:messageID);";
+            $this->db->query($sql);
+            $this->db->bind(':messageID', $messageID, PDO::PARAM_LOB);
+            $result = $this->db->single();
+            $result->messageID = bin2hex($result->messageID);
+            return $result;
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return false;
+        }
+    }
 }

@@ -125,12 +125,14 @@ function renderMessages() {
         return;
       }
 
-      const metaWithImage = {
-        timestamp: formData.timestamp,
-        role: "planner",
-        relativePath: imageReference,
-        Image: "image_reference",
-      };
+      timestamp = new Date().toISOString();
+      timestamp = timestamp.replace("T", " ").split(".")[0];
+      sender = "planner";
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("timestamp", timestamp);
+      formData.append("sender", JSON.stringify(sender));
+
 
       try {
         const response = await fetch("/chat/upload-image/" + weddingID, {
@@ -154,8 +156,8 @@ function renderMessages() {
 
         const metaWithImage = {
           timestamp: formData.timestamp,
-          sender: "planner",
-          imageReference: imageReference,
+          role: "planner",
+          relativePath: imageReference,
           Image: "image_reference",
         };
 
@@ -319,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                                   <div class="budget-info">
                                     <label for="bride-salons-budget">Allocated Budget</label>
-                                    <input type="number" id="bride-salons-budget" class="vendor-budget" />
+                                    <input type="number" id="bride-salons-budget" min=0  class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>
@@ -328,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                                   <div class="budget-info">
                                     <label for="groom-salons-budget">Allocated Budget</label>
-                                    <input type="number" id="groom-salons-budget" class="vendor-budget" />
+                                    <input type="number" id="groom-salons-budget" min=0  class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
@@ -338,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/desk-chair_341178 1.png" alt="Salon" />
                                   <div class="budget-info">
                                     <label for="salons-budget">Allocated Budget</label>
-                                    <input type="number" id="salons-budget" class="vendor-budget" />
+                                    <input type="number" id="salons-budget"  min=0 class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
@@ -348,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/camera_1361782 1.png" alt="Photographer" />
                                   <div class="budget-info">
                                     <label for="photographers-budget">Allocated Budget</label>
-                                    <input type="number" id="photographers-budget" class="vendor-budget" />
+                                    <input type="number" id="photographers-budget" min=0  class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
@@ -358,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="bride-dress-designers-budget">Allocated Budget</label>
-                                    <input type="number" id="bride-dress-designers-budget" class="vendor-budget" />
+                                    <input type="number" id="bride-dress-designers-budget" min=0  class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>
@@ -367,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="groom-dress-designers-budget">Allocated Budget</label>
-                                    <input type="number" id="groom-dress-designers-budget" class="vendor-budget" />
+                                    <input type="number" id="groom-dress-designers-budget" min=0  class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
@@ -377,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/dress_14383759 1.png" alt="Picture of a dress" />
                                   <div class="budget-info">
                                     <label for="dress-designers-budget">Allocated Budget</label>
-                                    <input type="number" id="dress-designers-budget" class="vendor-budget" />
+                                    <input type="number" id="dress-designers-budget" min=0  class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
@@ -387,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                   <img src="/public/assets/images/nature_10601927 1.png" alt="Picture of an flower" />
                                   <div class="budget-info">
                                     <label for="florists-budget">Allocated Budget</label>
-                                    <input type="number" id="florists-budget" class="vendor-budget" />
+                                    <input type="number" id="florists-budget" min=0 class="vendor-budget" />
                                   </div>
                                   <button class="card-button">Allocate Packages</button>
                                   </div>`
@@ -397,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const updateTotalBudget = () => {
       const totalBudget = Array.from(vendorBudgets).reduce((total, input) => total + Number(input.value), 0);
       totalBudgetElement.textContent = totalBudget;
-      if (totalBudget > data.budgetMax) {
+      if (data.budgetMax != 0 && totalBudget > data.budgetMax) {
         totalBudgetElement.style.color = "red";
       } else {
         totalBudgetElement.style.color = "";
@@ -408,7 +410,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const budgetMax = document.querySelector('#max-budget');
 
     budgetMin.textContent = data.budgetMin;
-    budgetMax.textContent = data.budgetMax;
+    if (data.budgetMax == 0) {
+      budgetMax.textContent = '-';
+    } else {
+      budgetMax.textContent = data.budgetMax;
+    }
 
     weddingPartyMale = document.querySelector('#wedding-group-male');
     weddingPartyFemale = document.querySelector('#wedding-group-female');
@@ -461,6 +467,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!allocatedBudget) {
           showNotification("Please enter allocated budget", "red");
           return;
+        } else if (isNaN(allocatedBudget)) {
+          showNotification("Please enter a valid number", "red");
+        } else if (allocatedBudget < 0) {
+          showNotification("Please enter a positive number", "red");
         }
         const numMaleGroup = document.querySelector('#wedding-group-male').value;
         const numFemaleGroup = document.querySelector('#wedding-group-female').value;
