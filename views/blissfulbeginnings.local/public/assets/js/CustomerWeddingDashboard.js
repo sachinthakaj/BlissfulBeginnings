@@ -960,7 +960,7 @@ const unassigned = (data) => {
                     throw new Error("Network response was not ok");
                   }
                 } else {
-                  location.reload();
+                  window.location.href = `/wedding/upFrontpayment/${weddingID}`
                 }
               });
             } else {

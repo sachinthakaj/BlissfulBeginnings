@@ -57,6 +57,7 @@ $router->get("/fetch-hash-for-paymentGateway/{weddingID}","CustomerController@ge
 $router->get("/fetch-hash-for-upfrontpaymentGateway/{weddingID}","CustomerController@generateHashForUpFrontPaymentGateway");
 
 $router->post("/customerPaymentData", "CustomerController@getPaymentData");
+$router->post("/customerUpfrontPaymentData", "CustomerController@getUpFrontPaymentData");
 $router->get("/fetch-for-wedding-progress/{weddingID}","CustomerController@getTasksDetailsForWeddingProgress");
 
 

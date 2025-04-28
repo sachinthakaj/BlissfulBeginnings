@@ -63,108 +63,107 @@ class Payment
         }
     }
 
-   
-    
-    public function addCustomerPaymentDetails($weddingID, $orderID, $amount, $currency, $statusCode) {
+
+
+    public function addCustomerPaymentDetails($weddingID, $orderID, $amount, $currency, $statusCode)
+    {
         try {
             $this->db->startTransaction();
-    
-            
+
+
             $this->db->query("SELECT COUNT(*) as count FROM customerPayment 
                              WHERE weddingID = UNHEX(:weddingID) AND statusCode = '0';");
             $this->db->bind(':weddingID', $weddingID);
             $result = $this->db->single();
-    
+
             if ($result->count > 0) {
                 $this->db->rollbackTransaction();
-                return false; 
+                return false;
             }
-    
-            
+
+
             $paymentID = generateUUID($this->db);
             $this->db->query("INSERT INTO customerPayment(paymentID,weddingID,orderID,amount,currency,statusCode) 
                              VALUES (UNHEX(:paymentID),UNHEX(:weddingID),UNHEX(:orderID),:amount,:currency,:statusCode);");
-            
+
             $this->db->bind(':paymentID', $paymentID);
             $this->db->bind(':weddingID', $weddingID);
             $this->db->bind(':orderID', $orderID);
             $this->db->bind(':amount', $amount);
             $this->db->bind(':currency', $currency);
             $this->db->bind(':statusCode', $statusCode);
-            
+
             $this->db->execute();
             $this->db->commit();
-            
+
             return true;
-    
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             $this->db->rollbackTransaction();
             error_log($e->getMessage());
             return false;
         }
     }
 
-public function getOngoingPayments($weddingID){
-    try{
-        $this->db->query("SELECT amount,paymentID,orderID FROM customerPayment WHERE weddingID=UNHEX(:weddingID) AND statusCode='0';");
-        $this->db->bind(':weddingID', $weddingID);
-        $result = $this->db->single();
-        $result->paymentID = bin2hex($result->paymentID);
-        $result->orderID = bin2hex($result->orderID);
-        return $result;
-    }catch(PDOException $e){
-        error_log($e->getMessage());
-        return false;
-    }
-}
-
-public function deleteOngoingPayments($paymentID){
-    try{
-        $this->db->query("DELETE FROM customerPayment WHERE paymentID=UNHEX(:paymentID) AND statusCode='0';");
-        $this->db->bind(':paymentID', $paymentID);
-        $this->db->execute();
-        return true;
-    }catch(PDOException $e){
-        error_log($e->getMessage());
-        return false;
-    }
-
-
-}
-
-public function addFinalCustomerPaymentData($wedding_id,$payment_id, $order_id, $payhere_amount, $payhere_currency, $status_code){
-    try{
-        $this->db->query("UPDATE customerPayment SET orderID=UNHEX(:orderID),amount=:payhereAmount,currency=:payhereCurrency,statusCode=:statusCode WHERE paymentID=UNHEX(:paymentID);");
-        $this->db->bind(':paymentID',$payment_id);
-        $this->db->bind(':orderID',$order_id);
-        $this->db->bind(':payhereAmount',$payhere_amount);
-        $this->db->bind(':payhereCurrency',$payhere_currency);
-        $this->db->bind(':statusCode',$status_code);
-        $this->db->execute();
-
-        $this->db->query("UPDATE wedding SET currentPaid=currentPaid + (:payhereAmount) WHERE weddingID=UNHEX(:weddingID);");
-        $this->db->bind(':weddingID',$wedding_id);
-        $this->db->bind(':payhereAmount',$payhere_amount);
-        $this->db->execute();
-
-        return true;
-
-
-    }catch(PDOException $e){
-        error_log($e->getMessage());
-        return false;
-    }
-
-
-}
-
-
-public function addUpFrontPayment($wedding_id, $order_id, $payhere_amount, $payhere_currency, $status_code)
+    public function getOngoingPayments($weddingID)
     {
         try {
+            $this->db->query("SELECT amount,paymentID,orderID FROM customerPayment WHERE weddingID=UNHEX(:weddingID) AND statusCode='0';");
+            $this->db->bind(':weddingID', $weddingID);
+            $result = $this->db->single();
+            $result->paymentID = bin2hex($result->paymentID);
+            $result->orderID = bin2hex($result->orderID);
+            return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function deleteOngoingPayments($paymentID)
+    {
+        try {
+            $this->db->query("DELETE FROM customerPayment WHERE paymentID=UNHEX(:paymentID) AND statusCode='0';");
+            $this->db->bind(':paymentID', $paymentID);
+            $this->db->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function addFinalCustomerPaymentData($wedding_id, $payment_id, $order_id, $payhere_amount, $payhere_currency, $status_code)
+    {
+        try {
+            $this->db->query("UPDATE customerPayment SET orderID=UNHEX(:orderID),amount=:payhereAmount,currency=:payhereCurrency,statusCode=:statusCode WHERE paymentID=UNHEX(:paymentID);");
+            $this->db->bind(':paymentID', $payment_id);
+            $this->db->bind(':orderID', $order_id);
+            $this->db->bind(':payhereAmount', $payhere_amount);
+            $this->db->bind(':payhereCurrency', $payhere_currency);
+            $this->db->bind(':statusCode', $status_code);
+            $this->db->execute();
+
+            $this->db->query("UPDATE wedding SET currentPaid=currentPaid + (:payhereAmount) WHERE weddingID=UNHEX(:weddingID);");
+            $this->db->bind(':weddingID', $wedding_id);
+            $this->db->bind(':payhereAmount', $payhere_amount);
+            $this->db->execute();
+
+
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+
+    public function addUpFrontPayment($wedding_id, $order_id, $payhere_amount, $payhere_currency, $status_code)
+    {
+        try {
+            $this->db->startTransaction();
             $paymentID = generateUUID($this->db);
             $this->db->query("INSERT INTO customerPayment(paymentID,weddingID,orderID,amount,currency,statusCode) 
-                             VALUES (UNHEX(:paymentID),UNHEX(:weddingID),UNHEX(:orderID),:amount,:currency,:statusCode);");
+                             VALUES (UNHEX(:paymentID),UNHEX(:weddingID),UNHEX(:orderID),:payhereAmount,:payhereCurrency,:statusCode);");
 
             $this->db->bind(':paymentID', $paymentID);
             $this->db->bind(':weddingID', $wedding_id);
@@ -175,13 +174,27 @@ public function addUpFrontPayment($wedding_id, $order_id, $payhere_amount, $payh
 
             $this->db->execute();
 
-            
+            $this->db->query('UPDATE wedding SET weddingstate = "ongoing" WHERE weddingID = UNHEX(:weddingID);');
+            $this->db->bind(':weddingID', $wedding_id);
+            $this->db->execute();
+            $this->db->query('DELETE FROM recommendations WHERE weddingID = UNHEX(:weddingID);');
+            $this->db->bind(':weddingID', $wedding_id);
+            $this->db->execute();
+            $this->db->query("UPDATE wedding SET currentPaid=currentPaid + (:payhereAmount) WHERE weddingID=UNHEX(:weddingID);");
+            $this->db->bind(':weddingID', $wedding_id);
+            $this->db->bind(':payhereAmount', $payhere_amount);
+            $this->db->execute();
+            $this->db->commit();
 
-            //update the wedding state to ongoing after the upfront payment
+
+
+
 
 
             return true;
         } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+
             error_log($e->getMessage());
             return false;
         }
