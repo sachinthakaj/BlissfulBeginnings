@@ -77,6 +77,9 @@
                             <label for="eventDate">Event Date:</label>
                             <input type="date" id="eventDate" name="eventDate" required>
 
+                            <label for="eventTime">Event Time:</label>
+                            <input type="time" id="eventTime" name="eventTime" required>
+
                             <button type="submit" class="submitButton">Submit</button>
                         </form>
                     </div>
