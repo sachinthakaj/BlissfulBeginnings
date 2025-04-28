@@ -1,4 +1,4 @@
-/* taskManager.css */
+@import url('http://cdn.blissfulbeginnings.com/common-css/Common.css');
 
 /* Layout */
 .container {
@@ -174,7 +174,7 @@
 
 /* Buttons */
 .primary-btn {
-    background-color: var(--color-primary);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 4px;

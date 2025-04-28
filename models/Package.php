@@ -156,6 +156,7 @@ class Package
             unset($row['packageID'], $row['vendorID']);
             $controller = new packageController();
             $image = $controller->getImageForPackage($packageID);
+            
             $row['path'] = $image['path'];
         }
         return $packageDetails;

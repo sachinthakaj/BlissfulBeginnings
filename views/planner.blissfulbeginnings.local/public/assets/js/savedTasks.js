@@ -225,7 +225,7 @@ function showEditGroupModal() {
     if (!group) return;
     
     groupModalTitle.textContent = 'Edit Task Group';
-    groupNameInput.value = group.name;
+    groupNameInput.value = group.savedTaskGroupName;
     vendorTypeSelect.value = group.typeID;
     editingGroupId = group.id;
     groupModal.classList.remove('hidden');
@@ -235,7 +235,7 @@ async function handleGroupSubmit(event) {
     event.preventDefault();
     
     const groupData = {
-        name: groupNameInput.value.trim(),
+        savedTaskGroupName: groupNameInput.value.trim(),
         typeID: vendorTypeSelect.value
     };
     
