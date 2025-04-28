@@ -590,11 +590,15 @@ document.addEventListener("DOMContentLoaded", () => {
       .getElementById("eventDescription")
       .value.trim();
     const eventDate = document.getElementById("eventDate").value;
+    const eventTime = document.getElementById("eventTime").value;
+
 
     const eventDetails = {
       eventDescription: eventDescription,
       eventDate: eventDate,
       assignmentID: assignmentID,
+      eventTime: eventTime,
+      
     };
 
     fetch(`/event-creation/${vendorID}`, {
