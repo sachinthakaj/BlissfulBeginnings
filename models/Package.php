@@ -307,12 +307,7 @@ class Package
                 $this->db->bind(':price', $package['price'], PDO::PARAM_INT);
                 $this->db->execute();
             }
-            $this->db->query('UPDATE wedding SET weddingstate = "ongoing" WHERE weddingID = UNHEX(:weddingID);');
-            $this->db->bind(':weddingID', $weddingID);
-            $this->db->execute();
-            $this->db->query('DELETE FROM recommendations WHERE weddingID = UNHEX(:weddingID);');
-            $this->db->bind(':weddingID', $weddingID);
-            $this->db->execute();
+           
             $this->db->commit();
             return true;
         } catch (Exception $e) {
