@@ -68,3 +68,5 @@ $router->post("/contact","MessageController@createMessage");
 
 $router->get("/get-ratings/{weddingID}", "CustomerController@getRatings");
 $router->post("/rate-vendor/{assignmentID}", "CustomerController@rateVendor");
+
+$router->get("/get-events/{weddingID}", "CustomerController@getEventsForACustomer");
