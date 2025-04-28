@@ -2,6 +2,10 @@ const path = window.location.pathname;
 const pathParts = path.split("/");
 const vendorID = pathParts[pathParts.length - 1];
 
+document.getElementById("edit-packages").addEventListener("click", function () {
+    window.location.href = `/packages/${vendorID}`;
+})
+
 function render() {
   const scrollContainer = document.querySelector(".slide-content");
   const deleteProfile = document.querySelector(".delete-profile");

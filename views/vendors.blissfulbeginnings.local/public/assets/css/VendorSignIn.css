@@ -24,6 +24,10 @@ body {
   align-items: center;
   overflow: hidden;
 }
+.container {
+  display: grid;
+  gap: 10px;
+}
 
 /* Left Image Section */
 

@@ -94,7 +94,8 @@ class PlannerController
         }
         if (isset($parameters['weddingID'])) {
             $weddingID = $parameters['weddingID'];
-            $reason = $parameters['reason'];
+            $data = file_get_contents("php://input");
+            $reason = json_decode($data, true)['reason'];
             $weddingModel = new Wedding();
             $weddingModel->rejectWedding($weddingID, $reason);
 

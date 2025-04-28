@@ -240,14 +240,12 @@ class Wedding
     public function rejectWedding($weddingID, $reason)
     {
         try {
-            $this->db->query("UPDATE wedding SET weddingState='rejected', location=:reason WHERE weddingID=UNHEX(:weddingID), reason=:reason");
+            $this->db->query("UPDATE wedding SET weddingState='rejected', location=:reason WHERE weddingID=UNHEX(:weddingID)");
             $this->db->bind(":weddingID", $weddingID, PDO::PARAM_LOB);
             $this->db->bind(":reason", $reason);
             $this->db->execute();
-            $this->db->commit();
             return $this->db->rowCount();
         } catch (PDOException $e) {
-            $this->db->rollbackTransaction();
             error_log($e->getMessage());
             return false;
         }
