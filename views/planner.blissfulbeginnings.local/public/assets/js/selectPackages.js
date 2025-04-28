@@ -397,7 +397,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const updateTotalBudget = () => {
       const totalBudget = Array.from(vendorBudgets).reduce((total, input) => total + Number(input.value), 0);
       totalBudgetElement.textContent = totalBudget;
-      if (totalBudget > data.budgetMax) {
+      if (data.budgetMax != 0 && totalBudget > data.budgetMax) {
         totalBudgetElement.style.color = "red";
       } else {
         totalBudgetElement.style.color = "";
@@ -408,7 +408,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const budgetMax = document.querySelector('#max-budget');
 
     budgetMin.textContent = data.budgetMin;
-    budgetMax.textContent = data.budgetMax;
+    if (data.budgetMax == 0) {
+      budgetMax.textContent = '-';
+    } else {
+      budgetMax.textContent = data.budgetMax;
+    }
 
     weddingPartyMale = document.querySelector('#wedding-group-male');
     weddingPartyFemale = document.querySelector('#wedding-group-female');
