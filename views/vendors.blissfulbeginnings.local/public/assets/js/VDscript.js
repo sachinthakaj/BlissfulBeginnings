@@ -406,7 +406,6 @@ function render() {
                         <div class="progress-bar-container">
                             <div class="progress-bar wedding-progress-bar" style="width: ${cardData.progress}%"></div>
                         </div>
-                        <h4 class="description">Wedding Budget: </h4> 
                     </div>
                 </div>
             </div>
@@ -611,9 +610,9 @@ function render() {
               return;
             }
           }
+          showNotification("Profile deleted", "red");
+          window.location.href = "/register";
         });
-        showNotification("Profile deleted", "red");
-        window.location.href = "/register";
         closeModal();
       });
 

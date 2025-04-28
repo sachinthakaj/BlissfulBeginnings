@@ -361,6 +361,7 @@ function newWedding(data) {
           console.log(personData);
           const brideData = personData.brideDetails;
           const groomData = personData.groomDetails;
+          
           const modal = document.createElement("div");
           modal.className = "modal";
           modal.innerHTML = `
@@ -382,6 +383,13 @@ function newWedding(data) {
                                                   data.date
                                                 } required>
                                             </div>
+                                            
+                                            <div class="input-group">
+                                                <label for="wedding-party-male">Number of Groomsmen in the Wedding</label>
+                                                <input type="number" id="weddingPartyMale" min=0 name="weddingPartyMale" value=${
+                                                  data.weddingPartyMale
+                                                } required pattern="[0-9]{1,}" title="Cannot be negative">
+                                            </div>
                                             <div class="input-group">
                                                 <label for="daynight">Day/Night</label>
                                                 <select id="daynight" name="daynight" value=${
@@ -390,12 +398,6 @@ function newWedding(data) {
                                                     <option value="Day">Day</option>
                                                     <option value="Night">Night</option>
                                                 </select>
-                                            </div>
-                                            <div class="input-group">
-                                                <label for="wedding-party-male">Number of Male people in the wedding party</label>
-                                                <input type="number" id="weddingPartyMale" name="weddingPartyMale" value=${
-                                                  data.weddingPartyMale
-                                                } required >
                                             </div>
                                             <div class="input-group">
                                                 <label for="location">Location</label>
@@ -412,10 +414,10 @@ function newWedding(data) {
                                                 } required>
                                             </div>
                                             <div class="input-group">
-                                                <label for="wedding-party-female">Number of Female people in the wedding party</label>
-                                                <input type="number" id="weddingPartyFemale" name="weddingPartyFemale" value=${
+                                                <label for="wedding-party-female">Number of bridesmaids in the wedding</label>
+                                                <input type="number" id="weddingPartyFemale" min=0 name="weddingPartyFemale" value=${
                                                   data.weddingPartyFemale
-                                                } required>
+                                                } required pattern="[0-9]{1,}" title="Cannot be negative">
                                             </div>
                                             
                                             <div class="input-group">
@@ -423,16 +425,16 @@ function newWedding(data) {
                                                 <div id="budget-range"">
                                                     <div class="custom-range-inputs">
                                                         <div class="custom-input">
-                                                            <label for="min-budget">Minimum ($)</label>
-                                                            <input type="number" id="min-budget" min="0" placeholder="0" name="budgetMin" value=${
+                                                            <label for="min-budget">Minimum (LKR)</label>
+                                                            <input type="number" id="min-budget" min="1" placeholder="0" name="budgetMin" value=${
                                                               data.budgetMin
-                                                            }>
+                                                            } required pattern="[1-9][0-9]{0,}" title="Should be above 0">
                                                         </div>
                                                         <div class="custom-input">
-                                                            <label for="max-budget">Maximum ($)</label>
-                                                            <input type="number" id="max-budget" min="0" placeholder="1000" name="budgetMax" value=${
+                                                            <label for="max-budget">Maximum (LKR)</label>
+                                                            <input type="number" id="max-budget" min="1" placeholder="1000" name="budgetMax" value=${
                                                               data.budgetMax
-                                                            }>
+                                                            } required pattern="[1-9][0-9]{0,}" title="Should be above 0">
                                                         </div>
                                                     </div>
                                                     <div id="range-error" class="error-message" style="color: red; font-size: 0.85em; margin-top: 5px; display: none;">
@@ -475,7 +477,7 @@ function newWedding(data) {
                                                 <label for="bride_contact">Contact</label>
                                                 <input type="tel" id="bride_contact" name="contact" value=${
                                                   brideData.contact
-                                                } required>
+                                                } required pattern="[0-9]{10}" title="Should be a 10 digit number">
                                             </div>
                                         </div>
                                         <div class="right">
@@ -487,7 +489,7 @@ function newWedding(data) {
                                             </div>
                                             <div class="input-group">
                                                 <label for="bride_age">Age</label>
-                                                <input type="number" id="bride_age" name="age"  value=${
+                                                <input type="number" id="bride_age" min=18 name="age"  value=${
                                                   brideData.age
                                                 } required>
                                             </div>
@@ -517,7 +519,7 @@ function newWedding(data) {
                                                 <label for="groom_contact">Contact</label>
                                                 <input type="tel" id="groom_contact" name="contact" value=${
                                                   groomData.contact
-                                                } required>
+                                                } required pattern="[0-9]{10}" title="Should be a 10 digit number">
                                             </div>
                                         </div>
                                         <div class="right">
@@ -529,7 +531,7 @@ function newWedding(data) {
                                             </div>
                                             <div class="input-group">
                                                 <label for="groom_age">Age</label>
-                                                <input type="number" id="groom_age" name="age" value=${
+                                                <input type="number" id="groom_age" min=18 name="age" value=${
                                                   groomData.age
                                                 } required>
                                             </div>

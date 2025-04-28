@@ -48,4 +48,25 @@ class MessageController
             echo json_encode(['error' => 'An error occurred while processing the message']);
         }
     }
+
+    public function getMessage($parameters) {
+        if(!Authenticate('planner', 123)) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+            return;
+        }
+        try {
+            $message = $this->messageModel->getMessage($parameters['messageID']);
+            if(empty($message)) {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'Message not found']);
+                return;
+            }
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode($message);
+        } catch(Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data', "error" => $e->getMessage()]);
+        }
+    }
 }
