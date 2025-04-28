@@ -481,7 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(notification);
         if (notification.title === "New Vendor") {
           notificationDiv.classList.add("type-new-vendor");
-          notificationDiv.addEventListener("click", () => {
+          notificationDiv.addEventListener("click", () => {ca
             window.location.href = `/vendor/${notification.reference}`;
           });
         } else if (notification.title === "New Package") {
@@ -504,151 +504,27 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error(error);
     });
 
-  // Get the notification container
+  
 
   const weddingCardsContainer = document.querySelector(".wedding-cards");
 
-  // function createWeddingCards(weddings) {
-  //   if (weddings.length > 0) {
-  //     weddings.forEach((wedding) => {
-  //       const card = document.createElement("div");
-  //       card.classList.add("wedding-card");
-  //       card.id = wedding.weddingID;
 
-  //       card.innerHTML = `
-  //        <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-  //         <p>${wedding.date}</p>
-  //         <p>${wedding.dayNight}</p>
-  //         <p>${wedding.location}</p>
-  //         <p>${wedding.theme}</p>
-  //     `;
-
-  //       if (wedding.weddingState == "new") {
-  //         card.innerHTML = `
-  //        <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-  //         <p><b>Date:</b>${wedding.date}</p>
-  //         <p><b>Day/Night</b>:${wedding.dayNight}</p>
-  //         <p><b>Location:</b>${wedding.location}</p>
-  //         <p><b>Theme:</b>${wedding.theme}</p>
-
-  //     `;
-  //         card.classList.add("new");
-  //         card.id = wedding.weddingID;
-  //         const acceptButton = document.createElement("button");
-  //         acceptButton.classList.add("acceptButton");
-  //         acceptButton.textContent = "Accept";
-  //         acceptButton.addEventListener("click", () => {
-  //           window.location.href = `/selectPackages/${wedding.weddingID}`;
-  //         });
-  //         card.appendChild(acceptButton);
-
-  //         const rejectButton = document.createElement("button");
-  //         rejectButton.classList.add("rejectButton");
-  //         rejectButton.textContent = "Reject";
-  //         rejectButton.addEventListener("click", (e) => {
-  //           const reason = prompt("Please enter the reason for rejection:");
-  //           if (reason) {
-  //             e.stopPropagation();
-  //             fetch("/reject-wedding/" + wedding.weddingID, {
-  //               method: "DELETE",
-  //               headers: {
-  //                 "Content-Type": "application/json",
-  //                 Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-  //               },
-  //               body: JSON.stringify({
-  //                 reason: reason,
-  //               }),
-  //             })
-  //               .then((res) => {
-  //                 if (res.status === 401) {
-  //                   alert("You are not logged in");
-  //                   window.location.href = "/signin";
-  //                 } else if (res.status === 200) {
-  //                   return res.json();
-  //                 } else {
-  //                   throw new Error("Network response was not ok");
-  //                 }
-  //               })
-  //               .then((data) => {
-  //                 console.log("in here");
-  //                 console.log(wedding.weddingID);
-  //                 console.log(document.getElementById(wedding.weddingID));
-  //                 document.getElementById(wedding.weddingID).remove();
-  //               })
-  //               .catch((error) => {
-  //                 console.error("Error deleting wedding:", error);
-  //               });
-  //           }
-  //         });
-  //         card.appendChild(rejectButton);
-  //       }
-
-  //       if (wedding.weddingState == "unassigned") {
-  //         card.innerHTML = `
-  //        <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-  //         <p><b>Date:</b>${wedding.date}</p>
-  //         <p><b>Day/Night</b>:${wedding.dayNight}</p>
-  //         <p><b>Location:</b>${wedding.location}</p>
-  //         <p><b>Theme:</b>${wedding.theme}</p>
-  //     `;
-  //         card.id = wedding.weddingID;
-  //         card.classList.add("Unassigned");
-  //         card.addEventListener("click", (e) => {
-  //           e.stopPropagation();
-  //           window.location.href = "/wedding/" + card.id;
-  //         });
-  //       }
-
-  //       if (wedding.weddingState == "ongoing") {
-  //         card.innerHTML = `
-  //           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-  //           <p><b>Date:</b>${wedding.date}</p>
-  //           <p><b>Day/Night</b>:${wedding.dayNight}</p>
-  //           <p><b>Location:</b>${wedding.location}</p>
-  //           <p><b>Theme:</b>${wedding.theme}</p>`;
-  //         card.classList.add("ongoing");
-  //         card.addEventListener("click", (event) => {
-  //           window.location.href = `/wedding/${wedding.weddingID}`;
-  //         });
-  //       }
-
-  //       if (wedding.wedding === "rejected") {
-  //         card.innerHTML = `
-  //           <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-  //           <p><b>Date:</b>${wedding.date}</p>
-  //           <p><b>Day/Night</b>:${wedding.dayNight}</p>
-  //           <p><b>Location:</b>${wedding.location}</p>
-  //           <p><b>Theme:</b>${wedding.theme}</p>`;
-  //         card.classList.add("rejected");
-  //       }
-
-  //       weddingCardsContainer.appendChild(card);
-  //     });
-  //     loadingScreen.style.display = "none";
-  //     mainContent.style.display = "flex";
-  //   } else {
-  //     const noWeddingsMessage = document.createElement("p");
-  //     noWeddingsMessage.textContent =
-  //       "No weddings found. Please check back later.";
-  //     weddingCardsContainer.appendChild(noWeddingsMessage);
-  //   }
-  // }
   function createWeddingCards(weddings) {
     if (weddings.length > 0) {
       weddings.forEach((wedding) => {
         const card = document.createElement("div");
-        card.className = "wed-package-card"; // Reuse package card styling
+        card.className = "wed-package-card"; 
         card.id = wedding.weddingID;
 
-        // === Add Status Tag ===
+       
         const tag = document.createElement("div");
         tag.className = "wed-status-tag";
         tag.textContent =
           wedding.weddingState.charAt(0).toUpperCase() +
           wedding.weddingState.slice(1);
-        card.appendChild(tag); // Append tag first so it's visually at the top
+        card.appendChild(tag); 
 
-        // === Header ===
+        
         const header = document.createElement("div");
         header.className = "wed-package-header";
 
@@ -657,7 +533,7 @@ document.addEventListener("DOMContentLoaded", function () {
         name.textContent = `${wedding.brideName} & ${wedding.groomName}`;
         header.appendChild(name);
 
-        // === Business Section: Date and Day/Night ===
+       
         const business = document.createElement("div");
         business.className = "wed-package-business";
 
@@ -669,7 +545,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dayNightPara.innerHTML = `<b>Day/Night:</b> ${wedding.dayNight}`;
         business.appendChild(dayNightPara);
 
-        // === Features Section: Location and Theme ===
+        
         const features = document.createElement("ul");
         features.className = "wed-package-features";
 
@@ -683,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
         themeItem.innerHTML = `<b>Theme:</b> ${wedding.theme}`;
         features.appendChild(themeItem);
 
-        // === Card Content Based on Wedding State ===
+        
         if (wedding.weddingState === "new") {
           card.classList.add("new");
 
@@ -701,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const reason = prompt("Please enter the reason for rejection:");
             if (reason) {
               e.stopPropagation();
-              // <<<<<<< HEAD
+              
               fetch("/reject-wedding/" + wedding.weddingID, {
                 method: "DELETE",
                 headers: {
@@ -709,9 +585,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 },
                 body: JSON.stringify({ weddingID: wedding.weddingID, reason: reason }),
-                // body: JSON.stringify({
-                //   reason: reason,
-                // }),
+                
               })
                 .then((res) => {
                   if (res.status === 401) {
@@ -738,7 +612,7 @@ document.addEventListener("DOMContentLoaded", function () {
           card.appendChild(acceptButton);
           card.appendChild(rejectButton);
         } else {
-          // Add relevant state class
+          
           if (wedding.weddingState === "unassigned") {
             card.classList.add("Unassigned");
           } else if (wedding.weddingState === "ongoing") {
@@ -749,18 +623,9 @@ document.addEventListener("DOMContentLoaded", function () {
           card.appendChild(business);
           card.appendChild(features);
 
-          // Add click event to go to wedding details
+          
           card.addEventListener("click", () => {
-            //         if (wedding.weddingState == "ongoing") {
-            //           card.innerHTML = `
-            //             <h3>${wedding.brideName} & ${wedding.groomName} </h3>
-            //             <p><b>Date:</b>${wedding.date}</p>
-            //             <p><b>Day/Night</b>:${wedding.dayNight}</p>
-            //             <p><b>Location:</b>${wedding.location}</p>
-            //             <p><b>Theme:</b>${wedding.theme}</p>`;
-            //           card.classList.add("ongoing");
-            //           card.addEventListener("click", (event) => {
-            // >>>>>>> master
+           
             window.location.href = `/wedding/${wedding.weddingID}`;
           });
         }
