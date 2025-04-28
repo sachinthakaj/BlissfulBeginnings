@@ -481,7 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(notification);
         if (notification.title === "New Vendor") {
           notificationDiv.classList.add("type-new-vendor");
-          notificationDiv.addEventListener("click", () => {ca
+          notificationDiv.addEventListener("click", () => {
             window.location.href = `/vendor/${notification.reference}`;
           });
         } else if (notification.title === "New Package") {
