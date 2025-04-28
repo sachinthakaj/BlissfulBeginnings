@@ -98,6 +98,18 @@ class PackageController
             error_log($e);
         }
     }
+    public function updateFeatures($parameters)
+    {
+        if (!Authenticate('planner', 123)) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Unauthorized: You must be logged in to perform this action']);
+        }
+        $feature = json_decode(file_get_contents("php://input"), true);
+        $packageModel = new Package();
+        $packageModel->updateFeatures($feature);
+        header('Content-Type:application/json');
+        echo json_encode(["status" => "success", "message" => "Feature Successfully updated"]);
+    }
 
 
     

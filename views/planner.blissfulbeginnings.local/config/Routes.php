@@ -94,3 +94,4 @@ $router->get("/get-vendor-ratings/{weddingID}", "PlannerController@getVendorRati
 
 $router->get("/saved-tasks", "SavedTasksController@savedTasks");
 
+$router->post("/vendor/{vendorID}/update-features/{featureID}","PackageController@updateFeatures");

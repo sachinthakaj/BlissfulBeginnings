@@ -382,4 +382,17 @@ class Package
             return false;
         }
     }
+
+    public function updateFeatures($feature)
+    {
+        try {
+
+            $this->db->query("UPDATE features SET feature=:feature WHERE featureID=UNHEX(:featureID);");
+            $this->db->bind(':feature', $feature[':feature']);
+            $this->db->execute();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }

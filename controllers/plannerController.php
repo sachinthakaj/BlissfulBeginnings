@@ -765,4 +765,6 @@ class PlannerController
         echo json_encode(['error' => 'Server error while deleting vendor']);
     }
 }
+
+
 }
