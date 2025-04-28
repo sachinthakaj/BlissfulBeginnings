@@ -112,6 +112,18 @@ select {
   margin-bottom: 10px;
 }
 
+textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  min-height: 45px; 
+  resize: vertical; 
+}
+
+
+
 input:focus {
   box-shadow: 0px 2px 8px var(--primary-color);
   outline: none;
