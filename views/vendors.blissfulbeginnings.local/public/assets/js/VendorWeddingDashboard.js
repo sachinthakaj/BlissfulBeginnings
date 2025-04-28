@@ -478,7 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const eventDetailsArea = document.createElement("div");
             eventDetailsArea.classList.add("eventDetailsArea");
             scheduleItem.appendChild(eventDetailsArea);
-            eventDetailsArea.innerHTML = `${event.date}: ${event.description}`;
+            eventDetailsArea.innerHTML = `${event.date}: ${event.description}:`;
 
             const eventActionArea = document.createElement("div");
             eventActionArea.classList.add("eventActionArea");
@@ -517,6 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectedEvent.description;
               document.getElementById("eventDate").value = selectedEvent.date;
               document.getElementById("eventForm").dataset.eventID = eventID;
+              document.getElementById("eventTime").value = selectedEvent.time;
 
               document.getElementById("eventForm").onsubmit = updateEvent;
             });
