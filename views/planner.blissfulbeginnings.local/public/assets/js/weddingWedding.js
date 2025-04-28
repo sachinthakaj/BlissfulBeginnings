@@ -1,0 +1,1 @@
+const selectedPriority = document.querySelector('input[name="priority"]:checked').value;
