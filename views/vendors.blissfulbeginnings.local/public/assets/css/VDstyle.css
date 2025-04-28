@@ -201,3 +201,13 @@ main {
 .prev-button:not(:disabled):hover {
     background-color: #ddd;
 }
+
+.message {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-80%);
+    padding: 10px 20px;
+    z-index: 9999;
+    text-align: center;
+  }
+  
