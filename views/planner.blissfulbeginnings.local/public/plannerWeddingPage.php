@@ -65,11 +65,16 @@
                     <span id="closeModal" class="close">&times;</span>
                     <h2>Add Task</h2>
                     <form id="taskForm">
+
                       <input id="assignmentID" type="hidden" name="assignmentID" value="">
-                      <lable for="taskDescription" class="taskDescription">Description:</lable>
-                      <textarea id="taskDescription" name="taskDescription" required></textarea>
-                      <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
-                      <input id="dateToFinish" name="dateToFinish" type="date" required>
+                      <div class="form-group">
+                        <lable for="taskDescription" class="taskDescription">Description:</lable>
+                        <textarea id="taskDescription" name="taskDescription" required></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="dateToFinish" class="dateToFinish">Finish Before:</label>
+                        <input id="dateToFinish" name="dateToFinish" type="date" required>
+                      </div>
                       <button type="submit" class="submitButton">Submit</button>
 
                     </form>

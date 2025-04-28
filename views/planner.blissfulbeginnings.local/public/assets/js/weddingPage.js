@@ -2,7 +2,7 @@ const path = window.location.pathname;
 const pathParts = path.split("/");
 const weddingID = pathParts[pathParts.length - 1];
 
-// Function to render messages to the chat container
+
 function renderMessages() {
   const chatContainer = document.querySelector(".chat-show-area");
   chatContainer.innerHTML = "";
@@ -105,9 +105,9 @@ function renderMessages() {
   document
     .getElementById("imageUpload")
     .addEventListener("change", async function (event) {
-      const file = event.target.files[0]; // Get the selected file
+      const file = event.target.files[0]; 
 
-      // Ensure a file was selected
+      
       if (!file) {
         alert("No file selected.");
         return;
@@ -186,15 +186,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     progressBar.style.width = `${valueOfPercentage}%`;
 
-    // Convert valueOfPercentage to a number for proper comparison
+  
     const numericPercentage = parseFloat(valueOfPercentage);
 
     if (numericPercentage === 100) {
-      progressBar.style.backgroundColor = "#4caf50"; // Green
+      progressBar.style.backgroundColor = "#4caf50"; 
     } else if (numericPercentage >= 50 && numericPercentage < 100) {
-      progressBar.style.backgroundColor = "#ffc107"; // Yellow
+      progressBar.style.backgroundColor = "#ffc107"; 
     } else if (numericPercentage < 50) {
-      progressBar.style.backgroundColor = "#f44336"; // Red
+      progressBar.style.backgroundColor = "#f44336"; 
     }
   }
 
@@ -206,15 +206,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     progressBar.style.width = `${valueOfPercentage}%`;
 
-    // Convert valueOfPercentage to a number for proper comparison
+    
+    
     const numericPercentage = parseFloat(valueOfPercentage);
 
     if (numericPercentage === 100) {
-      progressBar.style.backgroundColor = "#4caf50"; // Green
+      progressBar.style.backgroundColor = "#4caf50"; 
+      
     } else if (numericPercentage >= 50 && numericPercentage < 100) {
-      progressBar.style.backgroundColor = "#ffc107"; // Yellow
+      progressBar.style.backgroundColor = "#ffc107"; 
+      
     } else if (numericPercentage < 50) {
-      progressBar.style.backgroundColor = "#f44336"; // Red
+      progressBar.style.backgroundColor = "#f44336"; 
+      
     }
   }
 
@@ -271,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
   );
   const vendorCardContainer = document.querySelector(".vendor-cards");
 
-  // Fetch wedding data and set the title
+  
   fetch(`/fetch-wedding/${weddingID}`, {
     method: "GET",
     headers: {
@@ -298,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "<h1>Waiting for the Customer to choose a package</h1>";
         vendorCardContainer.appendChild(messageDiv);
       } else if (wedding.weddingState == "ongoing") {
-        // Checks if the wedding is over and ask to end the service
+        
         const targetDate = new Date(wedding.date);
         const today = new Date();
         const differenceInTime = targetDate - today;
@@ -322,7 +326,8 @@ document.addEventListener("DOMContentLoaded", function () {
               .then((response) => {
                 if (response.status == 401) {
                   alert("Unauthorized");
-                  // window.location.href = "/signin";
+                  
+                  
                 } else if (response.status == 500) {
                   throw new Error("Internal Server Error");
                 }
@@ -393,7 +398,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.appendChild(payButton);
               }
 
-              // Fetch assignment ID for the vendor
+              
+              
               fetch(`/tasks-for-assignments/${vendor.assignmentID}`, {
                 method: "GET",
                 headers: {
@@ -528,7 +534,7 @@ document.addEventListener("DOMContentLoaded", function () {
           for (let i = 1; i <= 5; i++) {
             const star = document.createElement('span');
             star.classList.add('star');
-            star.innerHTML = '&#9733;';  // Unicode star
+            star.innerHTML = '&#9733;';  
             if (i > rating) {
               star.classList.add('unfilled');
             }
@@ -574,9 +580,7 @@ document.addEventListener("DOMContentLoaded", function () {
       weddingTitleElement.textContent = "Wedding Dashboard";
     });
 
-  // Fetch vendors and render vendor cards
-
-  // Modal and task form logic
+  
   const modal = document.getElementById("taskFormModal");
   const closeModalButton = document.getElementById("closeModal");
   const taskForm = document.getElementById("taskForm");
@@ -604,28 +608,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const assignmentID = taskForm.querySelector(
       "input[name='assignmentID']"
     ).value;
+
+    
     console.log(assignmentID);
 
-    // const today = new Date();
-    // const formattedToday = today.toISOString().split("T")[0];
+    const today = new Date();
+    const formattedToday = today.toISOString().split("T")[0];
 
-    // const nextMonthToday = new Date(today);
-    // nextMonthToday.setMonth(today.getMonth()+1);
+    const nextMonthToday = new Date(today);
+    nextMonthToday.setMonth(today.getMonth()+6);
 
-    // if(nextMonthToday.getDate() !== today.getDate()){
-    //   nextMonthToday.setDate(0);
-    // }
-    // const formattedNextMonthToday = nextMonthToday.toISOString().split("T")[0];
-    // if (dateToFinish <= formattedToday || dateToFinish > formattedNextMonthToday ) {
-    //   alert("Please select a date in the future within a month.");
-    //   return;
+    if(nextMonthToday.getDate() !== today.getDate()){
+      nextMonthToday.setDate(0);
+    }
+    const formattedNextMonthToday = nextMonthToday.toISOString().split("T")[0];
+    if (dateToFinish <= formattedToday || dateToFinish > formattedNextMonthToday ) {
+      alert("Please select a date in the future within 6 month.");
+      return;
 
-    // }
+    }
     const taskDetails = {
       description: taskDescription,
       dateToFinish: dateToFinish,
-      assignmentID,
+      assignmentID:assignmentID,
+      
     };
+
+    console.log(taskDetails);
 
     fetch("/tasks-create-for-vendors/" + assignmentID, {
       method: "POST",
