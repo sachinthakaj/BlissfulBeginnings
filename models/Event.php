@@ -13,12 +13,13 @@ class Event
     {
         try {
             $eventID = generateUUID($this->db);
-            $this->db->query("INSERT INTO event(eventID,assignmentID,description,date,state)
-            VALUES (UNHEX(:eventID),UNHEX(:assignmentID),:description,:date,'scheduled');");
+            $this->db->query("INSERT INTO event(eventID,assignmentID,description,date,state,time)
+            VALUES (UNHEX(:eventID),UNHEX(:assignmentID),:description,:date,'scheduled',:time);");
             $this->db->bind(':eventID', $eventID);
             $this->db->bind(':assignmentID', $eventDetails['assignmentID']);
             $this->db->bind(':description', $eventDetails['eventDescription']);
             $this->db->bind(':date', $eventDetails['eventDate']);
+            $this->db->bind(':time', $eventDetails['eventTime']);
 
             return $this->db->execute();
         } catch (PDOException $e) {
