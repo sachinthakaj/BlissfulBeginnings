@@ -87,6 +87,32 @@ class Event
             return false;
         }
     }
+
+    public function getEventDetailsForCustomer($weddingID){
+        try{
+            $this->db->query("SELECT v.businessName,e.description,e.date,e.time FROM event e
+            JOIN packageassignment pa ON pa.assignmentID = e.assignmentID
+            JOIN packages p ON p.packageID = pa.packageID
+            JOIN vendors v ON v.vendorID = p.vendorID 
+            WHERE pa.weddingID = UNHEX(:weddingID);");
+            $this->db->bind(':weddingID', $weddingID);
+            $this->db->execute();
+            $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $result;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+
+
+
+        }catch(PDOException $e){
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+
 }
    
     
