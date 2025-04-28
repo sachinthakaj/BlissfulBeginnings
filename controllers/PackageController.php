@@ -99,6 +99,29 @@ class PackageController
         }
     }
 
+    public function createFeature($parameters)
+    {
+        try {
+            if (!Authenticate('vendor', $parameters['vendorID'])) {
+                header('HTTP/1.1 401 Unauthorized');
+                echo json_encode(['error' => 'Authorization failed']);
+            }
+            $data = file_get_contents('php://input');
+            $parsed_data = json_decode($data, true);
 
+
+            $featureID  = $this->packageModel->createFeature($parameters["packageID"], $parsed_data);
+            if ($featureID) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode([
+                    "featureID" => $featureID
+                ]);
+            }
+        } catch (Exception $e) {
+            
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Feature Creation failed']);
+        }
+    }
     
 }

@@ -41,10 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const checkoutButtonText = document.createElement("div");
       checkoutButtonText.classList.add("checkoutButtonText");
-      checkoutButtonText.innerHTML = "<p>Checkout</p>";
+      checkoutButtonText.innerHTML = "<p>Pay</p>";
       checkoutButton.appendChild(checkoutButtonText);
 
-      // PayHere callbacks
+      
       payhere.onCompleted = function onCompleted(orderId) {
         alert("Payment successful!");
         window.location.href = `/wedding/${weddingID}`;
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       checkoutButton.onclick = function () {
-        // Fetch hash for the payment gateway
+        
         fetch(`/fetch-hash-for-upfrontpaymentGateway/${weddingID}`, {
           method: "GET",
           headers: {
@@ -81,21 +81,20 @@ document.addEventListener("DOMContentLoaded", function () {
           .then((Response) => {
             const hash = Response.hash;
 
-            // Correctly assign hash from response
-
-            // Prepare payment object
+            
+            
             var payment = {
               sandbox: true,
-              merchant_id: "1228991", // Replace your Merchant ID
-              return_url: `http://blissfulbeginnings.com/wedding/upFrontpayment/${weddingID}`, // Important
-              cancel_url: `http://blissfulbeginnings.com/wedding/upFrontpayment/${weddingID}`, // Important
-              // notify_url: `https://01jgnmtzfbspgkw5vx8ry3n7pf00-95b3dd672bc15808c447.requestinspector.com/wedding/${weddingID}/${assignmentID}/paymentData`,
-              notify_url: `https://blissfulbeginnings.loca.lt/customerPaymentData`,
+              merchant_id: "1228991", 
+              return_url: `http://blissfulbeginnings.com/wedding/upFrontpayment/${weddingID}`, 
+              cancel_url: `http://blissfulbeginnings.com/wedding/upFrontpayment/${weddingID}`, 
+              
+              notify_url: `https://blissfulbeginnings.loca.lt/customerUpfrontPaymentData`,
               order_id: Response.orderID,
               items: "Wedding Up Front Payment",
               amount: Response.amount,
               currency: "LKR",
-              hash: hash, // *Replace with generated hash retrieved from backend
+              hash: hash, 
               first_name: "",
               last_name: "",
               email: "",
@@ -106,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
               custom_1: weddingID,
             };
 
-            // Start payment
+            
             payhere.startPayment(payment);
           })
           .catch((error) => {
@@ -115,8 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
       };
 
-      // Note: 'card' is not defined in this scope
-      // Should be checkoutCard instead of card
+      
       checkoutContainer.appendChild(checkoutCard);
       checkoutCardAction.appendChild(checkoutButton);
     })
@@ -155,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
       contentDescriptionText.classList.add("content_description_text");
       contentDescription.appendChild(contentDescriptionText);
 
-      // Create HTML for all packages
+     
       contentDescriptionText.innerHTML = `
       <ul style="
         list-style-type: none; 
@@ -212,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-size: 14px;
                 color: #718096;
               ">Cost:</span>
-              LKR ${pkg.fixedCost.toLocaleString()}
+              LKR ${pkg.price.toLocaleString()}
             </span>
           </li>
         `

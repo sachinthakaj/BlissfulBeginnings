@@ -43,27 +43,13 @@
 body {
     min-width: 480px;
     font-family: 'Inter', sans-serif;
-    margin: 0;
     padding: 0;
-    background-color: #fff;
-    color: #656233;
+    color: var(--secondary-color);
 }
 
 /* Header Styles */
 header {
-    background-color: #ddd;
-    height: 10vh;
-    padding: 10px;
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
-    border-radius: 8px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
 }
 
 .nav-bar-logo-container {
@@ -78,49 +64,15 @@ header {
 }
 
 .wedding-title {
-    font-family: "Gwendolyn", cursive;
+    font-family: var(--heading-font-family);
     font-size: 40px;
-    color: #c1a42e;
+    color: var(--primary-color);
     text-align: center;
-    margin-left: 40px;
-}
-
-.main-container {
-    justify-content: flex-start;
-    display: flex;
-}
-
-main {
-    flex: 4;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 60px;
-    padding-left: 10%;
-    padding-right: 10%;
-    margin-top: 10vh;
-}
-
-.box {
-    background-color: #ddd;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.about {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 2rem;
 }
 
 .about .profile-image img {
     width: 15%;
     height: 15%;
-    ;
     border-radius: 50%;
     background-color: #ddd;
     margin-bottom: 1rem;
@@ -129,24 +81,18 @@ main {
     margin-top: 1rem;
 }
 
-.about .description {
-    margin-top: 1rem;
+/* .about .description {
     width: 90%;
     font-size: 1rem;
-    color: #666;
+    color: var(--prev-font-color);
     margin-right: 5rem;
-}
+    margin-left: 30px;
+    line-height: 25px;
+    text-align: justify;
+} */
 
 .packages {
     padding-bottom: 2rem;
-}
-
-.packages h2 {
-    font-family: 'Brush Script MT', cursive;
-    font-size: 2rem;
-    color: #a58f6f;
-    text-align: center;
-    margin-bottom: 1rem;
 }
 
 #packages-container {
@@ -154,9 +100,7 @@ main {
     margin-right: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* Two equal columns */
     grid-template-rows: auto;
-    /* Automatically sized rows */
     gap: 15px;
 }
 
@@ -181,9 +125,7 @@ main {
 
 .package:hover {
     transform: translateY(-10px);
-    /* Moves the card up */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    /* Darkens the shadow */
 }
 
 .package .details {
@@ -213,17 +155,28 @@ main {
     font-size: 16px;
     cursor: pointer;
     margin: 0 10px;
+    transition: background-color 0.8s ease;
   }
   
   .accept-button {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: #fff;
   }
+
+  /* .accept-button:hover {
+    background-color: var(--primary-dark-color);
+    color: #fff;
+  } */
   
   .reject-button {
-    background-color: #f44336;
+    background-color: var(--secondary-color);
     color: #fff;
   }
+
+  /* .reject-button:hover {
+    background-color: var(--secondary-dark-color);
+    color: #fff;
+  } */
   
   .accept-button:hover, .reject-button:hover {
     opacity: 0.8;

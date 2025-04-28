@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
       checkoutButtonText.innerHTML = "<p>Checkout</p>";
       checkoutButton.appendChild(checkoutButtonText);
 
-      // PayHere callbacks
+      
       payhere.onCompleted = function onCompleted(orderId) {
         alert("Payment successful!");
         window.location.href = `/wedding/${weddingID}`;
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       checkoutButton.onclick = function () {
-        // Fetch hash for the payment gateway
+        
         fetch(`/fetch-hash-for-paymentGateway/${assignmentID}`, {
           method: "GET",
           headers: {
@@ -133,22 +133,17 @@ document.addEventListener("DOMContentLoaded", function () {
           })
           .then((Response) => {
             const hash = Response.hash;
-
-            // Correctly assign hash from response
-
-            // Prepare payment object
             var payment = {
               sandbox: true,
-              merchant_id: "1228991", // Replace your Merchant ID
-              return_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}`, // Important
-              cancel_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}/payments/${assignmentID}`, // Important
-              // notify_url: `https://01jgnmtzfbspgkw5vx8ry3n7pf00-95b3dd672bc15808c447.requestinspector.com/wedding/${weddingID}/${assignmentID}/paymentData`,
+              merchant_id: "1228991", 
+              return_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}`,
+              cancel_url: `http://planner.blissfulbeginnings.com/wedding/${weddingID}/payments/${assignmentID}`,
               notify_url: `https://blissfulbeginnings.loca.lt/plannerPaymentData`,
               order_id: Response.orderID,
               items: package.packageName,
-              amount: package.fixedCost,
+              amount: package.price,
               currency: "LKR",
-              hash: hash, // *Replace with generated hash retrieved from backend
+              hash: hash, 
               first_name: "Jehan",
               last_name: "Fernando",
               email: "jehan@gmail.com",
@@ -159,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
               custom_1: assignmentID,
             };
 
-            // Start payment
+            
             payhere.startPayment(payment);
 
             
