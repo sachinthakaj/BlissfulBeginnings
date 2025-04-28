@@ -89,6 +89,48 @@ class Package
         }
     }
 
+    public function createFeature($packageID, $feature) {
+        try {
+            $this->db->startTransaction();
+            $featureID =  generateUUID($this->db);
+            $this->db->query("INSERT INTO features (featureID, packageID, feature)
+             VALUES (UNHEX(:featureID), UNHEX(:packageID), :feature);");
+            $this->db->bind(':featureID', $featureID, PDO::PARAM_LOB);
+            $this->db->bind(':packageID', $packageID, PDO::PARAM_LOB);
+            $this->db->bind(':feature', $feature);
+            // $this->db->bind(':packageName', $packageDetails['packageName']);
+            // $this->db->bind(':feature1', $packageDetails['feature1']);
+            // $this->db->bind(':feature2', $packageDetails['feature2']);
+            // $this->db->bind(':feature3', $packageDetails['feature3']);
+            // $this->db->bind(':fixedCost', $packageDetails['fixedCost']);
+            $this->db->execute();
+
+
+            // switch ($packageDetails['typeID']) {
+            //     case "Photographer":
+            //         $this->createPhotographyPackage($packageID, $packageDetails);
+            //         break;
+            //     case "Dress Designer":
+            //         $this->createDressDesignerPackage($packageID, $packageDetails);
+            //         break;
+            //     case "Salon":
+            //         $this->createSalonPackage($packageID, $packageDetails);
+            //         break;
+            //     case "Florist":
+            //         $this->createFloristPackage($packageID, $packageDetails);
+            //         break;
+            //     default:
+            //         throw new Exception("Invalid package type");
+            // }
+            $this->db->commit();
+            return $featureID;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            $this->db->rollbackTransaction();
+            throw new Exception("Transaction failed: " . $e->getMessage());
+        }
+    }
+
     public function getPackages($vendorID, $type)
     {
         switch ($type) {
