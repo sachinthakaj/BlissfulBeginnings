@@ -15,6 +15,7 @@ class m0020_taskGroups {
 
         CREATE TABLE savedTaskGroups (
             savedTaskGroupID BINARY(16) PRIMARY KEY , 
+            savedTaskGroupName varchar(255) NOT NULL,
             typeID ENUM('photographer', 'salon', 'bride-salon', 'groom-salon', 'florist', 'bride-dress-designer', 'groom-dress-designer', 'dress-designer') NOT NULL
         )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

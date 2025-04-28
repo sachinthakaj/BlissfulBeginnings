@@ -6,12 +6,6 @@ let selectedGroupId = null;
 let editingTaskId = null;
 let editingGroupId = null;
 
-// API endpoints
-const API_BASE_URL = '/api';
-const ENDPOINTS = {
-    GROUPS: `${API_BASE_URL}/task-groups`,
-    TASKS: `${API_BASE_URL}/tasks`
-};
 
 // DOM Elements
 const groupList = document.getElementById('groupList');
@@ -67,7 +61,7 @@ function initialize() {
 
 async function fetchGroups() {
     try {
-        const response = await fetch(ENDPOINTS.GROUPS, {
+        const response = await fetch("/get-saved-groups/", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -152,7 +146,7 @@ async function selectGroup(group) {
     renderGroupList();
     
     // Update group details
-    groupName.textContent = group.name;
+    groupName.textContent = group.savedTaskGroupName;
     vendorType.textContent = group.typeID;
     
     // Show group details section
@@ -160,7 +154,7 @@ async function selectGroup(group) {
     groupDetails.classList.remove('hidden');
     
     // Fetch and render tasks
-    const tasks = await fetchTasks(group.id);
+    const tasks = await fetchTasks(group.savedTaskGroupID);
     renderTaskList(tasks);
 }
 
@@ -258,7 +252,7 @@ async function handleGroupSubmit(event) {
 
 async function createGroup(groupData) {
     try {
-        const response = await fetch(ENDPOINTS.GROUPS, {
+        const response = await fetch("/add-new-group/", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

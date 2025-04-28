@@ -94,3 +94,7 @@ $router->get("/get-vendor-ratings/{weddingID}", "PlannerController@getVendorRati
 
 $router->get("/saved-tasks", "SavedTasksController@savedTasks");
 
+
+$router->get("/get-saved-groups", "SavedTasksController@getSavedTasks");
+$router->get("/add-new-group", "SavedTasksController@getSavedTasks");
+
