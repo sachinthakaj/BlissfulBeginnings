@@ -90,7 +90,7 @@ class Event
 
     public function getEventDetailsForCustomer($weddingID){
         try{
-            $this->db->query("SELECT v.businessName,e.description,e.date,e.time FROM event e
+            $this->db->query("SELECT v.businessName,e.description,e.date,e.time,e.state FROM event e
             JOIN packageassignment pa ON pa.assignmentID = e.assignmentID
             JOIN packages p ON p.packageID = pa.packageID
             JOIN vendors v ON v.vendorID = p.vendorID 
