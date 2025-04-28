@@ -103,12 +103,22 @@ main {
     justify-content: flex-start;
     align-items: center;
     padding-top: 60px;
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 
 .about {
-    margin-bottom: 8vh;
+    margin-bottom: 6vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.about .description {
+    width: 90%;
+    font-size: 1rem;
+    color: var(--prev-font-color);
+    margin-right: 5rem;
+    margin-left: 30px;
+    line-height: 25px;
+    text-align: justify;
 }
