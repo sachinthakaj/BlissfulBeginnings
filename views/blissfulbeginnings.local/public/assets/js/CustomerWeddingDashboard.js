@@ -1490,12 +1490,12 @@ function showEventsOnEventContainer() {
           const eventDetailsArea = document.createElement("div");
           eventDetailsArea.classList.add("eventDetailsArea");
           scheduleItem.appendChild(eventDetailsArea);
-          eventDetailsArea.innerHTML = `${event.date} | ${event.description} | ${event.time}`;
+          eventDetailsArea.innerHTML = `${event.businessName}   |   ${event.date}   |   ${event.description}   |   ${event.time}`;
     
         } else {
           const scheduleItem = document.createElement("div");
           scheduleItem.classList.add("schedule-item");
-          scheduleItem.innerHTML = `${event.date}: ${event.description}`;
+          scheduleItem.innerHTML = `${event.businessName}   |   ${event.date}   |   ${event.description}   |   ${event.time}`;
           scheduleList.appendChild(scheduleItem);
 
           
