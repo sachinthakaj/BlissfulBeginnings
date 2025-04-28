@@ -673,6 +673,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const dateToFinish = document.getElementById("dateToFinish").value;
     const taskID = document.getElementById("taskForm").dataset.taskID;
 
+    const today = new Date();
+    const formattedToday = today.toISOString().split("T")[0];
+
+    const nextMonthToday = new Date(today);
+    nextMonthToday.setMonth(today.getMonth()+6);
+
+    if(nextMonthToday.getDate() !== today.getDate()){
+      nextMonthToday.setDate(0);
+    }
+    const formattedNextMonthToday = nextMonthToday.toISOString().split("T")[0];
+    if (dateToFinish <= formattedToday || dateToFinish > formattedNextMonthToday ) {
+      alert("Please select a date in the future within 6 month.");
+      return;
+
+    }
+
     const taskDetails = {
       description: taskDescription,
       dateToFinish: dateToFinish,

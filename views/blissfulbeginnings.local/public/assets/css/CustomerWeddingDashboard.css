@@ -267,19 +267,20 @@ a:hover {
 
 /* cards */
 .card {
-    cursor: pointer;
-    width: 280px;
-    border-radius: 25px;
-    background-color: #fff;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
-}
+    position: relative;
+    width: 300px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin: 15px;
+  }
 
-.card:hover {
-    box-shadow: 0 5px 10px #656233;
-    transform: scale(1.025);
-    transition: 0.5s ease-in-out;
-    transform: translateY(-5%);
-}
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(193, 164, 46, 0.2);
+  }
 
 .card-wrapper {
     display: flex;
@@ -347,20 +348,90 @@ a:hover {
     border: 4px solid #c1a42e;
 }
 
-.name {
-    font-size: 40px;
-    font-weight: 900;
-    color: #656233;
-    font-family: "Gwendolyn", sans-serif;
-    text-align: center;
-}
 
-.description {
-    font-size: 14px;
-    color: #707070;
+.name {
+    font-family: 'Gwendolyn', serif;
+    color: #c1a42e;
+    font-size: 28px;
+    margin: 0 0 15px;
     text-align: center;
-    line-height: 15px;
-}
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+    position: relative;
+    padding-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  
+  
+  .name::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #c1a42e, transparent);
+  }
+  
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0;
+    position: relative;
+    width: 100%;
+  }
+  
+  
+  .description {
+    position: relative;
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 400;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+  
+  .description:hover {
+    transform: translateY(-2px);
+  }
+  
+  
+  .description:first-of-type {
+    font-weight: 600;
+    color: #4a5d23;
+    font-size: 16px;
+    background-color: rgba(74, 93, 35, 0.08);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 0 auto 5px auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  
+  .description:last-of-type {
+    background: linear-gradient(to right, #f7f7f7, white, #f7f7f7);
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #c1a42e;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 1px solid rgba(193, 164, 46, 0.1);
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+  
+  
+  .card:hover .description:last-of-type {
+    border-color: rgba(193, 164, 46, 0.3);
+    background: linear-gradient(to right, #f9f8f2, white, #f9f8f2);
+  }
 
 
 
