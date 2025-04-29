@@ -497,10 +497,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             alert("Image sent successfully!");
             alert(`packageID: ${associatedPackage}`);
+            
             setTimeout(() => {
-              window.location.reload();
+              // window.location.reload();
             }, 1000); // 1 second delay
-
+            
             fetchVendorGallery(vendorID);
           })
           .catch((error) => {
