@@ -10,76 +10,96 @@ const uploadModal = document.getElementById("open-modal-button");
 const uploadModalContainer = document.querySelector(".modal-container");
 const uploadButton = document.querySelector(".upload-button");
 
+const targetNode = document.getElementById('associatedPackageInsert');
+
+// Create an observer instance
+const observer = new MutationObserver((mutationsList, observer) => {
+    for (let mutation of mutationsList) {
+        if (mutation.type === 'childList' || mutation.type === 'subtree') {
+            console.log('innerHTML changed!');
+            console.log(mutation)
+        }
+    }
+});
+
+// Start observing
+observer.observe(targetNode, {
+    childList: true, // Listen for addition/removal of child elements
+    subtree: true    // Also observe deeper descendants
+});
+  
+
 function showNotification(message, color) {
-  // Create notification element
-  const notification = document.createElement("div");
-  notification.textContent = message;
-  notification.style.position = "fixed";
-  notification.style.bottom = "20px";
-  notification.style.left = "20px";
-  notification.style.backgroundColor = color;
-  notification.style.color = "white";
-  notification.style.padding = "10px 20px";
-  notification.style.borderRadius = "5px";
-  notification.style.zIndex = 1000;
-  notification.style.fontSize = "16px";
+    // Create notification element
+    const notification = document.createElement("div");
+    notification.textContent = message;
+    notification.style.position = "fixed";
+    notification.style.bottom = "20px";
+    notification.style.left = "20px";
+    notification.style.backgroundColor = color;
+    notification.style.color = "white";
+    notification.style.padding = "10px 20px";
+    notification.style.borderRadius = "5px";
+    notification.style.zIndex = 1000;
+    notification.style.fontSize = "16px";
 
-  // Append to body
-  document.body.appendChild(notification);
+    // Append to body
+    document.body.appendChild(notification);
 
-  // Remove after 3 seconds
-  setTimeout(() => {
-    notification.remove();
-  }, 3000);
-}
+    // Remove after 3 seconds
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const loadingScreen = document.getElementById("loading-screen");
-  const mainContent = document.getElementById("main-content");
-  fetch("/edit-profile/vendor-details/" + vendorID, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  })
-    .then((response) => {
-      return response.json();
+    const loadingScreen = document.getElementById("loading-screen");
+    const mainContent = document.getElementById("main-content");
+    fetch("/edit-profile/vendor-details/" + vendorID, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
     })
-    .then((vendorData) => {
-      console.log(vendorData);
-      // update title and description
-      document.getElementById("name").textContent = vendorData.businessName;
-      document.getElementById("description").textContent =
-        vendorData.description;
-      document
-        .getElementById("profile-image")
-        .setAttribute(
-          "src",
-          "http://cdn.blissfulbeginnings.com" + vendorData.imgSrc
-        );
+      .then((response) => {
+        return response.json();
+      })
+      .then((vendorData) => {
+        console.log(vendorData);
+        // update title and description
+        document.getElementById("name").textContent = vendorData.businessName;
+        document.getElementById("description").textContent =
+          vendorData.description;
+        document
+          .getElementById("profile-image")
+          .setAttribute(
+            "src",
+            "http://cdn.blissfulbeginnings.com" + vendorData.imgSrc
+          );
 
-      const packagesContainer = document.getElementById("packages-container");
+        const packagesContainer = document.getElementById("packages-container");
 
-      Object.entries(vendorData.packages).forEach(([packageID, package]) => {
-        document.getElementById(
-          "associatedPackageInsert"
-        ).innerHTML += `<option value="${packageID}">${package.packageName}</option>`;
-        document.getElementById(
-          "associatedPackageUpdate"
-        ).innerHTML += `<option value="${packageID}">${package.packageName}</option>`;
-        const packageDiv = createPackageCard(packageID, package);
+        Object.entries(vendorData.packages).forEach(([packageID, package]) => {
+          document.getElementById(
+            "associatedPackageInsert"
+          ).innerHTML += `<option value="${packageID}">${package.packageName}</option>`;
+          document.getElementById(
+            "associatedPackageUpdate"
+          ).innerHTML += `<option value="${packageID}">${package.packageName}</option>`;
+          console.log(packageID);
+          const packageDiv = createPackageCard(packageID, package);
 
-        packageDiv.addEventListener("click", (event) =>
-          openUpdateModal(event.currentTarget.id)
-        );
-        packagesContainer.appendChild(packageDiv);
-      });
-      newPackage.addEventListener("click", () => {
-        const modal = document.getElementById("modal");
-        const modalContent = document.getElementById("modal-content");
-        console.log(vendorData.typeID);
-        modalContent.innerHTML = `
+          packageDiv.addEventListener("click", (event) =>
+            openUpdateModal(event.currentTarget.id)
+          );
+          packagesContainer.appendChild(packageDiv);
+        });
+        newPackage.addEventListener("click", () => {
+          const modal = document.getElementById("modal");
+          const modalContent = document.getElementById("modal-content");
+          console.log(vendorData.typeID);
+          modalContent.innerHTML = `
                 <span class="close">&times;</span>
                 <h2>Create new Package</h2>
                 <form id="createForm" >
@@ -111,204 +131,204 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button type="submit" class="submit-button">Submit</button>
                     </div>
                 `;
-        vendorCreatePackageFunctions[vendorData.typeID](modalContent);
-        const featureContainer = document.querySelector(".left");
-        const insertFeature = document.querySelector(".add-feature");
-        insertFeature.addEventListener("focus", addNewFeatureField);
-        let featureCount = 3;
-        function addNewFeatureField(e) {
-          e.target.removeEventListener("focus", addNewFeatureField);
+          vendorCreatePackageFunctions[vendorData.typeID](modalContent);
+          const featureContainer = document.querySelector(".left");
+          const insertFeature = document.querySelector(".add-feature");
+          insertFeature.addEventListener("focus", addNewFeatureField);
+          let featureCount = 3;
+          function addNewFeatureField(e) {
+            e.target.removeEventListener("focus", addNewFeatureField);
 
-          const newFeatureGroup = document.createElement("div");
-          newFeatureGroup.className = "input-group";
-          newFeatureGroup.innerHTML = `
+            const newFeatureGroup = document.createElement("div");
+            newFeatureGroup.className = "input-group";
+            newFeatureGroup.innerHTML = `
               <label for="feature${featureCount}">Feature ${featureCount}</label>
               <input type="text" id="feature${featureCount}" class="add-feature" name="feature${featureCount}">
           `;
-          featureContainer.appendChild(newFeatureGroup);
+            featureContainer.appendChild(newFeatureGroup);
 
-          featureCount++;
+            featureCount++;
 
-          const newAddFeatureInput =
-            newFeatureGroup.querySelector(".add-feature");
-          newAddFeatureInput.addEventListener("focus", addNewFeatureField);
-        }
+            const newAddFeatureInput =
+              newFeatureGroup.querySelector(".add-feature");
+            newAddFeatureInput.addEventListener("focus", addNewFeatureField);
+          }
 
-        modalContent
-          .querySelector("#createForm")
-          .addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const package = Object.fromEntries(formData.entries());
-            package["typeID"] = vendorData.typeID;
-            fetch("/vendor/" + vendorID + "/create-package", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-              body: JSON.stringify(package),
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                } else {
-                  return response.json();
-                }
+          modalContent
+            .querySelector("#createForm")
+            .addEventListener("submit", async (event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              const package = Object.fromEntries(formData.entries());
+              package["typeID"] = vendorData.typeID;
+              fetch("/vendor/" + vendorID + "/create-package", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+                body: JSON.stringify(package),
               })
-              .then((response) => {
-                vendorData["packages"][response.packageID] = package;
-                document.getElementById(
-                  "associatedPackageInsert"
-                ).innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`;
-                document.getElementById(
-                  "associatedPackageUpdate"
-                ).innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`;
-
-                const packagesContainer =
-                  document.getElementById("packages-container");
-                console.log(response);
-                const packageDiv = createPackageCard(
-                  response.packageID,
-                  package
-                );
-                modal.style.display = "none";
-                packageDiv.addEventListener("click", (event) =>
-                  openUpdateModal(event.currentTarget.id)
-                );
-                packagesContainer.appendChild(packageDiv);
-
-                const formData = new FormData(event.currentTarget);
-                const feature = Object.fromEntries(formData.entries());
-                feature["packageID"] = vendorData.packageID;
-                fetch("/vendor/" + vendorID + "/add-feature/" + packageID, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem(
-                      "authToken"
-                    )}`,
-                  },
-                  body: JSON.stringify(package),
-                }).then((response) => {
+                .then((response) => {
                   if (!response.ok) {
                     throw new Error("Network response was not ok");
                   } else {
                     return response.json();
                   }
+                })
+                .then((response) => {
+                  vendorData["packages"][response.packageID] = package;
+                  document.getElementById(
+                    "associatedPackageInsert"
+                  ).innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`;
+                  document.getElementById(
+                    "associatedPackageUpdate"
+                  ).innerHTML += `<option value="${response.packageID}">${package.packageName}</option>`;
+
+                  const packagesContainer =
+                    document.getElementById("packages-container");
+                  console.log(response);
+                  const packageDiv = createPackageCard(
+                    response.packageID,
+                    package
+                  );
+                  modal.style.display = "none";
+                  packageDiv.addEventListener("click", (event) =>
+                    openUpdateModal(event.currentTarget.id)
+                  );
+                  packagesContainer.appendChild(packageDiv);
+
+                  const formData = new FormData(event.currentTarget);
+                  const feature = Object.fromEntries(formData.entries());
+                  feature["packageID"] = vendorData.packageID;
+                  fetch("/vendor/" + vendorID + "/add-feature/" + packageID, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${localStorage.getItem(
+                        "authToken"
+                      )}`,
+                    },
+                    body: JSON.stringify(package),
+                  }).then((response) => {
+                    if (!response.ok) {
+                      throw new Error("Network response was not ok");
+                    } else {
+                      return response.json();
+                    }
+                  });
                 });
-              });
-          });
+            });
 
-        modal.style.display = "block";
-        var span = document.getElementsByClassName("close")[0];
+          modal.style.display = "block";
+          var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-          modal.style.display = "none";
-        };
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-          if (event.target == modal) {
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function () {
             modal.style.display = "none";
-          }
-        };
-      });
+          };
 
-      const deletePackage = document.querySelectorAll(".delete-icon");
-      const modalContainer = document.querySelector(".delete-modal-container");
-
-      // delete package confirmation modal
-      function openModal(event) {
-        event.stopPropagation(); // prevents bubbling the parent element
-        modalContainer.classList.add("show");
-        console.log(event.currentTarget);
-        console.log(modalContainer);
-        modalContainer.id = event.currentTarget.dataset.packageid;
-        console.log("Delete button clicked");
-      }
-
-      function closeModal() {
-        modalContainer.classList.remove("show");
-        console.log("Close button clicked");
-      }
-
-      if (deletePackage && modalContainer) {
-        deletePackage.forEach((button) => {
-          button.addEventListener("click", (event) => {
-            openModal(event);
-          });
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          };
         });
 
-        // Close modal when clicking cancel button
-        cancelButton.addEventListener("click", closeModal);
+        const deletePackage = document.querySelectorAll(".delete-icon");
+        const modalContainer = document.querySelector(".delete-modal-container");
 
-        deleteButton.addEventListener("click", (event) => {
-          console.log("here");
-          let packageID = event.target.parentNode.parentNode.parentNode.id;
-          fetch("/packages/delete/" + packageID, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          }).then((response) => {
-            if (response.status === 204) {
-              showNotification(
-                " There is no package for this packageID",
-                "red"
-              );
-            }
-            if (!response.ok) {
-              if (response.status === 409) {
-                closeModal();
-                showNotification(" This package is currently in use", "red");
-                return;
+        // delete package confirmation modal
+        function openModal(event) {
+          event.stopPropagation(); // prevents bubbling the parent element
+          modalContainer.classList.add("show");
+          console.log(event.currentTarget);
+          console.log(modalContainer);
+          modalContainer.id = event.currentTarget.dataset.packageid;
+          console.log("Delete button clicked");
+        }
+
+        function closeModal() {
+          modalContainer.classList.remove("show");
+          console.log("Close button clicked");
+        }
+
+        if (deletePackage && modalContainer) {
+          deletePackage.forEach((button) => {
+            button.addEventListener("click", (event) => {
+              openModal(event);
+            });
+          });
+
+          // Close modal when clicking cancel button
+          cancelButton.addEventListener("click", closeModal);
+
+          deleteButton.addEventListener("click", (event) => {
+            console.log("here");
+            let packageID = event.target.parentNode.parentNode.parentNode.id;
+            fetch("/packages/delete/" + packageID, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              },
+            }).then((response) => {
+              if (response.status === 204) {
+                showNotification(
+                  " There is no package for this packageID",
+                  "red"
+                );
               }
-            }
-            if (response.ok) {
-              showNotification("Package deleted", "red");
-              document.querySelectorAll(".web-package-card").forEach((card) => {
-                if (card.id == packageID) {
-                  card.remove();
+              if (!response.ok) {
+                if (response.status === 409) {
+                  closeModal();
+                  showNotification(" This package is currently in use", "red");
+                  return;
                 }
-              });
+              }
+              if (response.ok) {
+                showNotification("Package deleted", "red");
+                document.querySelectorAll(".web-package-card").forEach((card) => {
+                  if (card.id == packageID) {
+                    card.remove();
+                  }
+                });
+                closeModal();
+              }
+            });
+            closeModal();
+          });
+
+          // Close modal when clicking outside
+          modalContainer.addEventListener("click", (event) => {
+            if (event.target === modalContainer) {
               closeModal();
             }
           });
-          closeModal();
-        });
 
-        // Close modal when clicking outside
-        modalContainer.addEventListener("click", (event) => {
-          if (event.target === modalContainer) {
-            closeModal();
-          }
-        });
+          // Close modal with Escape key
+          document.addEventListener("keydown", (event) => {
+            if (
+              event.key === "Escape" &&
+              modalContainer.classList.contains("show")
+            ) {
+              closeModal();
+            }
+          });
+        }
 
-        // Close modal with Escape key
-        document.addEventListener("keydown", (event) => {
-          if (
-            event.key === "Escape" &&
-            modalContainer.classList.contains("show")
-          ) {
-            closeModal();
-          }
-        });
-      }
+        function openUpdateModal(packageID) {
+          console.log(packageID);
+          const package = vendorData.packages[packageID];
+          console.log(package);
+          const modal = document.getElementById("modal");
+          const modalContent = document.getElementById("modal-content");
 
-      function openUpdateModal(packageID) {
-        console.log(packageID);
-        const package = vendorData.packages[packageID];
-        console.log(package);
-        const modal = document.getElementById("modal");
-        const modalContent = document.getElementById("modal-content");
+          let changedGeneralFields = {};
+          let changedSpecificFields = {};
 
-        let changedGeneralFields = {};
-        let changedSpecificFields = {};
-
-        modalContent.innerHTML = `
+          modalContent.innerHTML = `
                         <span class="close">&times;</span>
                         <h2>Update Package</h2>
                         <form id="updateForm">
@@ -337,179 +357,180 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                         </form>
                             `;
-        vendorDisplayFunctions[vendorData.typeID](package, modalContent);
-        modalContent.querySelectorAll(".general").forEach((input) => {
-          input.addEventListener("change", (event) => {
-            const { name, value } = event.target;
-            changedGeneralFields[name] = value;
+          vendorDisplayFunctions[vendorData.typeID](package, modalContent);
+          modalContent.querySelectorAll(".general").forEach((input) => {
+            input.addEventListener("change", (event) => {
+              const { name, value } = event.target;
+              changedGeneralFields[name] = value;
+            });
           });
-        });
 
-        modalContent.querySelectorAll(".specific").forEach((input) => {
-          input.addEventListener("change", (event) => {
-            const { name, value } = event.target;
-            changedSpecificFields[name] = value;
+          modalContent.querySelectorAll(".specific").forEach((input) => {
+            input.addEventListener("change", (event) => {
+              const { name, value } = event.target;
+              changedSpecificFields[name] = value;
+            });
           });
-        });
 
-        modalContent
-          .querySelector("#updateForm")
-          .addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const updateFields = {
-              typeID: vendorData.typeID,
-              changedGeneralFields,
-              changedSpecificFields,
-            };
-            fetch("/vendor/" + vendorID + "/update-package/" + packageID, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-              body: JSON.stringify(updateFields),
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                } else {
-                  return response.json();
-                }
+          modalContent
+            .querySelector("#updateForm")
+            .addEventListener("submit", async (event) => {
+              event.preventDefault();
+              const updateFields = {
+                typeID: vendorData.typeID,
+                changedGeneralFields,
+                changedSpecificFields,
+              };
+              fetch("/vendor/" + vendorID + "/update-package/" + packageID, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+                body: JSON.stringify(updateFields),
               })
-              .then((data) => {
-                if (data.packageID) {
-                  showNotification("Package updated successfully", "green");
-                  modal.style.display = "none";
-                }
-              })
-              .catch((error) => {
-                console.error("Error updating package:", error);
-              });
-          });
-        mainContainer.appendChild(modal);
-        modal.style.display = "block";
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  } else {
+                    return response.json();
+                  }
+                })
+                .then((data) => {
+                  if (data.packageID) {
+                    showNotification("Package updated successfully", "green");
+                    modal.style.display = "none";
+                  }
+                })
+                .catch((error) => {
+                  console.error("Error updating package:", error);
+                });
+            });
+          mainContainer.appendChild(modal);
+          modal.style.display = "block";
+          // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-          currentStep = 0;
-          modal.style.display = "none";
-        };
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-          if (event.target == modal) {
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function () {
             currentStep = 0;
             modal.style.display = "none";
-          }
-        };
-      }
-      loadingScreen.style.display = "none";
-      mainContent.style.display = "block";
-    })
-    .catch((error) => {
-      console.error("Error fetching data early:", error);
-      loadingScreen.innerHTML =
-        "<p>Error loading data. Please try again later.</p>";
-    });
+          };
 
-  function openGalleryModal() {
-    uploadModalContainer.classList.add("show");
-  }
-
-  function closeGalleryModal() {
-    uploadModalContainer.classList.remove("show");
-  }
-
-  // Event Listeners
-  if (uploadModal && uploadModalContainer) {
-    uploadModal.addEventListener("click", openGalleryModal);
-
-    // Close modal when clicking cancel button
-    cancelButton.addEventListener("click", closeGalleryModal);
-
-    // Handle delete action
-    uploadButton.addEventListener("click", (event) => {
-      console.log(event.target);
-      const file = document.getElementById("image-upload").files[0]; // Get the selected file event.target.files[0]; // Get the selected file
-      const description = document
-        .getElementById("image-description")
-        .value.trim();
-      const associatedPackage = document.getElementById(
-        "associatedPackageInsert"
-      ).value;
-      console.log(`packageID: ${associatedPackage}`);
-      // Ensure a file was selected
-      if (!file || !description) {
-        alert("No file selected or no description provided.");
-        return;
-      }
-
-      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-      if (!validImageTypes.includes(file.type)) {
-        alert("Please upload a valid image file (JPEG, PNG, GIF).");
-        return;
-      }
-
-      const maxSize = 2 * 1024 * 1024;
-      if (file.size > maxSize) {
-        alert("File size must be less than 2 MB.");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("description", description);
-      formData.append("associatedPackage", associatedPackage);
-
-      fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
-        method: "POST",
-        body: formData,
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function (event) {
+            if (event.target == modal) {
+              currentStep = 0;
+              modal.style.display = "none";
+            }
+          };
+        }
+        loadingScreen.style.display = "none";
+        mainContent.style.display = "block";
       })
-        .then((response) => response.json())
-        .then((data) => {
-          if (!data.status) {
-            throw new Error(
-              "Invalid response from server. No storage path provided."
-            );
-          }
-          alert("Image sent successfully!");
-          alert(`packageID: ${associatedPackage}`);
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000); // 1 second delay
+      .catch((error) => {
+        console.error("Error fetching data early:", error);
+        loadingScreen.innerHTML =
+          "<p>Error loading data. Please try again later.</p>";
+      });
 
-          fetchVendorGallery(vendorID);
+    function openGalleryModal() {
+      uploadModalContainer.classList.add("show");
+    }
+
+    function closeGalleryModal() {
+      uploadModalContainer.classList.remove("show");
+    }
+
+    // Event Listeners
+    if (uploadModal && uploadModalContainer) {
+      uploadModal.addEventListener("click", openGalleryModal);
+
+      // Close modal when clicking cancel button
+      cancelButton.addEventListener("click", closeGalleryModal);
+
+      // Handle delete action
+      uploadButton.addEventListener("click", (event) => {
+        console.log(event.target);
+        const file = document.getElementById("image-upload").files[0]; // Get the selected file event.target.files[0]; // Get the selected file
+        const description = document
+          .getElementById("image-description")
+          .value.trim();
+        const associatedPackage = document.getElementById(
+          "associatedPackageInsert"
+        ).value;
+        console.log(associatedPackage)
+        console.log(`packageID: ${associatedPackage}`);
+        // Ensure a file was selected
+        if (!file || !description) {
+          alert("No file selected or no description provided.");
+          return;
+        }
+
+        const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+        if (!validImageTypes.includes(file.type)) {
+          alert("Please upload a valid image file (JPEG, PNG, GIF).");
+          return;
+        }
+
+        const maxSize = 2 * 1024 * 1024;
+        if (file.size > maxSize) {
+          alert("File size must be less than 2 MB.");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("description", description);
+        formData.append("associatedPackage", associatedPackage);
+
+        fetch("http://cdn.blissfulbeginnings.com/gallery/upload/" + vendorID, {
+          method: "POST",
+          body: formData,
         })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("An error occurred while uploading the image.");
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            if (!data.status) {
+              throw new Error(
+                "Invalid response from server. No storage path provided."
+              );
+            }
+            alert("Image sent successfully!");
+            alert(`packageID: ${associatedPackage}`);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000); // 1 second delay
 
-      // showNotification("Image sent successfully", "green");
-      // window.location.href = "/packages/" + vendorID;
-      closeGalleryModal();
-    });
+            fetchVendorGallery(vendorID);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred while uploading the image.");
+          });
 
-    // Close modal when clicking outside
-    uploadModalContainer.addEventListener("click", (event) => {
-      if (event.target === uploadModalContainer) {
+        // showNotification("Image sent successfully", "green");
+        // window.location.href = "/packages/" + vendorID;
         closeGalleryModal();
-      }
-    });
+      });
 
-    // Close modal with Escape key
-    document.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Escape" &&
-        uploadModalContainer.classList.contains("show")
-      ) {
-        closeGalleryModal();
-      }
-    });
-  }
-});
+      // Close modal when clicking outside
+      uploadModalContainer.addEventListener("click", (event) => {
+        if (event.target === uploadModalContainer) {
+          closeGalleryModal();
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          uploadModalContainer.classList.contains("show")
+        ) {
+          closeGalleryModal();
+        }
+      });
+    }
+  });
 
 function createPackageCard(packageID, packageData) {
   // Create main container
@@ -999,12 +1020,9 @@ function fetchVendorGallery() {
 
         updateImageContainer.appendChild(imgElement);
 
-        // Set field values
-        // updateImageIDInput.value = imageData.imageID;
-        // updateVendorIDInput.value = imageData.vendorID;
-
         updateDateTimeInput.value = imageData.created_at;
         updateDescriptionInput.value = imageData.description;
+        console.log(updateImagePackage)
         updateImagePackage.value = imageData.packageID;
 
         // Show modal
