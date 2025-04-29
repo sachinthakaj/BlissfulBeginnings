@@ -903,8 +903,10 @@ function fetchVendorGallery() {
         imgElement.classList.add("gallery-img");
         imgDiv.dataset.packageid = image.packageID ? image.packageID : "";
 
+        /*
         const desc = document.createElement("p");
         desc.textContent = image.description;
+        */
 
         // Create delete button
         const deleteBtn = document.createElement("button");
@@ -956,7 +958,7 @@ function fetchVendorGallery() {
 
         // Append elements
         imgDiv.appendChild(imgElement);
-        imgDiv.appendChild(desc);
+        // imgDiv.appendChild(desc);
         imgDiv.appendChild(deleteBtn); // Append delete button inside imgDiv
         galleryContainer.appendChild(imgDiv);
       });
@@ -1098,12 +1100,6 @@ function fetchVendorGallery() {
               const imgElement = document.getElementById(
                 currentImageToUpdate.path
               );
-              if (imgElement) {
-                const descElement = imgElement.querySelector("p");
-                if (descElement) {
-                  descElement.textContent = newDescription;
-                }
-              }
 
               // Call server update endpoint
               fetch(
