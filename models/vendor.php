@@ -121,6 +121,7 @@ class Vendor
             $customer = new Wedding();
             foreach ($result as $index => $value) {
                 $result[$index]['weddingTitle'] = $customer->getWeddingName(bin2hex($value['weddingID']));
+                $result[$index]['progress'] = $this->getAssignmentProgress(bin2hex($value['assignmentID']));
             }
             $this->db->query("SELECT businessName, vendorState from vendors WHERE vendorID=UNHEX(:vendorID)");
             $this->db->bind(':vendorID', $vendorID);
@@ -131,6 +132,26 @@ class Vendor
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
+        }
+    }
+
+    public function getAssignmentProgress($assignmentID) {
+        try {
+            $this->db->query("SELECT state, COUNT(*) AS taskCount FROM task t
+            WHERE assignmentID=UNHEX(:assignmentID) GROUP BY state;");
+            $this->db->bind(':assignmentID', $assignmentID);
+            $this->db->execute();
+            $result = $this->db->fetchAll(PDO::FETCH_ASSOC);
+            if(isset($result[1]) && $result[1]["taskCount"] > 0) {
+                return $result[1]["taskCount"] / ($result[1]["taskCount"] + $result[0]["taskCount"]) * 100;
+                
+            } else {
+                return 0;
+            }
+            // var_dump($result);
+        } catch(PDOException $e) {
+            error_log($e->getMessage());
+            throw $e;
         }
     }
 

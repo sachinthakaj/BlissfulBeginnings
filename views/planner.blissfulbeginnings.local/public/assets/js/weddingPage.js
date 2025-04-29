@@ -2,6 +2,30 @@ const path = window.location.pathname;
 const pathParts = path.split("/");
 const weddingID = pathParts[pathParts.length - 1];
 
+function showNotification(message, color) {
+  // Create notification element
+  const notification = document.createElement("div");
+  notification.textContent = message;
+  notification.style.position = "fixed";
+  notification.style.bottom = "20px";
+  notification.style.left = "20px";
+  notification.style.backgroundColor = color;
+  notification.style.color = "white";
+  notification.style.padding = "10px 20px";
+  notification.style.borderRadius = "5px";
+  notification.style.zIndex = 1000;
+  notification.style.fontSize = "16px";
+
+  // Append to body
+  document.body.appendChild(notification);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
+
 
 function renderMessages() {
   const chatContainer = document.querySelector(".chat-show-area");
@@ -125,12 +149,13 @@ function renderMessages() {
         return;
       }
 
-      const metaWithImage = {
-        timestamp: formData.timestamp,
-        role: "planner",
-        relativePath: imageReference,
-        Image: "image_reference",
-      };
+      timestamp = new Date().toISOString();
+      timestamp = timestamp.replace("T", " ").split(".")[0];
+      sender = "planner";
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("timestamp", timestamp);
+      formData.append("sender", JSON.stringify(sender));
 
       try {
         const response = await fetch("/chat/upload-image/" + weddingID, {
@@ -154,8 +179,8 @@ function renderMessages() {
 
         const metaWithImage = {
           timestamp: formData.timestamp,
-          sender: "planner",
-          imageReference: imageReference,
+          role: "planner",
+          relativePath: imageReference,
           Image: "image_reference",
         };
 
@@ -334,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();
               })
               .then((data) => {
-                alert("Wedding successfully marked as completed");
+                showNotification("Wedding successfully marked as completed", "green");
                 window.location.href = `/wedding/${weddingID}`;
 
               })
@@ -489,10 +514,10 @@ document.addEventListener("DOMContentLoaded", function () {
                               .then((res) => res.json())
                               .then((data) => {
                                 if (data.status === "success") {
-                                  alert(data.message);
+                                  showNotification(data.message, "green");
                                   window.location.reload();
                                 } else {
-                                  alert("Error: " + data.message);
+                                  showNotification("Error: " + data.message, "red");
                                 }
                               })
                               .catch((error) => {
@@ -654,10 +679,10 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         if (data.status === "success") {
-          alert(data.message);
+          showNotification(data.message, "green");
           window.location.reload();
         } else {
-          alert("Error: " + data.message);
+          showNotification("Error: " + data.message, "red");
         }
       })
       .catch((error) => {
@@ -706,10 +731,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
-          alert(data.message);
+          showNotification(data.message, "green");
           window.location.reload();
         } else {
-          alert("Error: " + data.message);
+          showNotification("Error: " + data.message, "red");
         }
       })
       .catch((error) => {

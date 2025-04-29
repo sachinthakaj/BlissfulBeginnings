@@ -92,5 +92,5 @@ $router->delete("/remove-unavailable", "CalendarController@PremoveUnavailableDat
 $router->get("/complete-wedding/{weddingID}", "PlannerController@markWeddingAsComplete");
 $router->get("/get-vendor-ratings/{weddingID}", "PlannerController@getVendorRatings");
 
-$router->get("/saved-tasks", "SavedTasksController@savedTasks");
+$router->get("/message/{messageID}", "MessageController@getMessage");
 

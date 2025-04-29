@@ -361,6 +361,7 @@ function newWedding(data) {
           console.log(personData);
           const brideData = personData.brideDetails;
           const groomData = personData.groomDetails;
+
           const modal = document.createElement("div");
           modal.className = "modal";
           modal.innerHTML = `
@@ -378,44 +379,39 @@ function newWedding(data) {
                                         <div class="left">
                                             <div class="input-group">
                                                 <label for="date">Date</label>
-                                                <input type="date" id="date" name="date" value=${
-                                                  data.date
-                                                } required>
+                                                <input type="date" id="date" name="date" value=${data.date
+            } required>
+                                            </div>
+                                            
+                                            <div class="input-group">
+                                                <label for="wedding-party-male">Number of Groomsmen in the Wedding</label>
+                                                <input type="number" id="weddingPartyMale" min=0 name="weddingPartyMale" value=${data.weddingPartyMale
+            } required pattern="[0-9]{1,}" title="Cannot be negative">
                                             </div>
                                             <div class="input-group">
                                                 <label for="daynight">Day/Night</label>
-                                                <select id="daynight" name="daynight" value=${
-                                                  data.daynight
-                                                } required>
+                                                <select id="daynight" name="daynight" value=${data.daynight
+            } required>
                                                     <option value="Day">Day</option>
                                                     <option value="Night">Night</option>
                                                 </select>
                                             </div>
                                             <div class="input-group">
-                                                <label for="wedding-party-male">Number of Male people in the wedding party</label>
-                                                <input type="number" id="weddingPartyMale" name="weddingPartyMale" value=${
-                                                  data.weddingPartyMale
-                                                } required >
-                                            </div>
-                                            <div class="input-group">
                                                 <label for="location">Location</label>
-                                                <input type="text" id="location" name="location" value=${
-                                                  data.location
-                                                } required>
+                                                <input type="text" id="location" name="location" value=${data.location
+            } required>
                                             </div>
                                         </div>
                                         <div class="right">
                                             <div class="input-group">
                                                 <label for="theme">Theme</label>
-                                                <input type="text" id="theme" name="theme" value=${
-                                                  data.theme
-                                                } required>
+                                                <input type="text" id="theme" name="theme" value=${data.theme
+            } required>
                                             </div>
                                             <div class="input-group">
-                                                <label for="wedding-party-female">Number of Female people in the wedding party</label>
-                                                <input type="number" id="weddingPartyFemale" name="weddingPartyFemale" value=${
-                                                  data.weddingPartyFemale
-                                                } required>
+                                                <label for="wedding-party-female">Number of bridesmaids in the wedding</label>
+                                                <input type="number" id="weddingPartyFemale" min=0 name="weddingPartyFemale" value=${data.weddingPartyFemale
+            } required pattern="[0-9]{1,}" title="Cannot be negative">
                                             </div>
                                             
                                             <div class="input-group">
@@ -423,16 +419,14 @@ function newWedding(data) {
                                                 <div id="budget-range"">
                                                     <div class="custom-range-inputs">
                                                         <div class="custom-input">
-                                                            <label for="min-budget">Minimum ($)</label>
-                                                            <input type="number" id="min-budget" min="0" placeholder="0" name="budgetMin" value=${
-                                                              data.budgetMin
-                                                            }>
+                                                            <label for="min-budget">Minimum (LKR)</label>
+                                                            <input type="number" id="min-budget" min="1" placeholder="0" name="budgetMin" value=${data.budgetMin
+            } required pattern="[1-9][0-9]{0,}" title="Should be above 0">
                                                         </div>
                                                         <div class="custom-input">
-                                                            <label for="max-budget">Maximum ($)</label>
-                                                            <input type="number" id="max-budget" min="0" placeholder="1000" name="budgetMax" value=${
-                                                              data.budgetMax
-                                                            }>
+                                                            <label for="max-budget">Maximum (LKR)</label>
+                                                            <input type="number" id="max-budget" min="1" placeholder="1000" name="budgetMax" value=${data.budgetMax
+            } required pattern="[1-9][0-9]{0,}" title="Should be above 0">
                                                         </div>
                                                     </div>
                                                     <div id="range-error" class="error-message" style="color: red; font-size: 0.85em; margin-top: 5px; display: none;">
@@ -443,14 +437,12 @@ function newWedding(data) {
                                         </div>
                                     </div>
                                     <div class="checkbox-group">
-                                        <label><input type="checkbox" name="sepSalons" id="sepSalons" ${
-                                          data.sepSalons ? "checked" : ""
-                                        }     > Get the service of separate Salons for bride and groom</label>
-                                        <label><input type="checkbox" name="sepDressDesigners" id="sepDressDesigners" value=${
-                                          data.sepDressDesigners
-                                            ? "checked"
-                                            : ""
-                                        } > Get the service of separate Dress Makers for bride and groom</label>
+                                        <label><input type="checkbox" name="sepSalons" id="sepSalons" ${data.sepSalons ? "checked" : ""
+            }     > Get the service of separate Salons for bride and groom</label>
+                                        <label><input type="checkbox" name="sepDressDesigners" id="sepDressDesigners" value=${data.sepDressDesigners
+              ? "checked"
+              : ""
+            } > Get the service of separate Dress Makers for bride and groom</label>
                                     </div>
                                     <button type="button" id="nextBtn">Next</button>
                                 </section>
@@ -461,35 +453,30 @@ function newWedding(data) {
                                         <div class="left">
                                             <div class="input-group">
                                                 <label for="bride_name">Name</label>
-                                                <input type="text" id="bride_name" name="name" value=${
-                                                  brideData.name
-                                                } required>
+                                                <input type="text" id="bride_name" name="name" value=${brideData.name
+            } required>
                                             </div>
                                             <div class="input-group">
                                                 <label for="bride_email">Email</label>
-                                                <input type="email" id="bride_email" name="email" value=${
-                                                  brideData.email
-                                                } required>
+                                                <input type="email" id="bride_email" name="email" value=${brideData.email
+            } required>
                                             </div>
                                             <div class="input-group">
                                                 <label for="bride_contact">Contact</label>
-                                                <input type="tel" id="bride_contact" name="contact" value=${
-                                                  brideData.contact
-                                                } required>
+                                                <input type="tel" id="bride_contact" name="contact" value=${brideData.contact
+            } required pattern="[0-9]{10}" title="Should be a 10 digit number">
                                             </div>
                                         </div>
                                         <div class="right">
                                             <div class="input-group">
                                                 <label for="bride_address">Address</label>
-                                                <input type="text" id="bride_address" name="address"  value=${
-                                                  brideData.address
-                                                } required>
+                                                <input type="text" id="bride_address" name="address"  value=${brideData.address
+            } required>
                                             </div>
                                             <div class="input-group">
                                                 <label for="bride_age">Age</label>
-                                                <input type="number" id="bride_age" name="age"  value=${
-                                                  brideData.age
-                                                } required>
+                                                <input type="number" id="bride_age" min=18 name="age"  value=${brideData.age
+            } required>
                                             </div>
                                         </div>
                                     </div>
@@ -503,35 +490,30 @@ function newWedding(data) {
                                         <div class="left">
                                             <div class="input-group">
                                                 <label for="groom_name">Name</label>
-                                                <input type="text" id="groom_name" name="name" value=${
-                                                  groomData.name
-                                                } required>
+                                                <input type="text" id="groom_name" name="name" value=${groomData.name
+            } required>
                                             </div>
                                             <div class="input-group">
                                                 <label for="groom_email">Email</label>
-                                                <input type="email" id="groom_email" name="email" value=${
-                                                  groomData.email
-                                                } required>
+                                                <input type="email" id="groom_email" name="email" value=${groomData.email
+            } required>
                                             </div>
                                             <div class="input-group">
                                                 <label for="groom_contact">Contact</label>
-                                                <input type="tel" id="groom_contact" name="contact" value=${
-                                                  groomData.contact
-                                                } required>
+                                                <input type="tel" id="groom_contact" name="contact" value=${groomData.contact
+            } required pattern="[0-9]{10}" title="Should be a 10 digit number">
                                             </div>
                                         </div>
                                         <div class="right">
                                             <div class="input-group">
                                                 <label for="groom_address">Address</label>
-                                                <input type="text" id="groom_address" name="address" value=${
-                                                  groomData.address
-                                                } required>
+                                                <input type="text" id="groom_address" name="address" value=${groomData.address
+            } required>
                                             </div>
                                             <div class="input-group">
                                                 <label for="groom_age">Age</label>
-                                                <input type="number" id="groom_age" name="age" value=${
-                                                  groomData.age
-                                                } required>
+                                                <input type="number" id="groom_age" min=18 name="age" value=${groomData.age
+            } required>
                                             </div>
                                         </div>
                                     </div>
@@ -999,23 +981,19 @@ const unassigned = (data) => {
                             <div class="content">
                                 <h3 class="description">What is included:</h2>
                                 <ul>
-                                    <li class="description">${
-                                      package.feature1
-                                    }</li>
-                                    ${
-                                      package.feature2
-                                        ? `<li class="description">${package.feature2}</li>`
-                                        : ""
-                                    }
-                                    ${
-                                      package.feature3
-                                        ? `<li class="description">${package.feature3}</li>`
-                                        : ""
-                                    }
+                                    <li class="description">${package.feature1
+                }</li>
+                                    ${package.feature2
+                  ? `<li class="description">${package.feature2}</li>`
+                  : ""
+                }
+                                    ${package.feature3
+                  ? `<li class="description">${package.feature3}</li>`
+                  : ""
+                }
                                 </ul>
-                                <h4 class="description price">Price: ${
-                                  package.price
-                                }</h4>
+                                <h4 class="description price">Price: ${package.price
+                }</h4>
                                 <a class="visit">View Vendor Profile</a>
                             </div>
                         </div>
@@ -1035,8 +1013,8 @@ const unassigned = (data) => {
                     packageDiv.parentElement
                       .querySelector(
                         "#" +
-                          selectedPackages[packageDiv.parentElement.id]
-                            .packageID
+                        selectedPackages[packageDiv.parentElement.id]
+                          .packageID
                       )
                       .classList.toggle("active");
                   }
@@ -1080,41 +1058,37 @@ const finished = (data) => {
         return response.json();
       })
       .then((packageData) => {
+        reviewGrid = document.createElement("div");
+        reviewGrid.classList.add("review-grid");
         packageData.forEach((cardData) => {
           const packageCard = document.createElement("div");
-          packageCard.classList.add("package-card");
+          packageCard.classList.add("review-card");
           packageCard.innerHTML = `
                     <div class="card">
                     <div class="image-content">
                         <span class="overlay"></span>
                         <div class="card-image">
-                            <img src="${
-                              cardData.imgSrc
-                            }" alt="" class="card-img">
+                            <img src="http://cdn.blissfulbeginnings.com/${cardData.imgSrc
+            }" alt="" class="card-img">
                         </div>
                     </div>
                     <div class="card-content">
                         <h2 class="name">${cardData.businessName}</h2>
                         <div class="content">
-                            <h4 class="description">Wedding Progress: </h4> 
-                            <div class="progress-bar-container">
-                                <div class="progress-bar wedding-progress-bar" style="width: ${
-                                  cardData.progress
-                                }%"></div>
+                            <h4 class="description">Your Rating: </h4> 
+                            
                             </div>
-                            <div class="stars" data-assignmentID="${
-                              cardData.assignmentID
-                            }">
+                            <div class="stars" data-assignmentID="${cardData.assignmentID
+            }">
                             ${Array(5)
-                              .fill(0)
-                              .map(
-                                (_, i) => `
-                                <span class="star" data-value="${
-                                  i + 1
-                                }">&#9734;</span>
+              .fill(0)
+              .map(
+                (_, i) => `
+                                <span class="star" data-value="${i + 1
+                  }">&#9734;</span>
                             `
-                              )
-                              .join("")}
+              )
+              .join("")}
                         </div>
                         </div>
                     </div>
@@ -1127,9 +1101,9 @@ const finished = (data) => {
               const index = siblings.indexOf(star);
               siblings.forEach((sibling) => {
                 if (sibling.dataset.value <= index + 1) {
-                  sibling.classList.add("selected");
+                  sibling.classList.add("selected-star");
                 } else {
-                  sibling.classList.remove("selected");
+                  sibling.classList.remove("selected-star");
                 }
               });
             });
@@ -1157,7 +1131,8 @@ const finished = (data) => {
               });
             });
           });
-          vendorGrid.appendChild(packageCard);
+          reviewGrid.appendChild(packageCard);
+          vendorGrid.appendChild(reviewGrid)
         });
       });
   } catch (e) {
@@ -1271,7 +1246,7 @@ function render() {
         window.location.href = "/register";
         return response.json();
       })
-      .then((data) => {})
+      .then((data) => { })
       .catch((error) => {
         console.error(error);
       });
@@ -1450,3 +1425,83 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", render);
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const scheduleButton = document.getElementById("scheduleButtonId");
+  const scheduleListContainer = document.getElementById(
+    "scheduleListContainer"
+  );
+
+  const scheduleList = document.getElementById("scheduleList");
+
+
+function showEventsOnEventContainer() {
+
+  fetch(`/get-events/${weddingID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.status == 401) {
+        window.location.href = "/signin";
+      } else if (res.status == 200) {
+        return res.json();
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    })
+    .then((data) => {
+      console.log(data);
+      data.events.forEach((event) => {
+        if (event.state == "scheduled") {
+          const scheduleItem = document.createElement("div");
+          scheduleItem.classList.add("schedule-item");
+          scheduleList.appendChild(scheduleItem);
+
+          const eventDetailsArea = document.createElement("div");
+          eventDetailsArea.classList.add("eventDetailsArea");
+          scheduleItem.appendChild(eventDetailsArea);
+          eventDetailsArea.innerHTML = `${event.businessName}   |   ${event.date}   |   ${event.description}   |   ${event.time}`;
+    
+        } else {
+          const scheduleItem = document.createElement("div");
+          scheduleItem.classList.add("schedule-item");
+          scheduleItem.innerHTML = `${event.businessName}   |   ${event.date}   |   ${event.description}   |   ${event.time}`;
+          scheduleList.appendChild(scheduleItem);
+
+          
+          const showDone = document.createElement("div");
+          showDone.classList.add("showDone");
+          scheduleItem.appendChild(showDone);
+          showDone.innerHTML = "Done";
+          showDone.style.color = "green";
+        }
+      });
+    })
+
+    .catch((error) => {
+      console.error("Error fetching events", error);
+    });
+  }
+
+  scheduleButton.addEventListener("click", () => {
+    if (
+      scheduleListContainer.style.display === "none" ||
+      !scheduleListContainer.style.display
+    ) {
+      scheduleListContainer.style.display = "block"; // Show the container
+      scheduleListContainer.scrollIntoView({ behavior: "smooth" });
+      // Smooth scroll to the container
+      showEventsOnEventContainer();
+    } else {
+      scheduleListContainer.style.display = "none"; // Hide the container
+      scheduleList.innerHTML = ""; // Clear the list
+    }
+  });
+
+
+});

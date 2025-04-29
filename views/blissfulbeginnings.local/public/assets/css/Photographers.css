@@ -3,6 +3,7 @@
 @import url('/public/assets/css/components/Scrollbar.css');
 @import url('/public/assets/css/components/GoBackButton.css');
 @import url('/public/assets/css/components/ServicesCards.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/components/MainButtons.css');
 
 .more-content {
     padding-left: 80px;
@@ -16,6 +17,14 @@
     font-size: 90px;
 }
 
+.search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
 .search-input {
-    margin-left: 24vw;
+    margin-left: 5vw;
 }

@@ -33,18 +33,16 @@
                             <input type="date" id="date" name="date" required>
                         </div>
                         <div class="input-group">
+                            <label for="wedding-party-male">Number of groomsmens in the wedding</label>
+                            <input type="number" id="wedding-party-male" min="0" name="wedding-party-male" required>
+                        </div>
+                        <div class="input-group">
                             <label for="daynight">Day/Night<span class="required">*</span></label>
                             <select id="daynight" name="daynight" required>
                                 <option value="day">Day</option>
                                 <option value="night">Night</option>
                             </select>
                         </div>
-                        
-                        <div class="input-group">
-                            <label for="wedding-party-male">Number of groomsmens in the wedding</label>
-                            <input type="number" id="wedding-party-male" min="0" name="wedding-party-male" required>
-                        </div>
-                        
                         <div class="input-group">
                             <label for="location">Location<span class="required">*</span></label>
                             <input type="text" id="location" name="location" required>

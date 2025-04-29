@@ -471,7 +471,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (notifications.length === 0) return;
       notifications.forEach((notification) => {
         const notificationDiv = document.createElement("div");
-        notificationDiv.id = notification.id;
+        notificationDiv.id = notification.notificationID;
         notificationDiv.classList.add("notification");
         notificationDiv.innerHTML = `
           <h3>${notification.title}</h3>
@@ -489,10 +489,40 @@ document.addEventListener("DOMContentLoaded", function () {
           notificationDiv.addEventListener("click", () => {
             window.location.href = `/new-package/${notification.reference}`;
           });
-        } else if (notification.title === "New Message") {
+        } else if (notification.title === "New message") {
           notificationDiv.classList.add("type-new-message");
           notificationDiv.addEventListener("click", () => {
-            window.location.href = `/vendor/${notification.reference}`;
+            fetch(`/message/${notification.reference}`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem(
+                  "authToken"
+                )}`,
+                "Content-Type": "application/json",
+              },
+            }).then((response) => {
+              if (response.status === 200) {
+                return response.json();
+              }
+            }).then((notification) => {
+              const modalContent = document.createElement("div");
+              modalContent.innerHTML = `
+              <span class="close-button">&times;</span>
+              <h2>New Message</h2>
+              <p>${notification.message}</p>
+              `;  
+              document.querySelector(".modal-content").innerHTML = '';
+              document.querySelector(".modal-content").appendChild(modalContent);
+
+              const modal = document.querySelector("#modal")
+              modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                  modal.querySelector('.modal-content').innerHTML = '';
+                  modal.style.display = 'none';
+                }
+              })
+              modal.style.display = 'block';  
+            })
           });
         }
       });
