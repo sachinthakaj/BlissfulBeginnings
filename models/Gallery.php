@@ -42,7 +42,7 @@ class Gallery
     public function getImagesByVendorID($vendorID)
     {
         try {
-            $sql = "SELECT path, description, packageID FROM gallery WHERE vendorID = UNHEX(:vendorID)";
+            $sql = "SELECT path, description, packageID, created_at FROM gallery WHERE vendorID = UNHEX(:vendorID)";
             $this->db->query($sql);
             $this->db->bind(':vendorID', $vendorID, PDO::PARAM_STR);
             $this->db->execute();

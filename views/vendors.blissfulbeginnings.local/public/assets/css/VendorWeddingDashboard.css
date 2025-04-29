@@ -2,6 +2,7 @@
 @import url('/public/assets/css/components/GoBackButton.css');
 @import url('/public/assets/css/components/ProgressBars.css');
 @import url('http://cdn.blissfulbeginnings.com/common-css/components/Aside.css');
+@import url('http://cdn.blissfulbeginnings.com/common-css/Common.css');
 
 * {
     font-family: var(--secondary-font-family);
@@ -344,6 +345,16 @@ main {
     color: #707070;
     text-align: center;
     ;
+}
+
+.done-task-button {
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    padding: 8px 16px;
+    background-color: var(--tertiary-color);
+    border-radius: 6px;
+    margin: 14px;
 }
 
 .card-button {
