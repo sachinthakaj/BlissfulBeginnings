@@ -171,4 +171,108 @@ class Gallery
         }
     }
 
+    public function orderByDesc($vendorID) {
+        try {
+            $this->db->startTransaction();
+            $sql = "SELECT 
+                        DATE_FORMAT(g.uploaded_at, '%M') AS upload_month,
+                        GROUP_CONCAT(p.package_name) AS packages
+                    FROM 
+                        packages p
+                    JOIN 
+                        gallery g ON p.gallery_id = g.id
+                    WHERE 
+                        p.package_name LIKE 'T%' OR p.package_name LIKE 't%'
+                    GROUP BY 
+                        MONTH(g.uploaded_at);
+                    ";
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log("Order by Desc Error: " . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function groupingByUploadedMonth($vendorID) {
+        try {
+            $this->db->startTransaction();
+            $sql = "SELECT 
+                        DATE_FORMAT(g.uploaded_at, '%M') AS upload_month,
+                        GROUP_CONCAT(p.package_name ORDER BY p.package_name DESC) AS packages
+                    FROM 
+                        packages p
+                    JOIN 
+                        gallery g ON p.gallery_id = g.id
+                    GROUP BY 
+                        MONTH(g.uploaded_at);
+
+                    ";
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log("Group by uploaded month Error: " . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function groupbypackagenameorderbyuploadedMonth($vendorID) {
+        try {
+            $this->db->startTransaction();
+            $sql = "SELECT 
+                        p.package_name,
+                        DATE_FORMAT(g.uploaded_at, '%M') AS upload_month
+                    FROM 
+                        packages p
+                    JOIN 
+                        gallery g ON p.gallery_id = g.id
+                    ORDER BY 
+                        MONTH(g.uploaded_at) DESC;
+
+                    ";
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log("Group by uploaded month Error: " . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function countofimagesbaseddonpackagename() {
+        try {
+            $this->db->startTransaction();
+            $sql = "SELECT 
+                        package_name,
+                        COUNT(*) AS image_count
+                    FROM 
+                        gallery
+                    GROUP BY 
+                        package_name;
+                    ;
+
+                    ";
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log("Group by uploaded month Error: " . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function imagepathbaseonpackagenamedescending () {
+        try {
+            $this->db->startTransaction();
+            $sql = "SELECT 
+                        package_id,
+                        COUNT(*) AS image_count
+                    FROM 
+                        gallery
+                    GROUP BY 
+                        package_id
+                    ORDER BY 
+                        image_count DESC
+                    LIMIT 1;
+                    ";
+        } catch (PDOException $e) {
+            $this->db->rollbackTransaction();
+            error_log("Group by uploaded month Error: " . $e->getMessage());
+            throw $e;
+        }
+    }
 }
