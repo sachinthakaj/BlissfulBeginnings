@@ -646,6 +646,99 @@ a:hover {
     font-family: serif;
   }
   
+  .scheduleButton{
+
+    border: none;
+ }
+ 
+ /* Schedule List Container */
+ .schedule-list-container {
+     display: none; /* Hidden by default */
+     position: fixed;
+     z-index: 1000;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%); /* Center the container */
+     width: 80%; /* Adjust width for responsiveness */
+     max-width: 600px; /* Limit the maximum width */
+     background-color: #ffffff; /* White background for better visibility */
+     border-radius: 12px; /* Rounded corners */
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Attractive shadow */
+     padding: 20px; /* Add padding inside the container */
+     overflow-y: auto; /* Enable scrolling if content overflows */
+     max-height: 80vh; /* Limit height to 80% of the viewport */
+     transition: all 0.3s ease-in-out; /* Smooth transition for visibility */
+ }
+ 
+ /* Title for the Schedule List */
+ .schedule-list-container h3 {
+     margin-bottom: 20px;
+     font-size: 22px;
+     font-weight: bold;
+     color: #333;
+     text-align: center;
+     border-bottom: 2px solid #c1a42e; /* Add a decorative underline */
+     padding-bottom: 10px;
+     width: 500px
+ }
+ 
+ /* Schedule List Items */
+ .schedule-list {
+     display: flex;
+     flex-direction: column;
+     gap: 15px; /* Add spacing between items */
+ }
+ 
+ /* Individual Schedule Item */
+ .schedule-item {
+     display: flex;
+     justify-content: space-between;
+     padding: 15px;
+     background-color: #f9f9f9; /* Light background for items */
+     border: 1px solid #ddd;
+     border-radius: 8px; /* Rounded corners */
+     font-size: 16px;
+     color: #555;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+     transition: transform 0.2s ease, box-shadow 0.2s ease; /* Add hover effect */
+ }
+ 
+ .eventActionArea{
+     display: flex;
+     gap: 10px;
+ }
+ 
+ /* Hover Effect for Schedule Items */
+ .schedule-item:hover {
+     transform: translateY(-5px); /* Slight lift on hover */
+     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+ }
+ 
+ /* Close Button for the Container */
+ .schedule-list-container .close-button {
+     position: absolute;
+     top: 10px;
+     right: 15px;
+     font-size: 24px;
+     font-weight: bold;
+     color: #aaa;
+     cursor: pointer;
+     transition: color 0.3s ease;
+ }
+ 
+ .schedule-list-container .close-button:hover {
+     color: #000; /* Darker color on hover */
+ }
+ 
+ .schedule-header{
+ 
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: 20px 0;
+ }
+
+
   .star {
     font-size: 2rem; /* Size of the star */
     color: #ccc; /* Default star color */

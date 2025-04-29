@@ -529,7 +529,7 @@ class CustomerController
             $status_code         = $_POST['status_code'];
             $md5sig              = $_POST['md5sig'];
 
-            $merchant_secret = $_ENV['PAYHERE_SECRET']; // Replace with your Merchant Secret
+            $merchant_secret = $_ENV['PAYHERE_SECRET']; 
 
             $local_md5sig = strtoupper(
                 md5(
@@ -642,5 +642,36 @@ class CustomerController
             echo json_encode(['error' => 'Error fetching Data']);
         }
             
+    }
+
+    public function getEventsForACustomer($parameters)
+    {
+        if(!Authenticate('customer', $parameters['weddingID'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(['error' => 'Authentication failed']);
+            exit;
+        };
+        try {
+            if (!isset($parameters['weddingID']) || empty($parameters['weddingID'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Bad Request: weddingID is required']);
+                return;
+            }
+
+            $event = new Event();
+            $events = $event->getEventDetailsForCustomer($parameters['weddingID']);
+
+
+            if (!empty($events)) {
+                header("Content-Type: application/json; charset=utf-8");
+                echo json_encode(['status' => 'success', 'events' => $events]);
+            } else {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(['error' => 'No events found for the specified wedding']);
+            }
+        } catch (Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(['error' => 'Error fetching Data']);
+        }
     }
 }

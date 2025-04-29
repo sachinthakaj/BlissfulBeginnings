@@ -26,7 +26,11 @@
                 <h1 class="wedding-title"></h1>
             </div>
             <div class="top-right">
+
                 <ul>
+                    <li>
+                        <button class="eventButton" id="scheduleButtonId">Events</button>
+                    </li>
                     <li>
                         <a href="#">Profile ▼</a>
                         <ul class="dropdown">
@@ -46,6 +50,19 @@
 
 
             <main>
+
+                <div class="schedule-list-container" id="scheduleListContainer">
+                    <div class="schedule-header">
+                        <h3>Scheduled Events</h3>
+                        
+
+                    </div>
+                    <div class="schedule-list" id="scheduleList">
+                        <!-- Dynamic schedule items will be inserted here -->
+
+
+                    </div>
+                </div>
                 <div class="time-remaining-container">
                     <h2 id="days-left"></h2>
                 </div>

@@ -1425,3 +1425,83 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", render);
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const scheduleButton = document.getElementById("scheduleButtonId");
+  const scheduleListContainer = document.getElementById(
+    "scheduleListContainer"
+  );
+
+  const scheduleList = document.getElementById("scheduleList");
+
+
+function showEventsOnEventContainer() {
+
+  fetch(`/get-events/${weddingID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.status == 401) {
+        window.location.href = "/signin";
+      } else if (res.status == 200) {
+        return res.json();
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    })
+    .then((data) => {
+      console.log(data);
+      data.events.forEach((event) => {
+        if (event.state == "scheduled") {
+          const scheduleItem = document.createElement("div");
+          scheduleItem.classList.add("schedule-item");
+          scheduleList.appendChild(scheduleItem);
+
+          const eventDetailsArea = document.createElement("div");
+          eventDetailsArea.classList.add("eventDetailsArea");
+          scheduleItem.appendChild(eventDetailsArea);
+          eventDetailsArea.innerHTML = `${event.businessName}   |   ${event.date}   |   ${event.description}   |   ${event.time}`;
+    
+        } else {
+          const scheduleItem = document.createElement("div");
+          scheduleItem.classList.add("schedule-item");
+          scheduleItem.innerHTML = `${event.businessName}   |   ${event.date}   |   ${event.description}   |   ${event.time}`;
+          scheduleList.appendChild(scheduleItem);
+
+          
+          const showDone = document.createElement("div");
+          showDone.classList.add("showDone");
+          scheduleItem.appendChild(showDone);
+          showDone.innerHTML = "Done";
+          showDone.style.color = "green";
+        }
+      });
+    })
+
+    .catch((error) => {
+      console.error("Error fetching events", error);
+    });
+  }
+
+  scheduleButton.addEventListener("click", () => {
+    if (
+      scheduleListContainer.style.display === "none" ||
+      !scheduleListContainer.style.display
+    ) {
+      scheduleListContainer.style.display = "block"; // Show the container
+      scheduleListContainer.scrollIntoView({ behavior: "smooth" });
+      // Smooth scroll to the container
+      showEventsOnEventContainer();
+    } else {
+      scheduleListContainer.style.display = "none"; // Hide the container
+      scheduleList.innerHTML = ""; // Clear the list
+    }
+  });
+
+
+});

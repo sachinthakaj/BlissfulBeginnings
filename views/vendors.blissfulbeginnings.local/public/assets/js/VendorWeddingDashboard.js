@@ -481,7 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const eventDetailsArea = document.createElement("div");
             eventDetailsArea.classList.add("eventDetailsArea");
             scheduleItem.appendChild(eventDetailsArea);
-            eventDetailsArea.innerHTML = `${event.date} | ${event.description} | ${event.time}`;
+            eventDetailsArea.innerHTML = `${event.date}  |  ${event.description}  |  ${event.time}`;
 
             const eventActionArea = document.createElement("div");
             eventActionArea.classList.add("eventActionArea");
@@ -535,7 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             const scheduleItem = document.createElement("div");
             scheduleItem.classList.add("schedule-item");
-            scheduleItem.innerHTML = `${event.date}: ${event.description}`;
+            scheduleItem.innerHTML = `${event.date}      |      ${event.description}      |      ${event.time}`;
             scheduleList.appendChild(scheduleItem);
 
 
